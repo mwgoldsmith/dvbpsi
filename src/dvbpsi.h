@@ -245,6 +245,10 @@ typedef void (* dvbpsi_callback_gather_t)(dvbpsi_t *p_dvbpsi,  /*!< pointer to d
     dvbpsi_callback_gather_t  pf_gather;/*!< PSI decoder's callback */            \
     int      i_section_max_size;   /*!< Max size of a section for this decoder */ \
     int      i_need;               /*!< Bytes needed */                           \
+    /* since version 2.0.0  */                                                    \
+    uint16_t i_table_id;           /*!< PSI table id */                           \
+    uint16_t i_extension;          /*!< PSI subtable id */                        \
+    dvbpsi_decoder_t *p_next;      /*!< Pointer to next decoder the list */
 /**@}*/
 
 /*****************************************************************************

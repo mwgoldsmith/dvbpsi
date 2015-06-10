@@ -38,3 +38,4 @@ misc/gen_crc
 misc/gen_pat
 misc/gen_pmt
 misc/test_dr
+misc/test_chain
