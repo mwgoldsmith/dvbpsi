@@ -96,6 +96,7 @@
   s_decoded.i_additional_length = 0;</begin>
     </insert>
     <integer name="i_copyright_identifier" bitcount="32" default="0" />
+    <array name="i_additional_info" len_name="i_additional_length" min_size="0" />
   </descriptor>
 
   <descriptor name="maximum bitrate" sname="max_bitrate" fname="MaxBitrate">

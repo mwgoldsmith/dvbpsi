@@ -603,6 +603,15 @@ static int main_copyright_(void)
     BOZO_CLEAN();
   BOZO_end_integer(i_copyright_identifier, 32)
 
+  /* check i_additional_info */
+  s_decoded.i_additional_length = 0;
+  BOZO_init_integer(i_copyright_identifier, 0);
+  BOZO_begin_array(i_additional_info, i_additional_length, 0)
+    BOZO_DOJOB(Copyright);
+    BOZO_check_array(i_additional_info, i_additional_length)
+    BOZO_CLEAN();
+  BOZO_end_array(i_additional_info)
+
 
   BOZO_END(copyright);
 
