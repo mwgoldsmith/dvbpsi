@@ -71,6 +71,7 @@
     </insert>
     <integer name="i_ca_system_id" bitcount="16" default="0" />
     <integer name="i_ca_pid" bitcount="13" default="0" />
+    <array name="i_private_data" len_name="i_private_length" />
   </descriptor>
 
   <descriptor name="system clock" sname="system_clock" fname="SystemClock">

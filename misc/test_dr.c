@@ -6,14 +6,15 @@
 
 #include <stdio.h>
 #include <stdbool.h>
+#include <stdlib.h>
+#include <string.h>
+#include <time.h>
 
 #if defined(HAVE_INTTYPES_H)
 #include <inttypes.h>
 #elif defined(HAVE_STDINT_H)
 #include <stdint.h>
 #endif
-
-#include <sys/types.h>
 
 /* the libdvbpsi distribution defines DVBPSI_DIST */
 #ifdef DVBPSI_DIST
@@ -39,7 +40,7 @@ static int main_vstream_1(void)
   /* check b_multiple_frame_rate */
   BOZO_init_boolean(b_multiple_frame_rate, 0);
   BOZO_init_integer(i_frame_rate_code, 0);
-  s_decoded.b_mpeg2 = 0;
+  s_decoded.b_mpeg2 = false;
   BOZO_init_boolean(b_constrained_parameter, 0);
   BOZO_init_boolean(b_still_picture, 0);
   BOZO_begin_boolean(b_multiple_frame_rate)
@@ -51,7 +52,7 @@ static int main_vstream_1(void)
   /* check i_frame_rate_code */
   BOZO_init_boolean(b_multiple_frame_rate, 0);
   BOZO_init_integer(i_frame_rate_code, 0);
-  s_decoded.b_mpeg2 = 0;
+  s_decoded.b_mpeg2 = false;
   BOZO_init_boolean(b_constrained_parameter, 0);
   BOZO_init_boolean(b_still_picture, 0);
   BOZO_begin_integer(i_frame_rate_code, 4)
@@ -63,7 +64,7 @@ static int main_vstream_1(void)
   /* check b_constrained_parameter */
   BOZO_init_boolean(b_multiple_frame_rate, 0);
   BOZO_init_integer(i_frame_rate_code, 0);
-  s_decoded.b_mpeg2 = 0;
+  s_decoded.b_mpeg2 = false;
   BOZO_init_boolean(b_constrained_parameter, 0);
   BOZO_init_boolean(b_still_picture, 0);
   BOZO_begin_boolean(b_constrained_parameter)
@@ -75,7 +76,7 @@ static int main_vstream_1(void)
   /* check b_still_picture */
   BOZO_init_boolean(b_multiple_frame_rate, 0);
   BOZO_init_integer(i_frame_rate_code, 0);
-  s_decoded.b_mpeg2 = 0;
+  s_decoded.b_mpeg2 = false;
   BOZO_init_boolean(b_constrained_parameter, 0);
   BOZO_init_boolean(b_still_picture, 0);
   BOZO_begin_boolean(b_still_picture)
@@ -464,6 +465,16 @@ static int main_ca_(void)
     BOZO_CLEAN();
   BOZO_end_integer(i_ca_pid, 13)
 
+  /* check i_private_data */
+  s_decoded.i_private_length = 0;
+  BOZO_init_integer(i_ca_system_id, 0);
+  BOZO_init_integer(i_ca_pid, 0);
+  BOZO_begin_array(i_private_data, i_private_length)
+    BOZO_DOJOB(CA);
+    BOZO_check_array(i_private_data, i_private_length)
+    BOZO_CLEAN();
+  BOZO_end_array(i_private_data)
+
 
   BOZO_END(conditional access);
 
@@ -648,6 +659,7 @@ static int main_service_(void)
 int main(void)
 {
   int i_err = 0;
+  srand(time(NULL));
   
   i_err |= main_vstream_1();
   i_err |= main_vstream_2();

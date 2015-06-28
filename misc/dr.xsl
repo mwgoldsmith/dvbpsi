@@ -15,6 +15,9 @@
 
 #include &lt;stdio.h&gt;
 #include &lt;stdbool.h&gt;
+#include &lt;stdlib.h&gt;
+#include &lt;string.h&gt;
+#include &lt;time.h&gt;
 
 #if defined(HAVE_INTTYPES_H)
 #include &lt;inttypes.h&gt;
@@ -43,6 +46,7 @@
 int main(void)
 {
   int i_err = 0;
+  srand(time(NULL));
   <xsl:apply-templates mode="main" />
 
   if(i_err)
@@ -114,6 +118,15 @@ static int main_<xsl:value-of select="@sname" />_<xsl:value-of select="@msuffix"
     BOZO_check_boolean(<xsl:value-of select="@name" />)
     BOZO_CLEAN();
   BOZO_end_boolean(<xsl:value-of select="@name" />)
+</xsl:template>
+
+<xsl:template match="array" mode="check">
+  /* check <xsl:value-of select="@name" /> */<xsl:apply-templates select=".." mode="init" />
+  BOZO_begin_array(<xsl:value-of select="@name" />, <xsl:value-of select="@len_name" />)
+    BOZO_DOJOB(<xsl:value-of select="../@fname" />);
+    BOZO_check_array(<xsl:value-of select="@name" />, <xsl:value-of select="@len_name" />)
+    BOZO_CLEAN();
+  BOZO_end_array(<xsl:value-of select="@name" />)
 </xsl:template>
 
 <xsl:template match="insert" mode="check">

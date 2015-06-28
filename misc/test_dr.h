@@ -120,3 +120,37 @@
             s_decoded.name, p_new_decoded->name);                       \
     i_err = 1;                                                          \
   }
+
+/* array */
+#define BOZO_begin_array(name, len_name)                                \
+  if(!i_err)                                                            \
+  {                                                                     \
+    fprintf(stdout, "  \"%s\" array check\n", #name);                   \
+    i_loop_count = 0;                                                   \
+    do                                                                  \
+    {                                                                   \
+      for(size_t i = 0 ; i < i_loop_count ; ++i) s_decoded.name[i] = rand(); \
+      s_decoded.len_name = i_loop_count;
+
+#define BOZO_end_array(name)                                            \
+    } while(!i_err && i_loop_count < sizeof(s_decoded.name));           \
+    fprintf(stdout, "\r  iteration count: %22"PRI64d, i_loop_count);       \
+    if(i_err)                                                           \
+      fprintf(stdout, "    FAILED !!!\n");                              \
+    else                                                                \
+      fprintf(stdout, "    Ok.\n");                                     \
+  }
+
+#define BOZO_check_array(name, len_name)                                 \
+  if(    !i_err                                                         \
+      && (memcmp(s_decoded.name, p_new_decoded->name, s_decoded.len_name) != 0)) \
+  {                                                                     \
+    fprintf(stderr, "\nError: array %s not equal\n", #name);            \
+    i_err = 1;                                                          \
+  }                                                                     \
+  else if(!i_err && s_decoded.len_name != p_new_decoded->len_name)      \
+  {                                                                     \
+    fprintf(stderr, "\nError : array %s sizes not equal : %d -> %d\n",  \
+      #name, s_decoded.len_name, p_new_decoded->len_name);              \
+    i_err = 1;                                                          \
+  }
