@@ -121,6 +121,10 @@
     <boolean name="b_identical_gop_flag" default="0" />
     <integer name="i_max_gop_length" bitcount="14" default="1" />
   </descriptor>
+
+  <descriptor name="MPEG-4 video profile" sname="mpeg4_video" fname="MPEG4Video" gen_args="1">
+    <integer name="i_mpeg4_visual_profile_and_level" bitcount="8" default="0" />
+  </descriptor>
 <!--
   <descriptor name="stuffing" sname="stuffing" fname="Stuffing">
     <insert>

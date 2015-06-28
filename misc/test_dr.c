@@ -764,6 +764,30 @@ static int main_ibp_(void)
   return i_err;
 }
 
+/* MPEG-4 video profile */
+static int main_mpeg4_video_(void)
+{
+  BOZO_VARS(mpeg4_video);
+  BOZO_START(MPEG-4 video profile);
+
+
+  #define dvbpsi_GenMPEG4VideoDr(x,y) \
+    dvbpsi_GenMPEG4VideoDr(x)
+
+  /* check i_mpeg4_visual_profile_and_level */
+  BOZO_init_integer(i_mpeg4_visual_profile_and_level, 0);
+  BOZO_begin_integer(i_mpeg4_visual_profile_and_level, 8)
+    BOZO_DOJOB(MPEG4Video);
+    BOZO_check_integer(i_mpeg4_visual_profile_and_level, 8)
+    BOZO_CLEAN();
+  BOZO_end_integer(i_mpeg4_visual_profile_and_level, 8)
+
+
+  BOZO_END(MPEG-4 video profile);
+
+  return i_err;
+}
+
 /* service */
 static int main_service_(void)
 {
@@ -812,6 +836,7 @@ int main(void)
   i_err |= main_smoothing_buffer_();
   i_err |= main_std_();
   i_err |= main_ibp_();
+  i_err |= main_mpeg4_video_();
   i_err |= main_service_();
 
   if(i_err)
