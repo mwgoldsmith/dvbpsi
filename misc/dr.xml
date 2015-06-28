@@ -111,6 +111,10 @@
     <integer name="i_sb_leak_rate" bitcount="22" default="0" />
     <integer name="i_sb_size" bitcount="22" default="0" />
   </descriptor>
+
+  <descriptor name="STD" sname="std" fname="STD" gen_args="1">
+    <boolean name="b_leak_valid_flag" default="0" />
+  </descriptor>
 <!--
   <descriptor name="stuffing" sname="stuffing" fname="Stuffing">
     <insert>

@@ -694,6 +694,30 @@ static int main_smoothing_buffer_(void)
   return i_err;
 }
 
+/* STD */
+static int main_std_(void)
+{
+  BOZO_VARS(std);
+  BOZO_START(STD);
+
+
+  #define dvbpsi_GenSTDDr(x,y) \
+    dvbpsi_GenSTDDr(x)
+
+  /* check b_leak_valid_flag */
+  BOZO_init_boolean(b_leak_valid_flag, 0);
+  BOZO_begin_boolean(b_leak_valid_flag)
+    BOZO_DOJOB(STD);
+    BOZO_check_boolean(b_leak_valid_flag)
+    BOZO_CLEAN();
+  BOZO_end_boolean(b_leak_valid_flag)
+
+
+  BOZO_END(STD);
+
+  return i_err;
+}
+
 /* service */
 static int main_service_(void)
 {
@@ -740,6 +764,7 @@ int main(void)
   i_err |= main_max_bitrate_();
   i_err |= main_private_data_();
   i_err |= main_smoothing_buffer_();
+  i_err |= main_std_();
   i_err |= main_service_();
 
   if(i_err)
