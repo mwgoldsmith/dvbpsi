@@ -121,19 +121,22 @@
     i_err = 1;                                                          \
   }
 
+#define ARRAY_SIZE(x) (sizeof(x)/sizeof(x[0]))
+
 /* array */
-#define BOZO_begin_array(name, len_name)                                \
+#define BOZO_begin_array(name, len_name, min_size)                      \
   if(!i_err)                                                            \
   {                                                                     \
     fprintf(stdout, "  \"%s\" array check\n", #name);                   \
-    i_loop_count = 0;                                                   \
+    i_loop_count = min_size;                                            \
     do                                                                  \
     {                                                                   \
-      for(size_t i = 0 ; i < i_loop_count ; ++i) s_decoded.name[i] = rand(); \
+      for(size_t i = 0 ; i < sizeof(s_decoded.name) ; ++i)              \
+        ((uint8_t*)s_decoded.name)[i] = rand();                         \
       s_decoded.len_name = i_loop_count;
 
 #define BOZO_end_array(name)                                            \
-    } while(!i_err && i_loop_count < sizeof(s_decoded.name));           \
+    } while(!i_err && i_loop_count < ARRAY_SIZE(s_decoded.name));       \
     fprintf(stdout, "\r  iteration count: %22"PRI64d, i_loop_count);       \
     if(i_err)                                                           \
       fprintf(stdout, "    FAILED !!!\n");                              \
@@ -143,7 +146,8 @@
 
 #define BOZO_check_array(name, len_name)                                 \
   if(    !i_err                                                         \
-      && (memcmp(s_decoded.name, p_new_decoded->name, s_decoded.len_name) != 0)) \
+      && (memcmp(s_decoded.name, p_new_decoded->name,                   \
+        s_decoded.len_name * sizeof(s_decoded.name[0])) != 0))          \
   {                                                                     \
     fprintf(stderr, "\nError: array %s not equal\n", #name);            \
     i_err = 1;                                                          \

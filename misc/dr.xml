@@ -71,7 +71,11 @@
     </insert>
     <integer name="i_ca_system_id" bitcount="16" default="0" />
     <integer name="i_ca_pid" bitcount="13" default="0" />
-    <array name="i_private_data" len_name="i_private_length" />
+    <array name="i_private_data" len_name="i_private_length" min_size="0" />
+  </descriptor>
+
+  <descriptor name="ISO 639 language" sname="iso639" fname="ISO639">
+    <array name="code" len_name="i_code_count" min_size="1" />
   </descriptor>
 
   <descriptor name="system clock" sname="system_clock" fname="SystemClock">

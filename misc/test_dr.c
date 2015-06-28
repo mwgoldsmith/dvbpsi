@@ -469,7 +469,7 @@ static int main_ca_(void)
   s_decoded.i_private_length = 0;
   BOZO_init_integer(i_ca_system_id, 0);
   BOZO_init_integer(i_ca_pid, 0);
-  BOZO_begin_array(i_private_data, i_private_length)
+  BOZO_begin_array(i_private_data, i_private_length, 0)
     BOZO_DOJOB(CA);
     BOZO_check_array(i_private_data, i_private_length)
     BOZO_CLEAN();
@@ -477,6 +477,26 @@ static int main_ca_(void)
 
 
   BOZO_END(conditional access);
+
+  return i_err;
+}
+
+/* ISO 639 language */
+static int main_iso639_(void)
+{
+  BOZO_VARS(iso639);
+  BOZO_START(ISO 639 language);
+
+
+  /* check code */
+  BOZO_begin_array(code, i_code_count, 1)
+    BOZO_DOJOB(ISO639);
+    BOZO_check_array(code, i_code_count)
+    BOZO_CLEAN();
+  BOZO_end_array(code)
+
+
+  BOZO_END(ISO 639 language);
 
   return i_err;
 }
@@ -670,6 +690,7 @@ int main(void)
   i_err |= main_target_bg_grid_();
   i_err |= main_vwindow_();
   i_err |= main_ca_();
+  i_err |= main_iso639_();
   i_err |= main_system_clock_();
   i_err |= main_mx_buff_utilization_();
   i_err |= main_copyright_();
