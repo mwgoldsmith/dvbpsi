@@ -815,6 +815,27 @@ static int main_mpeg4_audio_(void)
   return i_err;
 }
 
+/* network name */
+static int main_network_name_(void)
+{
+  BOZO_VARS(network_name);
+  BOZO_START(network name);
+
+
+  /* check i_name_byte */
+  BOZO_begin_array(i_name_byte, i_name_length, 0)
+    BOZO_DOJOB(NetworkName);
+    BOZO_check_array(i_name_byte, i_name_length)
+    BOZO_CLEAN();
+
+  BOZO_end_array(i_name_byte, ARRAY_SIZE(s_decoded.i_name_byte))
+
+
+  BOZO_END(network name);
+
+  return i_err;
+}
+
 /* stuffing */
 static int main_stuffing_(void)
 {
@@ -990,6 +1011,7 @@ int main(void)
   i_err |= main_ibp_();
   i_err |= main_mpeg4_video_();
   i_err |= main_mpeg4_audio_();
+  i_err |= main_network_name_();
   i_err |= main_stuffing_();
   i_err |= main_bouquet_name_();
   i_err |= main_service_1();
