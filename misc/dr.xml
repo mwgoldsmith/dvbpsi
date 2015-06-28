@@ -133,13 +133,10 @@
   <descriptor name="stuffing" sname="stuffing" fname="Stuffing">
     <array name="i_stuffing_byte" len_name="i_stuffing_length" min_size="0" />
   </descriptor>
-<!--
+
   <descriptor name="bouquet name" sname="bouquet_name" fname="BouquetName">
-    <insert>
-      <begin>
-  s_decoded.i_name_length = 0;</begin>
-    </insert>
-  </descriptor>-->
+    <array name="i_char" len_name="i_name_length" min_size="0" />
+  </descriptor>
 
   <descriptor name="service" sname="service" fname="Service">
     <insert>

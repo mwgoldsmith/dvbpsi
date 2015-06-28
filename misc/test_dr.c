@@ -832,6 +832,26 @@ static int main_stuffing_(void)
   return i_err;
 }
 
+/* bouquet name */
+static int main_bouquet_name_(void)
+{
+  BOZO_VARS(bouquet_name);
+  BOZO_START(bouquet name);
+
+
+  /* check i_char */
+  BOZO_begin_array(i_char, i_name_length, 0)
+    BOZO_DOJOB(BouquetName);
+    BOZO_check_array(i_char, i_name_length)
+    BOZO_CLEAN();
+  BOZO_end_array(i_char)
+
+
+  BOZO_END(bouquet name);
+
+  return i_err;
+}
+
 /* service */
 static int main_service_(void)
 {
@@ -883,6 +903,7 @@ int main(void)
   i_err |= main_mpeg4_video_();
   i_err |= main_mpeg4_audio_();
   i_err |= main_stuffing_();
+  i_err |= main_bouquet_name_();
   i_err |= main_service_();
 
   if(i_err)
