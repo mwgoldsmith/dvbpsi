@@ -135,8 +135,8 @@
         ((uint8_t*)s_decoded.name)[i] = rand();                         \
       s_decoded.len_name = i_loop_count;
 
-#define BOZO_end_array(name)                                            \
-    } while(!i_err && i_loop_count < ARRAY_SIZE(s_decoded.name));       \
+#define BOZO_end_array(name, max_len)                                   \
+    } while(!i_err && i_loop_count < max_len);                          \
     fprintf(stdout, "\r  iteration count: %22"PRI64d, i_loop_count);       \
     if(i_err)                                                           \
       fprintf(stdout, "    FAILED !!!\n");                              \

@@ -473,7 +473,8 @@ static int main_ca_(void)
     BOZO_DOJOB(CA);
     BOZO_check_array(i_private_data, i_private_length)
     BOZO_CLEAN();
-  BOZO_end_array(i_private_data)
+
+  BOZO_end_array(i_private_data, ARRAY_SIZE(s_decoded.i_private_data))
 
 
   BOZO_END(conditional access);
@@ -493,7 +494,8 @@ static int main_iso639_(void)
     BOZO_DOJOB(ISO639);
     BOZO_check_array(code, i_code_count)
     BOZO_CLEAN();
-  BOZO_end_array(code)
+
+  BOZO_end_array(code, ARRAY_SIZE(s_decoded.code))
 
 
   BOZO_END(ISO 639 language);
@@ -610,7 +612,8 @@ static int main_copyright_(void)
     BOZO_DOJOB(Copyright);
     BOZO_check_array(i_additional_info, i_additional_length)
     BOZO_CLEAN();
-  BOZO_end_array(i_additional_info)
+
+  BOZO_end_array(i_additional_info, ARRAY_SIZE(s_decoded.i_additional_info))
 
 
   BOZO_END(copyright);
@@ -824,7 +827,8 @@ static int main_stuffing_(void)
     BOZO_DOJOB(Stuffing);
     BOZO_check_array(i_stuffing_byte, i_stuffing_length)
     BOZO_CLEAN();
-  BOZO_end_array(i_stuffing_byte)
+
+  BOZO_end_array(i_stuffing_byte, ARRAY_SIZE(s_decoded.i_stuffing_byte))
 
 
   BOZO_END(stuffing);
@@ -844,7 +848,8 @@ static int main_bouquet_name_(void)
     BOZO_DOJOB(BouquetName);
     BOZO_check_array(i_char, i_name_length)
     BOZO_CLEAN();
-  BOZO_end_array(i_char)
+
+  BOZO_end_array(i_char, ARRAY_SIZE(s_decoded.i_char))
 
 
   BOZO_END(bouquet name);
@@ -875,7 +880,8 @@ static int main_service_1(void)
     BOZO_DOJOB(Service);
     BOZO_check_array(i_service_provider_name, i_service_provider_name_length)
     BOZO_CLEAN();
-  BOZO_end_array(i_service_provider_name)
+
+  BOZO_end_array(i_service_provider_name, ARRAY_SIZE(s_decoded.i_service_provider_name))
 
 
   BOZO_END(service (i_service_provider_name));
@@ -906,10 +912,53 @@ static int main_service_2(void)
     BOZO_DOJOB(Service);
     BOZO_check_array(i_service_name, i_service_name_length)
     BOZO_CLEAN();
-  BOZO_end_array(i_service_name)
+
+  BOZO_end_array(i_service_name, ARRAY_SIZE(s_decoded.i_service_name))
 
 
   BOZO_END(service (i_service_name));
+
+  return i_err;
+}
+
+/* service (both names) */
+static int main_service_3(void)
+{
+  BOZO_VARS(service);
+  BOZO_START(service (both names));
+
+
+  /* check i_service_type */
+  s_decoded.i_service_provider_name_length = 0;
+  BOZO_init_integer(i_service_type, 0);
+  BOZO_begin_integer(i_service_type, 8)
+    BOZO_DOJOB(Service);
+    BOZO_check_integer(i_service_type, 8)
+    BOZO_CLEAN();
+  BOZO_end_integer(i_service_type, 8)
+
+  /* check i_service_name */
+  s_decoded.i_service_provider_name_length = 0;
+  BOZO_init_integer(i_service_type, 0);
+  BOZO_begin_array(i_service_name, i_service_name_length, 0)
+    BOZO_DOJOB(Service);
+    BOZO_check_array(i_service_name, i_service_name_length)
+    BOZO_CLEAN();
+
+  BOZO_end_array(i_service_name, 126)
+
+  /* check i_service_provider_name */
+  s_decoded.i_service_provider_name_length = 0;
+  BOZO_init_integer(i_service_type, 0);
+  BOZO_begin_array(i_service_provider_name, i_service_provider_name_length, 0)
+    BOZO_DOJOB(Service);
+    BOZO_check_array(i_service_provider_name, i_service_provider_name_length)
+    BOZO_CLEAN();
+
+  BOZO_end_array(i_service_provider_name, 126)
+
+
+  BOZO_END(service (both names));
 
   return i_err;
 }
@@ -945,6 +994,7 @@ int main(void)
   i_err |= main_bouquet_name_();
   i_err |= main_service_1();
   i_err |= main_service_2();
+  i_err |= main_service_3();
 
   if(i_err)
     fprintf(stderr, "At least one test has FAILED !!!\n");

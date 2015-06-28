@@ -156,4 +156,14 @@
     <array name="i_service_name" len_name="i_service_name_length" min_size="0" />
   </descriptor>
 
+  <descriptor name="service (both names)" sname="service" fname="Service" msuffix="3">
+    <insert>
+      <begin>
+  s_decoded.i_service_provider_name_length = 0;</begin>
+    </insert>
+    <integer name="i_service_type" bitcount="8" default="0" />
+    <array name="i_service_name" len_name="i_service_name_length" min_size="0" max_size="126" />
+    <array name="i_service_provider_name" len_name="i_service_provider_name_length" min_size="0" max_size="126" />
+  </descriptor>
+
 </dr>
