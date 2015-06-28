@@ -106,6 +106,11 @@
   <descriptor name="private data indicator" sname="private_data" fname="PrivateData">
     <integer name="i_private_data" bitcount="32" default="0" />
   </descriptor>
+
+  <descriptor name="smoothing buffer" sname="smoothing_buffer" fname="SmoothingBuffer" gen_args="1">
+    <integer name="i_sb_leak_rate" bitcount="22" default="0" />
+    <integer name="i_sb_size" bitcount="22" default="0" />
+  </descriptor>
 <!--
   <descriptor name="stuffing" sname="stuffing" fname="Stuffing">
     <insert>

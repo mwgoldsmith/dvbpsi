@@ -660,6 +660,40 @@ static int main_private_data_(void)
   return i_err;
 }
 
+/* smoothing buffer */
+static int main_smoothing_buffer_(void)
+{
+  BOZO_VARS(smoothing_buffer);
+  BOZO_START(smoothing buffer);
+
+
+  #define dvbpsi_GenSmoothingBufferDr(x,y) \
+    dvbpsi_GenSmoothingBufferDr(x)
+
+  /* check i_sb_leak_rate */
+  BOZO_init_integer(i_sb_leak_rate, 0);
+  BOZO_init_integer(i_sb_size, 0);
+  BOZO_begin_integer(i_sb_leak_rate, 22)
+    BOZO_DOJOB(SmoothingBuffer);
+    BOZO_check_integer(i_sb_leak_rate, 22)
+    BOZO_CLEAN();
+  BOZO_end_integer(i_sb_leak_rate, 22)
+
+  /* check i_sb_size */
+  BOZO_init_integer(i_sb_leak_rate, 0);
+  BOZO_init_integer(i_sb_size, 0);
+  BOZO_begin_integer(i_sb_size, 22)
+    BOZO_DOJOB(SmoothingBuffer);
+    BOZO_check_integer(i_sb_size, 22)
+    BOZO_CLEAN();
+  BOZO_end_integer(i_sb_size, 22)
+
+
+  BOZO_END(smoothing buffer);
+
+  return i_err;
+}
+
 /* service */
 static int main_service_(void)
 {
@@ -705,6 +739,7 @@ int main(void)
   i_err |= main_copyright_();
   i_err |= main_max_bitrate_();
   i_err |= main_private_data_();
+  i_err |= main_smoothing_buffer_();
   i_err |= main_service_();
 
   if(i_err)

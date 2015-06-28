@@ -72,6 +72,12 @@ static int main_<xsl:value-of select="@sname" />_<xsl:value-of select="@msuffix"
   BOZO_VARS(<xsl:value-of select="@sname" />);
   BOZO_START(<xsl:value-of select="@name" />);
 
+  <!-- declare a macro for calling the one-argument generate functions -->
+  <xsl:if test="@gen_args = 1">
+  #define dvbpsi_Gen<xsl:value-of select="@fname"/>Dr(x,y) \
+    dvbpsi_Gen<xsl:value-of select="@fname"/>Dr(x)
+  </xsl:if>
+
   <xsl:apply-templates mode="check" />
 
   BOZO_END(<xsl:value-of select="@name" />);
