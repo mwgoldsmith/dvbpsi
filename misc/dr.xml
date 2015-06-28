@@ -129,14 +129,11 @@
   <descriptor name="MPEG-4 audio" sname="mpeg4_audio" fname="MPEG4Audio" gen_args="1">
     <integer name="i_mpeg4_audio_profile_and_level" bitcount="8" default="0" />
   </descriptor>
-<!--
-  <descriptor name="stuffing" sname="stuffing" fname="Stuffing">
-    <insert>
-      <begin>
-  s_decoded.i_stuffing_length = 0;</begin>
-    </insert>
-  </descriptor>
 
+  <descriptor name="stuffing" sname="stuffing" fname="Stuffing">
+    <array name="i_stuffing_byte" len_name="i_stuffing_length" min_size="0" />
+  </descriptor>
+<!--
   <descriptor name="bouquet name" sname="bouquet_name" fname="BouquetName">
     <insert>
       <begin>

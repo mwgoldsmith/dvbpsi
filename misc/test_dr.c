@@ -812,6 +812,26 @@ static int main_mpeg4_audio_(void)
   return i_err;
 }
 
+/* stuffing */
+static int main_stuffing_(void)
+{
+  BOZO_VARS(stuffing);
+  BOZO_START(stuffing);
+
+
+  /* check i_stuffing_byte */
+  BOZO_begin_array(i_stuffing_byte, i_stuffing_length, 0)
+    BOZO_DOJOB(Stuffing);
+    BOZO_check_array(i_stuffing_byte, i_stuffing_length)
+    BOZO_CLEAN();
+  BOZO_end_array(i_stuffing_byte)
+
+
+  BOZO_END(stuffing);
+
+  return i_err;
+}
+
 /* service */
 static int main_service_(void)
 {
@@ -862,6 +882,7 @@ int main(void)
   i_err |= main_ibp_();
   i_err |= main_mpeg4_video_();
   i_err |= main_mpeg4_audio_();
+  i_err |= main_stuffing_();
   i_err |= main_service_();
 
   if(i_err)
