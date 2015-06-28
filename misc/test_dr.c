@@ -764,11 +764,11 @@ static int main_ibp_(void)
   return i_err;
 }
 
-/* MPEG-4 video profile */
+/* MPEG-4 video */
 static int main_mpeg4_video_(void)
 {
   BOZO_VARS(mpeg4_video);
-  BOZO_START(MPEG-4 video profile);
+  BOZO_START(MPEG-4 video);
 
 
   #define dvbpsi_GenMPEG4VideoDr(x,y) \
@@ -783,7 +783,31 @@ static int main_mpeg4_video_(void)
   BOZO_end_integer(i_mpeg4_visual_profile_and_level, 8)
 
 
-  BOZO_END(MPEG-4 video profile);
+  BOZO_END(MPEG-4 video);
+
+  return i_err;
+}
+
+/* MPEG-4 audio */
+static int main_mpeg4_audio_(void)
+{
+  BOZO_VARS(mpeg4_audio);
+  BOZO_START(MPEG-4 audio);
+
+
+  #define dvbpsi_GenMPEG4AudioDr(x,y) \
+    dvbpsi_GenMPEG4AudioDr(x)
+
+  /* check i_mpeg4_audio_profile_and_level */
+  BOZO_init_integer(i_mpeg4_audio_profile_and_level, 0);
+  BOZO_begin_integer(i_mpeg4_audio_profile_and_level, 8)
+    BOZO_DOJOB(MPEG4Audio);
+    BOZO_check_integer(i_mpeg4_audio_profile_and_level, 8)
+    BOZO_CLEAN();
+  BOZO_end_integer(i_mpeg4_audio_profile_and_level, 8)
+
+
+  BOZO_END(MPEG-4 audio);
 
   return i_err;
 }
@@ -837,6 +861,7 @@ int main(void)
   i_err |= main_std_();
   i_err |= main_ibp_();
   i_err |= main_mpeg4_video_();
+  i_err |= main_mpeg4_audio_();
   i_err |= main_service_();
 
   if(i_err)
