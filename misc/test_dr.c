@@ -852,15 +852,14 @@ static int main_bouquet_name_(void)
   return i_err;
 }
 
-/* service */
-static int main_service_(void)
+/* service (i_service_provider_name) */
+static int main_service_1(void)
 {
   BOZO_VARS(service);
-  BOZO_START(service);
+  BOZO_START(service (i_service_provider_name));
 
   
   /* check i_service_type */
-  s_decoded.i_service_provider_name_length = 0;
   s_decoded.i_service_name_length = 0;
   BOZO_init_integer(i_service_type, 0);
   BOZO_begin_integer(i_service_type, 8)
@@ -869,8 +868,48 @@ static int main_service_(void)
     BOZO_CLEAN();
   BOZO_end_integer(i_service_type, 8)
 
+  /* check i_service_provider_name */
+  s_decoded.i_service_name_length = 0;
+  BOZO_init_integer(i_service_type, 0);
+  BOZO_begin_array(i_service_provider_name, i_service_provider_name_length, 0)
+    BOZO_DOJOB(Service);
+    BOZO_check_array(i_service_provider_name, i_service_provider_name_length)
+    BOZO_CLEAN();
+  BOZO_end_array(i_service_provider_name)
 
-  BOZO_END(service);
+
+  BOZO_END(service (i_service_provider_name));
+
+  return i_err;
+}
+
+/* service (i_service_name) */
+static int main_service_2(void)
+{
+  BOZO_VARS(service);
+  BOZO_START(service (i_service_name));
+
+
+  /* check i_service_type */
+  s_decoded.i_service_provider_name_length = 0;
+  BOZO_init_integer(i_service_type, 0);
+  BOZO_begin_integer(i_service_type, 8)
+    BOZO_DOJOB(Service);
+    BOZO_check_integer(i_service_type, 8)
+    BOZO_CLEAN();
+  BOZO_end_integer(i_service_type, 8)
+
+  /* check i_service_name */
+  s_decoded.i_service_provider_name_length = 0;
+  BOZO_init_integer(i_service_type, 0);
+  BOZO_begin_array(i_service_name, i_service_name_length, 0)
+    BOZO_DOJOB(Service);
+    BOZO_check_array(i_service_name, i_service_name_length)
+    BOZO_CLEAN();
+  BOZO_end_array(i_service_name)
+
+
+  BOZO_END(service (i_service_name));
 
   return i_err;
 }
@@ -904,7 +943,8 @@ int main(void)
   i_err |= main_mpeg4_audio_();
   i_err |= main_stuffing_();
   i_err |= main_bouquet_name_();
-  i_err |= main_service_();
+  i_err |= main_service_1();
+  i_err |= main_service_2();
 
   if(i_err)
     fprintf(stderr, "At least one test has FAILED !!!\n");

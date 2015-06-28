@@ -138,16 +138,22 @@
     <array name="i_char" len_name="i_name_length" min_size="0" />
   </descriptor>
 
-  <descriptor name="service" sname="service" fname="Service">
-    <insert>
-      <begin>
-  s_decoded.i_service_provider_name_length = 0;</begin>
-    </insert>
+  <descriptor name="service (i_service_provider_name)" sname="service" fname="Service" msuffix="1">
     <insert>
       <begin>
   s_decoded.i_service_name_length = 0;</begin>
     </insert>
     <integer name="i_service_type" bitcount="8" default="0" />
+    <array name="i_service_provider_name" len_name="i_service_provider_name_length" min_size="0" />
+  </descriptor>
+
+  <descriptor name="service (i_service_name)" sname="service" fname="Service" msuffix="2">
+    <insert>
+      <begin>
+  s_decoded.i_service_provider_name_length = 0;</begin>
+    </insert>
+    <integer name="i_service_type" bitcount="8" default="0" />
+    <array name="i_service_name" len_name="i_service_name_length" min_size="0" />
   </descriptor>
 
 </dr>
