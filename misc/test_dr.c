@@ -718,6 +718,52 @@ static int main_std_(void)
   return i_err;
 }
 
+/* IBP */
+static int main_ibp_(void)
+{
+  BOZO_VARS(ibp);
+  BOZO_START(IBP);
+
+
+  #define dvbpsi_GenIBPDr(x,y) \
+    dvbpsi_GenIBPDr(x)
+
+  /* check b_closed_gop_flag */
+  BOZO_init_boolean(b_closed_gop_flag, 0);
+  BOZO_init_boolean(b_identical_gop_flag, 0);
+  BOZO_init_integer(i_max_gop_length, 1);
+  BOZO_begin_boolean(b_closed_gop_flag)
+    BOZO_DOJOB(IBP);
+    BOZO_check_boolean(b_closed_gop_flag)
+    BOZO_CLEAN();
+  BOZO_end_boolean(b_closed_gop_flag)
+
+  /* check b_identical_gop_flag */
+  BOZO_init_boolean(b_closed_gop_flag, 0);
+  BOZO_init_boolean(b_identical_gop_flag, 0);
+  BOZO_init_integer(i_max_gop_length, 1);
+  BOZO_begin_boolean(b_identical_gop_flag)
+    BOZO_DOJOB(IBP);
+    BOZO_check_boolean(b_identical_gop_flag)
+    BOZO_CLEAN();
+  BOZO_end_boolean(b_identical_gop_flag)
+
+  /* check i_max_gop_length */
+  BOZO_init_boolean(b_closed_gop_flag, 0);
+  BOZO_init_boolean(b_identical_gop_flag, 0);
+  BOZO_init_integer(i_max_gop_length, 1);
+  BOZO_begin_integer(i_max_gop_length, 14)
+    BOZO_DOJOB(IBP);
+    BOZO_check_integer(i_max_gop_length, 14)
+    BOZO_CLEAN();
+  BOZO_end_integer(i_max_gop_length, 14)
+
+
+  BOZO_END(IBP);
+
+  return i_err;
+}
+
 /* service */
 static int main_service_(void)
 {
@@ -765,6 +811,7 @@ int main(void)
   i_err |= main_private_data_();
   i_err |= main_smoothing_buffer_();
   i_err |= main_std_();
+  i_err |= main_ibp_();
   i_err |= main_service_();
 
   if(i_err)

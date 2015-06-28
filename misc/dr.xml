@@ -115,6 +115,12 @@
   <descriptor name="STD" sname="std" fname="STD" gen_args="1">
     <boolean name="b_leak_valid_flag" default="0" />
   </descriptor>
+
+  <descriptor name="IBP" sname="ibp" fname="IBP" gen_args="1">
+    <boolean name="b_closed_gop_flag" default="0" />
+    <boolean name="b_identical_gop_flag" default="0" />
+    <integer name="i_max_gop_length" bitcount="14" default="1" />
+  </descriptor>
 <!--
   <descriptor name="stuffing" sname="stuffing" fname="Stuffing">
     <insert>
