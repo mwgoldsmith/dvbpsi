@@ -134,6 +134,10 @@
     <array name="i_name_byte" len_name="i_name_length" min_size="0" />
   </descriptor>
 
+  <descriptor name="service list" sname="service_list" fname="ServiceList">
+    <array name="i_service" len_name="i_service_count" min_size="1" type="dvbpsi_service_list_service_s" />
+  </descriptor>
+
   <descriptor name="stuffing" sname="stuffing" fname="Stuffing">
     <array name="i_stuffing_byte" len_name="i_stuffing_length" min_size="0" />
   </descriptor>
@@ -168,10 +172,6 @@
     <integer name="i_service_type" bitcount="8" default="0" />
     <array name="i_service_name" len_name="i_service_name_length" min_size="0" max_size="126" />
     <array name="i_service_provider_name" len_name="i_service_provider_name_length" min_size="0" max_size="126" />
-  </descriptor>
-  
-  <descriptor name="service list" sname="service_list" fname="ServiceList">
-    <array name="i_service" len_name="i_service_count" min_size="1" type="dvbpsi_service_list_service_s" />
   </descriptor>
 
 </dr>
