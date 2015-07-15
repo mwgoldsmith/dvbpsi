@@ -140,18 +140,25 @@ static int main_<xsl:value-of select="@sname" />_<xsl:value-of select="@msuffix"
     <xsl:text>)</xsl:text>
     </xsl:when>
     <xsl:otherwise>
-    BOZO_check_array_gen(<xsl:value-of select="@name" />, <xsl:value-of select="@len_name" />)
+  <xsl:text>  BOZO_check_array_gen(</xsl:text>
+    <xsl:value-of select="@name" /><xsl:text>, </xsl:text>
+    <xsl:value-of select="@len_name" />
+    <xsl:text>)</xsl:text>
     </xsl:otherwise>
   </xsl:choose>
     BOZO_CLEAN();
+  BOZO_end_array(<xsl:value-of select="@name" /><xsl:text>, </xsl:text>
   <xsl:choose>
     <xsl:when test="@max_size">
-  BOZO_end_array(<xsl:value-of select="@name" />, <xsl:value-of select="@max_size"/>)
+      <xsl:value-of select="@max_size"/>
     </xsl:when>
     <xsl:otherwise>
-  BOZO_end_array(<xsl:value-of select="@name" />, ARRAY_SIZE(s_decoded.<xsl:value-of select="@name"/>))
+      <xsl:text>ARRAY_SIZE(s_decoded.</xsl:text>
+      <xsl:value-of select="@name"/>
+      <xsl:text>)</xsl:text>
     </xsl:otherwise>
   </xsl:choose>
+  <xsl:text>)</xsl:text>
 
 </xsl:template>
 
