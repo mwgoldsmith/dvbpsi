@@ -56,7 +56,7 @@ typedef struct dvbpsi_dvb_service_list_dr_s
 {
   uint8_t       i_service_count;            /*!< length of the i_service_list
   	                                             array */
-  struct {
+  struct dvbpsi_service_list_service_s {
       uint16_t     i_service_id;            /*!< service id */
       uint8_t      i_service_type;          /*!< service type */
   } i_service[64];                          /*!< array of services */

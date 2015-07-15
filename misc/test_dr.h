@@ -26,6 +26,8 @@
 # define PRI64d "llu"
 #endif
 
+#include "test_dr_cmp.h"
+
 #define BOZO_VARS(sname)                                                \
   int i_err = 0;                                                        \
   long long unsigned int i_loop_count;                                  \
@@ -163,8 +165,8 @@
 
 #define BOZO_check_array_cmp(name, len_name, type)                      \
   else if(    !i_err                                                    \
-      && (compare_##type##(s_decoded.name, p_new_decoded->name,         \
-        s_decoded.len_name) != 0))                                      \
+      && (my_memcmp(s_decoded.name, p_new_decoded->name,                \
+        s_decoded.len_name, compare_##type) != 0))                      \
   {                                                                     \
     fprintf(stderr, "\nError: array %s not equal\n", #name);            \
     i_err = 1;                                                          \

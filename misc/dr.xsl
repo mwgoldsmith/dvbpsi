@@ -131,7 +131,14 @@ static int main_<xsl:value-of select="@sname" />_<xsl:value-of select="@msuffix"
   BOZO_begin_array(<xsl:value-of select="@name" />, <xsl:value-of select="@len_name" />, <xsl:value-of select="@min_size" />)
     BOZO_DOJOB(<xsl:value-of select="../@fname" />);
     BOZO_check_array_begin(<xsl:value-of select="@name" />, <xsl:value-of select="@len_name" />)
+  <xsl:choose>
+    <xsl:when test="@type">
+    BOZO_check_array_cmp(<xsl:value-of select="@name" />, <xsl:value-of select="@len_name" />, <xsl:value-of select="@type" />)
+    </xsl:when>
+    <xsl:otherwise>
     BOZO_check_array_gen(<xsl:value-of select="@name" />, <xsl:value-of select="@len_name" />)
+    </xsl:otherwise>
+  </xsl:choose>
     BOZO_CLEAN();
   <xsl:choose>
     <xsl:when test="@max_size">
