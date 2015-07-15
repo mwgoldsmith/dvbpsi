@@ -144,17 +144,28 @@
       fprintf(stdout, "    Ok.\n");                                     \
   }
 
-#define BOZO_check_array(name, len_name)                                 \
-  if(    !i_err                                                         \
+#define BOZO_check_array_begin(name, len_name)                          \
+  if(!i_err && s_decoded.len_name != p_new_decoded->len_name)           \
+  {                                                                     \
+    fprintf(stderr, "\nError : array %s sizes not equal : %d -> %d\n",  \
+      #name, s_decoded.len_name, p_new_decoded->len_name);              \
+    i_err = 1;                                                          \
+  }
+
+#define BOZO_check_array_gen(name, len_name)                            \
+  else if(    !i_err                                                    \
       && (memcmp(s_decoded.name, p_new_decoded->name,                   \
         s_decoded.len_name * sizeof(s_decoded.name[0])) != 0))          \
   {                                                                     \
     fprintf(stderr, "\nError: array %s not equal\n", #name);            \
     i_err = 1;                                                          \
-  }                                                                     \
-  else if(!i_err && s_decoded.len_name != p_new_decoded->len_name)      \
+  }
+
+#define BOZO_check_array_cmp(name, len_name, type)                      \
+  else if(    !i_err                                                    \
+      && (compare_##type##(s_decoded.name, p_new_decoded->name,         \
+        s_decoded.len_name) != 0))                                      \
   {                                                                     \
-    fprintf(stderr, "\nError : array %s sizes not equal : %d -> %d\n",  \
-      #name, s_decoded.len_name, p_new_decoded->len_name);              \
+    fprintf(stderr, "\nError: array %s not equal\n", #name);            \
     i_err = 1;                                                          \
   }

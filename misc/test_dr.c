@@ -471,7 +471,8 @@ static int main_ca_(void)
   BOZO_init_integer(i_ca_pid, 0);
   BOZO_begin_array(i_private_data, i_private_length, 0)
     BOZO_DOJOB(CA);
-    BOZO_check_array(i_private_data, i_private_length)
+    BOZO_check_array_begin(i_private_data, i_private_length)
+    BOZO_check_array_gen(i_private_data, i_private_length)
     BOZO_CLEAN();
 
   BOZO_end_array(i_private_data, ARRAY_SIZE(s_decoded.i_private_data))
@@ -492,7 +493,8 @@ static int main_iso639_(void)
   /* check code */
   BOZO_begin_array(code, i_code_count, 1)
     BOZO_DOJOB(ISO639);
-    BOZO_check_array(code, i_code_count)
+    BOZO_check_array_begin(code, i_code_count)
+    BOZO_check_array_gen(code, i_code_count)
     BOZO_CLEAN();
 
   BOZO_end_array(code, ARRAY_SIZE(s_decoded.code))
@@ -610,7 +612,8 @@ static int main_copyright_(void)
   BOZO_init_integer(i_copyright_identifier, 0);
   BOZO_begin_array(i_additional_info, i_additional_length, 0)
     BOZO_DOJOB(Copyright);
-    BOZO_check_array(i_additional_info, i_additional_length)
+    BOZO_check_array_begin(i_additional_info, i_additional_length)
+    BOZO_check_array_gen(i_additional_info, i_additional_length)
     BOZO_CLEAN();
 
   BOZO_end_array(i_additional_info, ARRAY_SIZE(s_decoded.i_additional_info))
@@ -825,7 +828,8 @@ static int main_network_name_(void)
   /* check i_name_byte */
   BOZO_begin_array(i_name_byte, i_name_length, 0)
     BOZO_DOJOB(NetworkName);
-    BOZO_check_array(i_name_byte, i_name_length)
+    BOZO_check_array_begin(i_name_byte, i_name_length)
+    BOZO_check_array_gen(i_name_byte, i_name_length)
     BOZO_CLEAN();
 
   BOZO_end_array(i_name_byte, ARRAY_SIZE(s_decoded.i_name_byte))
@@ -846,7 +850,8 @@ static int main_stuffing_(void)
   /* check i_stuffing_byte */
   BOZO_begin_array(i_stuffing_byte, i_stuffing_length, 0)
     BOZO_DOJOB(Stuffing);
-    BOZO_check_array(i_stuffing_byte, i_stuffing_length)
+    BOZO_check_array_begin(i_stuffing_byte, i_stuffing_length)
+    BOZO_check_array_gen(i_stuffing_byte, i_stuffing_length)
     BOZO_CLEAN();
 
   BOZO_end_array(i_stuffing_byte, ARRAY_SIZE(s_decoded.i_stuffing_byte))
@@ -867,7 +872,8 @@ static int main_bouquet_name_(void)
   /* check i_char */
   BOZO_begin_array(i_char, i_name_length, 0)
     BOZO_DOJOB(BouquetName);
-    BOZO_check_array(i_char, i_name_length)
+    BOZO_check_array_begin(i_char, i_name_length)
+    BOZO_check_array_gen(i_char, i_name_length)
     BOZO_CLEAN();
 
   BOZO_end_array(i_char, ARRAY_SIZE(s_decoded.i_char))
@@ -899,7 +905,8 @@ static int main_service_1(void)
   BOZO_init_integer(i_service_type, 0);
   BOZO_begin_array(i_service_provider_name, i_service_provider_name_length, 0)
     BOZO_DOJOB(Service);
-    BOZO_check_array(i_service_provider_name, i_service_provider_name_length)
+    BOZO_check_array_begin(i_service_provider_name, i_service_provider_name_length)
+    BOZO_check_array_gen(i_service_provider_name, i_service_provider_name_length)
     BOZO_CLEAN();
 
   BOZO_end_array(i_service_provider_name, ARRAY_SIZE(s_decoded.i_service_provider_name))
@@ -931,7 +938,8 @@ static int main_service_2(void)
   BOZO_init_integer(i_service_type, 0);
   BOZO_begin_array(i_service_name, i_service_name_length, 0)
     BOZO_DOJOB(Service);
-    BOZO_check_array(i_service_name, i_service_name_length)
+    BOZO_check_array_begin(i_service_name, i_service_name_length)
+    BOZO_check_array_gen(i_service_name, i_service_name_length)
     BOZO_CLEAN();
 
   BOZO_end_array(i_service_name, ARRAY_SIZE(s_decoded.i_service_name))
@@ -963,7 +971,8 @@ static int main_service_3(void)
   BOZO_init_integer(i_service_type, 0);
   BOZO_begin_array(i_service_name, i_service_name_length, 0)
     BOZO_DOJOB(Service);
-    BOZO_check_array(i_service_name, i_service_name_length)
+    BOZO_check_array_begin(i_service_name, i_service_name_length)
+    BOZO_check_array_gen(i_service_name, i_service_name_length)
     BOZO_CLEAN();
 
   BOZO_end_array(i_service_name, 126)
@@ -973,7 +982,8 @@ static int main_service_3(void)
   BOZO_init_integer(i_service_type, 0);
   BOZO_begin_array(i_service_provider_name, i_service_provider_name_length, 0)
     BOZO_DOJOB(Service);
-    BOZO_check_array(i_service_provider_name, i_service_provider_name_length)
+    BOZO_check_array_begin(i_service_provider_name, i_service_provider_name_length)
+    BOZO_check_array_gen(i_service_provider_name, i_service_provider_name_length)
     BOZO_CLEAN();
 
   BOZO_end_array(i_service_provider_name, 126)
