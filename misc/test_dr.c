@@ -832,6 +832,26 @@ static int main_network_name_(void)
   return i_err;
 }
 
+/* service list */
+static int main_service_list_(void)
+{
+  BOZO_VARS(service_list);
+  BOZO_START(service list);
+
+
+  /* check i_service */
+  BOZO_begin_array(i_service, i_service_count, 1)
+    BOZO_DOJOB(ServiceList);
+    BOZO_check_array_begin(i_service, i_service_count)
+    BOZO_check_array_cmp(i_service, i_service_count, dvbpsi_service_list_service_s)
+    BOZO_CLEAN();
+  BOZO_end_array(i_service, ARRAY_SIZE(s_decoded.i_service))
+
+  BOZO_END(service list);
+
+  return i_err;
+}
+
 /* stuffing */
 static int main_stuffing_(void)
 {
@@ -848,6 +868,163 @@ static int main_stuffing_(void)
   BOZO_end_array(i_stuffing_byte, ARRAY_SIZE(s_decoded.i_stuffing_byte))
 
   BOZO_END(stuffing);
+
+  return i_err;
+}
+
+/* satellite delivery */
+static int main_sat_deliv_sys_(void)
+{
+  BOZO_VARS(sat_deliv_sys);
+  BOZO_START(satellite delivery);
+
+
+  /* check i_frequency */
+  BOZO_init_integer(i_frequency, 0);
+  BOZO_init_integer(i_orbital_position, 0);
+  BOZO_init_integer(i_west_east_flag, 0);
+  BOZO_init_integer(i_polarization, 0);
+  BOZO_init_integer(i_roll_off, 0);
+  BOZO_init_integer(i_modulation_system, 0);
+  BOZO_init_integer(i_modulation_type, 0);
+  BOZO_init_integer(i_symbol_rate, 0);
+  BOZO_init_integer(i_fec_inner, 0);
+  BOZO_begin_integer(i_frequency, 32)
+    BOZO_DOJOB(SatDelivSys);
+    BOZO_check_integer(i_frequency, 32)
+    BOZO_CLEAN();
+  BOZO_end_integer(i_frequency, 32)
+
+  /* check i_orbital_position */
+  BOZO_init_integer(i_frequency, 0);
+  BOZO_init_integer(i_orbital_position, 0);
+  BOZO_init_integer(i_west_east_flag, 0);
+  BOZO_init_integer(i_polarization, 0);
+  BOZO_init_integer(i_roll_off, 0);
+  BOZO_init_integer(i_modulation_system, 0);
+  BOZO_init_integer(i_modulation_type, 0);
+  BOZO_init_integer(i_symbol_rate, 0);
+  BOZO_init_integer(i_fec_inner, 0);
+  BOZO_begin_integer(i_orbital_position, 16)
+    BOZO_DOJOB(SatDelivSys);
+    BOZO_check_integer(i_orbital_position, 16)
+    BOZO_CLEAN();
+  BOZO_end_integer(i_orbital_position, 16)
+
+  /* check i_west_east_flag */
+  BOZO_init_integer(i_frequency, 0);
+  BOZO_init_integer(i_orbital_position, 0);
+  BOZO_init_integer(i_west_east_flag, 0);
+  BOZO_init_integer(i_polarization, 0);
+  BOZO_init_integer(i_roll_off, 0);
+  BOZO_init_integer(i_modulation_system, 0);
+  BOZO_init_integer(i_modulation_type, 0);
+  BOZO_init_integer(i_symbol_rate, 0);
+  BOZO_init_integer(i_fec_inner, 0);
+  BOZO_begin_integer(i_west_east_flag, 1)
+    BOZO_DOJOB(SatDelivSys);
+    BOZO_check_integer(i_west_east_flag, 1)
+    BOZO_CLEAN();
+  BOZO_end_integer(i_west_east_flag, 1)
+
+  /* check i_polarization */
+  BOZO_init_integer(i_frequency, 0);
+  BOZO_init_integer(i_orbital_position, 0);
+  BOZO_init_integer(i_west_east_flag, 0);
+  BOZO_init_integer(i_polarization, 0);
+  BOZO_init_integer(i_roll_off, 0);
+  BOZO_init_integer(i_modulation_system, 0);
+  BOZO_init_integer(i_modulation_type, 0);
+  BOZO_init_integer(i_symbol_rate, 0);
+  BOZO_init_integer(i_fec_inner, 0);
+  BOZO_begin_integer(i_polarization, 2)
+    BOZO_DOJOB(SatDelivSys);
+    BOZO_check_integer(i_polarization, 2)
+    BOZO_CLEAN();
+  BOZO_end_integer(i_polarization, 2)
+
+  /* check i_roll_off */
+  BOZO_init_integer(i_frequency, 0);
+  BOZO_init_integer(i_orbital_position, 0);
+  BOZO_init_integer(i_west_east_flag, 0);
+  BOZO_init_integer(i_polarization, 0);
+  BOZO_init_integer(i_roll_off, 0);
+  BOZO_init_integer(i_modulation_system, 0);
+  BOZO_init_integer(i_modulation_type, 0);
+  BOZO_init_integer(i_symbol_rate, 0);
+  BOZO_init_integer(i_fec_inner, 0);
+  BOZO_begin_integer(i_roll_off, 2)
+    BOZO_DOJOB(SatDelivSys);
+    BOZO_check_integer(i_roll_off, 2)
+    BOZO_CLEAN();
+  BOZO_end_integer(i_roll_off, 2)
+
+  /* check i_modulation_system */
+  BOZO_init_integer(i_frequency, 0);
+  BOZO_init_integer(i_orbital_position, 0);
+  BOZO_init_integer(i_west_east_flag, 0);
+  BOZO_init_integer(i_polarization, 0);
+  BOZO_init_integer(i_roll_off, 0);
+  BOZO_init_integer(i_modulation_system, 0);
+  BOZO_init_integer(i_modulation_type, 0);
+  BOZO_init_integer(i_symbol_rate, 0);
+  BOZO_init_integer(i_fec_inner, 0);
+  BOZO_begin_integer(i_modulation_system, 1)
+    BOZO_DOJOB(SatDelivSys);
+    BOZO_check_integer(i_modulation_system, 1)
+    BOZO_CLEAN();
+  BOZO_end_integer(i_modulation_system, 1)
+
+  /* check i_modulation_type */
+  BOZO_init_integer(i_frequency, 0);
+  BOZO_init_integer(i_orbital_position, 0);
+  BOZO_init_integer(i_west_east_flag, 0);
+  BOZO_init_integer(i_polarization, 0);
+  BOZO_init_integer(i_roll_off, 0);
+  BOZO_init_integer(i_modulation_system, 0);
+  BOZO_init_integer(i_modulation_type, 0);
+  BOZO_init_integer(i_symbol_rate, 0);
+  BOZO_init_integer(i_fec_inner, 0);
+  BOZO_begin_integer(i_modulation_type, 2)
+    BOZO_DOJOB(SatDelivSys);
+    BOZO_check_integer(i_modulation_type, 2)
+    BOZO_CLEAN();
+  BOZO_end_integer(i_modulation_type, 2)
+
+  /* check i_symbol_rate */
+  BOZO_init_integer(i_frequency, 0);
+  BOZO_init_integer(i_orbital_position, 0);
+  BOZO_init_integer(i_west_east_flag, 0);
+  BOZO_init_integer(i_polarization, 0);
+  BOZO_init_integer(i_roll_off, 0);
+  BOZO_init_integer(i_modulation_system, 0);
+  BOZO_init_integer(i_modulation_type, 0);
+  BOZO_init_integer(i_symbol_rate, 0);
+  BOZO_init_integer(i_fec_inner, 0);
+  BOZO_begin_integer(i_symbol_rate, 28)
+    BOZO_DOJOB(SatDelivSys);
+    BOZO_check_integer(i_symbol_rate, 28)
+    BOZO_CLEAN();
+  BOZO_end_integer(i_symbol_rate, 28)
+
+  /* check i_fec_inner */
+  BOZO_init_integer(i_frequency, 0);
+  BOZO_init_integer(i_orbital_position, 0);
+  BOZO_init_integer(i_west_east_flag, 0);
+  BOZO_init_integer(i_polarization, 0);
+  BOZO_init_integer(i_roll_off, 0);
+  BOZO_init_integer(i_modulation_system, 0);
+  BOZO_init_integer(i_modulation_type, 0);
+  BOZO_init_integer(i_symbol_rate, 0);
+  BOZO_init_integer(i_fec_inner, 0);
+  BOZO_begin_integer(i_fec_inner, 4)
+    BOZO_DOJOB(SatDelivSys);
+    BOZO_check_integer(i_fec_inner, 4)
+    BOZO_CLEAN();
+  BOZO_end_integer(i_fec_inner, 4)
+
+
+  BOZO_END(satellite delivery);
 
   return i_err;
 }
@@ -974,26 +1151,6 @@ static int main_service_3(void)
   return i_err;
 }
 
-/* service list */
-static int main_service_list_(void)
-{
-  BOZO_VARS(service_list);
-  BOZO_START(service list);
-
-  
-  /* check i_service */
-  BOZO_begin_array(i_service, i_service_count, 1)
-    BOZO_DOJOB(ServiceList);
-    BOZO_check_array_begin(i_service, i_service_count)
-    BOZO_check_array_cmp(i_service, i_service_count, dvbpsi_service_list_service_s)
-    BOZO_CLEAN();
-  BOZO_end_array(i_service, ARRAY_SIZE(s_decoded.i_service))
-
-  BOZO_END(service list);
-
-  return i_err;
-}
-
 
 /* main function */
 int main(void)
@@ -1022,12 +1179,13 @@ int main(void)
   i_err |= main_mpeg4_video_();
   i_err |= main_mpeg4_audio_();
   i_err |= main_network_name_();
+  i_err |= main_service_list_();
   i_err |= main_stuffing_();
+  i_err |= main_sat_deliv_sys_();
   i_err |= main_bouquet_name_();
   i_err |= main_service_1();
   i_err |= main_service_2();
   i_err |= main_service_3();
-  i_err |= main_service_list_();
 
   if(i_err)
     fprintf(stderr, "At least one test has FAILED !!!\n");

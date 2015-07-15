@@ -142,6 +142,18 @@
     <array name="i_stuffing_byte" len_name="i_stuffing_length" min_size="0" />
   </descriptor>
 
+  <descriptor name="satellite delivery system" sname="sat_deliv_sys" fname="SatDelivSys">
+    <integer name="i_frequency" bitcount="32" default="0"/>
+    <integer name="i_orbital_position" bitcount="16" default="0"/>
+    <integer name="i_west_east_flag" bitcount="1" default="0"/>
+    <integer name="i_polarization" bitcount="2" default="0"/>
+    <integer name="i_roll_off" bitcount="2" default="0"/>
+    <integer name="i_modulation_system" bitcount="1" default="0"/>
+    <integer name="i_modulation_type" bitcount="2" default="0"/>
+    <integer name="i_symbol_rate" bitcount="28" default="0"/>
+    <integer name="i_fec_inner" bitcount="4" default="0"/>
+  </descriptor>
+
   <descriptor name="bouquet name" sname="bouquet_name" fname="BouquetName">
     <array name="i_char" len_name="i_name_length" min_size="0" />
   </descriptor>
