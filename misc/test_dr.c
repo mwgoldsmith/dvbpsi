@@ -872,11 +872,11 @@ static int main_stuffing_(void)
   return i_err;
 }
 
-/* satellite delivery */
+/* satellite delivery system */
 static int main_sat_deliv_sys_(void)
 {
   BOZO_VARS(sat_deliv_sys);
-  BOZO_START(satellite delivery);
+  BOZO_START(satellite delivery system);
 
 
   /* check i_frequency */
@@ -1024,7 +1024,80 @@ static int main_sat_deliv_sys_(void)
   BOZO_end_integer(i_fec_inner, 4)
 
 
-  BOZO_END(satellite delivery);
+  BOZO_END(satellite delivery system);
+
+  return i_err;
+}
+
+/* cable delivery system */
+static int main_cable_deliv_sys_(void)
+{
+  BOZO_VARS(cable_deliv_sys);
+  BOZO_START(cable delivery system);
+
+
+  /* check i_frequency */
+  BOZO_init_integer(i_frequency, 0);
+  BOZO_init_integer(i_modulation, 0);
+  BOZO_init_integer(i_symbol_rate, 0);
+  BOZO_init_integer(i_fec_inner, 0);
+  BOZO_init_integer(i_fec_outer, 0);
+  BOZO_begin_integer(i_frequency, 32)
+    BOZO_DOJOB(CableDelivSys);
+    BOZO_check_integer(i_frequency, 32)
+    BOZO_CLEAN();
+  BOZO_end_integer(i_frequency, 32)
+
+  /* check i_modulation */
+  BOZO_init_integer(i_frequency, 0);
+  BOZO_init_integer(i_modulation, 0);
+  BOZO_init_integer(i_symbol_rate, 0);
+  BOZO_init_integer(i_fec_inner, 0);
+  BOZO_init_integer(i_fec_outer, 0);
+  BOZO_begin_integer(i_modulation, 8)
+    BOZO_DOJOB(CableDelivSys);
+    BOZO_check_integer(i_modulation, 8)
+    BOZO_CLEAN();
+  BOZO_end_integer(i_modulation, 8)
+
+  /* check i_symbol_rate */
+  BOZO_init_integer(i_frequency, 0);
+  BOZO_init_integer(i_modulation, 0);
+  BOZO_init_integer(i_symbol_rate, 0);
+  BOZO_init_integer(i_fec_inner, 0);
+  BOZO_init_integer(i_fec_outer, 0);
+  BOZO_begin_integer(i_symbol_rate, 28)
+    BOZO_DOJOB(CableDelivSys);
+    BOZO_check_integer(i_symbol_rate, 28)
+    BOZO_CLEAN();
+  BOZO_end_integer(i_symbol_rate, 28)
+
+  /* check i_fec_inner */
+  BOZO_init_integer(i_frequency, 0);
+  BOZO_init_integer(i_modulation, 0);
+  BOZO_init_integer(i_symbol_rate, 0);
+  BOZO_init_integer(i_fec_inner, 0);
+  BOZO_init_integer(i_fec_outer, 0);
+  BOZO_begin_integer(i_fec_inner, 4)
+    BOZO_DOJOB(CableDelivSys);
+    BOZO_check_integer(i_fec_inner, 4)
+    BOZO_CLEAN();
+  BOZO_end_integer(i_fec_inner, 4)
+
+  /* check i_fec_outer */
+  BOZO_init_integer(i_frequency, 0);
+  BOZO_init_integer(i_modulation, 0);
+  BOZO_init_integer(i_symbol_rate, 0);
+  BOZO_init_integer(i_fec_inner, 0);
+  BOZO_init_integer(i_fec_outer, 0);
+  BOZO_begin_integer(i_fec_outer, 4)
+    BOZO_DOJOB(CableDelivSys);
+    BOZO_check_integer(i_fec_outer, 4)
+    BOZO_CLEAN();
+  BOZO_end_integer(i_fec_outer, 4)
+
+
+  BOZO_END(cable delivery system);
 
   return i_err;
 }
@@ -1182,6 +1255,7 @@ int main(void)
   i_err |= main_service_list_();
   i_err |= main_stuffing_();
   i_err |= main_sat_deliv_sys_();
+  i_err |= main_cable_deliv_sys_();
   i_err |= main_bouquet_name_();
   i_err |= main_service_1();
   i_err |= main_service_2();

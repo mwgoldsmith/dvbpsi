@@ -154,6 +154,14 @@
     <integer name="i_fec_inner" bitcount="4" default="0"/>
   </descriptor>
 
+  <descriptor name="cable delivery system" sname="cable_deliv_sys" fname="CableDelivSys">
+    <integer name="i_frequency" bitcount="32" default="0"/>
+    <integer name="i_modulation" bitcount="8" default="0"/>
+    <integer name="i_symbol_rate" bitcount="28" default="0"/>
+    <integer name="i_fec_inner" bitcount="4" default="0"/>
+    <integer name="i_fec_outer" bitcount="4" default="0"/>
+  </descriptor>
+
   <descriptor name="bouquet name" sname="bouquet_name" fname="BouquetName">
     <array name="i_char" len_name="i_name_length" min_size="0" />
   </descriptor>
