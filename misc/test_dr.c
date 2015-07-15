@@ -1025,8 +1025,7 @@ static int main_service_list_(void)
   BOZO_begin_array(i_service, i_service_count, 1)
     BOZO_DOJOB(ServiceList);
     BOZO_check_array_begin(i_service, i_service_count)
-  BOZO_check_array_cmp(i_service, i_service_count, dvbpsi_service_list_service_s)
-    
+    BOZO_check_array_cmp(i_service, i_service_count, dvbpsi_service_list_service_s)
     BOZO_CLEAN();
   
   BOZO_end_array(i_service, ARRAY_SIZE(s_decoded.i_service))

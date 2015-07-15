@@ -133,7 +133,11 @@ static int main_<xsl:value-of select="@sname" />_<xsl:value-of select="@msuffix"
     BOZO_check_array_begin(<xsl:value-of select="@name" />, <xsl:value-of select="@len_name" />)
   <xsl:choose>
     <xsl:when test="@type">
-    BOZO_check_array_cmp(<xsl:value-of select="@name" />, <xsl:value-of select="@len_name" />, <xsl:value-of select="@type" />)
+  <xsl:text>  BOZO_check_array_cmp(</xsl:text>
+      <xsl:value-of select="@name" /><xsl:text>, </xsl:text>
+      <xsl:value-of select="@len_name" /><xsl:text>, </xsl:text>
+      <xsl:value-of select="@type" />
+    <xsl:text>)</xsl:text>
     </xsl:when>
     <xsl:otherwise>
     BOZO_check_array_gen(<xsl:value-of select="@name" />, <xsl:value-of select="@len_name" />)
