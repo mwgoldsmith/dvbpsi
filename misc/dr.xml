@@ -194,4 +194,16 @@
     <array name="i_service_provider_name" len_name="i_service_provider_name_length" min_size="0" max_size="126" />
   </descriptor>
 
+  <descriptor name="linkage (information service)" sname="linkage" fname="Linkage" msuffix="0">
+    <insert>
+      <begin>
+  s_decoded.i_linkage_type = 1;
+      </begin>
+    </insert>
+    <integer name="i_transport_stream_id" bitcount="16" default="0" />
+    <integer name="i_original_network_id" bitcount="16" default="0" />
+    <integer name="i_service_id" bitcount="16" default="0" />
+    <array name="i_private_data" len_name="i_private_data_length" min_size="0" />
+  </descriptor>
+
 </dr>

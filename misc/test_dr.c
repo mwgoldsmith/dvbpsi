@@ -1224,6 +1224,67 @@ static int main_service_3(void)
   return i_err;
 }
 
+/* linkage (information service) */
+static int main_linkage_0(void)
+{
+  BOZO_VARS(linkage);
+  BOZO_START(linkage (information service));
+
+
+  /* check i_transport_stream_id */
+  s_decoded.i_linkage_type = 1;
+
+  BOZO_init_integer(i_transport_stream_id, 0);
+  BOZO_init_integer(i_original_network_id, 0);
+  BOZO_init_integer(i_service_id, 0);
+  BOZO_begin_integer(i_transport_stream_id, 16)
+    BOZO_DOJOB(Linkage);
+    BOZO_check_integer(i_transport_stream_id, 16)
+    BOZO_CLEAN();
+  BOZO_end_integer(i_transport_stream_id, 16)
+
+  /* check i_original_network_id */
+  s_decoded.i_linkage_type = 1;
+
+  BOZO_init_integer(i_transport_stream_id, 0);
+  BOZO_init_integer(i_original_network_id, 0);
+  BOZO_init_integer(i_service_id, 0);
+  BOZO_begin_integer(i_original_network_id, 16)
+    BOZO_DOJOB(Linkage);
+    BOZO_check_integer(i_original_network_id, 16)
+    BOZO_CLEAN();
+  BOZO_end_integer(i_original_network_id, 16)
+
+  /* check i_service_id */
+  s_decoded.i_linkage_type = 1;
+
+  BOZO_init_integer(i_transport_stream_id, 0);
+  BOZO_init_integer(i_original_network_id, 0);
+  BOZO_init_integer(i_service_id, 0);
+  BOZO_begin_integer(i_service_id, 16)
+    BOZO_DOJOB(Linkage);
+    BOZO_check_integer(i_service_id, 16)
+    BOZO_CLEAN();
+  BOZO_end_integer(i_service_id, 16)
+
+  /* check i_private_data */
+  s_decoded.i_linkage_type = 1;
+
+  BOZO_init_integer(i_transport_stream_id, 0);
+  BOZO_init_integer(i_original_network_id, 0);
+  BOZO_init_integer(i_service_id, 0);
+  BOZO_begin_array(i_private_data, i_private_data_length, 0)
+    BOZO_DOJOB(Linkage);
+    BOZO_check_array_begin(i_private_data, i_private_data_length)
+    BOZO_check_array_gen(i_private_data, i_private_data_length)
+    BOZO_CLEAN();
+  BOZO_end_array(i_private_data, ARRAY_SIZE(s_decoded.i_private_data))
+
+  BOZO_END(linkage (information service));
+
+  return i_err;
+}
+
 
 /* main function */
 int main(void)
@@ -1260,6 +1321,7 @@ int main(void)
   i_err |= main_service_1();
   i_err |= main_service_2();
   i_err |= main_service_3();
+  i_err |= main_linkage_0();
 
   if(i_err)
     fprintf(stderr, "At least one test has FAILED !!!\n");
