@@ -30,3 +30,4 @@
 <!ATTLIST array name CDATA #IMPLIED>
 <!ATTLIST array len_name CDATA #IMPLIED>
 <!ATTLIST array min_size CDATA #IMPLIED>
+<!ATTLIST array type CDATA #IMPLIED>
