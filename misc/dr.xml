@@ -332,4 +332,8 @@
     <array name="p_content" len_name="i_contents_number" min_size="1" type="dvbpsi_content_t"/>
   </descriptor>
 
+  <descriptor name="parental rating" sname="parental_rating" fname="ParentalRating">
+    <array name="p_parental_rating" len_name="i_ratings_number" min_size="1" type="dvbpsi_parental_rating_t"/>
+  </descriptor>
+
 </dr>

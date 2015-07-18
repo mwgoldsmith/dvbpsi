@@ -46,3 +46,13 @@ static int compare_dvbpsi_content_t(const void *s1, const void *s2)
     else if(a->i_type > b->i_type || a->i_user_byte > b->i_user_byte) return 1;
     else return 0;
 }
+
+static int compare_dvbpsi_parental_rating_t(const void *s1, const void *s2)
+{
+    const dvbpsi_parental_rating_t *a = s1, *b = s2;
+    uint32_t a_cc = (a->i_country_code & 0xffffff),
+        b_cc = (b->i_country_code & 0xffffff);
+    if(a_cc < b_cc || a->i_rating < b->i_rating) return -1;
+    else if(a_cc > b_cc || a->i_rating > b->i_rating) return 1;
+    else return 0;
+}
