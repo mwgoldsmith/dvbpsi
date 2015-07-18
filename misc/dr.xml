@@ -285,4 +285,8 @@
     <array name="p_nvod_refs" len_name="i_references" min_size="1" type="dvbpsi_nvod_ref_t"/>
   </descriptor>
 
+  <descriptor name="Time shifted event" sname="tshifted_service" fname="TimeShiftedService">
+    <integer name="i_ref_service_id" bitcount="16" default="0"/>
+  </descriptor>
+
 </dr>

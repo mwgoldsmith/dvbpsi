@@ -1829,6 +1829,27 @@ static int main_nvod_ref_(void)
   return i_err;
 }
 
+/* Time shifted event */
+static int main_tshifted_service_(void)
+{
+  BOZO_VARS(tshifted_service);
+  BOZO_START(Time shifted event);
+
+
+  /* check i_ref_service_id */
+  BOZO_init_integer(i_ref_service_id, 0);
+  BOZO_begin_integer(i_ref_service_id, 16)
+    BOZO_DOJOB(TimeShiftedService);
+    BOZO_check_integer(i_ref_service_id, 16)
+    BOZO_CLEAN();
+  BOZO_end_integer(i_ref_service_id, 16)
+
+
+  BOZO_END(Time shifted event);
+
+  return i_err;
+}
+
 
 /* main function */
 int main(void)
@@ -1872,6 +1893,7 @@ int main(void)
   i_err |= main_linkage_4();
   i_err |= main_linkage_5();
   i_err |= main_nvod_ref_();
+  i_err |= main_tshifted_service_();
 
   if(i_err)
     fprintf(stderr, "At least one test has FAILED !!!\n");
