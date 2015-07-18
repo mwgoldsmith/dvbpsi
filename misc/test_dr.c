@@ -2060,6 +2060,27 @@ static int main_tshifted_ev_(void)
   return i_err;
 }
 
+/* stream identifier */
+static int main_stream_identifier_(void)
+{
+  BOZO_VARS(stream_identifier);
+  BOZO_START(stream identifier);
+
+
+  /* check i_component_tag */
+  BOZO_init_integer(i_component_tag, 0);
+  BOZO_begin_integer(i_component_tag, 8)
+    BOZO_DOJOB(StreamIdentifier);
+    BOZO_check_integer(i_component_tag, 8)
+    BOZO_CLEAN();
+  BOZO_end_integer(i_component_tag, 8)
+
+
+  BOZO_END(stream identifier);
+
+  return i_err;
+}
+
 
 /* main function */
 int main(void)
@@ -2108,6 +2129,7 @@ int main(void)
   i_err |= main_short_event_1();
   i_err |= main_short_event_2();
   i_err |= main_tshifted_ev_();
+  i_err |= main_stream_identifier_();
 
   if(i_err)
     fprintf(stderr, "At least one test has FAILED !!!\n");

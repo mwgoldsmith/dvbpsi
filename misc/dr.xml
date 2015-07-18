@@ -320,4 +320,8 @@
     <integer name="i_ref_event_id" bitcount="16" default="0"/>
   </descriptor>
 
+  <descriptor name="stream identifier" sname="stream_identifier" fname="StreamIdentifier">
+    <integer name="i_component_tag" bitcount="8" default="0"/>
+  </descriptor>
+
 </dr>
