@@ -289,4 +289,27 @@
     <integer name="i_ref_service_id" bitcount="16" default="0"/>
   </descriptor>
 
+  <descriptor name="short event (event_name)" sname="short_event" fname="ShortEvent" msuffix="0">
+    <insert>
+      <begin>
+  s_decoded.i_text_length = 0;
+      </begin>
+    </insert>
+    <array name="i_event_name" len_name="i_event_name_length" min_size="0" max_size="248" />
+  </descriptor>
+
+  <descriptor name="short event (i_text)" sname="short_event" fname="ShortEvent" msuffix="1">
+    <insert>
+      <begin>
+  s_decoded.i_event_name_length = 0;
+      </begin>
+    </insert>
+    <array name="i_text" len_name="i_text_length" min_size="0" max_size="248" />
+  </descriptor>
+
+  <descriptor name="short event (both)" sname="short_event" fname="ShortEvent" msuffix="2">
+    <array name="i_text" len_name="i_text_length" min_size="0" max_size="124" />
+    <array name="i_event_name" len_name="i_event_name_length" min_size="0" max_size="124" />
+  </descriptor>
+
 </dr>

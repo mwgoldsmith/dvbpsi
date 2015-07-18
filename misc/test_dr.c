@@ -1850,6 +1850,83 @@ static int main_tshifted_service_(void)
   return i_err;
 }
 
+/* short event (event_name) */
+static int main_short_event_0(void)
+{
+  BOZO_VARS(short_event);
+  BOZO_START(short event (event_name));
+
+
+  /* check i_event_name */
+  s_decoded.i_text_length = 0;
+
+  BOZO_init_array(i_event_name_length);
+  BOZO_begin_array(i_event_name, i_event_name_length, 0)
+    BOZO_DOJOB(ShortEvent);
+    BOZO_check_array_begin(i_event_name, i_event_name_length)
+    BOZO_check_array_gen(i_event_name, i_event_name_length)
+    BOZO_CLEAN();
+  BOZO_end_array(i_event_name, 248)
+
+  BOZO_END(short event (event_name));
+
+  return i_err;
+}
+
+/* short event (i_text) */
+static int main_short_event_1(void)
+{
+  BOZO_VARS(short_event);
+  BOZO_START(short event (i_text));
+
+
+  /* check i_text */
+  s_decoded.i_event_name_length = 0;
+
+  BOZO_init_array(i_text_length);
+  BOZO_begin_array(i_text, i_text_length, 0)
+    BOZO_DOJOB(ShortEvent);
+    BOZO_check_array_begin(i_text, i_text_length)
+    BOZO_check_array_gen(i_text, i_text_length)
+    BOZO_CLEAN();
+  BOZO_end_array(i_text, 248)
+
+  BOZO_END(short event (i_text));
+
+  return i_err;
+}
+
+/* short event (both) */
+static int main_short_event_2(void)
+{
+  BOZO_VARS(short_event);
+  BOZO_START(short event (both));
+
+
+  /* check i_text */
+  BOZO_init_array(i_text_length);
+  BOZO_init_array(i_event_name_length);
+  BOZO_begin_array(i_text, i_text_length, 0)
+    BOZO_DOJOB(ShortEvent);
+    BOZO_check_array_begin(i_text, i_text_length)
+    BOZO_check_array_gen(i_text, i_text_length)
+    BOZO_CLEAN();
+  BOZO_end_array(i_text, 124)
+  /* check i_event_name */
+  BOZO_init_array(i_text_length);
+  BOZO_init_array(i_event_name_length);
+  BOZO_begin_array(i_event_name, i_event_name_length, 0)
+    BOZO_DOJOB(ShortEvent);
+    BOZO_check_array_begin(i_event_name, i_event_name_length)
+    BOZO_check_array_gen(i_event_name, i_event_name_length)
+    BOZO_CLEAN();
+  BOZO_end_array(i_event_name, 124)
+
+  BOZO_END(short event (both));
+
+  return i_err;
+}
+
 
 /* main function */
 int main(void)
@@ -1894,6 +1971,9 @@ int main(void)
   i_err |= main_linkage_5();
   i_err |= main_nvod_ref_();
   i_err |= main_tshifted_service_();
+  i_err |= main_short_event_0();
+  i_err |= main_short_event_1();
+  i_err |= main_short_event_2();
 
   if(i_err)
     fprintf(stderr, "At least one test has FAILED !!!\n");
