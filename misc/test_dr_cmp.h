@@ -56,3 +56,19 @@ static int compare_dvbpsi_parental_rating_t(const void *s1, const void *s2)
     else if(a_cc > b_cc || a->i_rating > b->i_rating) return 1;
     else return 0;
 }
+
+static int compare_dvbpsi_teletextpage_t(const void *s1, const void *s2)
+{
+    const dvbpsi_teletextpage_t *a = s1, *b = s2;
+    int iso_cmp = memcmp(a->i_iso6392_language_code, b->i_iso6392_language_code,
+        sizeof(a->i_iso6392_language_code));
+    uint8_t a_tt = (a->i_teletext_type & 0x1f),
+        a_tmn = (a->i_teletext_magazine_number & 0x07),
+        b_tt = (b->i_teletext_type & 0x1f),
+        b_tmn = (b->i_teletext_magazine_number & 0x07);
+    if(iso_cmp < 0 || a_tt < b_tt || a_tmn < b_tmn ||
+        a->i_teletext_page_number < b->i_teletext_page_number) return -1;
+    else if(iso_cmp > 0 || a_tt > b_tt || a_tmn > b_tmn ||
+        a->i_teletext_page_number > b->i_teletext_page_number) return 1;
+    else return 0;
+}

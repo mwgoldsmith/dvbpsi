@@ -2153,6 +2153,30 @@ static int main_parental_rating_(void)
   return i_err;
 }
 
+/* teletext */
+static int main_teletext_(void)
+{
+  BOZO_VARS(teletext);
+  BOZO_START(teletext);
+
+
+  /* check p_pages */
+  BOZO_init_array(i_pages_number);
+  BOZO_begin_array(p_pages)
+  BOZO_loop_array_begin(p_pages, i_pages_number, 1)
+    BOZO_DOJOB(Teletext);
+    BOZO_check_array_begin(p_pages, i_pages_number)
+    BOZO_check_array_cmp(p_pages, i_pages_number, dvbpsi_teletextpage_t)
+    BOZO_CLEAN();
+  BOZO_loop_array_end(p_pages, ARRAY_SIZE(s_decoded.p_pages))
+  BOZO_end_array
+
+
+  BOZO_END(teletext);
+
+  return i_err;
+}
+
 
 /* main function */
 int main(void)
@@ -2205,6 +2229,7 @@ int main(void)
   i_err |= main_ca_identifier_();
   i_err |= main_content_();
   i_err |= main_parental_rating_();
+  i_err |= main_teletext_();
 
   if(i_err)
     fprintf(stderr, "At least one test has FAILED !!!\n");

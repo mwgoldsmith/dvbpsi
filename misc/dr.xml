@@ -336,4 +336,8 @@
     <array name="p_parental_rating" len_name="i_ratings_number" min_size="1" type="dvbpsi_parental_rating_t"/>
   </descriptor>
 
+  <descriptor name="teletext" sname="teletext" fname="Teletext">
+    <array name="p_pages" len_name="i_pages_number" min_size="1" type="dvbpsi_teletextpage_t"/>
+  </descriptor>
+
 </dr>
