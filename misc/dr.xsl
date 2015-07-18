@@ -101,6 +101,9 @@ static int main_<xsl:value-of select="@sname" />_<xsl:value-of select="@msuffix"
 <xsl:template match="array" mode="init">
   BOZO_init_array(<xsl:value-of select="@len_name" />);</xsl:template>
 
+<xsl:template match="carray" mode="init">
+  BOZO_fill_array(s_decoded.<xsl:value-of select="@name"/>, sizeof(s_decoded.<xsl:value-of select="@name"/>));</xsl:template>
+
 <xsl:template match="insert" mode="init">
   <xsl:value-of select="begin" />
 </xsl:template>
