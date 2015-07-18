@@ -1808,6 +1808,27 @@ static int main_linkage_5(void)
   return i_err;
 }
 
+/* Near Video On Demand reference */
+static int main_nvod_ref_(void)
+{
+  BOZO_VARS(nvod_ref);
+  BOZO_START(Near Video On Demand reference);
+
+
+  /* check p_nvod_refs */
+  BOZO_init_array(i_references);
+  BOZO_begin_array(p_nvod_refs, i_references, 1)
+    BOZO_DOJOB(NVODReference);
+    BOZO_check_array_begin(p_nvod_refs, i_references)
+    BOZO_check_array_cmp(p_nvod_refs, i_references, dvbpsi_nvod_ref_t)
+    BOZO_CLEAN();
+  BOZO_end_array(p_nvod_refs, ARRAY_SIZE(s_decoded.p_nvod_refs))
+
+  BOZO_END(Near Video On Demand reference);
+
+  return i_err;
+}
+
 
 /* main function */
 int main(void)
@@ -1850,6 +1871,7 @@ int main(void)
   i_err |= main_linkage_3();
   i_err |= main_linkage_4();
   i_err |= main_linkage_5();
+  i_err |= main_nvod_ref_();
 
   if(i_err)
     fprintf(stderr, "At least one test has FAILED !!!\n");

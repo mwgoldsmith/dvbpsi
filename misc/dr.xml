@@ -281,4 +281,8 @@
     <array name="i_private_data" len_name="i_private_data_length" min_size="0" max_size="242" />
   </descriptor>
 
+  <descriptor name="Near Video On Demand reference" sname="nvod_ref" fname="NVODReference">
+    <array name="p_nvod_refs" len_name="i_references" min_size="1" type="dvbpsi_nvod_ref_t"/>
+  </descriptor>
+
 </dr>

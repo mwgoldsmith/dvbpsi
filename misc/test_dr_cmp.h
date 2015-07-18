@@ -18,3 +18,15 @@ static int compare_dvbpsi_service_list_service_s(const void *s1, const void *s2)
       a->i_service_type > b->i_service_type) return 1;
     else return 0;
 }
+
+static int compare_dvbpsi_nvod_ref_t(const void *s1, const void *s2)
+{
+    const dvbpsi_nvod_ref_t *a = s1, *b = s2;
+    if(a->i_transport_stream_id < b->i_transport_stream_id ||
+        a->i_original_network_id < b->i_original_network_id ||
+        a->i_service_id < b->i_service_id) return -1;
+    else if(a->i_transport_stream_id > b->i_transport_stream_id ||
+        a->i_original_network_id > b->i_original_network_id ||
+        a->i_service_id > b->i_service_id) return 1;
+    else return 0;
+}
