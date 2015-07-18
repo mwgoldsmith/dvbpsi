@@ -174,9 +174,7 @@ static int main_<xsl:value-of select="@sname" />_<xsl:value-of select="@msuffix"
   i_loop_count = 0;
   BOZO_begin_array(<xsl:value-of select="@name" />)
   BOZO_DOJOB(<xsl:value-of select="../@fname" />);
-  i_err = memcmp(s_decoded.<xsl:value-of select="@name" />,
-    p_new_decoded-><xsl:value-of select="@name" />,
-    sizeof(s_decoded.<xsl:value-of select="@name" />));
+  BOZO_check_carray(<xsl:value-of select="@name" />)
   BOZO_end_array
 </xsl:template>
 

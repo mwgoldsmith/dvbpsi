@@ -1919,9 +1919,7 @@ static int main_short_event_0(void)
   i_loop_count = 0;
   BOZO_begin_array(i_iso_639_code)
   BOZO_DOJOB(ShortEvent);
-  i_err = memcmp(s_decoded.i_iso_639_code,
-    p_new_decoded->i_iso_639_code,
-    sizeof(s_decoded.i_iso_639_code));
+  BOZO_check_carray(i_iso_639_code)
   BOZO_end_array
 
   /* check i_event_name */
@@ -1959,9 +1957,7 @@ static int main_short_event_1(void)
   i_loop_count = 0;
   BOZO_begin_array(i_iso_639_code)
   BOZO_DOJOB(ShortEvent);
-  i_err = memcmp(s_decoded.i_iso_639_code,
-    p_new_decoded->i_iso_639_code,
-    sizeof(s_decoded.i_iso_639_code));
+  BOZO_check_carray(i_iso_639_code)
   BOZO_end_array
 
   /* check i_text */
@@ -1998,9 +1994,7 @@ static int main_short_event_2(void)
   i_loop_count = 0;
   BOZO_begin_array(i_iso_639_code)
   BOZO_DOJOB(ShortEvent);
-  i_err = memcmp(s_decoded.i_iso_639_code,
-    p_new_decoded->i_iso_639_code,
-    sizeof(s_decoded.i_iso_639_code));
+  BOZO_check_carray(i_iso_639_code)
   BOZO_end_array
 
   /* check i_text */

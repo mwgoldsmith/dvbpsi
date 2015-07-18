@@ -166,6 +166,10 @@ static void BOZO_fill_array(void *a, size_t len)
     i_err = 1;                                                          \
   }
 
+#define BOZO_check_carray(name)                                         \
+  i_err = memcmp(s_decoded.name, p_new_decoded->name,                   \
+    sizeof(s_decoded.name));
+
 #define BOZO_check_array_gen(name, len_name)                            \
   else if(    !i_err                                                    \
       && (memcmp(s_decoded.name, p_new_decoded->name,                   \
