@@ -1883,11 +1883,11 @@ static int main_nvod_ref_(void)
   return i_err;
 }
 
-/* Time shifted event */
+/* time shifted service */
 static int main_tshifted_service_(void)
 {
   BOZO_VARS(tshifted_service);
-  BOZO_START(Time shifted event);
+  BOZO_START(time shifted service);
 
 
   /* check i_ref_service_id */
@@ -1899,7 +1899,7 @@ static int main_tshifted_service_(void)
   BOZO_end_integer(i_ref_service_id, 16)
 
 
-  BOZO_END(Time shifted event);
+  BOZO_END(time shifted service);
 
   return i_err;
 }
