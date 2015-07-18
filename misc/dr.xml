@@ -206,4 +206,18 @@
     <array name="i_private_data" len_name="i_private_data_length" min_size="0" />
   </descriptor>
 
+  <descriptor name="linkage (mobile handover, no extra data)" sname="linkage" fname="Linkage" msuffix="1">
+    <insert>
+      <begin>
+  s_decoded.i_linkage_type = 8;
+  s_decoded.i_handover_type = 0;
+  s_decoded.i_origin_type = 1;
+      </begin>
+    </insert>
+    <integer name="i_transport_stream_id" bitcount="16" default="0" />
+    <integer name="i_original_network_id" bitcount="16" default="0" />
+    <integer name="i_service_id" bitcount="16" default="0" />
+    <array name="i_private_data" len_name="i_private_data_length" min_size="0" max_size="245" />
+  </descriptor>
+
 </dr>
