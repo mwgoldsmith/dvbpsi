@@ -1382,6 +1382,432 @@ static int main_linkage_1(void)
   return i_err;
 }
 
+/* linkage (mobile handover, extra network_id) */
+static int main_linkage_2(void)
+{
+  BOZO_VARS(linkage);
+  BOZO_START(linkage (mobile handover, extra network_id));
+
+
+  /* check i_transport_stream_id */
+  s_decoded.i_linkage_type = 8;
+  s_decoded.i_handover_type = 1;
+  s_decoded.i_origin_type = 1;
+
+  BOZO_init_integer(i_transport_stream_id, 0);
+  BOZO_init_integer(i_original_network_id, 0);
+  BOZO_init_integer(i_service_id, 0);
+  BOZO_init_integer(i_network_id, 0);
+  BOZO_init_array(i_private_data_length);
+  BOZO_begin_integer(i_transport_stream_id, 16)
+    BOZO_DOJOB(Linkage);
+    BOZO_check_integer(i_transport_stream_id, 16)
+    BOZO_CLEAN();
+  BOZO_end_integer(i_transport_stream_id, 16)
+
+  /* check i_original_network_id */
+  s_decoded.i_linkage_type = 8;
+  s_decoded.i_handover_type = 1;
+  s_decoded.i_origin_type = 1;
+
+  BOZO_init_integer(i_transport_stream_id, 0);
+  BOZO_init_integer(i_original_network_id, 0);
+  BOZO_init_integer(i_service_id, 0);
+  BOZO_init_integer(i_network_id, 0);
+  BOZO_init_array(i_private_data_length);
+  BOZO_begin_integer(i_original_network_id, 16)
+    BOZO_DOJOB(Linkage);
+    BOZO_check_integer(i_original_network_id, 16)
+    BOZO_CLEAN();
+  BOZO_end_integer(i_original_network_id, 16)
+
+  /* check i_service_id */
+  s_decoded.i_linkage_type = 8;
+  s_decoded.i_handover_type = 1;
+  s_decoded.i_origin_type = 1;
+
+  BOZO_init_integer(i_transport_stream_id, 0);
+  BOZO_init_integer(i_original_network_id, 0);
+  BOZO_init_integer(i_service_id, 0);
+  BOZO_init_integer(i_network_id, 0);
+  BOZO_init_array(i_private_data_length);
+  BOZO_begin_integer(i_service_id, 16)
+    BOZO_DOJOB(Linkage);
+    BOZO_check_integer(i_service_id, 16)
+    BOZO_CLEAN();
+  BOZO_end_integer(i_service_id, 16)
+
+  /* check i_network_id */
+  s_decoded.i_linkage_type = 8;
+  s_decoded.i_handover_type = 1;
+  s_decoded.i_origin_type = 1;
+
+  BOZO_init_integer(i_transport_stream_id, 0);
+  BOZO_init_integer(i_original_network_id, 0);
+  BOZO_init_integer(i_service_id, 0);
+  BOZO_init_integer(i_network_id, 0);
+  BOZO_init_array(i_private_data_length);
+  BOZO_begin_integer(i_network_id, 16)
+    BOZO_DOJOB(Linkage);
+    BOZO_check_integer(i_network_id, 16)
+    BOZO_CLEAN();
+  BOZO_end_integer(i_network_id, 16)
+
+  /* check i_private_data */
+  s_decoded.i_linkage_type = 8;
+  s_decoded.i_handover_type = 1;
+  s_decoded.i_origin_type = 1;
+
+  BOZO_init_integer(i_transport_stream_id, 0);
+  BOZO_init_integer(i_original_network_id, 0);
+  BOZO_init_integer(i_service_id, 0);
+  BOZO_init_integer(i_network_id, 0);
+  BOZO_init_array(i_private_data_length);
+  BOZO_begin_array(i_private_data, i_private_data_length, 0)
+    BOZO_DOJOB(Linkage);
+    BOZO_check_array_begin(i_private_data, i_private_data_length)
+    BOZO_check_array_gen(i_private_data, i_private_data_length)
+    BOZO_CLEAN();
+  BOZO_end_array(i_private_data, 243)
+
+  BOZO_END(linkage (mobile handover, extra network_id));
+
+  return i_err;
+}
+
+/* linkage (mobile handover, extra initial_service_id) */
+static int main_linkage_3(void)
+{
+  BOZO_VARS(linkage);
+  BOZO_START(linkage (mobile handover, extra initial_service_id));
+
+
+  /* check i_transport_stream_id */
+  s_decoded.i_linkage_type = 8;
+  s_decoded.i_handover_type = 0;
+  s_decoded.i_origin_type = 0;
+
+  BOZO_init_integer(i_transport_stream_id, 0);
+  BOZO_init_integer(i_original_network_id, 0);
+  BOZO_init_integer(i_service_id, 0);
+  BOZO_init_integer(i_initial_service_id, 0);
+  BOZO_init_array(i_private_data_length);
+  BOZO_begin_integer(i_transport_stream_id, 16)
+    BOZO_DOJOB(Linkage);
+    BOZO_check_integer(i_transport_stream_id, 16)
+    BOZO_CLEAN();
+  BOZO_end_integer(i_transport_stream_id, 16)
+
+  /* check i_original_network_id */
+  s_decoded.i_linkage_type = 8;
+  s_decoded.i_handover_type = 0;
+  s_decoded.i_origin_type = 0;
+
+  BOZO_init_integer(i_transport_stream_id, 0);
+  BOZO_init_integer(i_original_network_id, 0);
+  BOZO_init_integer(i_service_id, 0);
+  BOZO_init_integer(i_initial_service_id, 0);
+  BOZO_init_array(i_private_data_length);
+  BOZO_begin_integer(i_original_network_id, 16)
+    BOZO_DOJOB(Linkage);
+    BOZO_check_integer(i_original_network_id, 16)
+    BOZO_CLEAN();
+  BOZO_end_integer(i_original_network_id, 16)
+
+  /* check i_service_id */
+  s_decoded.i_linkage_type = 8;
+  s_decoded.i_handover_type = 0;
+  s_decoded.i_origin_type = 0;
+
+  BOZO_init_integer(i_transport_stream_id, 0);
+  BOZO_init_integer(i_original_network_id, 0);
+  BOZO_init_integer(i_service_id, 0);
+  BOZO_init_integer(i_initial_service_id, 0);
+  BOZO_init_array(i_private_data_length);
+  BOZO_begin_integer(i_service_id, 16)
+    BOZO_DOJOB(Linkage);
+    BOZO_check_integer(i_service_id, 16)
+    BOZO_CLEAN();
+  BOZO_end_integer(i_service_id, 16)
+
+  /* check i_initial_service_id */
+  s_decoded.i_linkage_type = 8;
+  s_decoded.i_handover_type = 0;
+  s_decoded.i_origin_type = 0;
+
+  BOZO_init_integer(i_transport_stream_id, 0);
+  BOZO_init_integer(i_original_network_id, 0);
+  BOZO_init_integer(i_service_id, 0);
+  BOZO_init_integer(i_initial_service_id, 0);
+  BOZO_init_array(i_private_data_length);
+  BOZO_begin_integer(i_initial_service_id, 16)
+    BOZO_DOJOB(Linkage);
+    BOZO_check_integer(i_initial_service_id, 16)
+    BOZO_CLEAN();
+  BOZO_end_integer(i_initial_service_id, 16)
+
+  /* check i_private_data */
+  s_decoded.i_linkage_type = 8;
+  s_decoded.i_handover_type = 0;
+  s_decoded.i_origin_type = 0;
+
+  BOZO_init_integer(i_transport_stream_id, 0);
+  BOZO_init_integer(i_original_network_id, 0);
+  BOZO_init_integer(i_service_id, 0);
+  BOZO_init_integer(i_initial_service_id, 0);
+  BOZO_init_array(i_private_data_length);
+  BOZO_begin_array(i_private_data, i_private_data_length, 0)
+    BOZO_DOJOB(Linkage);
+    BOZO_check_array_begin(i_private_data, i_private_data_length)
+    BOZO_check_array_gen(i_private_data, i_private_data_length)
+    BOZO_CLEAN();
+  BOZO_end_array(i_private_data, 243)
+
+  BOZO_END(linkage (mobile handover, extra initial_service_id));
+
+  return i_err;
+}
+
+/* linkage (mobile handover, extra network_id and initial_service_id) */
+static int main_linkage_4(void)
+{
+  BOZO_VARS(linkage);
+  BOZO_START(linkage (mobile handover, extra network_id and initial_service_id));
+
+
+  /* check i_transport_stream_id */
+  s_decoded.i_linkage_type = 8;
+  s_decoded.i_handover_type = 1;
+  s_decoded.i_origin_type = 0;
+
+  BOZO_init_integer(i_transport_stream_id, 0);
+  BOZO_init_integer(i_original_network_id, 0);
+  BOZO_init_integer(i_service_id, 0);
+  BOZO_init_integer(i_network_id, 0);
+  BOZO_init_integer(i_initial_service_id, 0);
+  BOZO_init_array(i_private_data_length);
+  BOZO_begin_integer(i_transport_stream_id, 16)
+    BOZO_DOJOB(Linkage);
+    BOZO_check_integer(i_transport_stream_id, 16)
+    BOZO_CLEAN();
+  BOZO_end_integer(i_transport_stream_id, 16)
+
+  /* check i_original_network_id */
+  s_decoded.i_linkage_type = 8;
+  s_decoded.i_handover_type = 1;
+  s_decoded.i_origin_type = 0;
+
+  BOZO_init_integer(i_transport_stream_id, 0);
+  BOZO_init_integer(i_original_network_id, 0);
+  BOZO_init_integer(i_service_id, 0);
+  BOZO_init_integer(i_network_id, 0);
+  BOZO_init_integer(i_initial_service_id, 0);
+  BOZO_init_array(i_private_data_length);
+  BOZO_begin_integer(i_original_network_id, 16)
+    BOZO_DOJOB(Linkage);
+    BOZO_check_integer(i_original_network_id, 16)
+    BOZO_CLEAN();
+  BOZO_end_integer(i_original_network_id, 16)
+
+  /* check i_service_id */
+  s_decoded.i_linkage_type = 8;
+  s_decoded.i_handover_type = 1;
+  s_decoded.i_origin_type = 0;
+
+  BOZO_init_integer(i_transport_stream_id, 0);
+  BOZO_init_integer(i_original_network_id, 0);
+  BOZO_init_integer(i_service_id, 0);
+  BOZO_init_integer(i_network_id, 0);
+  BOZO_init_integer(i_initial_service_id, 0);
+  BOZO_init_array(i_private_data_length);
+  BOZO_begin_integer(i_service_id, 16)
+    BOZO_DOJOB(Linkage);
+    BOZO_check_integer(i_service_id, 16)
+    BOZO_CLEAN();
+  BOZO_end_integer(i_service_id, 16)
+
+  /* check i_network_id */
+  s_decoded.i_linkage_type = 8;
+  s_decoded.i_handover_type = 1;
+  s_decoded.i_origin_type = 0;
+
+  BOZO_init_integer(i_transport_stream_id, 0);
+  BOZO_init_integer(i_original_network_id, 0);
+  BOZO_init_integer(i_service_id, 0);
+  BOZO_init_integer(i_network_id, 0);
+  BOZO_init_integer(i_initial_service_id, 0);
+  BOZO_init_array(i_private_data_length);
+  BOZO_begin_integer(i_network_id, 16)
+    BOZO_DOJOB(Linkage);
+    BOZO_check_integer(i_network_id, 16)
+    BOZO_CLEAN();
+  BOZO_end_integer(i_network_id, 16)
+
+  /* check i_initial_service_id */
+  s_decoded.i_linkage_type = 8;
+  s_decoded.i_handover_type = 1;
+  s_decoded.i_origin_type = 0;
+
+  BOZO_init_integer(i_transport_stream_id, 0);
+  BOZO_init_integer(i_original_network_id, 0);
+  BOZO_init_integer(i_service_id, 0);
+  BOZO_init_integer(i_network_id, 0);
+  BOZO_init_integer(i_initial_service_id, 0);
+  BOZO_init_array(i_private_data_length);
+  BOZO_begin_integer(i_initial_service_id, 16)
+    BOZO_DOJOB(Linkage);
+    BOZO_check_integer(i_initial_service_id, 16)
+    BOZO_CLEAN();
+  BOZO_end_integer(i_initial_service_id, 16)
+
+  /* check i_private_data */
+  s_decoded.i_linkage_type = 8;
+  s_decoded.i_handover_type = 1;
+  s_decoded.i_origin_type = 0;
+
+  BOZO_init_integer(i_transport_stream_id, 0);
+  BOZO_init_integer(i_original_network_id, 0);
+  BOZO_init_integer(i_service_id, 0);
+  BOZO_init_integer(i_network_id, 0);
+  BOZO_init_integer(i_initial_service_id, 0);
+  BOZO_init_array(i_private_data_length);
+  BOZO_begin_array(i_private_data, i_private_data_length, 0)
+    BOZO_DOJOB(Linkage);
+    BOZO_check_array_begin(i_private_data, i_private_data_length)
+    BOZO_check_array_gen(i_private_data, i_private_data_length)
+    BOZO_CLEAN();
+  BOZO_end_array(i_private_data, 241)
+
+  BOZO_END(linkage (mobile handover, extra network_id and initial_service_id));
+
+  return i_err;
+}
+
+/* linkage (event linkage) */
+static int main_linkage_5(void)
+{
+  BOZO_VARS(linkage);
+  BOZO_START(linkage (event linkage));
+
+
+  /* check i_transport_stream_id */
+  s_decoded.i_linkage_type = 13;
+
+  BOZO_init_integer(i_transport_stream_id, 0);
+  BOZO_init_integer(i_original_network_id, 0);
+  BOZO_init_integer(i_service_id, 0);
+  BOZO_init_integer(i_target_event_id, 0);
+  BOZO_init_boolean(b_target_listed, 0);
+  BOZO_init_boolean(b_event_simulcast, 0);
+  BOZO_init_array(i_private_data_length);
+  BOZO_begin_integer(i_transport_stream_id, 16)
+    BOZO_DOJOB(Linkage);
+    BOZO_check_integer(i_transport_stream_id, 16)
+    BOZO_CLEAN();
+  BOZO_end_integer(i_transport_stream_id, 16)
+
+  /* check i_original_network_id */
+  s_decoded.i_linkage_type = 13;
+
+  BOZO_init_integer(i_transport_stream_id, 0);
+  BOZO_init_integer(i_original_network_id, 0);
+  BOZO_init_integer(i_service_id, 0);
+  BOZO_init_integer(i_target_event_id, 0);
+  BOZO_init_boolean(b_target_listed, 0);
+  BOZO_init_boolean(b_event_simulcast, 0);
+  BOZO_init_array(i_private_data_length);
+  BOZO_begin_integer(i_original_network_id, 16)
+    BOZO_DOJOB(Linkage);
+    BOZO_check_integer(i_original_network_id, 16)
+    BOZO_CLEAN();
+  BOZO_end_integer(i_original_network_id, 16)
+
+  /* check i_service_id */
+  s_decoded.i_linkage_type = 13;
+
+  BOZO_init_integer(i_transport_stream_id, 0);
+  BOZO_init_integer(i_original_network_id, 0);
+  BOZO_init_integer(i_service_id, 0);
+  BOZO_init_integer(i_target_event_id, 0);
+  BOZO_init_boolean(b_target_listed, 0);
+  BOZO_init_boolean(b_event_simulcast, 0);
+  BOZO_init_array(i_private_data_length);
+  BOZO_begin_integer(i_service_id, 16)
+    BOZO_DOJOB(Linkage);
+    BOZO_check_integer(i_service_id, 16)
+    BOZO_CLEAN();
+  BOZO_end_integer(i_service_id, 16)
+
+  /* check i_target_event_id */
+  s_decoded.i_linkage_type = 13;
+
+  BOZO_init_integer(i_transport_stream_id, 0);
+  BOZO_init_integer(i_original_network_id, 0);
+  BOZO_init_integer(i_service_id, 0);
+  BOZO_init_integer(i_target_event_id, 0);
+  BOZO_init_boolean(b_target_listed, 0);
+  BOZO_init_boolean(b_event_simulcast, 0);
+  BOZO_init_array(i_private_data_length);
+  BOZO_begin_integer(i_target_event_id, 16)
+    BOZO_DOJOB(Linkage);
+    BOZO_check_integer(i_target_event_id, 16)
+    BOZO_CLEAN();
+  BOZO_end_integer(i_target_event_id, 16)
+
+  /* check b_target_listed */
+  s_decoded.i_linkage_type = 13;
+
+  BOZO_init_integer(i_transport_stream_id, 0);
+  BOZO_init_integer(i_original_network_id, 0);
+  BOZO_init_integer(i_service_id, 0);
+  BOZO_init_integer(i_target_event_id, 0);
+  BOZO_init_boolean(b_target_listed, 0);
+  BOZO_init_boolean(b_event_simulcast, 0);
+  BOZO_init_array(i_private_data_length);
+  BOZO_begin_boolean(b_target_listed)
+    BOZO_DOJOB(Linkage);
+    BOZO_check_boolean(b_target_listed)
+    BOZO_CLEAN();
+  BOZO_end_boolean(b_target_listed)
+
+  /* check b_event_simulcast */
+  s_decoded.i_linkage_type = 13;
+
+  BOZO_init_integer(i_transport_stream_id, 0);
+  BOZO_init_integer(i_original_network_id, 0);
+  BOZO_init_integer(i_service_id, 0);
+  BOZO_init_integer(i_target_event_id, 0);
+  BOZO_init_boolean(b_target_listed, 0);
+  BOZO_init_boolean(b_event_simulcast, 0);
+  BOZO_init_array(i_private_data_length);
+  BOZO_begin_boolean(b_event_simulcast)
+    BOZO_DOJOB(Linkage);
+    BOZO_check_boolean(b_event_simulcast)
+    BOZO_CLEAN();
+  BOZO_end_boolean(b_event_simulcast)
+
+  /* check i_private_data */
+  s_decoded.i_linkage_type = 13;
+
+  BOZO_init_integer(i_transport_stream_id, 0);
+  BOZO_init_integer(i_original_network_id, 0);
+  BOZO_init_integer(i_service_id, 0);
+  BOZO_init_integer(i_target_event_id, 0);
+  BOZO_init_boolean(b_target_listed, 0);
+  BOZO_init_boolean(b_event_simulcast, 0);
+  BOZO_init_array(i_private_data_length);
+  BOZO_begin_array(i_private_data, i_private_data_length, 0)
+    BOZO_DOJOB(Linkage);
+    BOZO_check_array_begin(i_private_data, i_private_data_length)
+    BOZO_check_array_gen(i_private_data, i_private_data_length)
+    BOZO_CLEAN();
+  BOZO_end_array(i_private_data, 242)
+
+  BOZO_END(linkage (event linkage));
+
+  return i_err;
+}
+
 
 /* main function */
 int main(void)
@@ -1420,6 +1846,10 @@ int main(void)
   i_err |= main_service_3();
   i_err |= main_linkage_0();
   i_err |= main_linkage_1();
+  i_err |= main_linkage_2();
+  i_err |= main_linkage_3();
+  i_err |= main_linkage_4();
+  i_err |= main_linkage_5();
 
   if(i_err)
     fprintf(stderr, "At least one test has FAILED !!!\n");

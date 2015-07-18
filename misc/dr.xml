@@ -220,4 +220,65 @@
     <array name="i_private_data" len_name="i_private_data_length" min_size="0" max_size="245" />
   </descriptor>
 
+  <descriptor name="linkage (mobile handover, extra network_id)" sname="linkage" fname="Linkage" msuffix="2">
+    <insert>
+      <begin>
+  s_decoded.i_linkage_type = 8;
+  s_decoded.i_handover_type = 1;
+  s_decoded.i_origin_type = 1;
+      </begin>
+    </insert>
+    <integer name="i_transport_stream_id" bitcount="16" default="0" />
+    <integer name="i_original_network_id" bitcount="16" default="0" />
+    <integer name="i_service_id" bitcount="16" default="0" />
+    <integer name="i_network_id" bitcount="16" default="0" />
+    <array name="i_private_data" len_name="i_private_data_length" min_size="0" max_size="243" />
+  </descriptor>
+
+  <descriptor name="linkage (mobile handover, extra initial_service_id)" sname="linkage" fname="Linkage" msuffix="3">
+    <insert>
+      <begin>
+  s_decoded.i_linkage_type = 8;
+  s_decoded.i_handover_type = 0;
+  s_decoded.i_origin_type = 0;
+      </begin>
+    </insert>
+    <integer name="i_transport_stream_id" bitcount="16" default="0" />
+    <integer name="i_original_network_id" bitcount="16" default="0" />
+    <integer name="i_service_id" bitcount="16" default="0" />
+    <integer name="i_initial_service_id" bitcount="16" default="0" />
+    <array name="i_private_data" len_name="i_private_data_length" min_size="0" max_size="243" />
+  </descriptor>
+
+  <descriptor name="linkage (mobile handover, extra network_id and initial_service_id)" sname="linkage" fname="Linkage" msuffix="4">
+    <insert>
+      <begin>
+  s_decoded.i_linkage_type = 8;
+  s_decoded.i_handover_type = 1;
+  s_decoded.i_origin_type = 0;
+      </begin>
+    </insert>
+    <integer name="i_transport_stream_id" bitcount="16" default="0" />
+    <integer name="i_original_network_id" bitcount="16" default="0" />
+    <integer name="i_service_id" bitcount="16" default="0" />
+    <integer name="i_network_id" bitcount="16" default="0" />
+    <integer name="i_initial_service_id" bitcount="16" default="0" />
+    <array name="i_private_data" len_name="i_private_data_length" min_size="0" max_size="241" />
+  </descriptor>
+
+  <descriptor name="linkage (event linkage)" sname="linkage" fname="Linkage" msuffix="5">
+    <insert>
+      <begin>
+  s_decoded.i_linkage_type = 13;
+      </begin>
+    </insert>
+    <integer name="i_transport_stream_id" bitcount="16" default="0" />
+    <integer name="i_original_network_id" bitcount="16" default="0" />
+    <integer name="i_service_id" bitcount="16" default="0" />
+    <integer name="i_target_event_id" bitcount="16" default="0" />
+    <boolean name="b_target_listed" default="0" />
+    <boolean name="b_event_simulcast" default="0" />
+    <array name="i_private_data" len_name="i_private_data_length" min_size="0" max_size="242" />
+  </descriptor>
+
 </dr>
