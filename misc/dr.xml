@@ -324,4 +324,8 @@
     <integer name="i_component_tag" bitcount="8" default="0"/>
   </descriptor>
 
+  <descriptor name="CA identifier" sname="ca_identifier" fname="CAIdentifier">
+    <array name="p_system" len_name="i_number" min_size="1" type="dvbpsi_ca_system_t"/>
+  </descriptor>
+
 </dr>

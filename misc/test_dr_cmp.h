@@ -30,3 +30,11 @@ static int compare_dvbpsi_nvod_ref_t(const void *s1, const void *s2)
         a->i_service_id > b->i_service_id) return 1;
     else return 0;
 }
+
+static int compare_dvbpsi_ca_system_t(const void *s1, const void *s2)
+{
+    const dvbpsi_ca_system_t *a = s1, *b = s2;
+    if(a->i_ca_system_id < b->i_ca_system_id) return -1;
+    else if(a->i_ca_system_id < b->i_ca_system_id) return 1;
+    else return 0;
+}

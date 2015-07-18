@@ -2081,6 +2081,30 @@ static int main_stream_identifier_(void)
   return i_err;
 }
 
+/* CA identifier */
+static int main_ca_identifier_(void)
+{
+  BOZO_VARS(ca_identifier);
+  BOZO_START(CA identifier);
+
+
+  /* check p_system */
+  BOZO_init_array(i_number);
+  BOZO_begin_array(p_system)
+  BOZO_loop_array_begin(p_system, i_number, 1)
+    BOZO_DOJOB(CAIdentifier);
+    BOZO_check_array_begin(p_system, i_number)
+    BOZO_check_array_cmp(p_system, i_number, dvbpsi_ca_system_t)
+    BOZO_CLEAN();
+  BOZO_loop_array_end(p_system, ARRAY_SIZE(s_decoded.p_system))
+  BOZO_end_array
+
+
+  BOZO_END(CA identifier);
+
+  return i_err;
+}
+
 
 /* main function */
 int main(void)
@@ -2130,6 +2154,7 @@ int main(void)
   i_err |= main_short_event_2();
   i_err |= main_tshifted_ev_();
   i_err |= main_stream_identifier_();
+  i_err |= main_ca_identifier_();
 
   if(i_err)
     fprintf(stderr, "At least one test has FAILED !!!\n");
