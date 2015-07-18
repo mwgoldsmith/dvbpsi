@@ -131,7 +131,8 @@
 
 static void BOZO_fill_array(void *a, size_t len)
 {
-  for(size_t i = 0 ; i < len ; ++i) ((uint8_t*)a)[i] = rand();
+  uint8_t *b = a;
+  for(size_t i = 0 ; i < len ; ++i) b[i] = rand();
 }
 
 #define BOZO_begin_array(name, len_name, min_size)                      \
