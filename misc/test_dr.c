@@ -1911,6 +1911,19 @@ static int main_short_event_0(void)
   BOZO_START(short event (event_name));
 
 
+  /* check i_iso_639_code */
+  s_decoded.i_text_length = 0;
+
+  BOZO_fill_array(s_decoded.i_iso_639_code, sizeof(s_decoded.i_iso_639_code));
+  BOZO_init_array(i_event_name_length);
+  i_loop_count = 0;
+  BOZO_begin_array(i_iso_639_code)
+  BOZO_DOJOB(ShortEvent);
+  i_err = memcmp(s_decoded.i_iso_639_code,
+    p_new_decoded->i_iso_639_code,
+    sizeof(s_decoded.i_iso_639_code));
+  BOZO_end_array
+
   /* check i_event_name */
   s_decoded.i_text_length = 0;
 
@@ -1938,9 +1951,23 @@ static int main_short_event_1(void)
   BOZO_START(short event (i_text));
 
 
+  /* check i_iso_639_code */
+  s_decoded.i_event_name_length = 0;
+
+  BOZO_fill_array(s_decoded.i_iso_639_code, sizeof(s_decoded.i_iso_639_code));
+  BOZO_init_array(i_text_length);
+  i_loop_count = 0;
+  BOZO_begin_array(i_iso_639_code)
+  BOZO_DOJOB(ShortEvent);
+  i_err = memcmp(s_decoded.i_iso_639_code,
+    p_new_decoded->i_iso_639_code,
+    sizeof(s_decoded.i_iso_639_code));
+  BOZO_end_array
+
   /* check i_text */
   s_decoded.i_event_name_length = 0;
 
+  BOZO_fill_array(s_decoded.i_iso_639_code, sizeof(s_decoded.i_iso_639_code));
   BOZO_init_array(i_text_length);
   BOZO_begin_array(i_text)
   BOZO_loop_array_begin(i_text, i_text_length, 0)
@@ -1964,7 +1991,20 @@ static int main_short_event_2(void)
   BOZO_START(short event (both));
 
 
+  /* check i_iso_639_code */
+  BOZO_fill_array(s_decoded.i_iso_639_code, sizeof(s_decoded.i_iso_639_code));
+  BOZO_init_array(i_text_length);
+  BOZO_init_array(i_event_name_length);
+  i_loop_count = 0;
+  BOZO_begin_array(i_iso_639_code)
+  BOZO_DOJOB(ShortEvent);
+  i_err = memcmp(s_decoded.i_iso_639_code,
+    p_new_decoded->i_iso_639_code,
+    sizeof(s_decoded.i_iso_639_code));
+  BOZO_end_array
+
   /* check i_text */
+  BOZO_fill_array(s_decoded.i_iso_639_code, sizeof(s_decoded.i_iso_639_code));
   BOZO_init_array(i_text_length);
   BOZO_init_array(i_event_name_length);
   BOZO_begin_array(i_text)
@@ -1977,6 +2017,7 @@ static int main_short_event_2(void)
   BOZO_end_array
 
   /* check i_event_name */
+  BOZO_fill_array(s_decoded.i_iso_639_code, sizeof(s_decoded.i_iso_639_code));
   BOZO_init_array(i_text_length);
   BOZO_init_array(i_event_name_length);
   BOZO_begin_array(i_event_name)

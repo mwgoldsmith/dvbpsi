@@ -148,10 +148,10 @@ static void BOZO_fill_array(void *a, size_t len)
       s_decoded.len_name = i_loop_count;
 
 #define BOZO_loop_array_end(name, max_len)                              \
-    } while(!i_err && i_loop_count < max_len);                          \
-    fprintf(stdout, "\r  iteration count: %22"PRI64d, i_loop_count);
+    } while(!i_err && i_loop_count < max_len);
 
 #define BOZO_end_array                                                  \
+    fprintf(stdout, "\r  iteration count: %22"PRI64d, i_loop_count);    \
     if(i_err)                                                           \
       fprintf(stdout, "    FAILED !!!\n");                              \
     else                                                                \
