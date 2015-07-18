@@ -135,19 +135,23 @@ static void BOZO_fill_array(void *a, size_t len)
   for(size_t i = 0 ; i < len ; ++i) b[i] = rand();
 }
 
-#define BOZO_begin_array(name, len_name, min_size)                      \
+#define BOZO_begin_array(name)                                          \
   if(!i_err)                                                            \
   {                                                                     \
-    fprintf(stdout, "  \"%s\" array check\n", #name);                   \
+    fprintf(stdout, "  \"%s\" array check\n", #name);
+
+#define BOZO_loop_array_begin(name, len_name, min_size)                 \
     i_loop_count = min_size;                                            \
     do                                                                  \
     {                                                                   \
       BOZO_fill_array(s_decoded.name, sizeof(s_decoded.name));          \
       s_decoded.len_name = i_loop_count;
 
-#define BOZO_end_array(name, max_len)                                   \
+#define BOZO_loop_array_end(name, max_len)                              \
     } while(!i_err && i_loop_count < max_len);                          \
-    fprintf(stdout, "\r  iteration count: %22"PRI64d, i_loop_count);       \
+    fprintf(stdout, "\r  iteration count: %22"PRI64d, i_loop_count);
+
+#define BOZO_end_array                                                  \
     if(i_err)                                                           \
       fprintf(stdout, "    FAILED !!!\n");                              \
     else                                                                \

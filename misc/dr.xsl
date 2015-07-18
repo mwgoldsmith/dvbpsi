@@ -134,7 +134,8 @@ static int main_<xsl:value-of select="@sname" />_<xsl:value-of select="@msuffix"
 
 <xsl:template match="array" mode="check">
   /* check <xsl:value-of select="@name" /> */<xsl:apply-templates select=".." mode="init" />
-  BOZO_begin_array(<xsl:value-of select="@name" />, <xsl:value-of select="@len_name" />, <xsl:value-of select="@min_size" />)
+  BOZO_begin_array(<xsl:value-of select="@name" />)
+  BOZO_loop_array_begin(<xsl:value-of select="@name" />, <xsl:value-of select="@len_name" />, <xsl:value-of select="@min_size" />)
     BOZO_DOJOB(<xsl:value-of select="../@fname" />);
     BOZO_check_array_begin(<xsl:value-of select="@name" />, <xsl:value-of select="@len_name" />)
   <xsl:choose>
@@ -153,7 +154,7 @@ static int main_<xsl:value-of select="@sname" />_<xsl:value-of select="@msuffix"
     </xsl:otherwise>
   </xsl:choose>
     BOZO_CLEAN();
-  BOZO_end_array(<xsl:value-of select="@name" /><xsl:text>, </xsl:text>
+  BOZO_loop_array_end(<xsl:value-of select="@name" /><xsl:text>, </xsl:text>
   <xsl:choose>
     <xsl:when test="@max_size">
       <xsl:value-of select="@max_size"/>
@@ -165,7 +166,7 @@ static int main_<xsl:value-of select="@sname" />_<xsl:value-of select="@msuffix"
     </xsl:otherwise>
   </xsl:choose>
   <xsl:text>)</xsl:text>
-
+  BOZO_end_array
 </xsl:template>
 
 <xsl:template match="insert" mode="check">

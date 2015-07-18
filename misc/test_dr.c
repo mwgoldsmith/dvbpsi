@@ -472,12 +472,15 @@ static int main_ca_(void)
   BOZO_init_integer(i_ca_system_id, 0);
   BOZO_init_integer(i_ca_pid, 0);
   BOZO_init_array(i_private_length);
-  BOZO_begin_array(i_private_data, i_private_length, 0)
+  BOZO_begin_array(i_private_data)
+  BOZO_loop_array_begin(i_private_data, i_private_length, 0)
     BOZO_DOJOB(CA);
     BOZO_check_array_begin(i_private_data, i_private_length)
     BOZO_check_array_gen(i_private_data, i_private_length)
     BOZO_CLEAN();
-  BOZO_end_array(i_private_data, ARRAY_SIZE(s_decoded.i_private_data))
+  BOZO_loop_array_end(i_private_data, ARRAY_SIZE(s_decoded.i_private_data))
+  BOZO_end_array
+
 
   BOZO_END(conditional access);
 
@@ -493,12 +496,15 @@ static int main_iso639_(void)
 
   /* check code */
   BOZO_init_array(i_code_count);
-  BOZO_begin_array(code, i_code_count, 1)
+  BOZO_begin_array(code)
+  BOZO_loop_array_begin(code, i_code_count, 1)
     BOZO_DOJOB(ISO639);
     BOZO_check_array_begin(code, i_code_count)
     BOZO_check_array_gen(code, i_code_count)
     BOZO_CLEAN();
-  BOZO_end_array(code, ARRAY_SIZE(s_decoded.code))
+  BOZO_loop_array_end(code, ARRAY_SIZE(s_decoded.code))
+  BOZO_end_array
+
 
   BOZO_END(ISO 639 language);
 
@@ -612,12 +618,15 @@ static int main_copyright_(void)
   s_decoded.i_additional_length = 0;
   BOZO_init_integer(i_copyright_identifier, 0);
   BOZO_init_array(i_additional_length);
-  BOZO_begin_array(i_additional_info, i_additional_length, 0)
+  BOZO_begin_array(i_additional_info)
+  BOZO_loop_array_begin(i_additional_info, i_additional_length, 0)
     BOZO_DOJOB(Copyright);
     BOZO_check_array_begin(i_additional_info, i_additional_length)
     BOZO_check_array_gen(i_additional_info, i_additional_length)
     BOZO_CLEAN();
-  BOZO_end_array(i_additional_info, ARRAY_SIZE(s_decoded.i_additional_info))
+  BOZO_loop_array_end(i_additional_info, ARRAY_SIZE(s_decoded.i_additional_info))
+  BOZO_end_array
+
 
   BOZO_END(copyright);
 
@@ -827,12 +836,15 @@ static int main_network_name_(void)
 
   /* check i_name_byte */
   BOZO_init_array(i_name_length);
-  BOZO_begin_array(i_name_byte, i_name_length, 0)
+  BOZO_begin_array(i_name_byte)
+  BOZO_loop_array_begin(i_name_byte, i_name_length, 0)
     BOZO_DOJOB(NetworkName);
     BOZO_check_array_begin(i_name_byte, i_name_length)
     BOZO_check_array_gen(i_name_byte, i_name_length)
     BOZO_CLEAN();
-  BOZO_end_array(i_name_byte, ARRAY_SIZE(s_decoded.i_name_byte))
+  BOZO_loop_array_end(i_name_byte, ARRAY_SIZE(s_decoded.i_name_byte))
+  BOZO_end_array
+
 
   BOZO_END(network name);
 
@@ -848,12 +860,15 @@ static int main_service_list_(void)
 
   /* check i_service */
   BOZO_init_array(i_service_count);
-  BOZO_begin_array(i_service, i_service_count, 1)
+  BOZO_begin_array(i_service)
+  BOZO_loop_array_begin(i_service, i_service_count, 1)
     BOZO_DOJOB(ServiceList);
     BOZO_check_array_begin(i_service, i_service_count)
     BOZO_check_array_cmp(i_service, i_service_count, dvbpsi_service_list_service_s)
     BOZO_CLEAN();
-  BOZO_end_array(i_service, ARRAY_SIZE(s_decoded.i_service))
+  BOZO_loop_array_end(i_service, ARRAY_SIZE(s_decoded.i_service))
+  BOZO_end_array
+
 
   BOZO_END(service list);
 
@@ -869,12 +884,15 @@ static int main_stuffing_(void)
 
   /* check i_stuffing_byte */
   BOZO_init_array(i_stuffing_length);
-  BOZO_begin_array(i_stuffing_byte, i_stuffing_length, 0)
+  BOZO_begin_array(i_stuffing_byte)
+  BOZO_loop_array_begin(i_stuffing_byte, i_stuffing_length, 0)
     BOZO_DOJOB(Stuffing);
     BOZO_check_array_begin(i_stuffing_byte, i_stuffing_length)
     BOZO_check_array_gen(i_stuffing_byte, i_stuffing_length)
     BOZO_CLEAN();
-  BOZO_end_array(i_stuffing_byte, ARRAY_SIZE(s_decoded.i_stuffing_byte))
+  BOZO_loop_array_end(i_stuffing_byte, ARRAY_SIZE(s_decoded.i_stuffing_byte))
+  BOZO_end_array
+
 
   BOZO_END(stuffing);
 
@@ -1120,12 +1138,15 @@ static int main_bouquet_name_(void)
 
   /* check i_char */
   BOZO_init_array(i_name_length);
-  BOZO_begin_array(i_char, i_name_length, 0)
+  BOZO_begin_array(i_char)
+  BOZO_loop_array_begin(i_char, i_name_length, 0)
     BOZO_DOJOB(BouquetName);
     BOZO_check_array_begin(i_char, i_name_length)
     BOZO_check_array_gen(i_char, i_name_length)
     BOZO_CLEAN();
-  BOZO_end_array(i_char, ARRAY_SIZE(s_decoded.i_char))
+  BOZO_loop_array_end(i_char, ARRAY_SIZE(s_decoded.i_char))
+  BOZO_end_array
+
 
   BOZO_END(bouquet name);
 
@@ -1153,12 +1174,15 @@ static int main_service_1(void)
   s_decoded.i_service_name_length = 0;
   BOZO_init_integer(i_service_type, 0);
   BOZO_init_array(i_service_provider_name_length);
-  BOZO_begin_array(i_service_provider_name, i_service_provider_name_length, 0)
+  BOZO_begin_array(i_service_provider_name)
+  BOZO_loop_array_begin(i_service_provider_name, i_service_provider_name_length, 0)
     BOZO_DOJOB(Service);
     BOZO_check_array_begin(i_service_provider_name, i_service_provider_name_length)
     BOZO_check_array_gen(i_service_provider_name, i_service_provider_name_length)
     BOZO_CLEAN();
-  BOZO_end_array(i_service_provider_name, ARRAY_SIZE(s_decoded.i_service_provider_name))
+  BOZO_loop_array_end(i_service_provider_name, ARRAY_SIZE(s_decoded.i_service_provider_name))
+  BOZO_end_array
+
 
   BOZO_END(service (i_service_provider_name));
 
@@ -1186,12 +1210,15 @@ static int main_service_2(void)
   s_decoded.i_service_provider_name_length = 0;
   BOZO_init_integer(i_service_type, 0);
   BOZO_init_array(i_service_name_length);
-  BOZO_begin_array(i_service_name, i_service_name_length, 0)
+  BOZO_begin_array(i_service_name)
+  BOZO_loop_array_begin(i_service_name, i_service_name_length, 0)
     BOZO_DOJOB(Service);
     BOZO_check_array_begin(i_service_name, i_service_name_length)
     BOZO_check_array_gen(i_service_name, i_service_name_length)
     BOZO_CLEAN();
-  BOZO_end_array(i_service_name, ARRAY_SIZE(s_decoded.i_service_name))
+  BOZO_loop_array_end(i_service_name, ARRAY_SIZE(s_decoded.i_service_name))
+  BOZO_end_array
+
 
   BOZO_END(service (i_service_name));
 
@@ -1221,23 +1248,29 @@ static int main_service_3(void)
   BOZO_init_integer(i_service_type, 0);
   BOZO_init_array(i_service_name_length);
   BOZO_init_array(i_service_provider_name_length);
-  BOZO_begin_array(i_service_name, i_service_name_length, 0)
+  BOZO_begin_array(i_service_name)
+  BOZO_loop_array_begin(i_service_name, i_service_name_length, 0)
     BOZO_DOJOB(Service);
     BOZO_check_array_begin(i_service_name, i_service_name_length)
     BOZO_check_array_gen(i_service_name, i_service_name_length)
     BOZO_CLEAN();
-  BOZO_end_array(i_service_name, 126)
+  BOZO_loop_array_end(i_service_name, 126)
+  BOZO_end_array
+
   /* check i_service_provider_name */
   s_decoded.i_service_provider_name_length = 0;
   BOZO_init_integer(i_service_type, 0);
   BOZO_init_array(i_service_name_length);
   BOZO_init_array(i_service_provider_name_length);
-  BOZO_begin_array(i_service_provider_name, i_service_provider_name_length, 0)
+  BOZO_begin_array(i_service_provider_name)
+  BOZO_loop_array_begin(i_service_provider_name, i_service_provider_name_length, 0)
     BOZO_DOJOB(Service);
     BOZO_check_array_begin(i_service_provider_name, i_service_provider_name_length)
     BOZO_check_array_gen(i_service_provider_name, i_service_provider_name_length)
     BOZO_CLEAN();
-  BOZO_end_array(i_service_provider_name, 126)
+  BOZO_loop_array_end(i_service_provider_name, 126)
+  BOZO_end_array
+
 
   BOZO_END(service (both names));
 
@@ -1297,12 +1330,15 @@ static int main_linkage_0(void)
   BOZO_init_integer(i_original_network_id, 0);
   BOZO_init_integer(i_service_id, 0);
   BOZO_init_array(i_private_data_length);
-  BOZO_begin_array(i_private_data, i_private_data_length, 0)
+  BOZO_begin_array(i_private_data)
+  BOZO_loop_array_begin(i_private_data, i_private_data_length, 0)
     BOZO_DOJOB(Linkage);
     BOZO_check_array_begin(i_private_data, i_private_data_length)
     BOZO_check_array_gen(i_private_data, i_private_data_length)
     BOZO_CLEAN();
-  BOZO_end_array(i_private_data, ARRAY_SIZE(s_decoded.i_private_data))
+  BOZO_loop_array_end(i_private_data, ARRAY_SIZE(s_decoded.i_private_data))
+  BOZO_end_array
+
 
   BOZO_END(linkage (information service));
 
@@ -1370,12 +1406,15 @@ static int main_linkage_1(void)
   BOZO_init_integer(i_original_network_id, 0);
   BOZO_init_integer(i_service_id, 0);
   BOZO_init_array(i_private_data_length);
-  BOZO_begin_array(i_private_data, i_private_data_length, 0)
+  BOZO_begin_array(i_private_data)
+  BOZO_loop_array_begin(i_private_data, i_private_data_length, 0)
     BOZO_DOJOB(Linkage);
     BOZO_check_array_begin(i_private_data, i_private_data_length)
     BOZO_check_array_gen(i_private_data, i_private_data_length)
     BOZO_CLEAN();
-  BOZO_end_array(i_private_data, 245)
+  BOZO_loop_array_end(i_private_data, 245)
+  BOZO_end_array
+
 
   BOZO_END(linkage (mobile handover, no extra data));
 
@@ -1463,12 +1502,15 @@ static int main_linkage_2(void)
   BOZO_init_integer(i_service_id, 0);
   BOZO_init_integer(i_network_id, 0);
   BOZO_init_array(i_private_data_length);
-  BOZO_begin_array(i_private_data, i_private_data_length, 0)
+  BOZO_begin_array(i_private_data)
+  BOZO_loop_array_begin(i_private_data, i_private_data_length, 0)
     BOZO_DOJOB(Linkage);
     BOZO_check_array_begin(i_private_data, i_private_data_length)
     BOZO_check_array_gen(i_private_data, i_private_data_length)
     BOZO_CLEAN();
-  BOZO_end_array(i_private_data, 243)
+  BOZO_loop_array_end(i_private_data, 243)
+  BOZO_end_array
+
 
   BOZO_END(linkage (mobile handover, extra network_id));
 
@@ -1556,12 +1598,15 @@ static int main_linkage_3(void)
   BOZO_init_integer(i_service_id, 0);
   BOZO_init_integer(i_initial_service_id, 0);
   BOZO_init_array(i_private_data_length);
-  BOZO_begin_array(i_private_data, i_private_data_length, 0)
+  BOZO_begin_array(i_private_data)
+  BOZO_loop_array_begin(i_private_data, i_private_data_length, 0)
     BOZO_DOJOB(Linkage);
     BOZO_check_array_begin(i_private_data, i_private_data_length)
     BOZO_check_array_gen(i_private_data, i_private_data_length)
     BOZO_CLEAN();
-  BOZO_end_array(i_private_data, 243)
+  BOZO_loop_array_end(i_private_data, 243)
+  BOZO_end_array
+
 
   BOZO_END(linkage (mobile handover, extra initial_service_id));
 
@@ -1671,12 +1716,15 @@ static int main_linkage_4(void)
   BOZO_init_integer(i_network_id, 0);
   BOZO_init_integer(i_initial_service_id, 0);
   BOZO_init_array(i_private_data_length);
-  BOZO_begin_array(i_private_data, i_private_data_length, 0)
+  BOZO_begin_array(i_private_data)
+  BOZO_loop_array_begin(i_private_data, i_private_data_length, 0)
     BOZO_DOJOB(Linkage);
     BOZO_check_array_begin(i_private_data, i_private_data_length)
     BOZO_check_array_gen(i_private_data, i_private_data_length)
     BOZO_CLEAN();
-  BOZO_end_array(i_private_data, 241)
+  BOZO_loop_array_end(i_private_data, 241)
+  BOZO_end_array
+
 
   BOZO_END(linkage (mobile handover, extra network_id and initial_service_id));
 
@@ -1796,12 +1844,15 @@ static int main_linkage_5(void)
   BOZO_init_boolean(b_target_listed, 0);
   BOZO_init_boolean(b_event_simulcast, 0);
   BOZO_init_array(i_private_data_length);
-  BOZO_begin_array(i_private_data, i_private_data_length, 0)
+  BOZO_begin_array(i_private_data)
+  BOZO_loop_array_begin(i_private_data, i_private_data_length, 0)
     BOZO_DOJOB(Linkage);
     BOZO_check_array_begin(i_private_data, i_private_data_length)
     BOZO_check_array_gen(i_private_data, i_private_data_length)
     BOZO_CLEAN();
-  BOZO_end_array(i_private_data, 242)
+  BOZO_loop_array_end(i_private_data, 242)
+  BOZO_end_array
+
 
   BOZO_END(linkage (event linkage));
 
@@ -1817,12 +1868,15 @@ static int main_nvod_ref_(void)
 
   /* check p_nvod_refs */
   BOZO_init_array(i_references);
-  BOZO_begin_array(p_nvod_refs, i_references, 1)
+  BOZO_begin_array(p_nvod_refs)
+  BOZO_loop_array_begin(p_nvod_refs, i_references, 1)
     BOZO_DOJOB(NVODReference);
     BOZO_check_array_begin(p_nvod_refs, i_references)
     BOZO_check_array_cmp(p_nvod_refs, i_references, dvbpsi_nvod_ref_t)
     BOZO_CLEAN();
-  BOZO_end_array(p_nvod_refs, ARRAY_SIZE(s_decoded.p_nvod_refs))
+  BOZO_loop_array_end(p_nvod_refs, ARRAY_SIZE(s_decoded.p_nvod_refs))
+  BOZO_end_array
+
 
   BOZO_END(Near Video On Demand reference);
 
@@ -1860,13 +1914,17 @@ static int main_short_event_0(void)
   /* check i_event_name */
   s_decoded.i_text_length = 0;
 
+  BOZO_fill_array(s_decoded.i_iso_639_code, sizeof(s_decoded.i_iso_639_code));
   BOZO_init_array(i_event_name_length);
-  BOZO_begin_array(i_event_name, i_event_name_length, 0)
+  BOZO_begin_array(i_event_name)
+  BOZO_loop_array_begin(i_event_name, i_event_name_length, 0)
     BOZO_DOJOB(ShortEvent);
     BOZO_check_array_begin(i_event_name, i_event_name_length)
     BOZO_check_array_gen(i_event_name, i_event_name_length)
     BOZO_CLEAN();
-  BOZO_end_array(i_event_name, 248)
+  BOZO_loop_array_end(i_event_name, 248)
+  BOZO_end_array
+
 
   BOZO_END(short event (event_name));
 
@@ -1884,12 +1942,15 @@ static int main_short_event_1(void)
   s_decoded.i_event_name_length = 0;
 
   BOZO_init_array(i_text_length);
-  BOZO_begin_array(i_text, i_text_length, 0)
+  BOZO_begin_array(i_text)
+  BOZO_loop_array_begin(i_text, i_text_length, 0)
     BOZO_DOJOB(ShortEvent);
     BOZO_check_array_begin(i_text, i_text_length)
     BOZO_check_array_gen(i_text, i_text_length)
     BOZO_CLEAN();
-  BOZO_end_array(i_text, 248)
+  BOZO_loop_array_end(i_text, 248)
+  BOZO_end_array
+
 
   BOZO_END(short event (i_text));
 
@@ -1906,21 +1967,27 @@ static int main_short_event_2(void)
   /* check i_text */
   BOZO_init_array(i_text_length);
   BOZO_init_array(i_event_name_length);
-  BOZO_begin_array(i_text, i_text_length, 0)
+  BOZO_begin_array(i_text)
+  BOZO_loop_array_begin(i_text, i_text_length, 0)
     BOZO_DOJOB(ShortEvent);
     BOZO_check_array_begin(i_text, i_text_length)
     BOZO_check_array_gen(i_text, i_text_length)
     BOZO_CLEAN();
-  BOZO_end_array(i_text, 124)
+  BOZO_loop_array_end(i_text, 124)
+  BOZO_end_array
+
   /* check i_event_name */
   BOZO_init_array(i_text_length);
   BOZO_init_array(i_event_name_length);
-  BOZO_begin_array(i_event_name, i_event_name_length, 0)
+  BOZO_begin_array(i_event_name)
+  BOZO_loop_array_begin(i_event_name, i_event_name_length, 0)
     BOZO_DOJOB(ShortEvent);
     BOZO_check_array_begin(i_event_name, i_event_name_length)
     BOZO_check_array_gen(i_event_name, i_event_name_length)
     BOZO_CLEAN();
-  BOZO_end_array(i_event_name, 124)
+  BOZO_loop_array_end(i_event_name, 124)
+  BOZO_end_array
+
 
   BOZO_END(short event (both));
 
