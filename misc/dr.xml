@@ -328,4 +328,8 @@
     <array name="p_system" len_name="i_number" min_size="1" type="dvbpsi_ca_system_t"/>
   </descriptor>
 
+  <descriptor name="content" sname="content" fname="Content">
+    <array name="p_content" len_name="i_contents_number" min_size="1" type="dvbpsi_content_t"/>
+  </descriptor>
+
 </dr>

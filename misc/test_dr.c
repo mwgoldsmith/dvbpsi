@@ -2105,6 +2105,30 @@ static int main_ca_identifier_(void)
   return i_err;
 }
 
+/* content */
+static int main_content_(void)
+{
+  BOZO_VARS(content);
+  BOZO_START(content);
+
+
+  /* check p_content */
+  BOZO_init_array(i_contents_number);
+  BOZO_begin_array(p_content)
+  BOZO_loop_array_begin(p_content, i_contents_number, 1)
+    BOZO_DOJOB(Content);
+    BOZO_check_array_begin(p_content, i_contents_number)
+    BOZO_check_array_cmp(p_content, i_contents_number, dvbpsi_content_t)
+    BOZO_CLEAN();
+  BOZO_loop_array_end(p_content, ARRAY_SIZE(s_decoded.p_content))
+  BOZO_end_array
+
+
+  BOZO_END(content);
+
+  return i_err;
+}
+
 
 /* main function */
 int main(void)
@@ -2155,6 +2179,7 @@ int main(void)
   i_err |= main_tshifted_ev_();
   i_err |= main_stream_identifier_();
   i_err |= main_ca_identifier_();
+  i_err |= main_content_();
 
   if(i_err)
     fprintf(stderr, "At least one test has FAILED !!!\n");

@@ -38,3 +38,11 @@ static int compare_dvbpsi_ca_system_t(const void *s1, const void *s2)
     else if(a->i_ca_system_id > b->i_ca_system_id) return 1;
     else return 0;
 }
+
+static int compare_dvbpsi_content_t(const void *s1, const void *s2)
+{
+    const dvbpsi_content_t *a = s1, *b = s2;
+    if(a->i_type < b->i_type || a->i_user_byte < b->i_user_byte) return -1;
+    else if(a->i_type > b->i_type || a->i_user_byte > b->i_user_byte) return 1;
+    else return 0;
+}
