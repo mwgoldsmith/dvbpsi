@@ -2225,6 +2225,247 @@ static int main_subtitling_(void)
   return i_err;
 }
 
+/* terrestial delivery system */
+static int main_terr_deliv_sys_(void)
+{
+  BOZO_VARS(terr_deliv_sys);
+  BOZO_START(terrestial delivery system);
+
+
+  /* check i_centre_frequency */
+  BOZO_init_integer(i_centre_frequency, 0);
+  BOZO_init_integer(i_bandwidth, 0);
+  BOZO_init_integer(i_priority, 0);
+  BOZO_init_integer(i_time_slice_indicator, 0);
+  BOZO_init_integer(i_mpe_fec_indicator, 0);
+  BOZO_init_integer(i_constellation, 0);
+  BOZO_init_integer(i_hierarchy_information, 0);
+  BOZO_init_integer(i_code_rate_hp_stream, 0);
+  BOZO_init_integer(i_code_rate_lp_stream, 0);
+  BOZO_init_integer(i_guard_interval, 0);
+  BOZO_init_integer(i_transmission_mode, 0);
+  BOZO_init_integer(i_other_frequency_flag, 0);
+  BOZO_begin_integer(i_centre_frequency, 32)
+    BOZO_DOJOB(TerrDelivSys);
+    BOZO_check_integer(i_centre_frequency, 32)
+    BOZO_CLEAN();
+  BOZO_end_integer(i_centre_frequency, 32)
+
+  /* check i_bandwidth */
+  BOZO_init_integer(i_centre_frequency, 0);
+  BOZO_init_integer(i_bandwidth, 0);
+  BOZO_init_integer(i_priority, 0);
+  BOZO_init_integer(i_time_slice_indicator, 0);
+  BOZO_init_integer(i_mpe_fec_indicator, 0);
+  BOZO_init_integer(i_constellation, 0);
+  BOZO_init_integer(i_hierarchy_information, 0);
+  BOZO_init_integer(i_code_rate_hp_stream, 0);
+  BOZO_init_integer(i_code_rate_lp_stream, 0);
+  BOZO_init_integer(i_guard_interval, 0);
+  BOZO_init_integer(i_transmission_mode, 0);
+  BOZO_init_integer(i_other_frequency_flag, 0);
+  BOZO_begin_integer(i_bandwidth, 3)
+    BOZO_DOJOB(TerrDelivSys);
+    BOZO_check_integer(i_bandwidth, 3)
+    BOZO_CLEAN();
+  BOZO_end_integer(i_bandwidth, 3)
+
+  /* check i_priority */
+  BOZO_init_integer(i_centre_frequency, 0);
+  BOZO_init_integer(i_bandwidth, 0);
+  BOZO_init_integer(i_priority, 0);
+  BOZO_init_integer(i_time_slice_indicator, 0);
+  BOZO_init_integer(i_mpe_fec_indicator, 0);
+  BOZO_init_integer(i_constellation, 0);
+  BOZO_init_integer(i_hierarchy_information, 0);
+  BOZO_init_integer(i_code_rate_hp_stream, 0);
+  BOZO_init_integer(i_code_rate_lp_stream, 0);
+  BOZO_init_integer(i_guard_interval, 0);
+  BOZO_init_integer(i_transmission_mode, 0);
+  BOZO_init_integer(i_other_frequency_flag, 0);
+  BOZO_begin_integer(i_priority, 1)
+    BOZO_DOJOB(TerrDelivSys);
+    BOZO_check_integer(i_priority, 1)
+    BOZO_CLEAN();
+  BOZO_end_integer(i_priority, 1)
+
+  /* check i_time_slice_indicator */
+  BOZO_init_integer(i_centre_frequency, 0);
+  BOZO_init_integer(i_bandwidth, 0);
+  BOZO_init_integer(i_priority, 0);
+  BOZO_init_integer(i_time_slice_indicator, 0);
+  BOZO_init_integer(i_mpe_fec_indicator, 0);
+  BOZO_init_integer(i_constellation, 0);
+  BOZO_init_integer(i_hierarchy_information, 0);
+  BOZO_init_integer(i_code_rate_hp_stream, 0);
+  BOZO_init_integer(i_code_rate_lp_stream, 0);
+  BOZO_init_integer(i_guard_interval, 0);
+  BOZO_init_integer(i_transmission_mode, 0);
+  BOZO_init_integer(i_other_frequency_flag, 0);
+  BOZO_begin_integer(i_time_slice_indicator, 1)
+    BOZO_DOJOB(TerrDelivSys);
+    BOZO_check_integer(i_time_slice_indicator, 1)
+    BOZO_CLEAN();
+  BOZO_end_integer(i_time_slice_indicator, 1)
+
+  /* check i_mpe_fec_indicator */
+  BOZO_init_integer(i_centre_frequency, 0);
+  BOZO_init_integer(i_bandwidth, 0);
+  BOZO_init_integer(i_priority, 0);
+  BOZO_init_integer(i_time_slice_indicator, 0);
+  BOZO_init_integer(i_mpe_fec_indicator, 0);
+  BOZO_init_integer(i_constellation, 0);
+  BOZO_init_integer(i_hierarchy_information, 0);
+  BOZO_init_integer(i_code_rate_hp_stream, 0);
+  BOZO_init_integer(i_code_rate_lp_stream, 0);
+  BOZO_init_integer(i_guard_interval, 0);
+  BOZO_init_integer(i_transmission_mode, 0);
+  BOZO_init_integer(i_other_frequency_flag, 0);
+  BOZO_begin_integer(i_mpe_fec_indicator, 1)
+    BOZO_DOJOB(TerrDelivSys);
+    BOZO_check_integer(i_mpe_fec_indicator, 1)
+    BOZO_CLEAN();
+  BOZO_end_integer(i_mpe_fec_indicator, 1)
+
+  /* check i_constellation */
+  BOZO_init_integer(i_centre_frequency, 0);
+  BOZO_init_integer(i_bandwidth, 0);
+  BOZO_init_integer(i_priority, 0);
+  BOZO_init_integer(i_time_slice_indicator, 0);
+  BOZO_init_integer(i_mpe_fec_indicator, 0);
+  BOZO_init_integer(i_constellation, 0);
+  BOZO_init_integer(i_hierarchy_information, 0);
+  BOZO_init_integer(i_code_rate_hp_stream, 0);
+  BOZO_init_integer(i_code_rate_lp_stream, 0);
+  BOZO_init_integer(i_guard_interval, 0);
+  BOZO_init_integer(i_transmission_mode, 0);
+  BOZO_init_integer(i_other_frequency_flag, 0);
+  BOZO_begin_integer(i_constellation, 2)
+    BOZO_DOJOB(TerrDelivSys);
+    BOZO_check_integer(i_constellation, 2)
+    BOZO_CLEAN();
+  BOZO_end_integer(i_constellation, 2)
+
+  /* check i_hierarchy_information */
+  BOZO_init_integer(i_centre_frequency, 0);
+  BOZO_init_integer(i_bandwidth, 0);
+  BOZO_init_integer(i_priority, 0);
+  BOZO_init_integer(i_time_slice_indicator, 0);
+  BOZO_init_integer(i_mpe_fec_indicator, 0);
+  BOZO_init_integer(i_constellation, 0);
+  BOZO_init_integer(i_hierarchy_information, 0);
+  BOZO_init_integer(i_code_rate_hp_stream, 0);
+  BOZO_init_integer(i_code_rate_lp_stream, 0);
+  BOZO_init_integer(i_guard_interval, 0);
+  BOZO_init_integer(i_transmission_mode, 0);
+  BOZO_init_integer(i_other_frequency_flag, 0);
+  BOZO_begin_integer(i_hierarchy_information, 3)
+    BOZO_DOJOB(TerrDelivSys);
+    BOZO_check_integer(i_hierarchy_information, 3)
+    BOZO_CLEAN();
+  BOZO_end_integer(i_hierarchy_information, 3)
+
+  /* check i_code_rate_hp_stream */
+  BOZO_init_integer(i_centre_frequency, 0);
+  BOZO_init_integer(i_bandwidth, 0);
+  BOZO_init_integer(i_priority, 0);
+  BOZO_init_integer(i_time_slice_indicator, 0);
+  BOZO_init_integer(i_mpe_fec_indicator, 0);
+  BOZO_init_integer(i_constellation, 0);
+  BOZO_init_integer(i_hierarchy_information, 0);
+  BOZO_init_integer(i_code_rate_hp_stream, 0);
+  BOZO_init_integer(i_code_rate_lp_stream, 0);
+  BOZO_init_integer(i_guard_interval, 0);
+  BOZO_init_integer(i_transmission_mode, 0);
+  BOZO_init_integer(i_other_frequency_flag, 0);
+  BOZO_begin_integer(i_code_rate_hp_stream, 3)
+    BOZO_DOJOB(TerrDelivSys);
+    BOZO_check_integer(i_code_rate_hp_stream, 3)
+    BOZO_CLEAN();
+  BOZO_end_integer(i_code_rate_hp_stream, 3)
+
+  /* check i_code_rate_lp_stream */
+  BOZO_init_integer(i_centre_frequency, 0);
+  BOZO_init_integer(i_bandwidth, 0);
+  BOZO_init_integer(i_priority, 0);
+  BOZO_init_integer(i_time_slice_indicator, 0);
+  BOZO_init_integer(i_mpe_fec_indicator, 0);
+  BOZO_init_integer(i_constellation, 0);
+  BOZO_init_integer(i_hierarchy_information, 0);
+  BOZO_init_integer(i_code_rate_hp_stream, 0);
+  BOZO_init_integer(i_code_rate_lp_stream, 0);
+  BOZO_init_integer(i_guard_interval, 0);
+  BOZO_init_integer(i_transmission_mode, 0);
+  BOZO_init_integer(i_other_frequency_flag, 0);
+  BOZO_begin_integer(i_code_rate_lp_stream, 3)
+    BOZO_DOJOB(TerrDelivSys);
+    BOZO_check_integer(i_code_rate_lp_stream, 3)
+    BOZO_CLEAN();
+  BOZO_end_integer(i_code_rate_lp_stream, 3)
+
+  /* check i_guard_interval */
+  BOZO_init_integer(i_centre_frequency, 0);
+  BOZO_init_integer(i_bandwidth, 0);
+  BOZO_init_integer(i_priority, 0);
+  BOZO_init_integer(i_time_slice_indicator, 0);
+  BOZO_init_integer(i_mpe_fec_indicator, 0);
+  BOZO_init_integer(i_constellation, 0);
+  BOZO_init_integer(i_hierarchy_information, 0);
+  BOZO_init_integer(i_code_rate_hp_stream, 0);
+  BOZO_init_integer(i_code_rate_lp_stream, 0);
+  BOZO_init_integer(i_guard_interval, 0);
+  BOZO_init_integer(i_transmission_mode, 0);
+  BOZO_init_integer(i_other_frequency_flag, 0);
+  BOZO_begin_integer(i_guard_interval, 2)
+    BOZO_DOJOB(TerrDelivSys);
+    BOZO_check_integer(i_guard_interval, 2)
+    BOZO_CLEAN();
+  BOZO_end_integer(i_guard_interval, 2)
+
+  /* check i_transmission_mode */
+  BOZO_init_integer(i_centre_frequency, 0);
+  BOZO_init_integer(i_bandwidth, 0);
+  BOZO_init_integer(i_priority, 0);
+  BOZO_init_integer(i_time_slice_indicator, 0);
+  BOZO_init_integer(i_mpe_fec_indicator, 0);
+  BOZO_init_integer(i_constellation, 0);
+  BOZO_init_integer(i_hierarchy_information, 0);
+  BOZO_init_integer(i_code_rate_hp_stream, 0);
+  BOZO_init_integer(i_code_rate_lp_stream, 0);
+  BOZO_init_integer(i_guard_interval, 0);
+  BOZO_init_integer(i_transmission_mode, 0);
+  BOZO_init_integer(i_other_frequency_flag, 0);
+  BOZO_begin_integer(i_transmission_mode, 2)
+    BOZO_DOJOB(TerrDelivSys);
+    BOZO_check_integer(i_transmission_mode, 2)
+    BOZO_CLEAN();
+  BOZO_end_integer(i_transmission_mode, 2)
+
+  /* check i_other_frequency_flag */
+  BOZO_init_integer(i_centre_frequency, 0);
+  BOZO_init_integer(i_bandwidth, 0);
+  BOZO_init_integer(i_priority, 0);
+  BOZO_init_integer(i_time_slice_indicator, 0);
+  BOZO_init_integer(i_mpe_fec_indicator, 0);
+  BOZO_init_integer(i_constellation, 0);
+  BOZO_init_integer(i_hierarchy_information, 0);
+  BOZO_init_integer(i_code_rate_hp_stream, 0);
+  BOZO_init_integer(i_code_rate_lp_stream, 0);
+  BOZO_init_integer(i_guard_interval, 0);
+  BOZO_init_integer(i_transmission_mode, 0);
+  BOZO_init_integer(i_other_frequency_flag, 0);
+  BOZO_begin_integer(i_other_frequency_flag, 1)
+    BOZO_DOJOB(TerrDelivSys);
+    BOZO_check_integer(i_other_frequency_flag, 1)
+    BOZO_CLEAN();
+  BOZO_end_integer(i_other_frequency_flag, 1)
+
+
+  BOZO_END(terrestial delivery system);
+
+  return i_err;
+}
+
 
 /* main function */
 int main(void)
@@ -2280,6 +2521,7 @@ int main(void)
   i_err |= main_teletext_();
   i_err |= main_local_time_offset_();
   i_err |= main_subtitling_();
+  i_err |= main_terr_deliv_sys_();
 
   if(i_err)
     fprintf(stderr, "At least one test has FAILED !!!\n");

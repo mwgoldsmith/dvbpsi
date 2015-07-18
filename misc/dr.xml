@@ -348,4 +348,19 @@
     <array name="p_subtitle" len_name="i_subtitles_number" min_size="1" type="dvbpsi_subtitle_t"/>
   </descriptor>
 
+  <descriptor name="terrestial delivery system" sname="terr_deliv_sys" fname="TerrDelivSys">
+    <integer name="i_centre_frequency" bitcount="32" default="0"/>
+    <integer name="i_bandwidth" bitcount="3" default="0"/>
+    <integer name="i_priority" bitcount="1" default="0"/>
+    <integer name="i_time_slice_indicator" bitcount="1" default="0"/>
+    <integer name="i_mpe_fec_indicator" bitcount="1" default="0"/>
+    <integer name="i_constellation" bitcount="2" default="0"/>
+    <integer name="i_hierarchy_information" bitcount="3" default="0"/>
+    <integer name="i_code_rate_hp_stream" bitcount="3" default="0"/>
+    <integer name="i_code_rate_lp_stream" bitcount="3" default="0"/>
+    <integer name="i_guard_interval" bitcount="2" default="0"/>
+    <integer name="i_transmission_mode" bitcount="2" default="0"/>
+    <integer name="i_other_frequency_flag" bitcount="1" default="0"/>
+  </descriptor>
+
 </dr>
