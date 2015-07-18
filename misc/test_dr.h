@@ -129,6 +129,11 @@
 #define BOZO_init_array(len_name)                                       \
   s_decoded.len_name = 0;
 
+static void BOZO_fill_array(void *a, size_t len)
+{
+  for(size_t i = 0 ; i < len ; ++i) ((uint8_t*)a)[i] = rand();
+}
+
 #define BOZO_begin_array(name, len_name, min_size)                      \
   if(!i_err)                                                            \
   {                                                                     \
@@ -136,8 +141,7 @@
     i_loop_count = min_size;                                            \
     do                                                                  \
     {                                                                   \
-      for(size_t i = 0 ; i < sizeof(s_decoded.name) ; ++i)              \
-        ((uint8_t*)s_decoded.name)[i] = rand();                         \
+      BOZO_fill_array(s_decoded.name, sizeof(s_decoded.name));          \
       s_decoded.len_name = i_loop_count;
 
 #define BOZO_end_array(name, max_len)                                   \
