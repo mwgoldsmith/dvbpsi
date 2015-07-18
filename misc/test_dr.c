@@ -2201,6 +2201,30 @@ static int main_local_time_offset_(void)
   return i_err;
 }
 
+/* subtitling */
+static int main_subtitling_(void)
+{
+  BOZO_VARS(subtitling);
+  BOZO_START(subtitling);
+
+
+  /* check p_subtitle */
+  BOZO_init_array(i_subtitles_number);
+  BOZO_begin_array(p_subtitle)
+  BOZO_loop_array_begin(p_subtitle, i_subtitles_number, 1)
+    BOZO_DOJOB(Subtitling);
+    BOZO_check_array_begin(p_subtitle, i_subtitles_number)
+    BOZO_check_array_cmp(p_subtitle, i_subtitles_number, dvbpsi_subtitle_t)
+    BOZO_CLEAN();
+  BOZO_loop_array_end(p_subtitle, ARRAY_SIZE(s_decoded.p_subtitle))
+  BOZO_end_array
+
+
+  BOZO_END(subtitling);
+
+  return i_err;
+}
+
 
 /* main function */
 int main(void)
@@ -2255,6 +2279,7 @@ int main(void)
   i_err |= main_parental_rating_();
   i_err |= main_teletext_();
   i_err |= main_local_time_offset_();
+  i_err |= main_subtitling_();
 
   if(i_err)
     fprintf(stderr, "At least one test has FAILED !!!\n");

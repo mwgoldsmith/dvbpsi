@@ -95,3 +95,18 @@ static int compare_dvbpsi_local_time_offset_t(const void *s1, const void *s2)
         return 1;
     else return 0;
 }
+
+static int compare_dvbpsi_subtitle_t(const void *s1, const void *s2)
+{
+    const dvbpsi_subtitle_t *a = s1, *b = s2;
+    int iso_cmp = memcmp(a->i_iso6392_language_code, b->i_iso6392_language_code,
+        sizeof(a->i_iso6392_language_code));
+
+    if(iso_cmp < 0 || a->i_subtitling_type < b->i_subtitling_type ||
+        a->i_composition_page_id < b->i_composition_page_id ||
+        a->i_ancillary_page_id < b->i_ancillary_page_id) return -1;
+    else if(iso_cmp > 0 || a->i_subtitling_type > b->i_subtitling_type ||
+        a->i_composition_page_id > b->i_composition_page_id ||
+        a->i_ancillary_page_id > b->i_ancillary_page_id) return 1;
+    else return 0;
+}
