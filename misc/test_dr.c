@@ -449,6 +449,7 @@ static int main_ca_(void)
   s_decoded.i_private_length = 0;
   BOZO_init_integer(i_ca_system_id, 0);
   BOZO_init_integer(i_ca_pid, 0);
+  BOZO_init_array(i_private_length);
   BOZO_begin_integer(i_ca_system_id, 16)
     BOZO_DOJOB(CA);
     BOZO_check_integer(i_ca_system_id, 16)
@@ -459,6 +460,7 @@ static int main_ca_(void)
   s_decoded.i_private_length = 0;
   BOZO_init_integer(i_ca_system_id, 0);
   BOZO_init_integer(i_ca_pid, 0);
+  BOZO_init_array(i_private_length);
   BOZO_begin_integer(i_ca_pid, 13)
     BOZO_DOJOB(CA);
     BOZO_check_integer(i_ca_pid, 13)
@@ -469,6 +471,7 @@ static int main_ca_(void)
   s_decoded.i_private_length = 0;
   BOZO_init_integer(i_ca_system_id, 0);
   BOZO_init_integer(i_ca_pid, 0);
+  BOZO_init_array(i_private_length);
   BOZO_begin_array(i_private_data, i_private_length, 0)
     BOZO_DOJOB(CA);
     BOZO_check_array_begin(i_private_data, i_private_length)
@@ -489,6 +492,7 @@ static int main_iso639_(void)
 
 
   /* check code */
+  BOZO_init_array(i_code_count);
   BOZO_begin_array(code, i_code_count, 1)
     BOZO_DOJOB(ISO639);
     BOZO_check_array_begin(code, i_code_count)
@@ -597,6 +601,7 @@ static int main_copyright_(void)
   /* check i_copyright_identifier */
   s_decoded.i_additional_length = 0;
   BOZO_init_integer(i_copyright_identifier, 0);
+  BOZO_init_array(i_additional_length);
   BOZO_begin_integer(i_copyright_identifier, 32)
     BOZO_DOJOB(Copyright);
     BOZO_check_integer(i_copyright_identifier, 32)
@@ -606,6 +611,7 @@ static int main_copyright_(void)
   /* check i_additional_info */
   s_decoded.i_additional_length = 0;
   BOZO_init_integer(i_copyright_identifier, 0);
+  BOZO_init_array(i_additional_length);
   BOZO_begin_array(i_additional_info, i_additional_length, 0)
     BOZO_DOJOB(Copyright);
     BOZO_check_array_begin(i_additional_info, i_additional_length)
@@ -820,6 +826,7 @@ static int main_network_name_(void)
 
 
   /* check i_name_byte */
+  BOZO_init_array(i_name_length);
   BOZO_begin_array(i_name_byte, i_name_length, 0)
     BOZO_DOJOB(NetworkName);
     BOZO_check_array_begin(i_name_byte, i_name_length)
@@ -840,6 +847,7 @@ static int main_service_list_(void)
 
 
   /* check i_service */
+  BOZO_init_array(i_service_count);
   BOZO_begin_array(i_service, i_service_count, 1)
     BOZO_DOJOB(ServiceList);
     BOZO_check_array_begin(i_service, i_service_count)
@@ -860,6 +868,7 @@ static int main_stuffing_(void)
 
 
   /* check i_stuffing_byte */
+  BOZO_init_array(i_stuffing_length);
   BOZO_begin_array(i_stuffing_byte, i_stuffing_length, 0)
     BOZO_DOJOB(Stuffing);
     BOZO_check_array_begin(i_stuffing_byte, i_stuffing_length)
@@ -1110,6 +1119,7 @@ static int main_bouquet_name_(void)
 
 
   /* check i_char */
+  BOZO_init_array(i_name_length);
   BOZO_begin_array(i_char, i_name_length, 0)
     BOZO_DOJOB(BouquetName);
     BOZO_check_array_begin(i_char, i_name_length)
@@ -1132,6 +1142,7 @@ static int main_service_1(void)
   /* check i_service_type */
   s_decoded.i_service_name_length = 0;
   BOZO_init_integer(i_service_type, 0);
+  BOZO_init_array(i_service_provider_name_length);
   BOZO_begin_integer(i_service_type, 8)
     BOZO_DOJOB(Service);
     BOZO_check_integer(i_service_type, 8)
@@ -1141,6 +1152,7 @@ static int main_service_1(void)
   /* check i_service_provider_name */
   s_decoded.i_service_name_length = 0;
   BOZO_init_integer(i_service_type, 0);
+  BOZO_init_array(i_service_provider_name_length);
   BOZO_begin_array(i_service_provider_name, i_service_provider_name_length, 0)
     BOZO_DOJOB(Service);
     BOZO_check_array_begin(i_service_provider_name, i_service_provider_name_length)
@@ -1163,6 +1175,7 @@ static int main_service_2(void)
   /* check i_service_type */
   s_decoded.i_service_provider_name_length = 0;
   BOZO_init_integer(i_service_type, 0);
+  BOZO_init_array(i_service_name_length);
   BOZO_begin_integer(i_service_type, 8)
     BOZO_DOJOB(Service);
     BOZO_check_integer(i_service_type, 8)
@@ -1172,6 +1185,7 @@ static int main_service_2(void)
   /* check i_service_name */
   s_decoded.i_service_provider_name_length = 0;
   BOZO_init_integer(i_service_type, 0);
+  BOZO_init_array(i_service_name_length);
   BOZO_begin_array(i_service_name, i_service_name_length, 0)
     BOZO_DOJOB(Service);
     BOZO_check_array_begin(i_service_name, i_service_name_length)
@@ -1194,6 +1208,8 @@ static int main_service_3(void)
   /* check i_service_type */
   s_decoded.i_service_provider_name_length = 0;
   BOZO_init_integer(i_service_type, 0);
+  BOZO_init_array(i_service_name_length);
+  BOZO_init_array(i_service_provider_name_length);
   BOZO_begin_integer(i_service_type, 8)
     BOZO_DOJOB(Service);
     BOZO_check_integer(i_service_type, 8)
@@ -1203,6 +1219,8 @@ static int main_service_3(void)
   /* check i_service_name */
   s_decoded.i_service_provider_name_length = 0;
   BOZO_init_integer(i_service_type, 0);
+  BOZO_init_array(i_service_name_length);
+  BOZO_init_array(i_service_provider_name_length);
   BOZO_begin_array(i_service_name, i_service_name_length, 0)
     BOZO_DOJOB(Service);
     BOZO_check_array_begin(i_service_name, i_service_name_length)
@@ -1212,6 +1230,8 @@ static int main_service_3(void)
   /* check i_service_provider_name */
   s_decoded.i_service_provider_name_length = 0;
   BOZO_init_integer(i_service_type, 0);
+  BOZO_init_array(i_service_name_length);
+  BOZO_init_array(i_service_provider_name_length);
   BOZO_begin_array(i_service_provider_name, i_service_provider_name_length, 0)
     BOZO_DOJOB(Service);
     BOZO_check_array_begin(i_service_provider_name, i_service_provider_name_length)
@@ -1237,6 +1257,7 @@ static int main_linkage_0(void)
   BOZO_init_integer(i_transport_stream_id, 0);
   BOZO_init_integer(i_original_network_id, 0);
   BOZO_init_integer(i_service_id, 0);
+  BOZO_init_array(i_private_data_length);
   BOZO_begin_integer(i_transport_stream_id, 16)
     BOZO_DOJOB(Linkage);
     BOZO_check_integer(i_transport_stream_id, 16)
@@ -1249,6 +1270,7 @@ static int main_linkage_0(void)
   BOZO_init_integer(i_transport_stream_id, 0);
   BOZO_init_integer(i_original_network_id, 0);
   BOZO_init_integer(i_service_id, 0);
+  BOZO_init_array(i_private_data_length);
   BOZO_begin_integer(i_original_network_id, 16)
     BOZO_DOJOB(Linkage);
     BOZO_check_integer(i_original_network_id, 16)
@@ -1261,6 +1283,7 @@ static int main_linkage_0(void)
   BOZO_init_integer(i_transport_stream_id, 0);
   BOZO_init_integer(i_original_network_id, 0);
   BOZO_init_integer(i_service_id, 0);
+  BOZO_init_array(i_private_data_length);
   BOZO_begin_integer(i_service_id, 16)
     BOZO_DOJOB(Linkage);
     BOZO_check_integer(i_service_id, 16)
@@ -1273,6 +1296,7 @@ static int main_linkage_0(void)
   BOZO_init_integer(i_transport_stream_id, 0);
   BOZO_init_integer(i_original_network_id, 0);
   BOZO_init_integer(i_service_id, 0);
+  BOZO_init_array(i_private_data_length);
   BOZO_begin_array(i_private_data, i_private_data_length, 0)
     BOZO_DOJOB(Linkage);
     BOZO_check_array_begin(i_private_data, i_private_data_length)
@@ -1300,6 +1324,7 @@ static int main_linkage_1(void)
   BOZO_init_integer(i_transport_stream_id, 0);
   BOZO_init_integer(i_original_network_id, 0);
   BOZO_init_integer(i_service_id, 0);
+  BOZO_init_array(i_private_data_length);
   BOZO_begin_integer(i_transport_stream_id, 16)
     BOZO_DOJOB(Linkage);
     BOZO_check_integer(i_transport_stream_id, 16)
@@ -1314,6 +1339,7 @@ static int main_linkage_1(void)
   BOZO_init_integer(i_transport_stream_id, 0);
   BOZO_init_integer(i_original_network_id, 0);
   BOZO_init_integer(i_service_id, 0);
+  BOZO_init_array(i_private_data_length);
   BOZO_begin_integer(i_original_network_id, 16)
     BOZO_DOJOB(Linkage);
     BOZO_check_integer(i_original_network_id, 16)
@@ -1328,6 +1354,7 @@ static int main_linkage_1(void)
   BOZO_init_integer(i_transport_stream_id, 0);
   BOZO_init_integer(i_original_network_id, 0);
   BOZO_init_integer(i_service_id, 0);
+  BOZO_init_array(i_private_data_length);
   BOZO_begin_integer(i_service_id, 16)
     BOZO_DOJOB(Linkage);
     BOZO_check_integer(i_service_id, 16)
@@ -1342,6 +1369,7 @@ static int main_linkage_1(void)
   BOZO_init_integer(i_transport_stream_id, 0);
   BOZO_init_integer(i_original_network_id, 0);
   BOZO_init_integer(i_service_id, 0);
+  BOZO_init_array(i_private_data_length);
   BOZO_begin_array(i_private_data, i_private_data_length, 0)
     BOZO_DOJOB(Linkage);
     BOZO_check_array_begin(i_private_data, i_private_data_length)

@@ -126,6 +126,9 @@
 #define ARRAY_SIZE(x) (sizeof(x)/sizeof(x[0]))
 
 /* array */
+#define BOZO_init_array(len_name)                                       \
+  s_decoded.len_name = 0;
+
 #define BOZO_begin_array(name, len_name, min_size)                      \
   if(!i_err)                                                            \
   {                                                                     \
