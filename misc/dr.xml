@@ -315,4 +315,9 @@
     <array name="i_event_name" len_name="i_event_name_length" min_size="0" max_size="124" />
   </descriptor>
 
+  <descriptor name="time shifted event" sname="tshifted_ev" fname="TimeShiftedEvent">
+    <integer name="i_ref_service_id" bitcount="16" default="0"/>
+    <integer name="i_ref_event_id" bitcount="16" default="0"/>
+  </descriptor>
+
 </dr>

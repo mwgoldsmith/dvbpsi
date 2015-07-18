@@ -2029,6 +2029,37 @@ static int main_short_event_2(void)
   return i_err;
 }
 
+/* time shifted event */
+static int main_tshifted_ev_(void)
+{
+  BOZO_VARS(tshifted_ev);
+  BOZO_START(time shifted event);
+
+
+  /* check i_ref_service_id */
+  BOZO_init_integer(i_ref_service_id, 0);
+  BOZO_init_integer(i_ref_event_id, 0);
+  BOZO_begin_integer(i_ref_service_id, 16)
+    BOZO_DOJOB(TimeShiftedEvent);
+    BOZO_check_integer(i_ref_service_id, 16)
+    BOZO_CLEAN();
+  BOZO_end_integer(i_ref_service_id, 16)
+
+  /* check i_ref_event_id */
+  BOZO_init_integer(i_ref_service_id, 0);
+  BOZO_init_integer(i_ref_event_id, 0);
+  BOZO_begin_integer(i_ref_event_id, 16)
+    BOZO_DOJOB(TimeShiftedEvent);
+    BOZO_check_integer(i_ref_event_id, 16)
+    BOZO_CLEAN();
+  BOZO_end_integer(i_ref_event_id, 16)
+
+
+  BOZO_END(time shifted event);
+
+  return i_err;
+}
+
 
 /* main function */
 int main(void)
@@ -2076,6 +2107,7 @@ int main(void)
   i_err |= main_short_event_0();
   i_err |= main_short_event_1();
   i_err |= main_short_event_2();
+  i_err |= main_tshifted_ev_();
 
   if(i_err)
     fprintf(stderr, "At least one test has FAILED !!!\n");
