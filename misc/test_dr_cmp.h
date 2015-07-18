@@ -72,3 +72,26 @@ static int compare_dvbpsi_teletextpage_t(const void *s1, const void *s2)
         a->i_teletext_page_number > b->i_teletext_page_number) return 1;
     else return 0;
 }
+
+static int compare_dvbpsi_local_time_offset_t(const void *s1, const void *s2)
+{
+    const dvbpsi_local_time_offset_t *a = s1, *b = s2;
+    int iso_cmp = memcmp(a->i_country_code, b->i_country_code,
+        sizeof(a->i_country_code));
+    uint8_t a_cr_id = (a->i_country_region_id & 0x3f),
+        a_ltop = (a->i_local_time_offset_polarity & 1),
+        b_cr_id = (b->i_country_region_id & 0x3f),
+        b_ltop = (b->i_local_time_offset_polarity & 1);
+    uint64_t a_toc = (a->i_time_of_change & 0xffffffffff),
+        b_toc = (b->i_time_of_change & 0xffffffffff);
+
+    if(iso_cmp < 0 || a_cr_id < b_cr_id || a_ltop < b_ltop ||
+        a->i_local_time_offset < b->i_local_time_offset ||
+        a_toc < b_toc || a->i_next_time_offset < b->i_next_time_offset)
+        return -1;
+    else if(iso_cmp > 0 || a_cr_id > b_cr_id || a_ltop > b_ltop ||
+        a->i_local_time_offset > b->i_local_time_offset ||
+        a_toc > b_toc || a->i_next_time_offset > b->i_next_time_offset)
+        return 1;
+    else return 0;
+}

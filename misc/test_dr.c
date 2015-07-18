@@ -2177,6 +2177,30 @@ static int main_teletext_(void)
   return i_err;
 }
 
+/* local time offset */
+static int main_local_time_offset_(void)
+{
+  BOZO_VARS(local_time_offset);
+  BOZO_START(local time offset);
+
+
+  /* check p_local_time_offset */
+  BOZO_init_array(i_local_time_offsets_number);
+  BOZO_begin_array(p_local_time_offset)
+  BOZO_loop_array_begin(p_local_time_offset, i_local_time_offsets_number, 1)
+    BOZO_DOJOB(LocalTimeOffset);
+    BOZO_check_array_begin(p_local_time_offset, i_local_time_offsets_number)
+    BOZO_check_array_cmp(p_local_time_offset, i_local_time_offsets_number, dvbpsi_local_time_offset_t)
+    BOZO_CLEAN();
+  BOZO_loop_array_end(p_local_time_offset, ARRAY_SIZE(s_decoded.p_local_time_offset))
+  BOZO_end_array
+
+
+  BOZO_END(local time offset);
+
+  return i_err;
+}
+
 
 /* main function */
 int main(void)
@@ -2230,6 +2254,7 @@ int main(void)
   i_err |= main_content_();
   i_err |= main_parental_rating_();
   i_err |= main_teletext_();
+  i_err |= main_local_time_offset_();
 
   if(i_err)
     fprintf(stderr, "At least one test has FAILED !!!\n");
