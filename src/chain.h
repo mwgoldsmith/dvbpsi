@@ -81,10 +81,6 @@ bool dvbpsi_decoder_chain_del(dvbpsi_t *p_dvbpsi, const dvbpsi_decoder_t *p_deco
  */
 dvbpsi_decoder_t *dvbpsi_decoder_chain_get(dvbpsi_t *p_dvbpsi, const uint16_t table_id, const uint16_t extension);
 
-#if 0 /* debug code */
-void dvbpsi_decoder_chain_dump(dvbpsi_t *p_dvbpsi);
-#endif
-
 #ifdef __cplusplus
 };
 #endif

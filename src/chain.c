@@ -95,23 +95,19 @@ bool dvbpsi_decoder_chain_del(dvbpsi_t *p_dvbpsi, const dvbpsi_decoder_t *p_deco
 {
     if (!p_decoder) return false;
 
-    dvbpsi_decoder_t *p = (dvbpsi_decoder_t *)p_dvbpsi->p_decoder;
-    dvbpsi_decoder_t *last = NULL;
-    while (p) {
-        if ((p_decoder->i_table_id == p->i_table_id) &&
-            (p_decoder->i_extension == p->i_extension)) {
-            assert(p == p_decoder);
-            if (last == NULL)
-                p_dvbpsi->p_decoder = p->p_next;
-            else
-                last->p_next = p->p_next;
+    dvbpsi_decoder_t **pp_prev = &p_dvbpsi->p_decoder;
+    while (pp_prev) {
+        if ((p_decoder->i_table_id == (*pp_prev)->i_table_id) &&
+            (p_decoder->i_extension == (*pp_prev)->i_extension)) {
+            *pp_prev = p_decoder->p_next;
             /* NOTE: caller must call dvbpsi_decoder_delete(p_decoder) */
             return true;
         }
-        last = p;
-        p = p->p_next;
+        pp_prev = &(*pp_prev)->p_next;
     }
-    dvbpsi_warning(p_dvbpsi, "chain", "decoder not found");
+
+    dvbpsi_warning(p_dvbpsi, "chain", "decoder (table id: %u, extension: %u) not found",
+                   p_decoder->i_table_id, p_decoder->i_extension);
     return false;
 }
 
@@ -134,14 +130,3 @@ dvbpsi_decoder_t *dvbpsi_decoder_chain_get(dvbpsi_t *p_dvbpsi, const uint16_t ta
     return NULL;
 }
 
-#if 0 /* debug */
-void dvbpsi_decoder_chain_dump(dvbpsi_t *p_dvbpsi)
-{
-    dvbpsi_decoder_t *p = (dvbpsi_decoder_t *)p_dvbpsi->p_decoder;
-    while (p) {
-        dvbpsi_debug(p_dvbpsi, "dump chain", "found decoder %d:%d",
-                     p->i_table_id, p->i_extension);
-        p = p->p_next;
-    }
-}
-#endif

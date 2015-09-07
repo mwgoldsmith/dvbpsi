@@ -52,6 +52,20 @@
 #define TEST_PASSED(msg) fprintf(stderr, "test %s -- PASSED\n", (msg));
 #define TEST_FAILED(msg) fprintf(stderr, "test %s -- FAILED\n", (msg));
 
+/* debug */
+//#define _TEST_CHAIN_DEBUG
+#ifdef _TEST_CHAIN_DEBUG /* debug */
+static void dvbpsi_decoder_chain_dump(dvbpsi_t *p_dvbpsi)
+{
+    dvbpsi_decoder_t *p = (dvbpsi_decoder_t *)p_dvbpsi->p_decoder;
+    while (p) {
+        dvbpsi_debug(p_dvbpsi, "dump chain", "found decoder %d:%d",
+                     p->i_table_id, p->i_extension);
+        p = p->p_next;
+    }
+}
+#endif
+
 static void message(dvbpsi_t *handle, const dvbpsi_msg_level_t level, const char* msg)
 {
     switch(level)
@@ -208,6 +222,10 @@ int main(int i_argc, char* pa_argv[])
   }
   TEST_PASSED("dvbpsi_decoder_chain_add with extensions");
 
+#ifdef _TEST_CHAIN_DEBUG
+  dvbpsi_decoder_chain_dump(p_dvbpsi);
+#endif
+
   /* Test dvbpsi_decoder_chain_del() */
   if (!chain_release(p_dvbpsi, CHAIN_DECODERS)) {
       TEST_FAILED("dvbpsi_decoder_chain_del");
@@ -224,8 +242,6 @@ int main(int i_argc, char* pa_argv[])
   }
   TEST_PASSED("dvbpsi_decoder_chain_del with extensions");
 
-  //dvbpsi_decoder_chain_dump(p_dvbpsi);
-  assert(!p_dvbpsi->p_decoder);
   p_dvbpsi->p_decoder = NULL;
   dvbpsi_delete(p_dvbpsi);
   fprintf(stderr, "ALL CHAIN TESTS PASSED\n");
