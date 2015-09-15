@@ -43,6 +43,7 @@
 #include "psi.h"
 #include "chain.h"
 
+
 /*****************************************************************************
  * dvbpsi_decoder_chain_add
  *****************************************************************************
@@ -87,11 +88,11 @@ bool dvbpsi_decoder_chain_add(dvbpsi_t *p_dvbpsi, dvbpsi_decoder_t *p_decoder)
 }
 
 /*****************************************************************************
- * dvbpsi_decoder_chain_del
+ * dvbpsi_decoder_chain_remove
  *****************************************************************************
  * Remove decoder from chain
 *****************************************************************************/
-bool dvbpsi_decoder_chain_del(dvbpsi_t *p_dvbpsi, const dvbpsi_decoder_t *p_decoder)
+bool dvbpsi_decoder_chain_remove(dvbpsi_t *p_dvbpsi, const dvbpsi_decoder_t *p_decoder)
 {
     if (!p_decoder) return false;
 

@@ -52,20 +52,20 @@ extern "C" {
 bool dvbpsi_decoder_chain_add(dvbpsi_t *p_dvbpsi, dvbpsi_decoder_t *p_decoder);
 
 /*****************************************************************************
- * dvbpsi_decoder_chain_del
+ * dvbpsi_decoder_chain_remove
  *****************************************************************************/
 /*!
- * \fn bool dvbpsi_decoder_chain_del(dvbpsi_t *p_dvbpsi, const dvbpsi_decoder_t *p_decoder)
+ * \fn bool dvbpsi_decoder_chain_remove(dvbpsi_t *p_dvbpsi, const dvbpsi_decoder_t *p_decoder)
  * \brief Deletes decoder from the chain in handle 'p_dvbpsi' at dvbpsi_t::dvbpsi_decoder_t
  * \note Use @see dvbpsi_decoder_chain_get() to find the decoder pointer, then call
- * dvbpsi_decoder_chain_del() to remove the pointer from the chain. The caller is
+ * dvbpsi_decoder_chain_remove() to remove the pointer from the chain. The caller is
  * responsible for freeing the associated memory of the just removed decoder pointer
  * and needs to call decoder_delete(p_decoder).
  * \param p_dvbpsi pointer to dvbpsi_t handle
  * \param p_decoder pointer to dvbpsi_decoder_t for deletion from chain
  * \return true on success, false on failure
  */
-bool dvbpsi_decoder_chain_del(dvbpsi_t *p_dvbpsi, const dvbpsi_decoder_t *p_decoder);
+bool dvbpsi_decoder_chain_remove(dvbpsi_t *p_dvbpsi, const dvbpsi_decoder_t *p_decoder);
 
 /*****************************************************************************
  * dvbpsi_decoder_chain_get

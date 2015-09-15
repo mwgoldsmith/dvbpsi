@@ -154,7 +154,7 @@ static bool chain_release(dvbpsi_t *p_dvbpsi, const int count)
             fprintf(stderr, "failed to find decoder (%d:%d) in chain\n", i, i);
             return false;
         }
-        if (!dvbpsi_decoder_chain_del(p_dvbpsi, p_dec)) {
+        if (!dvbpsi_decoder_chain_remove(p_dvbpsi, p_dec)) {
             fprintf(stderr, "failed to delete decoder (%d:%d) from chain\n", i, i);
             return false;
         }
@@ -177,7 +177,7 @@ static bool chain_release_with_extension(dvbpsi_t *p_dvbpsi, const int count)
             fprintf(stderr, "failed to find decoder (%d:%d) in chain\n", i, i_extension);
             return false;
         }
-        if (!dvbpsi_decoder_chain_del(p_dvbpsi, p_dec)) {
+        if (!dvbpsi_decoder_chain_remove(p_dvbpsi, p_dec)) {
             fprintf(stderr, "failed to delete decoder (%d:%d) from chain\n", i, i_extension);
             return false;
         }
@@ -226,21 +226,21 @@ int main(int i_argc, char* pa_argv[])
   dvbpsi_decoder_chain_dump(p_dvbpsi);
 #endif
 
-  /* Test dvbpsi_decoder_chain_del() */
+  /* Test dvbpsi_decoder_chain_remove() */
   if (!chain_release(p_dvbpsi, CHAIN_DECODERS)) {
-      TEST_FAILED("dvbpsi_decoder_chain_del");
+      TEST_FAILED("dvbpsi_decoder_chain_remove");
       dvbpsi_delete(p_dvbpsi);
       return 1;
   }
-  TEST_PASSED("dvbpsi_decoder_chain_del");
+  TEST_PASSED("dvbpsi_decoder_chain_remove");
 
-  /* Test dvbpsi_decoder_chain_del() */
+  /* Test dvbpsi_decoder_chain_remove() */
   if (!chain_release_with_extension(p_dvbpsi, CHAIN_DECODERS)) {
-      TEST_FAILED("dvbpsi_decoder_chain_del with extensions");
+      TEST_FAILED("dvbpsi_decoder_chain_remove with extensions");
       dvbpsi_delete(p_dvbpsi);
       return 1;
   }
-  TEST_PASSED("dvbpsi_decoder_chain_del with extensions");
+  TEST_PASSED("dvbpsi_decoder_chain_remove with extensions");
 
   p_dvbpsi->p_decoder = NULL;
   dvbpsi_delete(p_dvbpsi);
