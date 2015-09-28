@@ -274,7 +274,7 @@ bool dvbpsi_packet_push(dvbpsi_t *p_dvbpsi, const uint8_t* p_data)
     }
 
     /* Continuity check */
-    bool b_first = (p_decoder->i_continuity_counter == DVBPSI_INVALID_CC);
+    const bool b_first = (p_decoder->i_continuity_counter == DVBPSI_INVALID_CC);
     if (b_first)
         p_decoder->i_continuity_counter = p_data[3] & 0xf;
     else
