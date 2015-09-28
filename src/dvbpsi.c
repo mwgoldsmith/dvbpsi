@@ -317,7 +317,7 @@ bool dvbpsi_packet_push(dvbpsi_t *p_dvbpsi, const uint8_t* p_data)
     else
         p_payload_pos = p_data + 4;
 
-    /* Unit start -> skip the pointer_field and a new section begins */
+    /* Payload unit start indicator -> skip the pointer_field and a new section begins */
     if (p_data[1] & 0x40)
     {
         p_new_pos = p_payload_pos + *p_payload_pos + 1;
