@@ -39,24 +39,24 @@ extern "C" {
 #endif
 
 /*****************************************************************************
- * dvbpsi_component_dr_t
+ * dvbpsi_dvb_component_dr_t
  *****************************************************************************/
 /*!
- * \struct dvbpsi_component_dr_t
+ * \struct dvbpsi_dvb_component_dr_t
  * \brief "Component" descriptor structure.
  *
  * This structure is used to store a decoded "Component"
  * descriptor. (ETSI EN 300 468 section 6.2.8).
  */
 /*!
- * \typedef struct dvbpsi_component_dr_s dvbpsi_component_dr_t
- * \brief dvbpsi_component_dr_t type definition.
+ * \typedef struct dvbpsi_dvb_component_dr_s dvbpsi_dvb_component_dr_t
+ * \brief dvbpsi_dvb_component_dr_t type definition.
  */
 /*!
- * \struct dvbpsi_component_dr_s
- * \brief struct dvbpsi_component_dr_s @see dvbpsi_component_dr_t
+ * \struct dvbpsi_dvb_component_dr_s
+ * \brief struct dvbpsi_dvb_component_dr_s @see dvbpsi_dvb_component_dr_t
  */
-typedef struct dvbpsi_component_dr_t
+typedef struct dvbpsi_dvb_component_dr_t
 {
   uint8_t       i_stream_content;         /*!< stream content */
   uint8_t       i_component_type;         /*!< component type */
@@ -65,26 +65,26 @@ typedef struct dvbpsi_component_dr_t
   int           i_text_length;            /*!< text length */
   uint8_t      *i_text;                   /*!< text */
 
-} dvbpsi_component_dr_t;
+} dvbpsi_dvb_component_dr_t;
 
 /*****************************************************************************
- * dvbpsi_DecodeComponentDr
+ * dvbpsi_decode_dvb_component_dr
  *****************************************************************************/
 /*!
- * \fn dvbpsi_component_dr_t * dvbpsi_DecodeComponentDr(
+ * \fn dvbpsi_dvb_component_dr_t * dvbpsi_decode_dvb_component_dr(
                                         dvbpsi_descriptor_t * p_descriptor)
  * \brief "Component" descriptor decoder.
  * \param p_descriptor pointer to the descriptor structure
  * \return a pointer to a new "Component" descriptor structure
  * which contains the decoded data.
  */
-dvbpsi_component_dr_t* dvbpsi_DecodeComponentDr(dvbpsi_descriptor_t * p_descriptor);
+dvbpsi_dvb_component_dr_t* dvbpsi_decode_dvb_component_dr(dvbpsi_descriptor_t * p_descriptor);
 
 /*****************************************************************************
- * dvbpsi_GenComponentDr
+ * dvbpsi_gen_dvb_component_dr
  *****************************************************************************/
 /*!
- * \fn dvbpsi_descriptor_t *dvbpsi_GenComponentDr(dvbpsi_component_dr_t *p_decoded,
+ * \fn dvbpsi_descriptor_t *dvbpsi_gen_dvb_component_dr(dvbpsi_dvb_component_dr_t *p_decoded,
                                                   bool b_duplicate);
  * \brief "Component" descriptor generator.
  * \param p_decoded pointer to a decoded "Component" descriptor structure
@@ -92,7 +92,7 @@ dvbpsi_component_dr_t* dvbpsi_DecodeComponentDr(dvbpsi_descriptor_t * p_descript
  * the descriptor
  * \return a pointer to a new descriptor structure which contains encoded data.
  */
-dvbpsi_descriptor_t *dvbpsi_GenComponentDr(dvbpsi_component_dr_t * p_decoded,
+dvbpsi_descriptor_t *dvbpsi_gen_dvb_component_dr(dvbpsi_dvb_component_dr_t * p_decoded,
                                                   bool b_duplicate);
 
 #ifdef __cplusplus

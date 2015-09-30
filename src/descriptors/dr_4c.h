@@ -39,46 +39,46 @@ extern "C" {
 #endif
 
 /*****************************************************************************
- * dvbpsi_tshifted_service_dr_t
+ * dvbpsi_dvb_tshifted_service_dr_t
  *****************************************************************************/
 /*!
- * \struct dvbpsi_tshifted_service_dr_t
+ * \struct dvbpsi_dvb_tshifted_service_dr_t
  * \brief "time shifted service" descriptor structure.
  *
  * This structure is used to store a decoded "time shifted service"
  * descriptor. (ETSI EN 300 468 section 6.2.45).
  */
 /*!
- * \typedef struct dvbpsi_tshifted_service_dr_s dvbpsi_tshifted_service_dr_t
- * \brief dvbpsi_tshifted_service_dr_t type definition.
+ * \typedef struct dvbpsi_dvb_tshifted_service_dr_s dvbpsi_dvb_tshifted_service_dr_t
+ * \brief dvbpsi_dvb_tshifted_service_dr_t type definition.
  */
 /*!
- * \struct dvbpsi_tshifted_service_dr_s
- * \brief struct dvbpsi_tshifted_service_dr_s @see dvbpsi_tshifted_service_dr_t
+ * \struct dvbpsi_dvb_tshifted_service_dr_s
+ * \brief struct dvbpsi_dvb_tshifted_service_dr_s @see dvbpsi_dvb_tshifted_service_dr_t
  */
-typedef struct dvbpsi_tshifted_service_dr_s
+typedef struct dvbpsi_dvb_tshifted_service_dr_s
 {
   uint16_t       i_ref_service_id;         /*!< reference service id */
-} dvbpsi_tshifted_service_dr_t;
+} dvbpsi_dvb_tshifted_service_dr_t;
 
 /*****************************************************************************
- * dvbpsi_DecodeTimeShiftedServiceDr
+ * dvbpsi_decode_dvb_tshifted_service_dr
  *****************************************************************************/
 /*!
- * \fn dvbpsi_tshifted_service_dr_t *dvbpsi_DecodeTimeShiftedServiceDr(
+ * \fn dvbpsi_dvb_tshifted_service_dr_t *dvbpsi_decode_dvb_tshifted_service_dr(
                                         dvbpsi_descriptor_t *p_descriptor)
  * \brief "time shifted service" descriptor decoder.
  * \param p_descriptor pointer to the descriptor structure
  * \return a pointer to a new "time shifted service" descriptor structure
  * which contains the decoded data.
  */
-dvbpsi_tshifted_service_dr_t* dvbpsi_DecodeTimeShiftedServiceDr(dvbpsi_descriptor_t *p_descriptor);
+dvbpsi_dvb_tshifted_service_dr_t* dvbpsi_decode_dvb_tshifted_service_dr(dvbpsi_descriptor_t *p_descriptor);
 
 /*****************************************************************************
- * dvbpsi_GenTimeShiftedServiceDr
+ * dvbpsi_gen_dvb_tshifted_service_dr
  *****************************************************************************/
 /*!
- * \fn dvbpsi_descriptor_t *dvbpsi_GenTimeShiftedServiceDr(dvbpsi_tshifted_service_dr_t *p_decoded,
+ * \fn dvbpsi_descriptor_t *dvbpsi_gen_dvb_tshifted_service_dr(dvbpsi_dvb_tshifted_service_dr_t *p_decoded,
                                                            bool b_duplicate);
  * \brief "time shifted service" descriptor generator.
  * \param p_decoded pointer to a decoded "time shifted service" descriptor structure
@@ -86,7 +86,7 @@ dvbpsi_tshifted_service_dr_t* dvbpsi_DecodeTimeShiftedServiceDr(dvbpsi_descripto
  * the descriptor
  * \return a pointer to a new descriptor structure which contains encoded data.
  */
-dvbpsi_descriptor_t *dvbpsi_GenTimeShiftedServiceDr(dvbpsi_tshifted_service_dr_t *p_decoded,
+dvbpsi_descriptor_t *dvbpsi_gen_dvb_tshifted_service_dr(dvbpsi_dvb_tshifted_service_dr_t *p_decoded,
                                                     bool b_duplicate);
 
 #ifdef __cplusplus

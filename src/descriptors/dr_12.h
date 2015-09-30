@@ -35,7 +35,7 @@ extern "C" {
 #endif
 
 /*!
- * \struct dvbpsi_ibp_dr_s
+ * \struct dvbpsi_mpeg_ibp_dr_s
  * \brief IBP descriptor structure.
  *
  * This structure is used to store a decoded IBP descriptor. (ISO/IEC 13818-1
@@ -43,15 +43,15 @@ extern "C" {
  */
 
 /*!
- * \typedef struct dvbpsi_ibp_dr_s dvbpsi_ibp_dr_t
- * \brief dvbpsi_ibp_dr_s type definition.
+ * \typedef struct dvbpsi_mpeg_ibp_dr_s dvbpsi_mpeg_ibp_dr_t
+ * \brief dvbpsi_mpeg_ibp_dr_s type definition.
  */
-typedef struct dvbpsi_ibp_dr_s
+typedef struct dvbpsi_mpeg_ibp_dr_s
 {
   bool          b_closed_gop_flag; /*!< closed_gop_flag */
   bool          b_identical_gop_flag; /*!< identical_gop_flag */
   uint16_t      i_max_gop_length; /*!< max_gop_length */
-} dvbpsi_ibp_dr_t;
+} dvbpsi_mpeg_ibp_dr_t;
 
 /*!
  * \brief IBP descriptor decoder.
@@ -59,14 +59,14 @@ typedef struct dvbpsi_ibp_dr_s
  * \return A pointer to a new IBP descriptor structure which contains the
  * decoded data.
  */
-dvbpsi_ibp_dr_t* dvbpsi_DecodeIBPDr(dvbpsi_descriptor_t * p_descriptor);
+dvbpsi_mpeg_ibp_dr_t* dvbpsi_decode_mpeg_ibp_dr(dvbpsi_descriptor_t * p_descriptor);
 
 /*!
  * \brief IBP descriptor generator.
  * \param p_decoded pointer to a decoded IBP descriptor structure.
  * \return a pointer to a new descriptor structure which contains encoded data.
  */
-dvbpsi_descriptor_t * dvbpsi_GenIBPDr(dvbpsi_ibp_dr_t * p_decoded);
+dvbpsi_descriptor_t * dvbpsi_gen_mpeg_ibp_dr(dvbpsi_mpeg_ibp_dr_t * p_decoded);
 
 #ifdef __cplusplus
 }

@@ -41,20 +41,20 @@ extern "C" {
 
 
 /*****************************************************************************
- * dvbpsi_vstream_dr_t
+ * dvbpsi_mpeg_vstream_dr_t
  *****************************************************************************/
 /*!
- * \struct dvbpsi_vstream_dr_s
+ * \struct dvbpsi_mpeg_vstream_dr_s
  * \brief "video stream" descriptor structure.
  *
  * This structure is used to store a decoded "video stream" descriptor.
  * (ISO/IEC 13818-1 section 2.6.2).
  */
 /*!
- * \typedef struct dvbpsi_vstream_dr_s dvbpsi_vstream_dr_t
- * \brief dvbpsi_vstream_dr_t type definition.
+ * \typedef struct dvbpsi_mpeg_vstream_dr_s dvbpsi_mpeg_vstream_dr_t
+ * \brief dvbpsi_mpeg_vstream_dr_t type definition.
  */
-typedef struct dvbpsi_vstream_dr_s
+typedef struct dvbpsi_mpeg_vstream_dr_s
 {
   bool      b_multiple_frame_rate;      /*!< multiple_frame_rate_flag */
   uint8_t   i_frame_rate_code;          /*!< frame_rate_code */
@@ -67,36 +67,36 @@ typedef struct dvbpsi_vstream_dr_s
   uint8_t   i_chroma_format;            /*!< chroma_format */
   bool      b_frame_rate_extension;     /*!< frame_rate_extension_flag */
 
-} dvbpsi_vstream_dr_t;
+} dvbpsi_mpeg_vstream_dr_t;
 
 
 /*****************************************************************************
- * dvbpsi_DecodeVStreamDr
+ * dvbpsi_decode_mpeg_vstream_dr
  *****************************************************************************/
 /*!
- * \fn dvbpsi_vstream_dr_t * dvbpsi_DecodeVStreamDr(
+ * \fn dvbpsi_mpeg_vstream_dr_t * dvbpsi_decode_mpeg_vstream_dr(
                                         dvbpsi_descriptor_t * p_descriptor)
  * \brief "video stream" descriptor decoder.
  * \param p_descriptor pointer to the descriptor structure
  * \return a pointer to a new "video stream" descriptor structure which
  * contains the decoded data.
  */
-dvbpsi_vstream_dr_t* dvbpsi_DecodeVStreamDr(dvbpsi_descriptor_t * p_descriptor);
+dvbpsi_mpeg_vstream_dr_t* dvbpsi_decode_mpeg_vstream_dr(dvbpsi_descriptor_t * p_descriptor);
 
 
 /*****************************************************************************
- * dvbpsi_GenVStreamDr
+ * dvbpsi_gen_mpeg_vstream_dr
  *****************************************************************************/
 /*!
- * \fn dvbpsi_descriptor_t * dvbpsi_GenVStreamDr(
-                        dvbpsi_vstream_dr_t * p_decoded, bool b_duplicate)
+ * \fn dvbpsi_descriptor_t * dvbpsi_gen_mpeg_vstream_dr(
+                        dvbpsi_mpeg_vstream_dr_t * p_decoded, bool b_duplicate)
  * \brief "video stream" descriptor generator.
  * \param p_decoded pointer to a decoded "video stream" descriptor structure
  * \param b_duplicate if true then duplicate the p_decoded structure into
  * the descriptor
  * \return a pointer to a new descriptor structure which contains encoded data.
  */
-dvbpsi_descriptor_t * dvbpsi_GenVStreamDr(dvbpsi_vstream_dr_t * p_decoded,
+dvbpsi_descriptor_t * dvbpsi_gen_mpeg_vstream_dr(dvbpsi_mpeg_vstream_dr_t * p_decoded,
                                           bool b_duplicate);
 
 

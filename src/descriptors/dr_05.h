@@ -41,58 +41,58 @@ extern "C" {
 
 
 /*****************************************************************************
- * dvbpsi_registration_dr_t
+ * dvbpsi_mpeg_registration_dr_t
  *****************************************************************************/
 /*!
- * \struct dvbpsi_registration_dr_s
+ * \struct dvbpsi_mpeg_registration_dr_s
  * \brief "registration" descriptor structure.
  *
  * This structure is used to store a decoded "registration" descriptor.
  * (ISO/IEC 13818-1 section 2.6.8).
  */
 /*!
- * \typedef struct dvbpsi_registration_dr_s dvbpsi_registration_dr_t
- * \brief dvbpsi_registration_dr_t type definition.
+ * \typedef struct dvbpsi_mpeg_registration_dr_s dvbpsi_mpeg_registration_dr_t
+ * \brief dvbpsi_mpeg_registration_dr_t type definition.
  */
-typedef struct dvbpsi_registration_dr_s
+typedef struct dvbpsi_mpeg_registration_dr_s
 {
   uint32_t      i_format_identifier;    /*!< format_identifier */
   uint8_t       i_additional_length;    /*!< length of the i_additional_info
                                              array */
   uint8_t       i_additional_info[251]; /*!< additional_identification_info */
 
-} dvbpsi_registration_dr_t;
+} dvbpsi_mpeg_registration_dr_t;
 
 
 /*****************************************************************************
- * dvbpsi_DecodeRegistrationDr
+ * dvbpsi_decode_mpeg_registration_dr
  *****************************************************************************/
 /*!
- * \fn dvbpsi_registration_dr_t * dvbpsi_DecodeRegistrationDr(
+ * \fn dvbpsi_mpeg_registration_dr_t * dvbpsi_decode_mpeg_registration_dr(
                                         dvbpsi_descriptor_t * p_descriptor)
  * \brief "registration" descriptor decoder.
  * \param p_descriptor pointer to the descriptor structure
  * \return a pointer to a new "registration" descriptor structure which
  * contains the decoded data.
  */
-dvbpsi_registration_dr_t* dvbpsi_DecodeRegistrationDr(
+dvbpsi_mpeg_registration_dr_t* dvbpsi_decode_mpeg_registration_dr(
                                         dvbpsi_descriptor_t * p_descriptor);
 
 
 /*****************************************************************************
- * dvbpsi_GenRegistrationDr
+ * dvbpsi_gen_mpeg_registration_dr
  *****************************************************************************/
 /*!
- * \fn dvbpsi_descriptor_t * dvbpsi_GenRegistrationDr(
-                        dvbpsi_registration_dr_t * p_decoded, bool b_duplicate)
+ * \fn dvbpsi_descriptor_t * dvbpsi_gen_mpeg_registration_dr(
+                        dvbpsi_mpeg_registration_dr_t * p_decoded, bool b_duplicate)
  * \brief "registration" descriptor generator.
  * \param p_decoded pointer to a decoded "registration" descriptor structure
  * \param b_duplicate if true then duplicate the p_decoded structure into
  * the descriptor
  * \return a pointer to a new descriptor structure which contains encoded data.
  */
-dvbpsi_descriptor_t * dvbpsi_GenRegistrationDr(
-                                        dvbpsi_registration_dr_t * p_decoded,
+dvbpsi_descriptor_t * dvbpsi_gen_mpeg_registration_dr(
+                                        dvbpsi_mpeg_registration_dr_t * p_decoded,
                                         bool b_duplicate);
 
 

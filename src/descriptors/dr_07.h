@@ -41,49 +41,49 @@ extern "C" {
 
 
 /*****************************************************************************
- * dvbpsi_target_bg_grid_dr_t
+ * dvbpsi_mpeg_target_bg_grid_dr_t
  *****************************************************************************/
 /*!
- * \struct dvbpsi_target_bg_grid_dr_s
+ * \struct dvbpsi_mpeg_target_bg_grid_dr_s
  * \brief "target background grid" descriptor structure.
  *
  * This structure is used to store a decoded "target background grid"
  * descriptor. (ISO/IEC 13818-1 section 2.6.12).
  */
 /*!
- * \typedef struct dvbpsi_target_bg_grid_dr_s dvbpsi_target_bg_grid_dr_t
- * \brief dvbpsi_target_bg_grid_dr_t type definition.
+ * \typedef struct dvbpsi_mpeg_target_bg_grid_dr_s dvbpsi_mpeg_target_bg_grid_dr_t
+ * \brief dvbpsi_mpeg_target_bg_grid_dr_t type definition.
  */
-typedef struct dvbpsi_target_bg_grid_dr_s
+typedef struct dvbpsi_mpeg_target_bg_grid_dr_s
 {
   uint16_t      i_horizontal_size;      /*!< horizontal_size */
   uint16_t      i_vertical_size;        /*!< vertical_size */
   uint8_t       i_pel_aspect_ratio;     /*!< pel_aspect_ratio */
 
-} dvbpsi_target_bg_grid_dr_t;
+} dvbpsi_mpeg_target_bg_grid_dr_t;
 
 
 /*****************************************************************************
- * dvbpsi_DecodeTargetBgGridDr
+ * dvbpsi_decode_mpeg_target_bg_grid_dr
  *****************************************************************************/
 /*!
- * \fn dvbpsi_target_bg_grid_dr_t * dvbpsi_DecodeTargetBgGridDr(
+ * \fn dvbpsi_mpeg_target_bg_grid_dr_t * dvbpsi_decode_mpeg_target_bg_grid_dr(
                                         dvbpsi_descriptor_t * p_descriptor)
  * \brief "target background grid" descriptor decoder.
  * \param p_descriptor pointer to the descriptor structure
  * \return a pointer to a new "target background grid" descriptor structure
  * which contains the decoded data.
  */
-dvbpsi_target_bg_grid_dr_t* dvbpsi_DecodeTargetBgGridDr(
+dvbpsi_mpeg_target_bg_grid_dr_t* dvbpsi_decode_mpeg_target_bg_grid_dr(
                                         dvbpsi_descriptor_t * p_descriptor);
 
 
 /*****************************************************************************
- * dvbpsi_GenTargetBgGridDr
+ * dvbpsi_gen_mpeg_target_bg_grid_dr
  *****************************************************************************/
 /*!
- * \fn dvbpsi_descriptor_t * dvbpsi_GenTargetBgGridDr(
-                dvbpsi_target_bg_grid_dr_t * p_decoded, bool b_duplicate)
+ * \fn dvbpsi_descriptor_t * dvbpsi_gen_mpeg_target_bg_grid_dr(
+                dvbpsi_mpeg_target_bg_grid_dr_t * p_decoded, bool b_duplicate)
  * \brief "target background grid" descriptor generator.
  * \param p_decoded pointer to a decoded "target background grid" descriptor
  * structure
@@ -91,8 +91,8 @@ dvbpsi_target_bg_grid_dr_t* dvbpsi_DecodeTargetBgGridDr(
  * the descriptor
  * \return a pointer to a new descriptor structure which contains encoded data.
  */
-dvbpsi_descriptor_t * dvbpsi_GenTargetBgGridDr(
-                                        dvbpsi_target_bg_grid_dr_t * p_decoded,
+dvbpsi_descriptor_t * dvbpsi_gen_mpeg_target_bg_grid_dr(
+                                        dvbpsi_mpeg_target_bg_grid_dr_t * p_decoded,
                                         bool b_duplicate);
 
 

@@ -39,7 +39,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  * indicator}, and a reserved field. they all sum up to 24 bits. */
 #define DR_24_MIN_SIZE 3
 
-static int decode_content_reference_id(dvbpsi_content_labelling_dr_t *p_decoded,
+static int decode_content_reference_id(dvbpsi_mpeg_content_labelling_dr_t *p_decoded,
     const uint8_t **pp_data, uint8_t *pi_left)
 {
     uint8_t i_left = *pi_left;
@@ -73,7 +73,7 @@ static int decode_content_reference_id(dvbpsi_content_labelling_dr_t *p_decoded,
     return 0;
 }
 
-static int decode_content_time_base_indicator(dvbpsi_content_labelling_dr_t
+static int decode_content_time_base_indicator(dvbpsi_mpeg_content_labelling_dr_t
     *p_decoded, const uint8_t **pp_data, uint8_t *pi_left)
 {
     const uint8_t *p_data = *pp_data;
@@ -144,10 +144,10 @@ static int decode_content_time_base_indicator(dvbpsi_content_labelling_dr_t
     return 0;
 }
 
-dvbpsi_content_labelling_dr_t* dvbpsi_DecodeContentLabellingDr(
+dvbpsi_mpeg_content_labelling_dr_t* dvbpsi_decode_mpeg_content_labelling_dr(
                                       dvbpsi_descriptor_t * p_descriptor)
 {
-    dvbpsi_content_labelling_dr_t *p_decoded;
+    dvbpsi_mpeg_content_labelling_dr_t *p_decoded;
     const uint8_t *p_data = p_descriptor->p_data;
     uint8_t i_left = p_descriptor->i_length;
 
@@ -226,7 +226,7 @@ err:
 }
 
 static unsigned int generate_get_descriptor_size(const
-    dvbpsi_content_labelling_dr_t * p_decoded)
+    dvbpsi_mpeg_content_labelling_dr_t * p_decoded)
 {
     unsigned int size = DR_24_MIN_SIZE + p_decoded->i_private_data_len;
 
@@ -251,7 +251,7 @@ static unsigned int generate_get_descriptor_size(const
 }
 
 static bool generate_check_struct_valid(const
-    dvbpsi_content_labelling_dr_t * p_decoded)
+    dvbpsi_mpeg_content_labelling_dr_t * p_decoded)
 {
     /* check if the pointers are valid if relevant sizes are nonzero. also,
      * check if i_content_reference_id_record_length isn't zero if the flag is
@@ -272,8 +272,8 @@ static bool generate_check_struct_valid(const
     return true;
 }
 
-dvbpsi_descriptor_t * dvbpsi_GenContentLabellingDr(
-                                      dvbpsi_content_labelling_dr_t * p_decoded)
+dvbpsi_descriptor_t * dvbpsi_gen_mpeg_content_labelling_dr(
+                                      dvbpsi_mpeg_content_labelling_dr_t * p_decoded)
 {
     unsigned int size;
     dvbpsi_descriptor_t * p_descriptor;

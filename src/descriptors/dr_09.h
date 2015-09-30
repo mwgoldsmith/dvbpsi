@@ -41,20 +41,20 @@ extern "C" {
 
 
 /*****************************************************************************
- * dvbpsi_ca_dr_t
+ * dvbpsi_mpeg_ca_dr_t
  *****************************************************************************/
 /*!
- * \struct dvbpsi_ca_dr_s
+ * \struct dvbpsi_mpeg_ca_dr_s
  * \brief "conditional access" descriptor structure.
  *
  * This structure is used to store a decoded "conditional access"
  * descriptor. (ISO/IEC 13818-1 section 2.6.16).
  */
 /*!
- * \typedef struct dvbpsi_ca_dr_s dvbpsi_ca_dr_t
- * \brief dvbpsi_ca_dr_t type definition.
+ * \typedef struct dvbpsi_mpeg_ca_dr_s dvbpsi_mpeg_ca_dr_t
+ * \brief dvbpsi_mpeg_ca_dr_t type definition.
  */
-typedef struct dvbpsi_ca_dr_s
+typedef struct dvbpsi_mpeg_ca_dr_s
 {
   uint16_t      i_ca_system_id;         /*!< CA_system_ID */
   uint16_t      i_ca_pid;               /*!< CA_PID */
@@ -62,29 +62,29 @@ typedef struct dvbpsi_ca_dr_s
                                              array */
   uint8_t       i_private_data[251];    /*!< private_data_byte */
 
-} dvbpsi_ca_dr_t;
+} dvbpsi_mpeg_ca_dr_t;
 
 
 /*****************************************************************************
- * dvbpsi_DecodeCADr
+ * dvbpsi_decode_mpeg_ca_dr
  *****************************************************************************/
 /*!
- * \fn dvbpsi_ca_dr_t * dvbpsi_DecodeCADr(
+ * \fn dvbpsi_mpeg_ca_dr_t * dvbpsi_decode_mpeg_ca_dr(
                                         dvbpsi_descriptor_t * p_descriptor)
  * \brief "conditional access" descriptor decoder.
  * \param p_descriptor pointer to the descriptor structure
  * \return a pointer to a new "conditional access" descriptor structure which
  * contains the decoded data.
  */
-dvbpsi_ca_dr_t* dvbpsi_DecodeCADr(dvbpsi_descriptor_t * p_descriptor);
+dvbpsi_mpeg_ca_dr_t* dvbpsi_decode_mpeg_ca_dr(dvbpsi_descriptor_t * p_descriptor);
 
 
 /*****************************************************************************
- * dvbpsi_GenCADr
+ * dvbpsi_gen_mpeg_ca_dr
  *****************************************************************************/
 /*!
- * \fn dvbpsi_descriptor_t * dvbpsi_GenCADr(
-                                dvbpsi_ca_dr_t * p_decoded, bool b_duplicate)
+ * \fn dvbpsi_descriptor_t * dvbpsi_gen_mpeg_ca_dr(
+                                dvbpsi_mpeg_ca_dr_t * p_decoded, bool b_duplicate)
  * \brief "conditional access" descriptor generator.
  * \param p_decoded pointer to a decoded "conditional access" descriptor
  * structure
@@ -92,7 +92,7 @@ dvbpsi_ca_dr_t* dvbpsi_DecodeCADr(dvbpsi_descriptor_t * p_descriptor);
  * the descriptor
  * \return a pointer to a new descriptor structure which contains encoded data.
  */
-dvbpsi_descriptor_t * dvbpsi_GenCADr(dvbpsi_ca_dr_t * p_decoded,
+dvbpsi_descriptor_t * dvbpsi_gen_mpeg_ca_dr(dvbpsi_mpeg_ca_dr_t * p_decoded,
                                      bool b_duplicate);
 
 

@@ -40,11 +40,11 @@ Decode Frequency List Descriptor.
 #include "dr_62.h"
 
 /*****************************************************************************
- * dvbpsi_DecodeFrequencyListDr
+ * dvbpsi_decode_dvb_frequency_list_dr
  *****************************************************************************/
-dvbpsi_frequency_list_dr_t *dvbpsi_DecodeFrequencyListDr(dvbpsi_descriptor_t *p_descriptor)
+dvbpsi_dvb_frequency_list_dr_t *dvbpsi_decode_dvb_frequency_list_dr(dvbpsi_descriptor_t *p_descriptor)
 {
-    dvbpsi_frequency_list_dr_t *p_decoded;
+    dvbpsi_dvb_frequency_list_dr_t *p_decoded;
     int i;
     /* Check the tag */
     if (p_descriptor->i_tag != 0x62)
@@ -58,7 +58,7 @@ dvbpsi_frequency_list_dr_t *dvbpsi_DecodeFrequencyListDr(dvbpsi_descriptor_t *p_
     if ((p_descriptor->i_length - 1) % 4)
         return NULL;
 
-    p_decoded = (dvbpsi_frequency_list_dr_t*)malloc(sizeof(dvbpsi_frequency_list_dr_t));
+    p_decoded = (dvbpsi_dvb_frequency_list_dr_t*)malloc(sizeof(dvbpsi_dvb_frequency_list_dr_t));
     if (!p_decoded)
         return NULL;
 

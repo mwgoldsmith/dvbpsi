@@ -40,11 +40,11 @@ Decode Content Identifier Descriptor.
 #include "dr_76.h"
 
 /*****************************************************************************
- * dvbpsi_DecodeLCNDr
+ * dvbpsi_decode_eacem_lcn_dr
  *****************************************************************************/
-dvbpsi_content_id_dr_t *dvbpsi_DecodeContentIdDr(dvbpsi_descriptor_t *p_descriptor)
+dvbpsi_dvb_content_id_dr_t *dvbpsi_decode_dvb_content_id_dr(dvbpsi_descriptor_t *p_descriptor)
 {
-    dvbpsi_content_id_dr_t *p_decoded;
+    dvbpsi_dvb_content_id_dr_t *p_decoded;
     int byte;
 
     /* Check the tag */
@@ -59,7 +59,7 @@ dvbpsi_content_id_dr_t *dvbpsi_DecodeContentIdDr(dvbpsi_descriptor_t *p_descript
     if (p_descriptor->i_length > ARRAY_SIZE(p_decoded->p_entries))
         p_descriptor->i_length = ARRAY_SIZE(p_decoded->p_entries);
 
-    p_decoded = (dvbpsi_content_id_dr_t*)malloc(sizeof(dvbpsi_content_id_dr_t));
+    p_decoded = (dvbpsi_dvb_content_id_dr_t*)malloc(sizeof(dvbpsi_dvb_content_id_dr_t));
     if (!p_decoded)
         return NULL;
 

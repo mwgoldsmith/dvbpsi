@@ -42,12 +42,12 @@
 
 
 /*****************************************************************************
- * dvbpsi_DecodeLocalTimeOffsetDr
+ * dvbpsi_decode_dvb_local_time_offset_dr
  *****************************************************************************/
-dvbpsi_local_time_offset_dr_t * dvbpsi_DecodeLocalTimeOffsetDr(
+dvbpsi_dvb_local_time_offset_dr_t * dvbpsi_decode_dvb_local_time_offset_dr(
                                         dvbpsi_descriptor_t * p_descriptor)
 {
-    dvbpsi_local_time_offset_dr_t * p_decoded;
+    dvbpsi_dvb_local_time_offset_dr_t * p_decoded;
     uint8_t * p_data, * p_end;
     dvbpsi_local_time_offset_t * p_current;
 
@@ -60,7 +60,7 @@ dvbpsi_local_time_offset_dr_t * dvbpsi_DecodeLocalTimeOffsetDr(
         return p_descriptor->p_decoded;
 
     /* Allocate memory */
-    p_decoded = (dvbpsi_local_time_offset_dr_t*)malloc(sizeof(dvbpsi_local_time_offset_dr_t));
+    p_decoded = (dvbpsi_dvb_local_time_offset_dr_t*)malloc(sizeof(dvbpsi_dvb_local_time_offset_dr_t));
     if (!p_decoded)
         return NULL;
 
@@ -100,10 +100,10 @@ dvbpsi_local_time_offset_dr_t * dvbpsi_DecodeLocalTimeOffsetDr(
 }
 
 /*****************************************************************************
- * dvbpsi_GenLocalTimeOffsetDr
+ * dvbpsi_gen_dvb_local_time_offset_dr
  *****************************************************************************/
-dvbpsi_descriptor_t * dvbpsi_GenLocalTimeOffsetDr(
-                                        dvbpsi_local_time_offset_dr_t * p_decoded,
+dvbpsi_descriptor_t * dvbpsi_gen_dvb_local_time_offset_dr(
+                                        dvbpsi_dvb_local_time_offset_dr_t * p_decoded,
                                         bool b_duplicate)
 {
     if (p_decoded->i_local_time_offsets_number > DVBPSI_LOCAL_TIME_OFFSET_DR_MAX)
@@ -147,7 +147,7 @@ dvbpsi_descriptor_t * dvbpsi_GenLocalTimeOffsetDr(
         /* Duplicate decoded data */
         p_descriptor->p_decoded =
                 dvbpsi_DuplicateDecodedDescriptor(p_decoded,
-                                                  sizeof(dvbpsi_local_time_offset_dr_t));
+                                                  sizeof(dvbpsi_dvb_local_time_offset_dr_t));
     }
 
     return p_descriptor;

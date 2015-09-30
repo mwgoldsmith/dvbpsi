@@ -42,20 +42,20 @@ extern "C" {
 
 
 /*****************************************************************************
- * dvbpsi_cable_deliv_sys_dr_t
+ * dvbpsi_dvb_cable_deliv_sys_dr_t
  *****************************************************************************/
 /*!
- * \struct dvbpsi_cable_deliv_sys_dr_s
+ * \struct dvbpsi_dvb_cable_deliv_sys_dr_s
  * \brief cable delivery system descriptor structure.
  *
  * This structure is used to store a decoded cable delivery system
  * descriptor. (ETSI EN 300 468 section 6.2.13.1).
  */
 /*!
- * \typedef struct dvbpsi_cable_deliv_sys_dr_s dvbpsi_cable_deliv_sys_dr_t
- * \brief dvbpsi_cable_deliv_sys_dr_t type definition.
+ * \typedef struct dvbpsi_dvb_cable_deliv_sys_dr_s dvbpsi_dvb_cable_deliv_sys_dr_t
+ * \brief dvbpsi_dvb_cable_deliv_sys_dr_t type definition.
  */
-typedef struct dvbpsi_cable_deliv_sys_dr_s
+typedef struct dvbpsi_dvb_cable_deliv_sys_dr_s
 {
   uint32_t     i_frequency;                         /*!< frequency */
   uint8_t      i_modulation;                   /*!< modulation type */
@@ -63,30 +63,30 @@ typedef struct dvbpsi_cable_deliv_sys_dr_s
   uint8_t      i_fec_inner;                         /*!< FEC inner */
   uint8_t      i_fec_outer;                         /*!< FEC outer*/
 
-} dvbpsi_cable_deliv_sys_dr_t;
+} dvbpsi_dvb_cable_deliv_sys_dr_t;
 
 
 /*****************************************************************************
- * dvbpsi_DecodeCableDelivSysDr
+ * dvbpsi_decode_dvb_cable_deliv_sys_dr
  *****************************************************************************/
 /*!
- * \fn dvbpsi_cable_deliv_sys_dr_t * dvbpsi_DecodeCableDelivSysDr(
+ * \fn dvbpsi_dvb_cable_deliv_sys_dr_t * dvbpsi_decode_dvb_cable_deliv_sys_dr(
                                         dvbpsi_descriptor_t * p_descriptor)
  * \brief cable delivery system descriptor decoder.
  * \param p_descriptor pointer to the descriptor structure
  * \return a pointer to a new cable delivery system descriptor structure
  * which contains the decoded data.
  */
-dvbpsi_cable_deliv_sys_dr_t* dvbpsi_DecodeCableDelivSysDr(
+dvbpsi_dvb_cable_deliv_sys_dr_t* dvbpsi_decode_dvb_cable_deliv_sys_dr(
                                         dvbpsi_descriptor_t * p_descriptor);
 
 
 /*****************************************************************************
- * dvbpsi_GenCableDelivSysDr
+ * dvbpsi_gen_dvb_cable_deliv_sys_dr
  *****************************************************************************/
 /*!
- * \fn dvbpsi_descriptor_t * dvbpsi_GenCableDelivSysDr(
-                        dvbpsi_cable_deliv_sys_dr_t * p_decoded, bool b_duplicate)
+ * \fn dvbpsi_descriptor_t * dvbpsi_gen_dvb_cable_deliv_sys_dr(
+                        dvbpsi_dvb_cable_deliv_sys_dr_t * p_decoded, bool b_duplicate)
  * \brief cable delivery system descriptor generator.
  * \param p_decoded pointer to a decoded cable delivery system descriptor
  * descriptor structure
@@ -94,8 +94,8 @@ dvbpsi_cable_deliv_sys_dr_t* dvbpsi_DecodeCableDelivSysDr(
  * the descriptor
  * \return a pointer to a new descriptor structure which contains encoded data.
  */
-dvbpsi_descriptor_t * dvbpsi_GenCableDelivSysDr(
-                                        dvbpsi_cable_deliv_sys_dr_t * p_decoded,
+dvbpsi_descriptor_t * dvbpsi_gen_dvb_cable_deliv_sys_dr(
+                                        dvbpsi_dvb_cable_deliv_sys_dr_t * p_decoded,
                                         bool b_duplicate);
 
 

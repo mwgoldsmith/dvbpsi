@@ -40,46 +40,46 @@ extern "C" {
 
 
 /*****************************************************************************
- * dvbpsi_stream_identifier_dr_s
+ * dvbpsi_dvb_stream_identifier_dr_s
  *****************************************************************************/
 /*!
- * \struct dvbpsi_stream_identifier_dr_s
+ * \struct dvbpsi_dvb_stream_identifier_dr_s
  * \brief "stream identifier" descriptor structure.
  *
  * This structure is used to store a decoded "stream identifier"
  * descriptor. (ETSI EN 300 468 section 6.2.37).
  */
 /*!
- * \typedef struct dvbpsi_stream_identifier_dr_s dvbpsi_stream_identifier_dr_t
- * \brief dvbpsi_stream_identifier_dr_t type definition.
+ * \typedef struct dvbpsi_dvb_stream_identifier_dr_s dvbpsi_dvb_stream_identifier_dr_t
+ * \brief dvbpsi_dvb_stream_identifier_dr_t type definition.
  */
-typedef struct dvbpsi_stream_identifier_dr_s
+typedef struct dvbpsi_dvb_stream_identifier_dr_s
 {
   uint8_t      i_component_tag;             /*!< component tag*/
-} dvbpsi_stream_identifier_dr_t;
+} dvbpsi_dvb_stream_identifier_dr_t;
 
 
 /*****************************************************************************
- * dvbpsi_DecodeStreamIdentifierDr
+ * dvbpsi_decode_dvb_stream_identifier_dr
  *****************************************************************************/
 /*!
- * \fn dvbpsi_stream_identifier_dr_t * dvbpsi_DecodeStreamIdentifierDr(
+ * \fn dvbpsi_dvb_stream_identifier_dr_t * dvbpsi_decode_dvb_stream_identifier_dr(
                                         dvbpsi_descriptor_t * p_descriptor)
  * \brief "stream identifier" descriptor decoder.
  * \param p_descriptor pointer to the descriptor structure
  * \return a pointer to a new "stream identifier" descriptor structure
  * which contains the decoded data.
  */
-dvbpsi_stream_identifier_dr_t* dvbpsi_DecodeStreamIdentifierDr(
+dvbpsi_dvb_stream_identifier_dr_t* dvbpsi_decode_dvb_stream_identifier_dr(
                               dvbpsi_descriptor_t * p_descriptor);
 
 
 /*****************************************************************************
- * dvbpsi_GenStreamIdentifierDr
+ * dvbpsi_gen_dvb_stream_identifier_dr
  *****************************************************************************/
 /*!
- * \fn dvbpsi_descriptor_t * dvbpsi_GenStreamIdentifierDr(
-                        dvbpsi_stream_identifier_dr_t *p_decoded, bool b_duplicate)
+ * \fn dvbpsi_descriptor_t * dvbpsi_gen_dvb_stream_identifier_dr(
+                        dvbpsi_dvb_stream_identifier_dr_t *p_decoded, bool b_duplicate)
  * \brief "stream identifier" descriptor generator.
  * \param p_decoded pointer to a decoded "stream identifier" descriptor
  * structure
@@ -87,8 +87,8 @@ dvbpsi_stream_identifier_dr_t* dvbpsi_DecodeStreamIdentifierDr(
  * the descriptor
  * \return a pointer to a new descriptor structure which contains encoded data.
  */
-dvbpsi_descriptor_t * dvbpsi_GenStreamIdentifierDr(
-                                        dvbpsi_stream_identifier_dr_t * p_decoded,
+dvbpsi_descriptor_t * dvbpsi_gen_dvb_stream_identifier_dr(
+                                        dvbpsi_dvb_stream_identifier_dr_t * p_decoded,
                                         bool b_duplicate);
 
 

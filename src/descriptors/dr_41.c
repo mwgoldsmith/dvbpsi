@@ -40,12 +40,12 @@
 #include "dr_41.h"
 
 /*****************************************************************************
- * dvbpsi_DecodeServiceListDr
+ * dvbpsi_decode_dvb_service_list_dr
  *****************************************************************************/
-dvbpsi_service_list_dr_t* dvbpsi_DecodeServiceListDr(
+dvbpsi_dvb_service_list_dr_t* dvbpsi_decode_dvb_service_list_dr(
                                         dvbpsi_descriptor_t * p_descriptor)
 {
-    dvbpsi_service_list_dr_t * p_decoded;
+    dvbpsi_dvb_service_list_dr_t * p_decoded;
 
     /* Check the tag */
     if (p_descriptor->i_tag != 0x41)
@@ -63,7 +63,7 @@ dvbpsi_service_list_dr_t* dvbpsi_DecodeServiceListDr(
       return NULL;
 
     /* Allocate memory */
-    p_decoded = (dvbpsi_service_list_dr_t*)calloc(1, sizeof(dvbpsi_service_list_dr_t));
+    p_decoded = (dvbpsi_dvb_service_list_dr_t*)calloc(1, sizeof(dvbpsi_dvb_service_list_dr_t));
     if (!p_decoded)
         return NULL;
 
@@ -84,10 +84,10 @@ dvbpsi_service_list_dr_t* dvbpsi_DecodeServiceListDr(
 
 
 /*****************************************************************************
- * dvbpsi_GenServiceListDr
+ * dvbpsi_gen_dvb_service_list_dr
  *****************************************************************************/
-dvbpsi_descriptor_t * dvbpsi_GenServiceListDr(
-		                        dvbpsi_service_list_dr_t * p_decoded,
+dvbpsi_descriptor_t * dvbpsi_gen_dvb_service_list_dr(
+		                        dvbpsi_dvb_service_list_dr_t * p_decoded,
                                         bool b_duplicate)
 {
     /* Check the length */
@@ -113,7 +113,7 @@ dvbpsi_descriptor_t * dvbpsi_GenServiceListDr(
         /* Duplicate decoded data */
         p_descriptor->p_decoded =
                dvbpsi_DuplicateDecodedDescriptor(p_decoded,
-                       sizeof(dvbpsi_service_list_dr_t));
+                       sizeof(dvbpsi_dvb_service_list_dr_t));
     }
 
     return p_descriptor;

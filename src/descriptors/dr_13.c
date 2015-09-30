@@ -39,27 +39,27 @@ Decode Carousel Id Descriptor.
 
 #include "dr_13.h"
 
-static dvbpsi_carousel_id_dr_t *NewCarouselDr(const size_t i_private)
+static dvbpsi_mpeg_carousel_id_dr_t *NewCarouselDr(const size_t i_private)
 {
-    dvbpsi_carousel_id_dr_t *p_carousel;
+    dvbpsi_mpeg_carousel_id_dr_t *p_carousel;
     if (i_private <= 0)
         return NULL;
-    p_carousel = (dvbpsi_carousel_id_dr_t *)
-                    calloc(1, sizeof(dvbpsi_carousel_id_dr_t) + i_private);
+    p_carousel = (dvbpsi_mpeg_carousel_id_dr_t *)
+                    calloc(1, sizeof(dvbpsi_mpeg_carousel_id_dr_t) + i_private);
     if (p_carousel)
     {
-        p_carousel->p_private_data = ((uint8_t *)p_carousel + sizeof(dvbpsi_carousel_id_dr_t));
+        p_carousel->p_private_data = ((uint8_t *)p_carousel + sizeof(dvbpsi_mpeg_carousel_id_dr_t));
         p_carousel->i_private_data_len = i_private;
     }
     return p_carousel;
 }
 
 /*****************************************************************************
- * dvbpsi_DecodeCarouselIdDr
+ * dvbpsi_decode_mpeg_carousel_id_dr
  *****************************************************************************/
-dvbpsi_carousel_id_dr_t *dvbpsi_DecodeCarouselIdDr(dvbpsi_descriptor_t *p_descriptor)
+dvbpsi_mpeg_carousel_id_dr_t *dvbpsi_decode_mpeg_carousel_id_dr(dvbpsi_descriptor_t *p_descriptor)
 {
-    dvbpsi_carousel_id_dr_t *p_decoded;
+    dvbpsi_mpeg_carousel_id_dr_t *p_decoded;
 
     /* Check the tag */
     if (p_descriptor->i_tag != 0x13)

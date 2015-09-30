@@ -40,11 +40,11 @@
 #include "dr_53.h"
 
 /*****************************************************************************
- * dvbpsi_DecodeCAIdentifierDr
+ * dvbpsi_decode_dvb_ca_identifier_dr
  *****************************************************************************/
-dvbpsi_ca_identifier_dr_t * dvbpsi_DecodeCAIdentifierDr(dvbpsi_descriptor_t *p_descriptor)
+dvbpsi_dvb_ca_identifier_dr_t * dvbpsi_decode_dvb_ca_identifier_dr(dvbpsi_descriptor_t *p_descriptor)
 {
-    dvbpsi_ca_identifier_dr_t * p_decoded;
+    dvbpsi_dvb_ca_identifier_dr_t * p_decoded;
 
     /* Check the tag */
     if (!dvbpsi_CanDecodeAsDescriptor(p_descriptor, 0x53))
@@ -58,7 +58,7 @@ dvbpsi_ca_identifier_dr_t * dvbpsi_DecodeCAIdentifierDr(dvbpsi_descriptor_t *p_d
         return NULL;
 
     /* Allocate memory */
-    p_decoded = (dvbpsi_ca_identifier_dr_t*)calloc(1, sizeof(dvbpsi_ca_identifier_dr_t));
+    p_decoded = (dvbpsi_dvb_ca_identifier_dr_t*)calloc(1, sizeof(dvbpsi_dvb_ca_identifier_dr_t));
     if (!p_decoded)
         return NULL;
 
@@ -81,9 +81,9 @@ dvbpsi_ca_identifier_dr_t * dvbpsi_DecodeCAIdentifierDr(dvbpsi_descriptor_t *p_d
 
 
 /*****************************************************************************
- * dvbpsi_GenCAIdentifierDr
+ * dvbpsi_gen_dvb_ca_identifier_dr
  *****************************************************************************/
-dvbpsi_descriptor_t * dvbpsi_GenCAIdentifierDr(dvbpsi_ca_identifier_dr_t *p_decoded,
+dvbpsi_descriptor_t * dvbpsi_gen_dvb_ca_identifier_dr(dvbpsi_dvb_ca_identifier_dr_t *p_decoded,
                                                bool b_duplicate)
 {
     if (p_decoded->i_number > DVBPSI_CA_SYSTEM_ID_DR_MAX)
@@ -106,7 +106,7 @@ dvbpsi_descriptor_t * dvbpsi_GenCAIdentifierDr(dvbpsi_ca_identifier_dr_t *p_deco
         /* Duplicate decoded data */
         p_descriptor->p_decoded =
                 dvbpsi_DuplicateDecodedDescriptor(p_decoded,
-                                                  sizeof(dvbpsi_ca_identifier_dr_t));
+                                                  sizeof(dvbpsi_dvb_ca_identifier_dr_t));
     }
 
     return p_descriptor;

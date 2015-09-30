@@ -35,49 +35,49 @@ extern "C" {
 #endif
 
 /*****************************************************************************
- * dvbpsi_extended_channel_name_dr_s
+ * dvbpsi_atsc_extended_channel_name_dr_s
  *****************************************************************************/
 /*!
- * \struct dvbpsi_extended_channel_name_dr_s
+ * \struct dvbpsi_atsc_extended_channel_name_dr_s
  * \brief Extended Channel Name Descriptor
  *
  * This structure is used to store a decoded Extended Channel Name descriptor.
  */
 /*!
- * \typedef struct dvbpsi_extended_channel_name_dr_s dvbpsi_extended_channel_name_dr_t
- * \brief dvbpsi_extended_channel_name_dr_t type definition.
+ * \typedef struct dvbpsi_atsc_extended_channel_name_dr_s dvbpsi_atsc_extended_channel_name_dr_t
+ * \brief dvbpsi_atsc_extended_channel_name_dr_t type definition.
  */
-typedef struct dvbpsi_extended_channel_name_dr_s
+typedef struct dvbpsi_atsc_extended_channel_name_dr_s
 {
     uint8_t    i_long_channel_name_length;  /*!< Length in bytes */
     uint8_t    i_long_channel_name[256];    /*!< multiple string structure format. */
 
-}dvbpsi_extended_channel_name_dr_t;
+}dvbpsi_atsc_extended_channel_name_dr_t;
 
 /*****************************************************************************
  * dvbpsi_ExtendedChannelNameDr - deprecated
  *****************************************************************************/
 /*!
- * \fn dvbpsi_extended_channel_name_dr_t dvbpsi_ExtendedChannelNameDr(dvbpsi_descriptor_t *p_descriptor)
- * \brief Function is deprecated use dvbpsi_DecodeExtendedChannelNameDr instead.
+ * \fn dvbpsi_atsc_extended_channel_name_dr_t dvbpsi_ExtendedChannelNameDr(dvbpsi_descriptor_t *p_descriptor)
+ * \brief Function is deprecated use dvbpsi_decode_atsc_extended_channel_name_dr instead.
  * \param p_descriptor Raw descriptor to decode.
  * \return NULL if the descriptor could not be decoded or a pointer to a
- *         dvbpsi_extended_channel_name_dr_t structure.
+ *         dvbpsi_atsc_extended_channel_name_dr_t structure.
  */
 __attribute__((deprecated))
-dvbpsi_extended_channel_name_dr_t *dvbpsi_ExtendedChannelNameDr(dvbpsi_descriptor_t *p_descriptor);
+dvbpsi_atsc_extended_channel_name_dr_t *dvbpsi_ExtendedChannelNameDr(dvbpsi_descriptor_t *p_descriptor);
 
 /*****************************************************************************
- * dvbpsi_DecodeExtendedChannelNameDr
+ * dvbpsi_decode_atsc_extended_channel_name_dr
  *****************************************************************************/
 /*!
- * \fn dvbpsi_extended_channel_name_dr_t dvbpsi_DecodeExtendedChannelNameDr(dvbpsi_descriptor_t *p_descriptor)
+ * \fn dvbpsi_atsc_extended_channel_name_dr_t dvbpsi_decode_atsc_extended_channel_name_dr(dvbpsi_descriptor_t *p_descriptor)
  * \brief Decode a Extended Channel Name descriptor (tag 0xA0)
  * \param p_descriptor Raw descriptor to decode.
  * \return NULL if the descriptor could not be decoded or a pointer to a
- *         dvbpsi_extended_channel_name_dr_t structure.
+ *         dvbpsi_atsc_extended_channel_name_dr_t structure.
  */
-dvbpsi_extended_channel_name_dr_t *dvbpsi_DecodeExtendedChannelNameDr(dvbpsi_descriptor_t *p_descriptor);
+dvbpsi_atsc_extended_channel_name_dr_t *dvbpsi_decode_atsc_extended_channel_name_dr(dvbpsi_descriptor_t *p_descriptor);
 
 #ifdef __cplusplus
 }

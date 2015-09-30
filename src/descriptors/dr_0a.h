@@ -42,20 +42,20 @@ extern "C" {
 #define DR_0A_API_VER 2                     /*!< descriptor 0a API version */
 
 /*****************************************************************************
- * dvbpsi_iso639_dr_t
+ * dvbpsi_mpeg_iso639_dr_t
  *****************************************************************************/
 /*!
- * \struct dvbpsi_iso639_dr_s
+ * \struct dvbpsi_mpeg_iso639_dr_s
  * \brief "ISO 639 language" descriptor structure.
  *
  * This structure is used to store a decoded "ISO 639 language"
  * descriptor. (ISO/IEC 13818-1 section 2.6.18).
  */
 /*!
- * \typedef struct dvbpsi_iso639_dr_s dvbpsi_iso639_dr_t
- * \brief dvbpsi_iso639_dr_t type definition.
+ * \typedef struct dvbpsi_mpeg_iso639_dr_s dvbpsi_mpeg_iso639_dr_t
+ * \brief dvbpsi_mpeg_iso639_dr_t type definition.
  */
-typedef struct dvbpsi_iso639_dr_s
+typedef struct dvbpsi_mpeg_iso639_dr_s
 {
   uint8_t       i_code_count;           /*!< length of the i_iso_639_code
                                              array */
@@ -64,29 +64,29 @@ typedef struct dvbpsi_iso639_dr_s
     uint8_t                  i_audio_type; /*!< audio_type */
   } code[64];                              /*!< list of ISO 639 codes */
 
-} dvbpsi_iso639_dr_t;
+} dvbpsi_mpeg_iso639_dr_t;
 
 
 /*****************************************************************************
- * dvbpsi_DecodeISO639Dr
+ * dvbpsi_decode_mpeg_iso639_dr
  *****************************************************************************/
 /*!
- * \fn dvbpsi_iso639_dr_t * dvbpsi_DecodeISO639Dr(
+ * \fn dvbpsi_mpeg_iso639_dr_t * dvbpsi_decode_mpeg_iso639_dr(
                                         dvbpsi_descriptor_t * p_descriptor)
  * \brief "ISO 639 language" descriptor decoder.
  * \param p_descriptor pointer to the descriptor structure
  * \return a pointer to a new "ISO 639 language" descriptor structure which
  * contains the decoded data.
  */
-dvbpsi_iso639_dr_t* dvbpsi_DecodeISO639Dr(dvbpsi_descriptor_t * p_descriptor);
+dvbpsi_mpeg_iso639_dr_t* dvbpsi_decode_mpeg_iso639_dr(dvbpsi_descriptor_t * p_descriptor);
 
 
 /*****************************************************************************
- * dvbpsi_GenISO639Dr
+ * dvbpsi_gen_mpeg_iso639_dr
  *****************************************************************************/
 /*!
- * \fn dvbpsi_descriptor_t * dvbpsi_GenISO639Dr(
-                        dvbpsi_iso639_dr_t * p_decoded, bool b_duplicate)
+ * \fn dvbpsi_descriptor_t * dvbpsi_gen_mpeg_iso639_dr(
+                        dvbpsi_mpeg_iso639_dr_t * p_decoded, bool b_duplicate)
  * \brief "ISO 639 language" descriptor generator.
  * \param p_decoded pointer to a decoded "ISO 639 language" descriptor
  * structure
@@ -94,7 +94,7 @@ dvbpsi_iso639_dr_t* dvbpsi_DecodeISO639Dr(dvbpsi_descriptor_t * p_descriptor);
  * the descriptor
  * \return a pointer to a new descriptor structure which contains encoded data.
  */
-dvbpsi_descriptor_t * dvbpsi_GenISO639Dr(dvbpsi_iso639_dr_t * p_decoded,
+dvbpsi_descriptor_t * dvbpsi_gen_mpeg_iso639_dr(dvbpsi_mpeg_iso639_dr_t * p_decoded,
                                          bool b_duplicate);
 
 

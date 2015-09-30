@@ -41,58 +41,58 @@ extern "C" {
 
 
 /*****************************************************************************
- * dvbpsi_copyright_dr_t
+ * dvbpsi_mpeg_copyright_dr_t
  *****************************************************************************/
 /*!
- * \struct dvbpsi_copyright_dr_s
+ * \struct dvbpsi_mpeg_copyright_dr_s
  * \brief "copyright" descriptor structure.
  *
  * This structure is used to store a decoded "copyright" descriptor.
  * (ISO/IEC 13818-1 section 2.6.24).
  */
 /*!
- * \typedef struct dvbpsi_copyright_dr_s dvbpsi_copyright_dr_t
- * \brief dvbpsi_copyright_dr_t type definition.
+ * \typedef struct dvbpsi_mpeg_copyright_dr_s dvbpsi_mpeg_copyright_dr_t
+ * \brief dvbpsi_mpeg_copyright_dr_t type definition.
  */
-typedef struct dvbpsi_copyright_dr_s
+typedef struct dvbpsi_mpeg_copyright_dr_s
 {
   uint32_t      i_copyright_identifier; /*!< copyright_identifier */
   uint8_t       i_additional_length;    /*!< length of the i_additional_info
                                              array */
   uint8_t       i_additional_info[251]; /*!< additional_copyright_info */
 
-} dvbpsi_copyright_dr_t;
+} dvbpsi_mpeg_copyright_dr_t;
 
 
 /*****************************************************************************
- * dvbpsi_DecodeCopyrightDr
+ * dvbpsi_decode_mpeg_copyright_dr
  *****************************************************************************/
 /*!
- * \fn dvbpsi_copyright_dr_t * dvbpsi_DecodeCopyrightDr(
+ * \fn dvbpsi_mpeg_copyright_dr_t * dvbpsi_decode_mpeg_copyright_dr(
                                         dvbpsi_descriptor_t * p_descriptor)
  * \brief "copyright" descriptor decoder.
  * \param p_descriptor pointer to the descriptor structure
  * \return a pointer to a new "copyright" descriptor structure which
  * contains the decoded data.
  */
-dvbpsi_copyright_dr_t* dvbpsi_DecodeCopyrightDr(
+dvbpsi_mpeg_copyright_dr_t* dvbpsi_decode_mpeg_copyright_dr(
                                         dvbpsi_descriptor_t * p_descriptor);
 
 
 /*****************************************************************************
- * dvbpsi_GenCopyrightDr
+ * dvbpsi_gen_mpeg_copyright_dr
  *****************************************************************************/
 /*!
- * \fn dvbpsi_descriptor_t * dvbpsi_GenCopyrightDr(
-                        dvbpsi_copyright_dr_t * p_decoded, bool b_duplicate)
+ * \fn dvbpsi_descriptor_t * dvbpsi_gen_mpeg_copyright_dr(
+                        dvbpsi_mpeg_copyright_dr_t * p_decoded, bool b_duplicate)
  * \brief "copyright" descriptor generator.
  * \param p_decoded pointer to a decoded "copyright" descriptor structure
  * \param b_duplicate if true then duplicate the p_decoded structure into
  * the descriptor
  * \return a pointer to a new descriptor structure which contains encoded data.
  */
-dvbpsi_descriptor_t * dvbpsi_GenCopyrightDr(
-                                        dvbpsi_copyright_dr_t * p_decoded,
+dvbpsi_descriptor_t * dvbpsi_gen_mpeg_copyright_dr(
+                                        dvbpsi_mpeg_copyright_dr_t * p_decoded,
                                         bool b_duplicate);
 
 

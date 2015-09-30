@@ -42,11 +42,11 @@
 
 
 /*****************************************************************************
- * dvbpsi_DecodePDCDr
+ * dvbpsi_decode_dvb_PDC_dr
  *****************************************************************************/
-dvbpsi_PDC_dr_t * dvbpsi_DecodePDCDr(dvbpsi_descriptor_t * p_descriptor)
+dvbpsi_dvb_PDC_dr_t * dvbpsi_decode_dvb_PDC_dr(dvbpsi_descriptor_t * p_descriptor)
 {
-    dvbpsi_PDC_dr_t * p_decoded;
+    dvbpsi_dvb_PDC_dr_t * p_decoded;
 
     /* Check the tag */
     if (!dvbpsi_CanDecodeAsDescriptor(p_descriptor, 0x69))
@@ -61,7 +61,7 @@ dvbpsi_PDC_dr_t * dvbpsi_DecodePDCDr(dvbpsi_descriptor_t * p_descriptor)
         return NULL;
 
     /* Allocate memory */
-    p_decoded = (dvbpsi_PDC_dr_t*)malloc(sizeof(dvbpsi_PDC_dr_t));
+    p_decoded = (dvbpsi_dvb_PDC_dr_t*)malloc(sizeof(dvbpsi_dvb_PDC_dr_t));
     if (!p_decoded)
         return NULL;
 
@@ -79,9 +79,9 @@ dvbpsi_PDC_dr_t * dvbpsi_DecodePDCDr(dvbpsi_descriptor_t * p_descriptor)
 
 
 /*****************************************************************************
- * dvbpsi_GenPDCDr
+ * dvbpsi_gen_dvb_PDC_dr
  *****************************************************************************/
-dvbpsi_descriptor_t * dvbpsi_GenPDCDr(dvbpsi_PDC_dr_t * p_decoded,
+dvbpsi_descriptor_t * dvbpsi_gen_dvb_PDC_dr(dvbpsi_dvb_PDC_dr_t * p_decoded,
                                       bool b_duplicate)
 {
     /* Create the descriptor */
@@ -102,7 +102,7 @@ dvbpsi_descriptor_t * dvbpsi_GenPDCDr(dvbpsi_PDC_dr_t * p_decoded,
         /* Duplicate decoded data */
         p_descriptor->p_decoded =
                 dvbpsi_DuplicateDecodedDescriptor(p_decoded,
-                                                  sizeof(dvbpsi_PDC_dr_t));
+                                                  sizeof(dvbpsi_dvb_PDC_dr_t));
     }
 
     return p_descriptor;

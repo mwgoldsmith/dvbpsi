@@ -414,7 +414,7 @@ static char const* GetTypeName(uint8_t type)
 /*****************************************************************************
  * DumpMaxBitrateDescriptor
  *****************************************************************************/
-static void DumpMaxBitrateDescriptor(dvbpsi_max_bitrate_dr_t* bitrate_descriptor)
+static void DumpMaxBitrateDescriptor(dvbpsi_mpeg_max_bitrate_dr_t* bitrate_descriptor)
 {
   fprintf( stderr, "Bitrate: %d\n", bitrate_descriptor->i_max_bitrate);
 }
@@ -422,7 +422,7 @@ static void DumpMaxBitrateDescriptor(dvbpsi_max_bitrate_dr_t* bitrate_descriptor
 /*****************************************************************************
  * DumpSystemClockDescriptor
  *****************************************************************************/
-static void DumpSystemClockDescriptor(dvbpsi_system_clock_dr_t* p_clock_descriptor)
+static void DumpSystemClockDescriptor(dvbpsi_mpeg_system_clock_dr_t* p_clock_descriptor)
 {
   fprintf( stderr, "External clock: %s, Accuracy: %E\n",
      p_clock_descriptor->b_external_clock_ref ? "Yes" : "No",
@@ -433,7 +433,7 @@ static void DumpSystemClockDescriptor(dvbpsi_system_clock_dr_t* p_clock_descript
 /*****************************************************************************
  * DumpStreamIdentifierDescriptor
  *****************************************************************************/
-static void DumpStreamIdentifierDescriptor(dvbpsi_stream_identifier_dr_t* p_si_descriptor)
+static void DumpStreamIdentifierDescriptor(dvbpsi_dvb_stream_identifier_dr_t* p_si_descriptor)
 {
   fprintf( stderr, "Component tag: %d\n",
      p_si_descriptor->i_component_tag);
@@ -442,7 +442,7 @@ static void DumpStreamIdentifierDescriptor(dvbpsi_stream_identifier_dr_t* p_si_d
 /*****************************************************************************
  * DumpSubtitleDescriptor
  *****************************************************************************/
-static void DumpSubtitleDescriptor(dvbpsi_subtitling_dr_t* p_subtitle_descriptor)
+static void DumpSubtitleDescriptor(dvbpsi_dvb_subtitling_dr_t* p_subtitle_descriptor)
 {
   int a;
 
@@ -472,16 +472,16 @@ static void DumpDescriptors(const char* str, dvbpsi_descriptor_t* p_descriptor)
         switch (p_descriptor->i_tag)
         {
         case SYSTEM_CLOCK_DR:
-            DumpSystemClockDescriptor(dvbpsi_DecodeSystemClockDr(p_descriptor));
+            DumpSystemClockDescriptor(dvbpsi_decode_mpeg_system_clock_dr(p_descriptor));
             break;
         case MAX_BITRATE_DR:
-            DumpMaxBitrateDescriptor(dvbpsi_DecodeMaxBitrateDr(p_descriptor));
+            DumpMaxBitrateDescriptor(dvbpsi_decode_mpeg_max_bitrate_dr(p_descriptor));
             break;
         case STREAM_IDENTIFIER_DR:
-            DumpStreamIdentifierDescriptor(dvbpsi_DecodeStreamIdentifierDr(p_descriptor));
+            DumpStreamIdentifierDescriptor(dvbpsi_decode_dvb_stream_identifier_dr(p_descriptor));
             break;
         case SUBTITLING_DR:
-            DumpSubtitleDescriptor(dvbpsi_DecodeSubtitlingDr(p_descriptor));
+            DumpSubtitleDescriptor(dvbpsi_decode_dvb_subtitling_dr(p_descriptor));
             break;
         default:
             fprintf( stderr, "\"");

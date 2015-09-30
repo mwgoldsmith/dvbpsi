@@ -55,42 +55,42 @@ typedef struct dvbpsi_lcn_entry_s
 } dvbpsi_lcn_entry_t;
 
 /*****************************************************************************
- * dvbpsi_lcn_dr_s
+ * dvbpsi_eacem_lcn_dr_s
  *****************************************************************************/
 /*!
- * \struct dvbpsi_lcn_dr_s
+ * \struct dvbpsi_eacem_lcn_dr_s
  * \brief Logical Channel Number Descriptor
  *
  * This structure is used to store a decoded Logical Channel Number descriptor.
  */
 /*!
- * \typedef struct dvbpsi_lcn_dr_s dvbpsi_lcn_dr_t
- * \brief dvbpsi_lcn_dr_t type definition.
+ * \typedef struct dvbpsi_eacem_lcn_dr_s dvbpsi_eacem_lcn_dr_t
+ * \brief dvbpsi_eacem_lcn_dr_t type definition.
  */
-typedef struct dvbpsi_lcn_dr_s
+typedef struct dvbpsi_eacem_lcn_dr_s
 {
     uint8_t i_number_of_entries;     /*!< Number of LCN entries present. */
     dvbpsi_lcn_entry_t p_entries[64];/*!< Array of LCN entries. */
-} dvbpsi_lcn_dr_t;
+} dvbpsi_eacem_lcn_dr_t;
 
 /*****************************************************************************
- * dvbpsi_DecodeLCNDr
+ * dvbpsi_decode_eacem_lcn_dr
  *****************************************************************************/
 /*!
- * \fn dvbpsi_lcn_dr_t dvbpsi_DecodeLCNDr(dvbpsi_descriptor_t *p_descriptor)
+ * \fn dvbpsi_eacem_lcn_dr_t dvbpsi_decode_eacem_lcn_dr(dvbpsi_descriptor_t *p_descriptor)
  * \brief Decode a Logical Channel Number descriptor (tag 0x83)
  * \param p_descriptor Raw descriptor to decode.
  * \return NULL if the descriptor could not be decoded or a pointer to a
- *         dvbpsi_lcn_dr_t structure.
+ *         dvbpsi_eacem_lcn_dr_t structure.
  */
-dvbpsi_lcn_dr_t *dvbpsi_DecodeLCNDr(dvbpsi_descriptor_t *p_descriptor);
+dvbpsi_eacem_lcn_dr_t *dvbpsi_decode_eacem_lcn_dr(dvbpsi_descriptor_t *p_descriptor);
 
 /*****************************************************************************
- * dvbpsi_GenLCNDr
+ * dvbpsi_gen_eacem_lcn_dr
  *****************************************************************************/
 /*!
- * \fn dvbpsi_descriptor_t *dvbpsi_GenLCNDr(
-                        dvbpsi_lcn_dr_t* p_decoded, bool b_duplicate)
+ * \fn dvbpsi_descriptor_t *dvbpsi_gen_eacem_lcn_dr(
+                        dvbpsi_eacem_lcn_dr_t* p_decoded, bool b_duplicate)
  * \brief "logical_channel" descriptor generator.
  * \param p_decoded pointer to a decoded "logical_channel" descriptor
  * structure
@@ -98,7 +98,7 @@ dvbpsi_lcn_dr_t *dvbpsi_DecodeLCNDr(dvbpsi_descriptor_t *p_descriptor);
  * the descriptor
  * \return a pointer to a new descriptor structure which contains encoded data.
  */
-dvbpsi_descriptor_t* dvbpsi_GenLCNDr(dvbpsi_lcn_dr_t* p_decoded, bool b_duplicate);
+dvbpsi_descriptor_t* dvbpsi_gen_eacem_lcn_dr(dvbpsi_eacem_lcn_dr_t* p_decoded, bool b_duplicate);
 
 #ifdef __cplusplus
 };

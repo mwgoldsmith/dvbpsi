@@ -41,19 +41,19 @@ extern "C" {
 
 
 /*****************************************************************************
- * dvbpsi_extended_event_dr_t
+ * dvbpsi_dvb_extended_event_dr_t
  *****************************************************************************/
 /*!
- * \struct dvbpsi_extended_event_dr_s
+ * \struct dvbpsi_dvb_extended_event_dr_s
  * \brief "extended event" descriptor structure.
  *
  * This structure is used to store a decoded "extended event" descriptor.
  */
 /*!
- * \typedef struct dvbpsi_short_event_dr_s dvbpsi_extended_event_dr_t
- * \brief dvbpsi_extended_event_dr_t type definition.
+ * \typedef struct dvbpsi_dvb_short_event_dr_s dvbpsi_dvb_extended_event_dr_t
+ * \brief dvbpsi_dvb_extended_event_dr_t type definition.
  */
-typedef struct dvbpsi_extended_event_dr_s
+typedef struct dvbpsi_dvb_extended_event_dr_s
 {
   uint8_t i_descriptor_number;              /*!< descriptor number */
   uint8_t i_last_descriptor_number;         /*!< last descriptor number */
@@ -70,36 +70,36 @@ typedef struct dvbpsi_extended_event_dr_s
   uint8_t *i_text;                          /*!< text */
 
   uint8_t i_buffer[256];                    /*!< do not used*/
-} dvbpsi_extended_event_dr_t;
+} dvbpsi_dvb_extended_event_dr_t;
 
 
 /*****************************************************************************
- * dvbpsi_DecodeExtendedEventDr
+ * dvbpsi_decode_dvb_extended_event_dr
  *****************************************************************************/
 /*!
- * \fn dvbpsi_extended_event_dr_t * dvbpsi_DecodeExtendedEventDr(
+ * \fn dvbpsi_dvb_extended_event_dr_t * dvbpsi_decode_dvb_extended_event_dr(
                                         dvbpsi_descriptor_t * p_descriptor)
  * \brief "short event" descriptor decoder.
  * \param p_descriptor pointer to the descriptor structure
  * \return a pointer to a new "short event" descriptor structure which
  * contains the decoded data.
  */
-dvbpsi_extended_event_dr_t* dvbpsi_DecodeExtendedEventDr(dvbpsi_descriptor_t * p_descriptor);
+dvbpsi_dvb_extended_event_dr_t* dvbpsi_decode_dvb_extended_event_dr(dvbpsi_descriptor_t * p_descriptor);
 
 
 /*****************************************************************************
- * dvbpsi_GenExtendedEventDr
+ * dvbpsi_gen_dvb_extended_event_dr
  *****************************************************************************/
 /*!
- * \fn dvbpsi_descriptor_t * dvbpsi_GenExtendedEventDr(
-                        dvbpsi_extended_event_dr_t * p_decoded, bool b_duplicate)
+ * \fn dvbpsi_descriptor_t * dvbpsi_gen_dvb_extended_event_dr(
+                        dvbpsi_dvb_extended_event_dr_t * p_decoded, bool b_duplicate)
  * \brief "short event" descriptor generator.
  * \param p_decoded pointer to a decoded "video stream" descriptor structure
  * \param b_duplicate if true then duplicate the p_decoded structure into
  * the descriptor
  * \return a pointer to a new descriptor structure which contains encoded data.
  */
-dvbpsi_descriptor_t * dvbpsi_GenExtendedEventDr(dvbpsi_extended_event_dr_t * p_decoded,
+dvbpsi_descriptor_t * dvbpsi_gen_dvb_extended_event_dr(dvbpsi_dvb_extended_event_dr_t * p_decoded,
                                                 bool b_duplicate);
 
 

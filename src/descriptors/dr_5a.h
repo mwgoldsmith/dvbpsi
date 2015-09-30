@@ -41,20 +41,20 @@ extern "C" {
 
 
 /*****************************************************************************
- * dvbpsi_terr_deliv_sys_dr_t
+ * dvbpsi_dvb_terr_deliv_sys_dr_t
  *****************************************************************************/
 /*!
- * \struct dvbpsi_terr_deliv_sys_dr_s
+ * \struct dvbpsi_dvb_terr_deliv_sys_dr_s
  * \brief terrestrial delivery system descriptor structure.
  *
  * This structure is used to store a decoded terrestrial delivery system
  * descriptor. (ETSI EN 300 468 section 6.2.13.4).
  */
 /*!
- * \typedef struct dvbpsi_terr_deliv_sys_dr_s dvbpsi_terr_deliv_sys_dr_t
- * \brief dvbpsi_terr_deliv_sys_dr_t type definition.
+ * \typedef struct dvbpsi_dvb_terr_deliv_sys_dr_s dvbpsi_dvb_terr_deliv_sys_dr_t
+ * \brief dvbpsi_dvb_terr_deliv_sys_dr_t type definition.
  */
-typedef struct dvbpsi_terr_deliv_sys_dr_s
+typedef struct dvbpsi_dvb_terr_deliv_sys_dr_s
 {
   uint32_t     i_centre_frequency;              /*!< centre frequency */
   uint8_t      i_bandwidth;                     /*!< bandwidth */
@@ -69,30 +69,30 @@ typedef struct dvbpsi_terr_deliv_sys_dr_s
   uint8_t      i_transmission_mode;             /*!< transmission_mode */
   uint8_t      i_other_frequency_flag;          /*!< other_frequency_flag */
 
-} dvbpsi_terr_deliv_sys_dr_t;
+} dvbpsi_dvb_terr_deliv_sys_dr_t;
 
 
 /*****************************************************************************
- * dvbpsi_DecodeTerrDelivSysDr
+ * dvbpsi_decode_dvb_terr_deliv_sys_dr
  *****************************************************************************/
 /*!
- * \fn dvbpsi_terr_deliv_sys_dr_t * dvbpsi_DecodeTerrDelivSysDr(
+ * \fn dvbpsi_dvb_terr_deliv_sys_dr_t * dvbpsi_decode_dvb_terr_deliv_sys_dr(
                                         dvbpsi_descriptor_t * p_descriptor)
  * \brief terrestrial delivery system descriptor decoder.
  * \param p_descriptor pointer to the descriptor structure
  * \return a pointer to a new terrestrial delivery system descriptor structure
  * which contains the decoded data.
  */
-dvbpsi_terr_deliv_sys_dr_t* dvbpsi_DecodeTerrDelivSysDr(
+dvbpsi_dvb_terr_deliv_sys_dr_t* dvbpsi_decode_dvb_terr_deliv_sys_dr(
                                         dvbpsi_descriptor_t * p_descriptor);
 
 
 /*****************************************************************************
- * dvbpsi_GenTerrDelivSysDr
+ * dvbpsi_gen_dvb_terr_deliv_sys_dr
  *****************************************************************************/
 /*!
- * \fn dvbpsi_descriptor_t * dvbpsi_GenTerrDelivSysDr(
-                        dvbpsi_terr_deliv_sys_dr_t * p_decoded, bool b_duplicate)
+ * \fn dvbpsi_descriptor_t * dvbpsi_gen_dvb_terr_deliv_sys_dr(
+                        dvbpsi_dvb_terr_deliv_sys_dr_t * p_decoded, bool b_duplicate)
  * \brief terrestrial delivery system descriptor generator.
  * \param p_decoded pointer to a decoded terrestrial delivery system descriptor
  * descriptor structure
@@ -100,8 +100,8 @@ dvbpsi_terr_deliv_sys_dr_t* dvbpsi_DecodeTerrDelivSysDr(
  * the descriptor
  * \return a pointer to a new descriptor structure which contains encoded data.
  */
-dvbpsi_descriptor_t * dvbpsi_GenTerrDelivSysDr(
-                                        dvbpsi_terr_deliv_sys_dr_t * p_decoded,
+dvbpsi_descriptor_t * dvbpsi_gen_dvb_terr_deliv_sys_dr(
+                                        dvbpsi_dvb_terr_deliv_sys_dr_t * p_decoded,
                                         bool b_duplicate);
 
 

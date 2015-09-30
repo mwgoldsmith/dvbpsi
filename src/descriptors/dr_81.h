@@ -35,19 +35,19 @@ extern "C" {
 #endif
 
 /*****************************************************************************
- * dvbpsi_ac3_audio_dr_s
+ * dvbpsi_atsc_ac3_audio_dr_s
  *****************************************************************************/
 /*!
- * \struct dvbpsi_ac3_audio_dr_s
+ * \struct dvbpsi_atsc_ac3_audio_dr_s
  * \brief AC-3 Audio Descriptor
  *
  * This structure is used to store a decoded AC-3 Audio descriptor.
  */
 /*!
- * \typedef struct dvbpsi_ac3_audio_dr_s dvbpsi_ac3_audio_dr_t
- * \brief dvbpsi_ac3_audio_dr_t type definition.
+ * \typedef struct dvbpsi_atsc_ac3_audio_dr_s dvbpsi_atsc_ac3_audio_dr_t
+ * \brief dvbpsi_atsc_ac3_audio_dr_t type definition.
  */
-typedef struct dvbpsi_ac3_audio_dr_s
+typedef struct dvbpsi_atsc_ac3_audio_dr_s
 {
     uint8_t  i_sample_rate_code; /*!< sample rate code (3bits) */
     uint8_t  i_bsid;             /*!< bsid (5bits) */
@@ -68,19 +68,19 @@ typedef struct dvbpsi_ac3_audio_dr_s
     int      b_language_flag_2;  /*!< language flag */
     uint8_t  language[3];        /*!< language code */
     uint8_t  language_2[3];      /*!< language code */
-}dvbpsi_ac3_audio_dr_t;
+}dvbpsi_atsc_ac3_audio_dr_t;
 
 /*****************************************************************************
- * dvbpsi_DecodeAc3AudioDr
+ * dvbpsi_decode_atsc_ac3_audio_dr
  *****************************************************************************/
 /*!
- * \fn dvbpsi_ac3_audio_dr_t dvbpsi_DecodeAc3AudioDr(dvbpsi_descriptor_t *p_descriptor)
+ * \fn dvbpsi_atsc_ac3_audio_dr_t dvbpsi_decode_atsc_ac3_audio_dr(dvbpsi_descriptor_t *p_descriptor)
  * \brief Decode a AC-3 Audio descriptor (tag 0x81)
  * \param p_descriptor Raw descriptor to decode.
  * \return NULL if the descriptor could not be decoded or a pointer to a
- *         dvbpsi_ac3_audio_dr_t structure.
+ *         dvbpsi_atsc_ac3_audio_dr_t structure.
  */
-dvbpsi_ac3_audio_dr_t *dvbpsi_DecodeAc3AudioDr(dvbpsi_descriptor_t *p_descriptor);
+dvbpsi_atsc_ac3_audio_dr_t *dvbpsi_decode_atsc_ac3_audio_dr(dvbpsi_descriptor_t *p_descriptor);
 
 #ifdef __cplusplus
 }

@@ -40,24 +40,24 @@ extern "C" {
 
 
 /*****************************************************************************
- * dvbpsi_country_availability_dr_t
+ * dvbpsi_dvb_country_availability_dr_t
  *****************************************************************************/
 /*!
- * \struct dvbpsi_country_availability_dr_t
+ * \struct dvbpsi_dvb_country_availability_dr_t
  * \brief "country availability" descriptor structure.
  *
  * This structure is used to store a decoded "country availability"
  * descriptor. (ETSI EN 300 468 section 6.2.10).
  */
 /*!
- * \typedef struct dvbpsi_country_availability_dr_s dvbpsi_country_availability_dr_t
- * \brief dvbpsi_country_availability_dr_t type definition.
+ * \typedef struct dvbpsi_dvb_country_availability_dr_s dvbpsi_dvb_country_availability_dr_t
+ * \brief dvbpsi_dvb_country_availability_dr_t type definition.
  */
 /*!
- * \struct dvbpsi_country_availability_dr_s
- * \brief dvbpsi_country_availability_dr_s type definition @see dvbpsi_country_availability_dr_t
+ * \struct dvbpsi_dvb_country_availability_dr_s
+ * \brief dvbpsi_dvb_country_availability_dr_s type definition @see dvbpsi_dvb_country_availability_dr_t
  */
-typedef struct dvbpsi_country_availability_dr_s
+typedef struct dvbpsi_dvb_country_availability_dr_s
 {
   bool          b_country_availability_flag;    /*!< country availability flag */
   uint8_t       i_code_count;                   /*!< length of the i_iso_639_code
@@ -66,28 +66,28 @@ typedef struct dvbpsi_country_availability_dr_s
     iso_639_language_code_t  iso_639_code;      /*!< ISO_639 language code */
   } code[84];                                   /*!< ISO_639_language_code array */
 
-} dvbpsi_country_availability_dr_t;
+} dvbpsi_dvb_country_availability_dr_t;
 
 /*****************************************************************************
- * dvbpsi_DecodeCountryAvailabilityDr
+ * dvbpsi_decode_dvb_country_availability_drDr
  *****************************************************************************/
 /*!
- * \fn dvbpsi_country_availability_dr_t * dvbpsi_DecodeCountryAvailability(
+ * \fn dvbpsi_dvb_country_availability_dr_t * dvbpsi_decode_dvb_country_availability_dr(
                                         dvbpsi_descriptor_t * p_descriptor)
  * \brief "country availability" descriptor decoder.
  * \param p_descriptor pointer to the descriptor structure
  * \return a pointer to a new "country availability" descriptor structure
  * which contains the decoded data.
  */
-dvbpsi_country_availability_dr_t* dvbpsi_DecodeCountryAvailability(
+dvbpsi_dvb_country_availability_dr_t* dvbpsi_decode_dvb_country_availability_dr(
                                         dvbpsi_descriptor_t * p_descriptor);
 
 /*****************************************************************************
- * dvbpsi_GenCountryAvailabilityDr
+ * dvbpsi_gen_dvb_country_availability_dr
  *****************************************************************************/
 /*!
- * \fn dvbpsi_descriptor_t * dvbpsi_GenCountryAvailabilityDr(
-                        dvbpsi_country_availability_dr_t * p_decoded,
+ * \fn dvbpsi_descriptor_t * dvbpsi_gen_dvb_country_availability_dr(
+                        dvbpsi_dvb_country_availability_dr_t * p_decoded,
                         bool b_duplicate)
  * \brief "country availability" descriptor generator.
  * \param p_decoded pointer to a decoded "country availability" descriptor
@@ -96,8 +96,8 @@ dvbpsi_country_availability_dr_t* dvbpsi_DecodeCountryAvailability(
  * the descriptor
  * \return a pointer to a new descriptor structure which contains encoded data.
  */
-dvbpsi_descriptor_t * dvbpsi_GenCountryAvailabilityDr(
-		                        dvbpsi_country_availability_dr_t * p_decoded,
+dvbpsi_descriptor_t * dvbpsi_gen_dvb_country_availability_dr(
+		                        dvbpsi_dvb_country_availability_dr_t * p_decoded,
                                         bool b_duplicate);
 
 #ifdef __cplusplus

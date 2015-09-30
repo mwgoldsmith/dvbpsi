@@ -43,9 +43,9 @@
 
 
 /*****************************************************************************
- * dvbpsi_DecodeServiceDr
+ * dvbpsi_decode_dvb_service_dr
  *****************************************************************************/
-dvbpsi_service_dr_t * dvbpsi_DecodeServiceDr(
+dvbpsi_dvb_service_dr_t * dvbpsi_decode_dvb_service_dr(
                                         dvbpsi_descriptor_t * p_descriptor)
 {
     /* Check the tag */
@@ -60,8 +60,8 @@ dvbpsi_service_dr_t * dvbpsi_DecodeServiceDr(
         return NULL;
 
     /* Allocate memory */
-    dvbpsi_service_dr_t * p_decoded;
-    p_decoded = (dvbpsi_service_dr_t*)calloc(1, sizeof(dvbpsi_service_dr_t));
+    dvbpsi_dvb_service_dr_t * p_decoded;
+    p_decoded = (dvbpsi_dvb_service_dr_t*)calloc(1, sizeof(dvbpsi_dvb_service_dr_t));
     if (!p_decoded)
         return NULL;
 
@@ -106,9 +106,9 @@ dvbpsi_service_dr_t * dvbpsi_DecodeServiceDr(
 }
 
 /*****************************************************************************
- * dvbpsi_GenServiceDr
+ * dvbpsi_gen_dvb_service_dr
  *****************************************************************************/
-dvbpsi_descriptor_t * dvbpsi_GenServiceDr(dvbpsi_service_dr_t * p_decoded,
+dvbpsi_descriptor_t * dvbpsi_gen_dvb_service_dr(dvbpsi_dvb_service_dr_t * p_decoded,
                                           bool b_duplicate)
 {
     if (p_decoded->i_service_provider_name_length > 252)
@@ -146,7 +146,7 @@ dvbpsi_descriptor_t * dvbpsi_GenServiceDr(dvbpsi_service_dr_t * p_decoded,
         /* Duplicate decoded data */
         p_descriptor->p_decoded =
                 dvbpsi_DuplicateDecodedDescriptor(p_decoded,
-                                                  sizeof(dvbpsi_service_dr_t));
+                                                  sizeof(dvbpsi_dvb_service_dr_t));
     }
 
     return p_descriptor;

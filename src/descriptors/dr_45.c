@@ -41,9 +41,9 @@
 #include "dr_45.h"
 
 /*****************************************************************************
- * dvbpsi_DecodeVBIDataDr
+ * dvbpsi_decode_dvb_vbi_dr
  *****************************************************************************/
-dvbpsi_vbi_dr_t * dvbpsi_DecodeVBIDataDr(
+dvbpsi_dvb_vbi_dr_t * dvbpsi_decode_dvb_vbi_dr(
                                         dvbpsi_descriptor_t * p_descriptor)
 {
     /* Check the tag */
@@ -61,13 +61,13 @@ dvbpsi_vbi_dr_t * dvbpsi_DecodeVBIDataDr(
         return NULL;
 
     /* */
-    dvbpsi_vbi_dr_t * p_decoded;
+    dvbpsi_dvb_vbi_dr_t * p_decoded;
     uint8_t i_services_number = p_descriptor->i_length / 2;
     if (i_services_number > DVBPSI_VBI_DR_MAX)
         i_services_number = DVBPSI_VBI_DR_MAX;
 
     /* Allocate memory */
-    p_decoded = (dvbpsi_vbi_dr_t*)malloc(sizeof(dvbpsi_vbi_dr_t));
+    p_decoded = (dvbpsi_dvb_vbi_dr_t*)malloc(sizeof(dvbpsi_dvb_vbi_dr_t));
     if (!p_decoded)
         return NULL;
 
@@ -101,9 +101,9 @@ dvbpsi_vbi_dr_t * dvbpsi_DecodeVBIDataDr(
 }
 
 /*****************************************************************************
- * dvbpsi_GenVBIDataDr
+ * dvbpsi_gen_dvb_vbi_dr
  *****************************************************************************/
-dvbpsi_descriptor_t * dvbpsi_GenVBIDataDr(dvbpsi_vbi_dr_t * p_decoded,
+dvbpsi_descriptor_t * dvbpsi_gen_dvb_vbi_dr(dvbpsi_dvb_vbi_dr_t * p_decoded,
                                           bool b_duplicate)
 {
     if (p_decoded->i_services_number > DVBPSI_VBI_DR_MAX)
@@ -142,7 +142,7 @@ dvbpsi_descriptor_t * dvbpsi_GenVBIDataDr(dvbpsi_vbi_dr_t * p_decoded,
         /* Duplicate decoded data */
         p_descriptor->p_decoded =
                 dvbpsi_DuplicateDecodedDescriptor(p_decoded,
-                                                  sizeof(dvbpsi_vbi_dr_t));
+                                                  sizeof(dvbpsi_dvb_vbi_dr_t));
     }
 
     return p_descriptor;

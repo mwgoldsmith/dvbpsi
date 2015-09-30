@@ -42,48 +42,48 @@ extern "C" {
 
 
 /*****************************************************************************
- * dvbpsi_bouquet_name_dr_t
+ * dvbpsi_dvb_bouquet_name_dr_t
  *****************************************************************************/
 /*!
- * \struct dvbpsi_bouquet_name_dr_s
+ * \struct dvbpsi_dvb_bouquet_name_dr_s
  * \brief "bouquet name" descriptor structure.
  *
  * This structure is used to store a decoded "bouquet name"
  * descriptor. (ETSI EN 300 468 section 6.2.3).
  */
 /*!
- * \typedef struct dvbpsi_bouquet_name_dr_s dvbpsi_bouquet_name_dr_t
- * \brief dvbpsi_bouquet_name_dr_t type definition.
+ * \typedef struct dvbpsi_dvb_bouquet_name_dr_s dvbpsi_dvb_bouquet_name_dr_t
+ * \brief dvbpsi_dvb_bouquet_name_dr_t type definition.
  */
-typedef struct dvbpsi_bouquet_name_dr_s
+typedef struct dvbpsi_dvb_bouquet_name_dr_s
 {
   uint8_t      i_name_length;       /*!< length of thr i_char array */
   uint8_t      i_char[255];         /*!< char */
 
-} dvbpsi_bouquet_name_dr_t;
+} dvbpsi_dvb_bouquet_name_dr_t;
 
 
 /*****************************************************************************
- * dvbpsi_DecodeBouquetNameDr
+ * dvbpsi_decode_dvb_bouquet_name_dr
  *****************************************************************************/
 /*!
- * \fn dvbpsi_bouquet_name_dr_t * dvbpsi_DecodeBouquetNameDr(
+ * \fn dvbpsi_dvb_bouquet_name_dr_t * dvbpsi_decode_dvb_bouquet_name_dr(
                                         dvbpsi_descriptor_t * p_descriptor)
  * \brief "bouquet name" descriptor decoder.
  * \param p_descriptor pointer to the descriptor structure
  * \return a pointer to a new "bouquet name" descriptor structure
  * which contains the decoded data.
  */
-dvbpsi_bouquet_name_dr_t* dvbpsi_DecodeBouquetNameDr(
+dvbpsi_dvb_bouquet_name_dr_t* dvbpsi_decode_dvb_bouquet_name_dr(
                                         dvbpsi_descriptor_t * p_descriptor);
 
 
 /*****************************************************************************
- * dvbpsi_GenBouquetNameDr
+ * dvbpsi_gen_dvb_bouquet_name_dr
  *****************************************************************************/
 /*!
- * \fn dvbpsi_descriptor_t * dvbpsi_GenBouquetNameDr(
-                        dvbpsi_bouquet_name_dr_t * p_decoded, bool b_duplicate)
+ * \fn dvbpsi_descriptor_t * dvbpsi_gen_dvb_bouquet_name_dr(
+                        dvbpsi_dvb_bouquet_name_dr_t * p_decoded, bool b_duplicate)
  * \brief "bouquet name" descriptor generator.
  * \param p_decoded pointer to a decoded "bouquet name" descriptor
  * structure
@@ -91,8 +91,8 @@ dvbpsi_bouquet_name_dr_t* dvbpsi_DecodeBouquetNameDr(
  * the descriptor
  * \return a pointer to a new descriptor structure which contains encoded data.
  */
-dvbpsi_descriptor_t * dvbpsi_GenBouquetNameDr(
-                                        dvbpsi_bouquet_name_dr_t * p_decoded,
+dvbpsi_descriptor_t * dvbpsi_gen_dvb_bouquet_name_dr(
+                                        dvbpsi_dvb_bouquet_name_dr_t * p_decoded,
                                         bool b_duplicate);
 
 

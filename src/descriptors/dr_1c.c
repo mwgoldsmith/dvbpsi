@@ -33,10 +33,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 #include "dr_1c.h"
 
-dvbpsi_mpeg4_audio_dr_t* dvbpsi_DecodeMPEG4AudioDr(
+dvbpsi_mpeg_mpeg4_audio_dr_t* dvbpsi_decode_mpeg_mpeg4_audio_dr(
                                       dvbpsi_descriptor_t * p_descriptor)
 {
-    dvbpsi_mpeg4_audio_dr_t * p_decoded;
+    dvbpsi_mpeg_mpeg4_audio_dr_t * p_decoded;
 
     /* check the tag. */
     if (!dvbpsi_CanDecodeAsDescriptor(p_descriptor, 0x1c))
@@ -50,7 +50,7 @@ dvbpsi_mpeg4_audio_dr_t* dvbpsi_DecodeMPEG4AudioDr(
     if (p_descriptor->i_length != 1)
         return NULL;
 
-    p_decoded = (dvbpsi_mpeg4_audio_dr_t*)malloc(sizeof(*p_decoded));
+    p_decoded = (dvbpsi_mpeg_mpeg4_audio_dr_t*)malloc(sizeof(*p_decoded));
     if (!p_decoded)
         return NULL;
 
@@ -61,8 +61,8 @@ dvbpsi_mpeg4_audio_dr_t* dvbpsi_DecodeMPEG4AudioDr(
     return p_decoded;
 }
 
-dvbpsi_descriptor_t * dvbpsi_GenMPEG4AudioDr(
-                                      dvbpsi_mpeg4_audio_dr_t * p_decoded)
+dvbpsi_descriptor_t * dvbpsi_gen_mpeg_mpeg4_audio_dr(
+                                      dvbpsi_mpeg_mpeg4_audio_dr_t * p_decoded)
 {
     dvbpsi_descriptor_t * p_descriptor = dvbpsi_NewDescriptor(0x1c, 1, NULL);
     if (!p_descriptor)

@@ -41,11 +41,11 @@
 #include "dr_4e.h"
 
 /*****************************************************************************
- * dvbpsi_DecodeExtendedEventDr
+ * dvbpsi_decode_dvb_extended_event_dr
  *****************************************************************************/
-dvbpsi_extended_event_dr_t * dvbpsi_DecodeExtendedEventDr(dvbpsi_descriptor_t * p_descriptor)
+dvbpsi_dvb_extended_event_dr_t * dvbpsi_decode_dvb_extended_event_dr(dvbpsi_descriptor_t * p_descriptor)
 {
-    dvbpsi_extended_event_dr_t * p_decoded;
+    dvbpsi_dvb_extended_event_dr_t * p_decoded;
     int i_len;
     int i_pos;
     uint8_t *p;
@@ -60,7 +60,7 @@ dvbpsi_extended_event_dr_t * dvbpsi_DecodeExtendedEventDr(dvbpsi_descriptor_t * 
         return p_descriptor->p_decoded;
 
     /* Allocate memory */
-    p_decoded = malloc(sizeof(dvbpsi_extended_event_dr_t));
+    p_decoded = malloc(sizeof(dvbpsi_dvb_extended_event_dr_t));
     if (!p_decoded)
         return NULL;
 
@@ -103,9 +103,9 @@ dvbpsi_extended_event_dr_t * dvbpsi_DecodeExtendedEventDr(dvbpsi_descriptor_t * 
 
 
 /*****************************************************************************
- * dvbpsi_GenExtendedEventDr
+ * dvbpsi_gen_dvb_extended_event_dr
  *****************************************************************************/
-dvbpsi_descriptor_t * dvbpsi_GenExtendedEventDr(dvbpsi_extended_event_dr_t * p_decoded,
+dvbpsi_descriptor_t * dvbpsi_gen_dvb_extended_event_dr(dvbpsi_dvb_extended_event_dr_t * p_decoded,
                                                 bool b_duplicate)
 {
     int i_len;
@@ -151,7 +151,7 @@ dvbpsi_descriptor_t * dvbpsi_GenExtendedEventDr(dvbpsi_extended_event_dr_t * p_d
         /* Duplicate decoded data */
         p_descriptor->p_decoded =
                 dvbpsi_DuplicateDecodedDescriptor(p_decoded,
-                                                  sizeof(dvbpsi_extended_event_dr_t));
+                                                  sizeof(dvbpsi_dvb_extended_event_dr_t));
     }
 
     return p_descriptor;

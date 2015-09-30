@@ -33,10 +33,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 #include "dr_10.h"
 
-dvbpsi_smoothing_buffer_dr_t* dvbpsi_DecodeSmoothingBufferDr(
+dvbpsi_mpeg_smoothing_buffer_dr_t* dvbpsi_decode_mpeg_smoothing_buffer_dr(
                                       dvbpsi_descriptor_t * p_descriptor)
 {
-    dvbpsi_smoothing_buffer_dr_t * p_decoded;
+    dvbpsi_mpeg_smoothing_buffer_dr_t * p_decoded;
     
     /* check the tag. */
     if (!dvbpsi_CanDecodeAsDescriptor(p_descriptor, 0x10))
@@ -50,7 +50,7 @@ dvbpsi_smoothing_buffer_dr_t* dvbpsi_DecodeSmoothingBufferDr(
     if (p_descriptor->i_length != 6)
         return NULL;
     
-    p_decoded = (dvbpsi_smoothing_buffer_dr_t*)malloc(sizeof(*p_decoded));
+    p_decoded = (dvbpsi_mpeg_smoothing_buffer_dr_t*)malloc(sizeof(*p_decoded));
     if (!p_decoded)
         return NULL;
     
@@ -69,8 +69,8 @@ dvbpsi_smoothing_buffer_dr_t* dvbpsi_DecodeSmoothingBufferDr(
     return p_decoded;
 }
 
-dvbpsi_descriptor_t * dvbpsi_GenSmoothingBufferDr(
-                                      dvbpsi_smoothing_buffer_dr_t * p_decoded)
+dvbpsi_descriptor_t * dvbpsi_gen_mpeg_smoothing_buffer_dr(
+                                      dvbpsi_mpeg_smoothing_buffer_dr_t * p_decoded)
 {
     dvbpsi_descriptor_t * p_descriptor = dvbpsi_NewDescriptor(0x10, 6, NULL);
     if (!p_descriptor)

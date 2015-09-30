@@ -961,7 +961,7 @@ static char const* GetDescriptorName(uint8_t tag)
  *****************************************************************************/
 static void DumpMaxBitrateDescriptor(const void *p_descriptor)
 {
-    const dvbpsi_max_bitrate_dr_t* bitrate_descriptor = p_descriptor;
+    const dvbpsi_mpeg_max_bitrate_dr_t* bitrate_descriptor = p_descriptor;
     printf("Bitrate: %d\n", bitrate_descriptor->i_max_bitrate);
 }
 
@@ -970,7 +970,7 @@ static void DumpMaxBitrateDescriptor(const void *p_descriptor)
  *****************************************************************************/
 static void DumpSmoothingBufferDescriptor(const void *p_descriptor)
 {
-    const dvbpsi_smoothing_buffer_dr_t *smoothing_descriptor = p_descriptor;
+    const dvbpsi_mpeg_smoothing_buffer_dr_t *smoothing_descriptor = p_descriptor;
     printf("Leak rate: %d \n", smoothing_descriptor->i_sb_leak_rate);
     printf("\t\tSize: %d \n", smoothing_descriptor->i_sb_size);
 }
@@ -980,7 +980,7 @@ static void DumpSmoothingBufferDescriptor(const void *p_descriptor)
  *****************************************************************************/
 static void DumpSTDDescriptor(const void *p_descriptor)
 {
-    const dvbpsi_std_dr_t* std_descriptor = p_descriptor;
+    const dvbpsi_mpeg_std_dr_t* std_descriptor = p_descriptor;
     printf("Leak valid flag: %d\n", std_descriptor->b_leak_valid_flag);
 }
 
@@ -989,7 +989,7 @@ static void DumpSTDDescriptor(const void *p_descriptor)
  *****************************************************************************/
 static void DumpIBPDescriptor(const void *p_descriptor)
 {
-    const dvbpsi_ibp_dr_t *ibp_descriptor = p_descriptor;
+    const dvbpsi_mpeg_ibp_dr_t *ibp_descriptor = p_descriptor;
     printf("Closed GOP flag: %d \n", ibp_descriptor->b_closed_gop_flag);
     printf("\t\tIdentical GOP flag: %d \n", ibp_descriptor->b_identical_gop_flag);
     printf("\t\tMax GOP length: %" PRIu16 " \n", ibp_descriptor->i_max_gop_length);
@@ -1044,7 +1044,7 @@ static const char* MPEG4VideoProfileToString(dvbpsi_mpeg4_visual_profile_and_lev
 
 static void DumpMPEG4VideoDescriptor(const void *p_descriptor)
 {
-    const dvbpsi_mpeg4_video_dr_t *mpeg4_descriptor = p_descriptor;
+    const dvbpsi_mpeg_mpeg4_video_dr_t *mpeg4_descriptor = p_descriptor;
     printf("MPEG-4 Video Profile and Level : %s (0x%02x) \n",
         MPEG4VideoProfileToString(mpeg4_descriptor->i_mpeg4_visual_profile_and_level),
         mpeg4_descriptor->i_mpeg4_visual_profile_and_level);
@@ -1052,7 +1052,7 @@ static void DumpMPEG4VideoDescriptor(const void *p_descriptor)
 
 static void DumpMPEG4AudioDescriptor(const void *p_descriptor)
 {
-    const dvbpsi_mpeg4_audio_dr_t *mpeg4_descriptor = p_descriptor;
+    const dvbpsi_mpeg_mpeg4_audio_dr_t *mpeg4_descriptor = p_descriptor;
     printf("MPEG-4 Audio Profile and Level : %s (0x%02x) \n",
         AACProfileToString(mpeg4_descriptor->i_mpeg4_audio_profile_and_level),
         mpeg4_descriptor->i_mpeg4_audio_profile_and_level);
@@ -1060,7 +1060,7 @@ static void DumpMPEG4AudioDescriptor(const void *p_descriptor)
 
 static void DumpContentLabellingDescriptor(const void *p_descriptor)
 {
-    const dvbpsi_content_labelling_dr_t *p_content_lbl_dr = p_descriptor;
+    const dvbpsi_mpeg_content_labelling_dr_t *p_content_lbl_dr = p_descriptor;
     printf("Metadata application format : 0x%04" PRIx16 "\n",
         p_content_lbl_dr->i_metadata_application_format);
     if(p_content_lbl_dr->i_metadata_application_format == 0xFFFF)
@@ -1115,7 +1115,7 @@ static void DumpContentLabellingDescriptor(const void *p_descriptor)
  *****************************************************************************/
 static void DumpSystemClockDescriptor(const void *p_descriptor)
 {
-    const dvbpsi_system_clock_dr_t* p_clock_descriptor = p_descriptor;
+    const dvbpsi_mpeg_system_clock_dr_t* p_clock_descriptor = p_descriptor;
     printf("External clock: %s, Accuracy: %E\n",
     p_clock_descriptor->b_external_clock_ref ? "Yes" : "No",
     p_clock_descriptor->i_clock_accuracy_integer *
@@ -1127,7 +1127,7 @@ static void DumpSystemClockDescriptor(const void *p_descriptor)
  *****************************************************************************/
 static void DumpStreamIdentifierDescriptor(const void *p_descriptor)
 {
-    const dvbpsi_stream_identifier_dr_t* p_si_descriptor = p_descriptor;
+    const dvbpsi_dvb_stream_identifier_dr_t* p_si_descriptor = p_descriptor;
     printf("Component tag: %d\n", p_si_descriptor->i_component_tag);
 }
 
@@ -1136,7 +1136,7 @@ static void DumpStreamIdentifierDescriptor(const void *p_descriptor)
  *****************************************************************************/
 static void DumpCAIdentifierDescriptor(const void *p_descriptor)
 {
-    const dvbpsi_ca_identifier_dr_t *p_ca_descriptor = p_descriptor;
+    const dvbpsi_dvb_ca_identifier_dr_t *p_ca_descriptor = p_descriptor;
     printf("CA system id\n");
     for(int i = 0; i < p_ca_descriptor->i_number; i++ )
         printf("\t%d: %d\n", i, p_ca_descriptor->p_system[i].i_ca_system_id);
@@ -1271,7 +1271,7 @@ static const char *GetContentSubCategory( const int i_type )
 
 static void DumpContentDescriptor(const void *p_descriptor)
 {
-    const dvbpsi_content_dr_t *p_content_descriptor = p_descriptor;
+    const dvbpsi_dvb_content_dr_t *p_content_descriptor = p_descriptor;
     dr_content_category_t content_category[] = {
         { DVBPSI_CONTENT_CAT_UNDEFINED, "Undefined" },
         { DVBPSI_CONTENT_CAT_MOVIE, "Movie" },
@@ -1310,7 +1310,7 @@ static void DumpContentDescriptor(const void *p_descriptor)
 static void DumpSubtitleDescriptor(const void *p_descriptor)
 {
     int a;
-    const dvbpsi_subtitling_dr_t* p_subtitle_descriptor = p_descriptor;
+    const dvbpsi_dvb_subtitling_dr_t* p_subtitle_descriptor = p_descriptor;
 
     printf("%d subtitles,\n", p_subtitle_descriptor->i_subtitles_number);
     for (a = 0; a < p_subtitle_descriptor->i_subtitles_number; ++a)
@@ -1410,7 +1410,7 @@ static const char *AACProfileToString(dvbpsi_aac_profile_and_level_t profile)
  *****************************************************************************/
 static void DumpAACDescriptor(const void *p_descriptor)
 {
-    const dvbpsi_aac_dr_t *p_aac_descriptor = p_descriptor;
+    const dvbpsi_dvb_aac_dr_t *p_aac_descriptor = p_descriptor;
     printf("AAC audio descriptor\n");
     printf("\tprofile and level: %s (0x%02x)\n",
         AACProfileToString(p_aac_descriptor->i_profile_and_level),
@@ -1487,7 +1487,7 @@ static void DumpAACDescriptor(const void *p_descriptor)
  *****************************************************************************/
 static void DumpTimeShiftedServiceDescriptor(const void *p_descriptor)
 {
-    const dvbpsi_tshifted_service_dr_t *p_ts_service = p_descriptor;
+    const dvbpsi_dvb_tshifted_service_dr_t *p_ts_service = p_descriptor;
     printf("Time Shifted Service\n");
     printf("\treference service id:%d", p_ts_service->i_ref_service_id);
 }
@@ -1497,7 +1497,7 @@ static void DumpTimeShiftedServiceDescriptor(const void *p_descriptor)
  *****************************************************************************/
 static void DumpTimeShiftedEventDescriptor(const void *p_descriptor)
 {
-    const dvbpsi_tshifted_ev_dr_t *p_ts_event = p_descriptor;
+    const dvbpsi_dvb_tshifted_ev_dr_t *p_ts_event = p_descriptor;
     printf("Time Shifted Event");
     printf("\treference service id:%d", p_ts_event->i_ref_service_id);
     printf("\treference event id:%d", p_ts_event->i_ref_event_id);
@@ -1510,7 +1510,7 @@ static void DumpTimeShiftedEventDescriptor(const void *p_descriptor)
 static void DumpCUEIDescriptor(const void *p_descriptor)
 {
     const char *cuei_stream_type;
-    const dvbpsi_cuei_dr_t* p_cuei_descriptor = p_descriptor;
+    const dvbpsi_scte_cuei_dr_t* p_cuei_descriptor = p_descriptor;
 
     assert(p_cuei_descriptor);
 
@@ -1682,69 +1682,69 @@ static void DumpDescriptor(dvbpsi_descriptor_t *p_descriptor)
             printf("\"a52\" (%s)\n", GetDescriptorName(p_descriptor->i_tag));
             return;
         case 0x7c:
-            p_decoded = dvbpsi_DecodeAACDr(p_descriptor);
+            p_decoded = dvbpsi_decode_dvb_aac_dr(p_descriptor);
             dump_dr_fn = DumpAACDescriptor;
             break;
         case 0x08:
-            p_decoded = dvbpsi_DecodeSystemClockDr(p_descriptor);
+            p_decoded = dvbpsi_decode_mpeg_system_clock_dr(p_descriptor);
             dump_dr_fn = DumpSystemClockDescriptor;
             break;
 #ifdef TS_USE_DVB_CUEI
         case 0x8a:
-            p_decoded = dvbpsi_DecodeCUEIDr(p_descriptor);
+            p_decoded = dvbpsi_decode_scte_cuei_dr(p_descriptor);
             dump_dr_fn = DumpCUEIDescriptor;
             break;
 #endif
         case 0x0e:
-            p_decoded = dvbpsi_DecodeMaxBitrateDr(p_descriptor);
+            p_decoded = dvbpsi_decode_mpeg_max_bitrate_dr(p_descriptor);
             dump_dr_fn = DumpMaxBitrateDescriptor;
             break;
         case 0x10:
-            p_decoded = dvbpsi_DecodeSmoothingBufferDr(p_descriptor);
+            p_decoded = dvbpsi_decode_mpeg_smoothing_buffer_dr(p_descriptor);
             dump_dr_fn = DumpSmoothingBufferDescriptor;
             break;
         case 0x11:
-            p_decoded = dvbpsi_DecodeSTDDr(p_descriptor);
+            p_decoded = dvbpsi_decode_mpeg_std_dr(p_descriptor);
             dump_dr_fn = DumpSTDDescriptor;
             break;
         case 0x12:
-            p_decoded = dvbpsi_DecodeIBPDr(p_descriptor);
+            p_decoded = dvbpsi_decode_mpeg_ibp_dr(p_descriptor);
             dump_dr_fn = DumpIBPDescriptor;
             break;
         case 0x1b:
-            p_decoded = dvbpsi_DecodeMPEG4VideoDr(p_descriptor);
+            p_decoded = dvbpsi_decode_mpeg_mpeg4_video_dr(p_descriptor);
             dump_dr_fn = DumpMPEG4VideoDescriptor;
             break;
         case 0x1c:
-            p_decoded = dvbpsi_DecodeMPEG4AudioDr(p_descriptor);
+            p_decoded = dvbpsi_decode_mpeg_mpeg4_audio_dr(p_descriptor);
             dump_dr_fn = DumpMPEG4AudioDescriptor;
             break;
         case 0x24:
-            p_decoded = dvbpsi_DecodeContentLabellingDr(p_descriptor);
+            p_decoded = dvbpsi_decode_mpeg_content_labelling_dr(p_descriptor);
             dump_dr_fn = DumpContentLabellingDescriptor;
             break;
         case 0x4c:
-            p_decoded = dvbpsi_DecodeTimeShiftedServiceDr(p_descriptor);
+            p_decoded = dvbpsi_decode_dvb_tshifted_service_dr(p_descriptor);
             dump_dr_fn = DumpTimeShiftedServiceDescriptor;
             break;
         case 0x4f:
-            p_decoded = dvbpsi_DecodeTimeShiftedEventDr(p_descriptor);
+            p_decoded = dvbpsi_decode_dvb_tshifted_ev_dr(p_descriptor);
             dump_dr_fn = DumpTimeShiftedEventDescriptor;
             break;
         case 0x52:
-            p_decoded = dvbpsi_DecodeStreamIdentifierDr(p_descriptor);
+            p_decoded = dvbpsi_decode_dvb_stream_identifier_dr(p_descriptor);
             dump_dr_fn = DumpStreamIdentifierDescriptor;
             break;
         case 0x53:
-            p_decoded = dvbpsi_DecodeCAIdentifierDr(p_descriptor);
+            p_decoded = dvbpsi_decode_dvb_ca_identifier_dr(p_descriptor);
             dump_dr_fn = DumpCAIdentifierDescriptor;
             break;
         case 0x54:
-            p_decoded = dvbpsi_DecodeContentDr(p_descriptor);
+            p_decoded = dvbpsi_decode_dvb_content_dr(p_descriptor);
             dump_dr_fn = DumpContentDescriptor;
             break;
         case 0x59:
-            p_decoded = dvbpsi_DecodeSubtitlingDr(p_descriptor);
+            p_decoded = dvbpsi_decode_dvb_subtitling_dr(p_descriptor);
             dump_dr_fn = DumpSubtitleDescriptor;
             break;
     }

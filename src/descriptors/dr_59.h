@@ -64,44 +64,44 @@ typedef struct dvbpsi_subtitle_s
 /*!
  * \def DVBPSI_SUBTITLING_DR_MAX
  * \brief Maximum number of dvbpsi_subtitle_t entries present in
- * @see dvbpsi_subtitling_dr_t
+ * @see dvbpsi_dvb_subtitling_dr_t
  */
 #define DVBPSI_SUBTITLING_DR_MAX 20
 
 /*****************************************************************************
- * dvbpsi_subtitling_dr_t
+ * dvbpsi_dvb_subtitling_dr_t
  *****************************************************************************/
 /*!
- * \struct dvbpsi_subtitling_dr_s
+ * \struct dvbpsi_dvb_subtitling_dr_s
  * \brief "subtitling" descriptor structure.
  *
  * This structure is used to store a decoded "subtitling"
  * descriptor. (ETSI EN 300 468 section 6.2.30).
  */
 /*!
- * \typedef struct dvbpsi_subtitling_dr_s dvbpsi_subtitling_dr_t
- * \brief dvbpsi_subtitling_dr_t type definition.
+ * \typedef struct dvbpsi_dvb_subtitling_dr_s dvbpsi_dvb_subtitling_dr_t
+ * \brief dvbpsi_dvb_subtitling_dr_t type definition.
  */
-typedef struct dvbpsi_subtitling_dr_s
+typedef struct dvbpsi_dvb_subtitling_dr_s
 {
   uint8_t      i_subtitles_number;  /*!< subtiles number */
   dvbpsi_subtitle_t p_subtitle[DVBPSI_SUBTITLING_DR_MAX]; /*!< subtitles */
 
-} dvbpsi_subtitling_dr_t;
+} dvbpsi_dvb_subtitling_dr_t;
 
 
 /*****************************************************************************
  * dvbpsi_DecodeSubtitlingDataDr
  *****************************************************************************/
 /*!
- * \fn dvbpsi_subtitling_dr_t * dvbpsi_DecodeSubtitlingDr(
+ * \fn dvbpsi_dvb_subtitling_dr_t * dvbpsi_decode_dvb_subtitling_dr(
                                         dvbpsi_descriptor_t * p_descriptor)
  * \brief "subtitling" descriptor decoder.
  * \param p_descriptor pointer to the descriptor structure
  * \return a pointer to a new "subtitling" descriptor structure
  * which contains the decoded data.
  */
-dvbpsi_subtitling_dr_t* dvbpsi_DecodeSubtitlingDr(
+dvbpsi_dvb_subtitling_dr_t* dvbpsi_decode_dvb_subtitling_dr(
                                         dvbpsi_descriptor_t * p_descriptor);
 
 
@@ -109,8 +109,8 @@ dvbpsi_subtitling_dr_t* dvbpsi_DecodeSubtitlingDr(
  * dvbpsi_GenSubtitlingDataDr
  *****************************************************************************/
 /*!
- * \fn dvbpsi_descriptor_t * dvbpsi_GenSubtitlingDr(
-                        dvbpsi_subtitling_dr_t * p_decoded, bool b_duplicate)
+ * \fn dvbpsi_descriptor_t * dvbpsi_gen_dvb_subtitling_dr(
+                        dvbpsi_dvb_subtitling_dr_t * p_decoded, bool b_duplicate)
  * \brief "subtitling" descriptor generator.
  * \param p_decoded pointer to a decoded "subtitling" descriptor
  * structure
@@ -118,8 +118,8 @@ dvbpsi_subtitling_dr_t* dvbpsi_DecodeSubtitlingDr(
  * the descriptor
  * \return a pointer to a new descriptor structure which contains encoded data.
  */
-dvbpsi_descriptor_t * dvbpsi_GenSubtitlingDr(
-                                        dvbpsi_subtitling_dr_t * p_decoded,
+dvbpsi_descriptor_t * dvbpsi_gen_dvb_subtitling_dr(
+                                        dvbpsi_dvb_subtitling_dr_t * p_decoded,
                                         bool b_duplicate);
 
 

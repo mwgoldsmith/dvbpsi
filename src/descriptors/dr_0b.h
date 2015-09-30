@@ -41,50 +41,50 @@ extern "C" {
 
 
 /*****************************************************************************
- * dvbpsi_system_clock_dr_t
+ * dvbpsi_mpeg_system_clock_dr_t
  *****************************************************************************/
 /*!
- * \struct dvbpsi_system_clock_dr_s
+ * \struct dvbpsi_mpeg_system_clock_dr_s
  * \brief "system clock" descriptor structure.
  *
  * This structure is used to store a decoded "system clock"
  * descriptor. (ISO/IEC 13818-1 section 2.6.20).
  */
 /*!
- * \typedef struct dvbpsi_system_clock_dr_s dvbpsi_system_clock_dr_t
- * \brief dvbpsi_system_clock_dr_t type definition.
+ * \typedef struct dvbpsi_mpeg_system_clock_dr_s dvbpsi_mpeg_system_clock_dr_t
+ * \brief dvbpsi_mpeg_system_clock_dr_t type definition.
  */
-typedef struct dvbpsi_system_clock_dr_s
+typedef struct dvbpsi_mpeg_system_clock_dr_s
 {
   bool      b_external_clock_ref;       /*!< external_clock_reference_indicator
                                              */
   uint8_t   i_clock_accuracy_integer;   /*!< clock_accuracy_integer */
   uint8_t   i_clock_accuracy_exponent;  /*!< clock_accuracy_exponent */
 
-} dvbpsi_system_clock_dr_t;
+} dvbpsi_mpeg_system_clock_dr_t;
 
 
 /*****************************************************************************
- * dvbpsi_DecodeSystemClockDr
+ * dvbpsi_decode_mpeg_system_clock_dr
  *****************************************************************************/
 /*!
- * \fn dvbpsi_system_clock_dr_t * dvbpsi_DecodeSystemClockDr(
+ * \fn dvbpsi_mpeg_system_clock_dr_t * dvbpsi_decode_mpeg_system_clock_dr(
                                         dvbpsi_descriptor_t * p_descriptor)
  * \brief "system clock" descriptor decoder.
  * \param p_descriptor pointer to the descriptor structure
  * \return a pointer to a new "system clock" descriptor structure which
  * contains the decoded data.
  */
-dvbpsi_system_clock_dr_t* dvbpsi_DecodeSystemClockDr(
+dvbpsi_mpeg_system_clock_dr_t* dvbpsi_decode_mpeg_system_clock_dr(
                                         dvbpsi_descriptor_t * p_descriptor);
 
 
 /*****************************************************************************
- * dvbpsi_GenSystemClockDr
+ * dvbpsi_gen_mpeg_system_clock_dr
  *****************************************************************************/
 /*!
- * \fn dvbpsi_descriptor_t * dvbpsi_GenSystemClockDr(
-                        dvbpsi_system_clock_dr_t * p_decoded, bool b_duplicate)
+ * \fn dvbpsi_descriptor_t * dvbpsi_gen_mpeg_system_clock_dr(
+                        dvbpsi_mpeg_system_clock_dr_t * p_decoded, bool b_duplicate)
  * \brief "system clock" descriptor generator.
  * \param p_decoded pointer to a decoded "system clock" descriptor
  * structure
@@ -92,8 +92,8 @@ dvbpsi_system_clock_dr_t* dvbpsi_DecodeSystemClockDr(
  * the descriptor
  * \return a pointer to a new descriptor structure which contains encoded data.
  */
-dvbpsi_descriptor_t * dvbpsi_GenSystemClockDr(
-                                        dvbpsi_system_clock_dr_t * p_decoded,
+dvbpsi_descriptor_t * dvbpsi_gen_mpeg_system_clock_dr(
+                                        dvbpsi_mpeg_system_clock_dr_t * p_decoded,
                                         bool b_duplicate);
 
 

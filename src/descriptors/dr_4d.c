@@ -41,11 +41,11 @@
 #include "dr_4d.h"
 
 /*****************************************************************************
- * dvbpsi_DecodeShortEventDr
+ * dvbpsi_decode_dvb_short_event_dr
  *****************************************************************************/
-dvbpsi_short_event_dr_t * dvbpsi_DecodeShortEventDr(dvbpsi_descriptor_t * p_descriptor)
+dvbpsi_dvb_short_event_dr_t * dvbpsi_decode_dvb_short_event_dr(dvbpsi_descriptor_t * p_descriptor)
 {
-  dvbpsi_short_event_dr_t * p_decoded;
+  dvbpsi_dvb_short_event_dr_t * p_decoded;
   int i_len1;
   int i_len2;
 
@@ -70,7 +70,7 @@ dvbpsi_short_event_dr_t * dvbpsi_DecodeShortEventDr(dvbpsi_descriptor_t * p_desc
     return p_descriptor->p_decoded;
 
   /* Allocate memory */
-  p_decoded = malloc(sizeof(dvbpsi_short_event_dr_t));
+  p_decoded = malloc(sizeof(dvbpsi_dvb_short_event_dr_t));
   if (!p_decoded)
       return NULL;
 
@@ -89,9 +89,9 @@ dvbpsi_short_event_dr_t * dvbpsi_DecodeShortEventDr(dvbpsi_descriptor_t * p_desc
 }
 
 /*****************************************************************************
- * dvbpsi_GenShortEventDr
+ * dvbpsi_gen_dvb_short_event_dr
  *****************************************************************************/
-dvbpsi_descriptor_t * dvbpsi_GenShortEventDr(dvbpsi_short_event_dr_t * p_decoded,
+dvbpsi_descriptor_t * dvbpsi_gen_dvb_short_event_dr(dvbpsi_dvb_short_event_dr_t * p_decoded,
                                              bool b_duplicate)
 {
     uint8_t i_len1 = p_decoded->i_event_name_length;
@@ -116,7 +116,7 @@ dvbpsi_descriptor_t * dvbpsi_GenShortEventDr(dvbpsi_short_event_dr_t * p_decoded
         /* Duplicate decoded data */
         p_descriptor->p_decoded =
                 dvbpsi_DuplicateDecodedDescriptor(p_decoded,
-                                                  sizeof(dvbpsi_short_event_dr_t));
+                                                  sizeof(dvbpsi_dvb_short_event_dr_t));
     }
 
     return p_descriptor;

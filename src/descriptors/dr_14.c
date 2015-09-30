@@ -39,18 +39,18 @@ Decode Assocation Tag Descriptor.
 
 #include "dr_14.h"
 
-static dvbpsi_association_tag_dr_t *NewAssociationTagDr(const size_t i_selector, const size_t i_private)
+static dvbpsi_mpeg_association_tag_dr_t *NewAssociationTagDr(const size_t i_selector, const size_t i_private)
 {
-    dvbpsi_association_tag_dr_t *p_tag;
+    dvbpsi_mpeg_association_tag_dr_t *p_tag;
 
     if ((i_selector <= 0) || (i_private <= 0))
         return NULL;
 
-    size_t i_size = sizeof(dvbpsi_association_tag_dr_t) + i_selector + i_private;
-    p_tag = (dvbpsi_association_tag_dr_t*) calloc(1, i_size);
+    size_t i_size = sizeof(dvbpsi_mpeg_association_tag_dr_t) + i_selector + i_private;
+    p_tag = (dvbpsi_mpeg_association_tag_dr_t*) calloc(1, i_size);
     if (p_tag)
     {
-        p_tag->p_selector = ((uint8_t*)p_tag + sizeof(dvbpsi_association_tag_dr_t));
+        p_tag->p_selector = ((uint8_t*)p_tag + sizeof(dvbpsi_mpeg_association_tag_dr_t));
         p_tag->i_selector_len = i_selector;
 
         p_tag->p_private_data = p_tag->p_selector + i_selector;
@@ -60,11 +60,11 @@ static dvbpsi_association_tag_dr_t *NewAssociationTagDr(const size_t i_selector,
 }
 
 /*****************************************************************************
- * dvbpsi_DecodeAssociationTagDr
+ * dvbpsi_decode_mpeg_association_tag_dr
  *****************************************************************************/
-dvbpsi_association_tag_dr_t *dvbpsi_DecodeAssociationTagDr(dvbpsi_descriptor_t *p_descriptor)
+dvbpsi_mpeg_association_tag_dr_t *dvbpsi_decode_mpeg_association_tag_dr(dvbpsi_descriptor_t *p_descriptor)
 {
-    dvbpsi_association_tag_dr_t *p_decoded;
+    dvbpsi_mpeg_association_tag_dr_t *p_decoded;
     uint8_t selector_len;
     uint8_t private_data_len;
 

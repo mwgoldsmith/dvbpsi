@@ -42,12 +42,12 @@
 
 
 /*****************************************************************************
- * dvbpsi_DecodeSystemClockDr
+ * dvbpsi_decode_mpeg_system_clock_dr
  *****************************************************************************/
-dvbpsi_system_clock_dr_t * dvbpsi_DecodeSystemClockDr(
+dvbpsi_mpeg_system_clock_dr_t * dvbpsi_decode_mpeg_system_clock_dr(
                                         dvbpsi_descriptor_t * p_descriptor)
 {
-    dvbpsi_system_clock_dr_t * p_decoded;
+    dvbpsi_mpeg_system_clock_dr_t * p_decoded;
 
     /* Check the tag */
     if (!dvbpsi_CanDecodeAsDescriptor(p_descriptor, 0x0b))
@@ -63,7 +63,7 @@ dvbpsi_system_clock_dr_t * dvbpsi_DecodeSystemClockDr(
 
     /* Allocate memory */
     p_decoded =
-            (dvbpsi_system_clock_dr_t*)malloc(sizeof(dvbpsi_system_clock_dr_t));
+            (dvbpsi_mpeg_system_clock_dr_t*)malloc(sizeof(dvbpsi_mpeg_system_clock_dr_t));
     if (!p_decoded)
         return NULL;
 
@@ -77,9 +77,9 @@ dvbpsi_system_clock_dr_t * dvbpsi_DecodeSystemClockDr(
 }
 
 /*****************************************************************************
- * dvbpsi_GenSystemClockDr
+ * dvbpsi_gen_mpeg_system_clock_dr
  *****************************************************************************/
-dvbpsi_descriptor_t * dvbpsi_GenSystemClockDr(dvbpsi_system_clock_dr_t * p_decoded,
+dvbpsi_descriptor_t * dvbpsi_gen_mpeg_system_clock_dr(dvbpsi_mpeg_system_clock_dr_t * p_decoded,
                                               bool b_duplicate)
 {
     /* Create the descriptor */
@@ -100,7 +100,7 @@ dvbpsi_descriptor_t * dvbpsi_GenSystemClockDr(dvbpsi_system_clock_dr_t * p_decod
         /* Duplicate decoded data */
         p_descriptor->p_decoded =
                 dvbpsi_DuplicateDecodedDescriptor(p_decoded,
-                                                  sizeof(dvbpsi_system_clock_dr_t));
+                                                  sizeof(dvbpsi_mpeg_system_clock_dr_t));
     }
 
     return p_descriptor;

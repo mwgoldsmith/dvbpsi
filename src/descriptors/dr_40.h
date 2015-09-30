@@ -39,51 +39,51 @@ extern "C" {
 #endif
 
 /*****************************************************************************
- * dvbpsi_network_name_dr_t
+ * dvbpsi_dvb_network_name_dr_t
  *****************************************************************************/
 /*!
- * \struct dvbpsi_network_name_dr_t
+ * \struct dvbpsi_dvb_network_name_dr_t
  * \brief "network name" descriptor structure.
  *
  * This structure is used to store a decoded "network name"
  * descriptor. (ETSI EN 300 468 section 6.2.27).
  */
 /*!
- * \typedef struct dvbpsi_network_nameg_dr_s dvbpsi_network_name_dr_t
- * \brief dvbpsi_network_name_dr_t type definition.
+ * \typedef struct dvbpsi_network_nameg_dr_s dvbpsi_dvb_network_name_dr_t
+ * \brief dvbpsi_dvb_network_name_dr_t type definition.
  */
 /*!
- * \struct dvbpsi_network_name_dr_s
- * \brief struct dvbpsi_network_name_dr_s definition @see dvbpsi_network_name_dr_t
+ * \struct dvbpsi_dvb_network_name_dr_s
+ * \brief struct dvbpsi_dvb_network_name_dr_s definition @see dvbpsi_dvb_network_name_dr_t
  */
-typedef struct dvbpsi_network_name_dr_s
+typedef struct dvbpsi_dvb_network_name_dr_s
 {
   uint8_t      i_name_length;            /*!< length of the i_name_byte array */
   uint8_t      i_name_byte[255];         /*!< the name of the delivery system */
 
-} dvbpsi_network_name_dr_t;
+} dvbpsi_dvb_network_name_dr_t;
 
 /*****************************************************************************
- * dvbpsi_DecodeNetworkNameDr
+ * dvbpsi_decode_dvb_network_name_dr
  *****************************************************************************/
 /*!
- * \fn dvbpsi_network_name_dr_t * dvbpsi_DecodeNetworkNameDr(
+ * \fn dvbpsi_dvb_network_name_dr_t * dvbpsi_decode_dvb_network_name_dr(
                                         dvbpsi_descriptor_t * p_descriptor)
  * \brief "network name" descriptor decoder.
  * \param p_descriptor pointer to the descriptor structure
  * \return a pointer to a new "network name" descriptor structure
  * which contains the decoded data.
  */
-dvbpsi_network_name_dr_t* dvbpsi_DecodeNetworkNameDr(
+dvbpsi_dvb_network_name_dr_t* dvbpsi_decode_dvb_network_name_dr(
                                         dvbpsi_descriptor_t * p_descriptor);
 
 
 /*****************************************************************************
- * dvbpsi_GenNetworkNameDr
+ * dvbpsi_gen_dvb_network_name_dr
  *****************************************************************************/
 /*!
- * \fn dvbpsi_descriptor_t * dvbpsi_GenNetworkNameDr(
-                        dvbpsi_network_name_dr_t * p_decoded, bool b_duplicate)
+ * \fn dvbpsi_descriptor_t * dvbpsi_gen_dvb_network_name_dr(
+                        dvbpsi_dvb_network_name_dr_t * p_decoded, bool b_duplicate)
  * \brief "network name" descriptor generator.
  * \param p_decoded pointer to a decoded "network name" descriptor
  * structure
@@ -91,8 +91,8 @@ dvbpsi_network_name_dr_t* dvbpsi_DecodeNetworkNameDr(
  * the descriptor
  * \return a pointer to a new descriptor structure which contains encoded data.
  */
-dvbpsi_descriptor_t * dvbpsi_GenNetworkNameDr(
-                                        dvbpsi_network_name_dr_t * p_decoded,
+dvbpsi_descriptor_t * dvbpsi_gen_dvb_network_name_dr(
+                                        dvbpsi_dvb_network_name_dr_t * p_decoded,
                                         bool b_duplicate);
 
 #ifdef __cplusplus

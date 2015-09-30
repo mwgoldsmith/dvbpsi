@@ -42,12 +42,12 @@
 
 
 /*****************************************************************************
- * dvbpsi_DecodeSatDelivSysDr
+ * dvbpsi_decode_dvb_sat_deliv_sys_dr
  *****************************************************************************/
-dvbpsi_sat_deliv_sys_dr_t * dvbpsi_DecodeSatDelivSysDr(
+dvbpsi_dvb_sat_deliv_sys_dr_t * dvbpsi_decode_dvb_sat_deliv_sys_dr(
                                         dvbpsi_descriptor_t * p_descriptor)
 {
-    dvbpsi_sat_deliv_sys_dr_t * p_decoded;
+    dvbpsi_dvb_sat_deliv_sys_dr_t * p_decoded;
 
     /* Check the tag */
     if (!dvbpsi_CanDecodeAsDescriptor(p_descriptor, 0x43))
@@ -58,7 +58,7 @@ dvbpsi_sat_deliv_sys_dr_t * dvbpsi_DecodeSatDelivSysDr(
         return p_descriptor->p_decoded;
 
     /* Allocate memory */
-    p_decoded = (dvbpsi_sat_deliv_sys_dr_t*)malloc(sizeof(dvbpsi_sat_deliv_sys_dr_t));
+    p_decoded = (dvbpsi_dvb_sat_deliv_sys_dr_t*)malloc(sizeof(dvbpsi_dvb_sat_deliv_sys_dr_t));
     if (!p_decoded)
             return NULL;
 
@@ -87,10 +87,10 @@ dvbpsi_sat_deliv_sys_dr_t * dvbpsi_DecodeSatDelivSysDr(
 
 
 /*****************************************************************************
- * dvbpsi_GenSatDelivSysDr
+ * dvbpsi_gen_dvb_sat_deliv_sys_dr
  *****************************************************************************/
-dvbpsi_descriptor_t * dvbpsi_GenSatDelivSysDr(
-                                        dvbpsi_sat_deliv_sys_dr_t * p_decoded,
+dvbpsi_descriptor_t * dvbpsi_gen_dvb_sat_deliv_sys_dr(
+                                        dvbpsi_dvb_sat_deliv_sys_dr_t * p_decoded,
                                         bool b_duplicate)
 {
     /* Create the descriptor */
@@ -121,7 +121,7 @@ dvbpsi_descriptor_t * dvbpsi_GenSatDelivSysDr(
         /* Duplicate decoded data */
         p_descriptor->p_decoded =
                 dvbpsi_DuplicateDecodedDescriptor(p_decoded,
-                                                  sizeof(dvbpsi_sat_deliv_sys_dr_t));
+                                                  sizeof(dvbpsi_dvb_sat_deliv_sys_dr_t));
     }
 
     return p_descriptor;

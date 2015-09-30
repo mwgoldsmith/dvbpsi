@@ -41,9 +41,9 @@
 #include "dr_56.h"
 
 /*****************************************************************************
- * dvbpsi_DecodeTeletextDr
+ * dvbpsi_decode_dvb_teletext_dr
  *****************************************************************************/
-dvbpsi_teletext_dr_t * dvbpsi_DecodeTeletextDr(
+dvbpsi_dvb_teletext_dr_t * dvbpsi_decode_dvb_teletext_dr(
                                         dvbpsi_descriptor_t * p_descriptor)
 {
     /* Check the tag */
@@ -63,8 +63,8 @@ dvbpsi_teletext_dr_t * dvbpsi_DecodeTeletextDr(
         return NULL;
 
     /* Allocate memory */
-    dvbpsi_teletext_dr_t * p_decoded;
-    p_decoded = (dvbpsi_teletext_dr_t*)malloc(sizeof(dvbpsi_teletext_dr_t));
+    dvbpsi_dvb_teletext_dr_t * p_decoded;
+    p_decoded = (dvbpsi_dvb_teletext_dr_t*)malloc(sizeof(dvbpsi_dvb_teletext_dr_t));
     if (!p_decoded)
         return NULL;
 
@@ -95,9 +95,9 @@ dvbpsi_teletext_dr_t * dvbpsi_DecodeTeletextDr(
 
 
 /*****************************************************************************
- * dvbpsi_GenTeletextDr
+ * dvbpsi_gen_dvb_teletext_dr
  *****************************************************************************/
-dvbpsi_descriptor_t * dvbpsi_GenTeletextDr(dvbpsi_teletext_dr_t * p_decoded,
+dvbpsi_descriptor_t * dvbpsi_gen_dvb_teletext_dr(dvbpsi_dvb_teletext_dr_t * p_decoded,
                                            bool b_duplicate)
 {
     if (p_decoded->i_pages_number > DVBPSI_TELETEXT_DR_MAX)
@@ -129,7 +129,7 @@ dvbpsi_descriptor_t * dvbpsi_GenTeletextDr(dvbpsi_teletext_dr_t * p_decoded,
         /* Duplicate decoded data */
         p_descriptor->p_decoded =
                 dvbpsi_DuplicateDecodedDescriptor(p_decoded,
-                                                  sizeof(dvbpsi_teletext_dr_t));
+                                                  sizeof(dvbpsi_dvb_teletext_dr_t));
     }
 
     return p_descriptor;

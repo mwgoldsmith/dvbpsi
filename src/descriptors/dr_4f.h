@@ -39,47 +39,47 @@ extern "C" {
 #endif
 
 /*****************************************************************************
- * dvbpsi_tshifted_ev_dr_t
+ * dvbpsi_dvb_tshifted_ev_dr_t
  *****************************************************************************/
 /*!
- * \struct dvbpsi_tshifted_ev_dr_t
+ * \struct dvbpsi_dvb_tshifted_ev_dr_t
  * \brief "time shifted event" descriptor structure.
  *
  * This structure is used to store a decoded "time shifted event"
  * descriptor. (ETSI EN 300 468 section 6.2.44).
  */
 /*!
- * \typedef struct dvbpsi_tshifted_ev_dr_s dvbpsi_tshifted_ev_dr_t
- * \brief dvbpsi_tshifted_ev_dr_t type definition.
+ * \typedef struct dvbpsi_dvb_tshifted_ev_dr_s dvbpsi_dvb_tshifted_ev_dr_t
+ * \brief dvbpsi_dvb_tshifted_ev_dr_t type definition.
  */
 /*!
- * \struct dvbpsi_tshifted_ev_dr_s
- * \brief struct dvbpsi_tshifted_ev_dr_s @see dvbpsi_tshifted_ev_dr_t
+ * \struct dvbpsi_dvb_tshifted_ev_dr_s
+ * \brief struct dvbpsi_dvb_tshifted_ev_dr_s @see dvbpsi_dvb_tshifted_ev_dr_t
  */
-typedef struct dvbpsi_tshifted_ev_dr_s
+typedef struct dvbpsi_dvb_tshifted_ev_dr_s
 {
   uint16_t       i_ref_service_id;         /*!< reference service id */
   uint16_t       i_ref_event_id;           /*!< reference service id */
-} dvbpsi_tshifted_ev_dr_t;
+} dvbpsi_dvb_tshifted_ev_dr_t;
 
 /*****************************************************************************
- * dvbpsi_DecodeTimeShiftedEventDr
+ * dvbpsi_decode_dvb_tshifted_ev_dr
  *****************************************************************************/
 /*!
- * \fn dvbpsi_tshifted_ev_dr_t * dvbpsi_DecodeTimeShiftedEventDr(
+ * \fn dvbpsi_dvb_tshifted_ev_dr_t * dvbpsi_decode_dvb_tshifted_ev_dr(
                                         dvbpsi_descriptor_t * p_descriptor)
  * \brief "time shifted event" descriptor decoder.
  * \param p_descriptor pointer to the descriptor structure
  * \return a pointer to a new "time shifted event" descriptor structure
  * which contains the decoded data.
  */
-dvbpsi_tshifted_ev_dr_t* dvbpsi_DecodeTimeShiftedEventDr(dvbpsi_descriptor_t * p_descriptor);
+dvbpsi_dvb_tshifted_ev_dr_t* dvbpsi_decode_dvb_tshifted_ev_dr(dvbpsi_descriptor_t * p_descriptor);
 
 /*****************************************************************************
- * dvbpsi_GenTimeShiftedEventDr
+ * dvbpsi_gen_dvb_tshifted_ev_dr
  *****************************************************************************/
 /*!
- * \fn dvbpsi_descriptor_t *dvbpsi_GenTimeShiftedEventDr(dvbpsi_tshifted_ev_dr_t *p_decoded,
+ * \fn dvbpsi_descriptor_t *dvbpsi_gen_dvb_tshifted_ev_dr(dvbpsi_dvb_tshifted_ev_dr_t *p_decoded,
                                                          bool b_duplicate);
  * \brief "time shifted event" descriptor generator.
  * \param p_decoded pointer to a decoded "time shifted event" descriptor structure
@@ -87,7 +87,7 @@ dvbpsi_tshifted_ev_dr_t* dvbpsi_DecodeTimeShiftedEventDr(dvbpsi_descriptor_t * p
  * the descriptor
  * \return a pointer to a new descriptor structure which contains encoded data.
  */
-dvbpsi_descriptor_t *dvbpsi_GenTimeShiftedEventDr(dvbpsi_tshifted_ev_dr_t * p_decoded,
+dvbpsi_descriptor_t *dvbpsi_gen_dvb_tshifted_ev_dr(dvbpsi_dvb_tshifted_ev_dr_t * p_decoded,
                                                   bool b_duplicate);
 
 #ifdef __cplusplus

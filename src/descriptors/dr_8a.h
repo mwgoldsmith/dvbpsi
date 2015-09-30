@@ -38,45 +38,45 @@ extern "C" {
 #endif
 
 /*****************************************************************************
- * dvbpsi_cuei_dr_t
+ * dvbpsi_scte_cuei_dr_t
  *****************************************************************************/
 /*!
- * \struct dvbpsi_cuei_dr_s
+ * \struct dvbpsi_scte_cuei_dr_s
  * \brief "CUE Identifier" descriptor structure.
  *
  * The CUE Identifier descriptor is used to label the PIDs
  * that carry splice commands. (SCTE 35 2004 section 6.2.)
  */
 /*!
- * \typedef struct dvbpsi_cuei_dr_s dvbpsi_cuei_dr_t
- * \brief dvbpsi_cuei_dr_t type definition.
+ * \typedef struct dvbpsi_scte_cuei_dr_s dvbpsi_scte_cuei_dr_t
+ * \brief dvbpsi_scte_cuei_dr_t type definition.
  */
-typedef struct dvbpsi_cuei_dr_s
+typedef struct dvbpsi_scte_cuei_dr_s
 {
   uint8_t      i_cue_stream_type; /*!< indicate type of splice commands */
 
-} dvbpsi_cuei_dr_t;
+} dvbpsi_scte_cuei_dr_t;
 
 
 /*****************************************************************************
  * dvbpsi_DecodeCUEIDataDr
  *****************************************************************************/
 /*!
- * \fn dvbpsi_cuei_dr_t * dvbpsi_DecodeCUEIDr(dvbpsi_descriptor_t * p_descriptor)
+ * \fn dvbpsi_scte_cuei_dr_t * dvbpsi_decode_scte_cuei_dr(dvbpsi_descriptor_t * p_descriptor)
  * \brief "CUEI" descriptor decoder.
  * \param p_descriptor pointer to the descriptor structure
  * \return a pointer to a new "CUEI" descriptor structure
  * which contains the decoded data.
  */
-dvbpsi_cuei_dr_t* dvbpsi_DecodeCUEIDr(dvbpsi_descriptor_t * p_descriptor);
+dvbpsi_scte_cuei_dr_t* dvbpsi_decode_scte_cuei_dr(dvbpsi_descriptor_t * p_descriptor);
 
 
 /*****************************************************************************
  * dvbpsi_GenCUEIDataDr
  *****************************************************************************/
 /*!
- * \fn dvbpsi_descriptor_t * dvbpsi_GenCUEIDr(
-                        dvbpsi_cuei_dr_t * p_decoded, bool b_duplicate)
+ * \fn dvbpsi_descriptor_t * dvbpsi_gen_scte_cuei_dr(
+                        dvbpsi_scte_cuei_dr_t * p_decoded, bool b_duplicate)
  * \brief "CUEI" descriptor generator.
  * \param p_decoded pointer to a decoded "CUEI" descriptor
  * structure
@@ -84,7 +84,7 @@ dvbpsi_cuei_dr_t* dvbpsi_DecodeCUEIDr(dvbpsi_descriptor_t * p_descriptor);
  * the descriptor
  * \return a pointer to a new descriptor structure which contains encoded data.
  */
-dvbpsi_descriptor_t * dvbpsi_GenCUEIDr(dvbpsi_cuei_dr_t * p_decoded, bool b_duplicate);
+dvbpsi_descriptor_t * dvbpsi_gen_scte_cuei_dr(dvbpsi_scte_cuei_dr_t * p_decoded, bool b_duplicate);
 
 
 #ifdef __cplusplus

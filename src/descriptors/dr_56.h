@@ -65,52 +65,52 @@ typedef struct dvbpsi_teletextpage_s
 /*!
  * \def DVBPSI_TELETEXT_DR_MAX
  * \brief Maximum number of dvbpsi_teletextpage_t entries present in
- * @see dvbpsi_teletext_dr_t
+ * @see dvbpsi_dvb_teletext_dr_t
  */
 #define DVBPSI_TELETEXT_DR_MAX 51
 
 /*****************************************************************************
- * dvbpsi_teletext_dr_t
+ * dvbpsi_dvb_teletext_dr_t
  *****************************************************************************/
 /*!
- * \struct dvbpsi_teletext_dr_s
+ * \struct dvbpsi_dvb_teletext_dr_s
  * \brief "teletext" descriptor structure.
  *
  * This structure is used to store a decoded "teletext"
  * descriptor. (ETSI EN 300 468 version 1.7.1 section 6.2.42 and 6.2.47).
  */
 /*!
- * \typedef struct dvbpsi_teletext_dr_s dvbpsi_teletext_dr_t
- * \brief dvbpsi_teletext_dr_t type definition.
+ * \typedef struct dvbpsi_dvb_teletext_dr_s dvbpsi_dvb_teletext_dr_t
+ * \brief dvbpsi_dvb_teletext_dr_t type definition.
  */
-typedef struct dvbpsi_teletext_dr_s
+typedef struct dvbpsi_dvb_teletext_dr_s
 {
   uint8_t      i_pages_number;                           /*!< number of pages */
   dvbpsi_teletextpage_t p_pages[DVBPSI_TELETEXT_DR_MAX]; /*!< teletext pages */
 
-} dvbpsi_teletext_dr_t;
+} dvbpsi_dvb_teletext_dr_t;
 
 /*****************************************************************************
  * dvbpsi_DecodeTeletextDataDr
  *****************************************************************************/
 /*!
- * \fn dvbpsi_teletext_dr_t * dvbpsi_DecodeTeletextDr(
+ * \fn dvbpsi_dvb_teletext_dr_t * dvbpsi_decode_dvb_teletext_dr(
                                         dvbpsi_descriptor_t * p_descriptor)
  * \brief "teletext" descriptor decoder.
  * \param p_descriptor pointer to the descriptor structure
  * \return a pointer to a new "teletext" descriptor structure
  * which contains the decoded data.
  */
-dvbpsi_teletext_dr_t* dvbpsi_DecodeTeletextDr(
+dvbpsi_dvb_teletext_dr_t* dvbpsi_decode_dvb_teletext_dr(
                                         dvbpsi_descriptor_t * p_descriptor);
 
 
 /*****************************************************************************
- * dvbpsi_GenTeletextDr
+ * dvbpsi_gen_dvb_teletext_dr
  *****************************************************************************/
 /*!
- * \fn dvbpsi_descriptor_t * dvbpsi_GenTeletextDr(
-                        dvbpsi_teletext_dr_t * p_decoded, bool b_duplicate)
+ * \fn dvbpsi_descriptor_t * dvbpsi_gen_dvb_teletext_dr(
+                        dvbpsi_dvb_teletext_dr_t * p_decoded, bool b_duplicate)
  * \brief "teletext" descriptor generator.
  * \param p_decoded pointer to a decoded "teletext" descriptor
  * structure
@@ -118,8 +118,8 @@ dvbpsi_teletext_dr_t* dvbpsi_DecodeTeletextDr(
  * the descriptor
  * \return a pointer to a new descriptor structure which contains encoded data.
  */
-dvbpsi_descriptor_t * dvbpsi_GenTeletextDr(
-                                        dvbpsi_teletext_dr_t * p_decoded,
+dvbpsi_descriptor_t * dvbpsi_gen_dvb_teletext_dr(
+                                        dvbpsi_dvb_teletext_dr_t * p_decoded,
                                         bool b_duplicate);
 
 

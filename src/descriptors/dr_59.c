@@ -43,13 +43,13 @@
 
 
 /*****************************************************************************
- * dvbpsi_DecodeSubtitlingDr
+ * dvbpsi_decode_dvb_subtitling_dr
  *****************************************************************************/
-dvbpsi_subtitling_dr_t * dvbpsi_DecodeSubtitlingDr(
+dvbpsi_dvb_subtitling_dr_t * dvbpsi_decode_dvb_subtitling_dr(
                                         dvbpsi_descriptor_t * p_descriptor)
 {
     int i_subtitles_number;
-    dvbpsi_subtitling_dr_t * p_decoded;
+    dvbpsi_dvb_subtitling_dr_t * p_decoded;
 
     /* Check the tag */
     if (!dvbpsi_CanDecodeAsDescriptor(p_descriptor, 0x59))
@@ -67,7 +67,7 @@ dvbpsi_subtitling_dr_t * dvbpsi_DecodeSubtitlingDr(
         return NULL;
 
     /* Allocate memory */
-    p_decoded = (dvbpsi_subtitling_dr_t*)malloc(sizeof(dvbpsi_subtitling_dr_t));
+    p_decoded = (dvbpsi_dvb_subtitling_dr_t*)malloc(sizeof(dvbpsi_dvb_subtitling_dr_t));
     if (!p_decoded)
         return NULL;
 
@@ -100,10 +100,10 @@ dvbpsi_subtitling_dr_t * dvbpsi_DecodeSubtitlingDr(
 
 
 /*****************************************************************************
- * dvbpsi_GenSubtitlingDr
+ * dvbpsi_gen_dvb_subtitling_dr
  *****************************************************************************/
-dvbpsi_descriptor_t * dvbpsi_GenSubtitlingDr(
-                                        dvbpsi_subtitling_dr_t * p_decoded,
+dvbpsi_descriptor_t * dvbpsi_gen_dvb_subtitling_dr(
+                                        dvbpsi_dvb_subtitling_dr_t * p_decoded,
                                         bool b_duplicate)
 {
     if (p_decoded->i_subtitles_number > DVBPSI_SUBTITLING_DR_MAX)
@@ -141,7 +141,7 @@ dvbpsi_descriptor_t * dvbpsi_GenSubtitlingDr(
         /* Duplicate decoded data */
         p_descriptor->p_decoded =
                 dvbpsi_DuplicateDecodedDescriptor(p_decoded,
-                                                  sizeof(dvbpsi_subtitling_dr_t));
+                                                  sizeof(dvbpsi_dvb_subtitling_dr_t));
     }
 
     return p_descriptor;

@@ -40,11 +40,11 @@ Decode AC-3 Audio Descriptor.
 #include "dr_81.h"
 
 /*****************************************************************************
- * dvbpsi_DecodeAc3AudioDr
+ * dvbpsi_decode_atsc_ac3_audio_dr
  *****************************************************************************/
-dvbpsi_ac3_audio_dr_t *dvbpsi_DecodeAc3AudioDr(dvbpsi_descriptor_t *p_descriptor)
+dvbpsi_atsc_ac3_audio_dr_t *dvbpsi_decode_atsc_ac3_audio_dr(dvbpsi_descriptor_t *p_descriptor)
 {
-    dvbpsi_ac3_audio_dr_t *p_decoded;
+    dvbpsi_atsc_ac3_audio_dr_t *p_decoded;
     uint8_t * buf = p_descriptor->p_data;
 
     /* Check the tag */
@@ -59,7 +59,7 @@ dvbpsi_ac3_audio_dr_t *dvbpsi_DecodeAc3AudioDr(dvbpsi_descriptor_t *p_descriptor
     if (p_descriptor->i_length < 3)
         return NULL;
 
-    p_decoded = (dvbpsi_ac3_audio_dr_t*)calloc(1, sizeof(dvbpsi_ac3_audio_dr_t));
+    p_decoded = (dvbpsi_atsc_ac3_audio_dr_t*)calloc(1, sizeof(dvbpsi_atsc_ac3_audio_dr_t));
     if (!p_decoded)
         return NULL;
 

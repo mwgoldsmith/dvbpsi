@@ -40,9 +40,9 @@
 #include "dr_4b.h"
 
 /*****************************************************************************
- * dvbpsi_DecodeNVODReferenceDr
+ * dvbpsi_decode_dvb_nvod_ref_dr
  *****************************************************************************/
-dvbpsi_nvod_ref_dr_t* dvbpsi_DecodeNVODReferenceDr(dvbpsi_descriptor_t * p_descriptor)
+dvbpsi_dvb_nvod_ref_dr_t* dvbpsi_decode_dvb_nvod_ref_dr(dvbpsi_descriptor_t * p_descriptor)
 {
     /* Check the tag */
     if (p_descriptor->i_tag != 0x4B)
@@ -59,8 +59,8 @@ dvbpsi_nvod_ref_dr_t* dvbpsi_DecodeNVODReferenceDr(dvbpsi_descriptor_t * p_descr
         return NULL;
 
     /* Allocate memory */
-    dvbpsi_nvod_ref_dr_t * p_decoded;
-    p_decoded = (dvbpsi_nvod_ref_dr_t*)calloc(1, sizeof(dvbpsi_nvod_ref_dr_t));
+    dvbpsi_dvb_nvod_ref_dr_t * p_decoded;
+    p_decoded = (dvbpsi_dvb_nvod_ref_dr_t*)calloc(1, sizeof(dvbpsi_dvb_nvod_ref_dr_t));
     if (!p_decoded)
         return NULL;
 
@@ -86,9 +86,9 @@ dvbpsi_nvod_ref_dr_t* dvbpsi_DecodeNVODReferenceDr(dvbpsi_descriptor_t * p_descr
 }
 
 /*****************************************************************************
- * dvbpsi_GenNVODReferenceDr
+ * dvbpsi_gen_dvb_nvod_ref_dr
  *****************************************************************************/
-dvbpsi_descriptor_t * dvbpsi_GenNVODReferenceDr(dvbpsi_nvod_ref_dr_t * p_decoded,
+dvbpsi_descriptor_t * dvbpsi_gen_dvb_nvod_ref_dr(dvbpsi_dvb_nvod_ref_dr_t * p_decoded,
                                           bool b_duplicate)
 {
     /* Create the descriptor */
@@ -117,7 +117,7 @@ dvbpsi_descriptor_t * dvbpsi_GenNVODReferenceDr(dvbpsi_nvod_ref_dr_t * p_decoded
         /* Duplicate decoded data */
         p_descriptor->p_decoded =
                dvbpsi_DuplicateDecodedDescriptor(p_decoded,
-                      sizeof(dvbpsi_nvod_ref_dr_t));
+                      sizeof(dvbpsi_dvb_nvod_ref_dr_t));
     }
 
     return p_descriptor;

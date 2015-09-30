@@ -40,11 +40,11 @@ Decode Default Authority Descriptor.
 #include "dr_73.h"
 
 /*****************************************************************************
- * dvbpsi_DecodeDefaultAuthorityDr
+ * dvbpsi_decode_dvb_default_authority_dr
  *****************************************************************************/
-dvbpsi_default_authority_dr_t *dvbpsi_DecodeDefaultAuthorityDr(dvbpsi_descriptor_t *p_descriptor)
+dvbpsi_dvb_default_authority_dr_t *dvbpsi_decode_dvb_default_authority_dr(dvbpsi_descriptor_t *p_descriptor)
 {
-    dvbpsi_default_authority_dr_t *p_decoded;
+    dvbpsi_dvb_default_authority_dr_t *p_decoded;
 
     /* Check the tag */
     if (p_descriptor->i_tag != 0x73)
@@ -54,7 +54,7 @@ dvbpsi_default_authority_dr_t *dvbpsi_DecodeDefaultAuthorityDr(dvbpsi_descriptor
     if (p_descriptor->p_decoded)
         return p_descriptor->p_decoded;
 
-    p_decoded = (dvbpsi_default_authority_dr_t*)malloc(sizeof(dvbpsi_default_authority_dr_t));
+    p_decoded = (dvbpsi_dvb_default_authority_dr_t*)malloc(sizeof(dvbpsi_dvb_default_authority_dr_t));
     if (!p_decoded)
         return NULL;
 

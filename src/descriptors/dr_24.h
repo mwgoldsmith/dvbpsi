@@ -35,7 +35,7 @@ extern "C" {
 #endif
 
 /*!
- * \struct dvbpsi_content_labelling_dr_s
+ * \struct dvbpsi_mpeg_content_labelling_dr_s
  * \brief Content labelling descriptor structure.
  *
  * This structure is used to store a decoded content labelling descriptor.
@@ -43,10 +43,10 @@ extern "C" {
  */
 
 /*!
- * \typedef struct dvbpsi_content_labelling_dr_s dvbpsi_content_labelling_dr_t
- * \brief dvbpsi_content_labelling_dr_t type definition.
+ * \typedef struct dvbpsi_mpeg_content_labelling_dr_s dvbpsi_mpeg_content_labelling_dr_t
+ * \brief dvbpsi_mpeg_content_labelling_dr_t type definition.
  */
-typedef struct dvbpsi_content_labelling_dr_s
+typedef struct dvbpsi_mpeg_content_labelling_dr_s
 {
     uint16_t i_metadata_application_format; /*!< metadata_application_format */
 
@@ -102,7 +102,7 @@ typedef struct dvbpsi_content_labelling_dr_s
      * descriptor. Memory is allocated by the decoder when decoding, and by the
      * caller when generating. */
     uint8_t *p_private_data;
-} dvbpsi_content_labelling_dr_t;
+} dvbpsi_mpeg_content_labelling_dr_t;
 
 /*!
  * \brief Content labelling descriptor decoder.
@@ -110,7 +110,7 @@ typedef struct dvbpsi_content_labelling_dr_s
  * \return A pointer to a new content labelling descriptor structure which
  * contains the decoded data.
  */
-dvbpsi_content_labelling_dr_t* dvbpsi_DecodeContentLabellingDr(
+dvbpsi_mpeg_content_labelling_dr_t* dvbpsi_decode_mpeg_content_labelling_dr(
                                       dvbpsi_descriptor_t * p_descriptor);
 
 /*!
@@ -118,8 +118,8 @@ dvbpsi_content_labelling_dr_t* dvbpsi_DecodeContentLabellingDr(
  * \param p_decoded pointer to a decoded content labelling descriptor structure.
  * \return a pointer to a new descriptor structure which contains encoded data.
  */
-dvbpsi_descriptor_t * dvbpsi_GenContentLabellingDr(
-                                      dvbpsi_content_labelling_dr_t * p_decoded);
+dvbpsi_descriptor_t * dvbpsi_gen_mpeg_content_labelling_dr(
+                                      dvbpsi_mpeg_content_labelling_dr_t * p_decoded);
 
 #ifdef __cplusplus
 }

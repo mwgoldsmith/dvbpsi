@@ -35,7 +35,7 @@ extern "C" {
 #endif
 
 /*!
- * \struct dvbpsi_std_dr_s
+ * \struct dvbpsi_mpeg_std_dr_s
  * \brief STD descriptor structure.
  *
  * This structure is used to store a decoded STD descriptor. (ISO/IEC 13818-1
@@ -43,13 +43,13 @@ extern "C" {
  */
 
 /*!
- * \typedef struct dvbpsi_std_dr_s dvbpsi_std_dr_t
- * \brief dvbpsi_std_dr_t type definition.
+ * \typedef struct dvbpsi_mpeg_std_dr_s dvbpsi_mpeg_std_dr_t
+ * \brief dvbpsi_mpeg_std_dr_t type definition.
  */
-typedef struct dvbpsi_std_dr_s
+typedef struct dvbpsi_mpeg_std_dr_s
 {
   bool          b_leak_valid_flag; /*!< leak_valid_flag */
-} dvbpsi_std_dr_t;
+} dvbpsi_mpeg_std_dr_t;
 
 /*!
  * \brief STD descriptor decoder.
@@ -57,14 +57,14 @@ typedef struct dvbpsi_std_dr_s
  * \return A pointer to a new STD descriptor structure which contains the
  * decoded data.
  */
-dvbpsi_std_dr_t* dvbpsi_DecodeSTDDr(dvbpsi_descriptor_t * p_descriptor);
+dvbpsi_mpeg_std_dr_t* dvbpsi_decode_mpeg_std_dr(dvbpsi_descriptor_t * p_descriptor);
 
 /*!
  * \brief STD descriptor generator.
  * \param p_decoded pointer to a decoded STD descriptor structure.
  * \return a pointer to a new descriptor structure which contains encoded data.
  */
-dvbpsi_descriptor_t * dvbpsi_GenSTDDr(dvbpsi_std_dr_t * p_decoded);
+dvbpsi_descriptor_t * dvbpsi_gen_mpeg_std_dr(dvbpsi_mpeg_std_dr_t * p_decoded);
 
 #ifdef __cplusplus
 }

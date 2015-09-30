@@ -41,47 +41,47 @@ extern "C" {
 
 
 /*****************************************************************************
- * dvbpsi_private_data_dr_t
+ * dvbpsi_mpeg_private_data_dr_t
  *****************************************************************************/
 /*!
- * \struct dvbpsi_private_data_dr_s
+ * \struct dvbpsi_mpeg_private_data_dr_s
  * \brief "private data indicator" descriptor structure.
  *
  * This structure is used to store a decoded "private data indicator"
  * descriptor. (ISO/IEC 13818-1 section 2.6.28).
  */
 /*!
- * \typedef struct dvbpsi_private_data_dr_s dvbpsi_private_data_dr_t
- * \brief dvbpsi_private_data_dr_t type definition.
+ * \typedef struct dvbpsi_mpeg_private_data_dr_s dvbpsi_mpeg_private_data_dr_t
+ * \brief dvbpsi_mpeg_private_data_dr_t type definition.
  */
-typedef struct dvbpsi_private_data_dr_s
+typedef struct dvbpsi_mpeg_private_data_dr_s
 {
   uint32_t      i_private_data;         /*!< private_data_indicator */
 
-} dvbpsi_private_data_dr_t;
+} dvbpsi_mpeg_private_data_dr_t;
 
 
 /*****************************************************************************
- * dvbpsi_DecodePrivateDataDr
+ * dvbpsi_decode_mpeg_private_data_dr
  *****************************************************************************/
 /*!
- * \fn dvbpsi_private_data_dr_t * dvbpsi_DecodePrivateDataDr(
+ * \fn dvbpsi_mpeg_private_data_dr_t * dvbpsi_decode_mpeg_private_data_dr(
                                         dvbpsi_descriptor_t * p_descriptor)
  * \brief "private data indicator" descriptor decoder.
  * \param p_descriptor pointer to the descriptor structure
  * \return a pointer to a new "private data indicator" descriptor structure
  * which contains the decoded data.
  */
-dvbpsi_private_data_dr_t* dvbpsi_DecodePrivateDataDr(
+dvbpsi_mpeg_private_data_dr_t* dvbpsi_decode_mpeg_private_data_dr(
                                         dvbpsi_descriptor_t * p_descriptor);
 
 
 /*****************************************************************************
- * dvbpsi_GenPrivateDataDr
+ * dvbpsi_gen_mpeg_private_data_dr
  *****************************************************************************/
 /*!
- * \fn dvbpsi_descriptor_t * dvbpsi_GenPrivateDataDr(
-                        dvbpsi_private_data_dr_t * p_decoded, bool b_duplicate)
+ * \fn dvbpsi_descriptor_t * dvbpsi_gen_mpeg_private_data_dr(
+                        dvbpsi_mpeg_private_data_dr_t * p_decoded, bool b_duplicate)
  * \brief "private data indicator" descriptor generator.
  * \param p_decoded pointer to a decoded "private data indicator" descriptor
  * structure
@@ -89,8 +89,8 @@ dvbpsi_private_data_dr_t* dvbpsi_DecodePrivateDataDr(
  * the descriptor
  * \return a pointer to a new descriptor structure which contains encoded data.
  */
-dvbpsi_descriptor_t * dvbpsi_GenPrivateDataDr(
-                                        dvbpsi_private_data_dr_t * p_decoded,
+dvbpsi_descriptor_t * dvbpsi_gen_mpeg_private_data_dr(
+                                        dvbpsi_mpeg_private_data_dr_t * p_decoded,
                                         bool b_duplicate);
 
 

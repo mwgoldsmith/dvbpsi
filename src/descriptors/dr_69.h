@@ -40,53 +40,53 @@ extern "C" {
 
 
 /*****************************************************************************
- * dvbpsi_PDC_dr_t
+ * dvbpsi_dvb_PDC_dr_t
  *****************************************************************************/
 /*!
- * \struct dvbpsi_PDC_dr_s
+ * \struct dvbpsi_dvb_PDC_dr_s
  * \brief PDC descriptor structure.
  *
  * This structure is used to store a decoded PDC descriptor.
  * (ETSI EN 300 231).
  */
 /*!
- * \typedef struct dvbpsi_PDC_dr_s dvbpsi_PDC_dr_t
- * \brief dvbpsi_PDC_dr_t type definition.
+ * \typedef struct dvbpsi_dvb_PDC_dr_s dvbpsi_dvb_PDC_dr_t
+ * \brief dvbpsi_dvb_PDC_dr_t type definition.
  */
-typedef struct dvbpsi_PDC_dr_s
+typedef struct dvbpsi_dvb_PDC_dr_s
 {
   /* pdc[0] ~= day; PDC[1] ~= month; PDC[2] ~= hour; PDC[3] ~= min; */
   uint8_t   i_PDC[4];          /*!< PDC */
-} dvbpsi_PDC_dr_t;
+} dvbpsi_dvb_PDC_dr_t;
 
 
 /*****************************************************************************
- * dvbpsi_DecodePDCDr
+ * dvbpsi_decode_dvb_PDC_dr
  *****************************************************************************/
 /*!
- * \fn dvbpsi_PDC_dr_t * dvbpsi_DecodePDCDr(
+ * \fn dvbpsi_dvb_PDC_dr_t * dvbpsi_decode_dvb_PDC_dr(
                                         dvbpsi_descriptor_t * p_descriptor)
  * \brief PDC descriptor decoder.
  * \param p_descriptor pointer to the descriptor structure
  * \return a pointer to a new "video stream" descriptor structure which
  * contains the decoded data.
  */
-dvbpsi_PDC_dr_t* dvbpsi_DecodePDCDr(dvbpsi_descriptor_t * p_descriptor);
+dvbpsi_dvb_PDC_dr_t* dvbpsi_decode_dvb_PDC_dr(dvbpsi_descriptor_t * p_descriptor);
 
 
 /*****************************************************************************
- * dvbpsi_GenPDCDr
+ * dvbpsi_gen_dvb_PDC_dr
  *****************************************************************************/
 /*!
- * \fn dvbpsi_descriptor_t * dvbpsi_GenPDCDr(
-                        dvbpsi_PDC_dr_t * p_decoded, bool b_duplicate)
+ * \fn dvbpsi_descriptor_t * dvbpsi_gen_dvb_PDC_dr(
+                        dvbpsi_dvb_PDC_dr_t * p_decoded, bool b_duplicate)
  * \brief PDC descriptor generator.
  * \param p_decoded pointer to a decoded PDC descriptor structure
  * \param b_duplicate if true then duplicate the p_decoded structure into
  * the descriptor
  * \return a pointer to a new descriptor structure which contains encoded data.
  */
-dvbpsi_descriptor_t * dvbpsi_GenPDCDr(dvbpsi_PDC_dr_t * p_decoded,
+dvbpsi_descriptor_t * dvbpsi_gen_dvb_PDC_dr(dvbpsi_dvb_PDC_dr_t * p_decoded,
                                       bool b_duplicate);
 
 

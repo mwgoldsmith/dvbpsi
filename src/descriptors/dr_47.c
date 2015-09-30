@@ -43,12 +43,12 @@
 
 
 /*****************************************************************************
- * dvbpsi_DecodeBouquetNameDr
+ * dvbpsi_decode_dvb_bouquet_name_dr
  *****************************************************************************/
-dvbpsi_bouquet_name_dr_t * dvbpsi_DecodeBouquetNameDr(
+dvbpsi_dvb_bouquet_name_dr_t * dvbpsi_decode_dvb_bouquet_name_dr(
                                         dvbpsi_descriptor_t * p_descriptor)
 {
-    dvbpsi_bouquet_name_dr_t * p_decoded;
+    dvbpsi_dvb_bouquet_name_dr_t * p_decoded;
 
     /* Check the tag */
     if (!dvbpsi_CanDecodeAsDescriptor(p_descriptor, 0x47))
@@ -59,7 +59,7 @@ dvbpsi_bouquet_name_dr_t * dvbpsi_DecodeBouquetNameDr(
         return p_descriptor->p_decoded;
 
     /* Allocate memory */
-    p_decoded = (dvbpsi_bouquet_name_dr_t*)malloc(sizeof(dvbpsi_bouquet_name_dr_t));
+    p_decoded = (dvbpsi_dvb_bouquet_name_dr_t*)malloc(sizeof(dvbpsi_dvb_bouquet_name_dr_t));
     if (!p_decoded)
         return NULL;
 
@@ -78,9 +78,9 @@ dvbpsi_bouquet_name_dr_t * dvbpsi_DecodeBouquetNameDr(
 
 
 /*****************************************************************************
- * dvbpsi_GenBouquetNameDr
+ * dvbpsi_gen_dvb_bouquet_name_dr
  *****************************************************************************/
-dvbpsi_descriptor_t * dvbpsi_GenBouquetNameDr(dvbpsi_bouquet_name_dr_t *p_decoded,
+dvbpsi_descriptor_t * dvbpsi_gen_dvb_bouquet_name_dr(dvbpsi_dvb_bouquet_name_dr_t *p_decoded,
                                         bool b_duplicate)
 {
     /* Create the descriptor */
@@ -100,7 +100,7 @@ dvbpsi_descriptor_t * dvbpsi_GenBouquetNameDr(dvbpsi_bouquet_name_dr_t *p_decode
         /* Duplicate decoded data */
         p_descriptor->p_decoded =
                 dvbpsi_DuplicateDecodedDescriptor(p_decoded,
-                                                  sizeof(dvbpsi_bouquet_name_dr_t));
+                                                  sizeof(dvbpsi_dvb_bouquet_name_dr_t));
     }
 
     return p_descriptor;

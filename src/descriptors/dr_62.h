@@ -35,37 +35,37 @@ extern "C" {
 #endif
 
 /*****************************************************************************
- * dvbpsi_frequency_list_dr_s
+ * dvbpsi_dvb_frequency_list_dr_s
  *****************************************************************************/
 /*!
- * \struct dvbpsi_frequency_list_dr_s
+ * \struct dvbpsi_dvb_frequency_list_dr_s
  * \brief Frequency List Descriptor
  *
  * This structure is used to store a decoded Frequency List descriptor.
  */
 /*!
- * \typedef struct dvbpsi_frequency_list_dr_s dvbpsi_frequency_list_dr_t
- * \brief dvbpsi_frequency_list_dr_t type definition.
+ * \typedef struct dvbpsi_dvb_frequency_list_dr_s dvbpsi_dvb_frequency_list_dr_t
+ * \brief dvbpsi_dvb_frequency_list_dr_t type definition.
  */
-typedef struct dvbpsi_frequency_list_dr_s
+typedef struct dvbpsi_dvb_frequency_list_dr_s
 {
     uint8_t i_coding_type;             /*!< Coding type, 1 = Satellite, 2 = Cable, 3 = Terrestrial */
     uint8_t i_number_of_frequencies;   /*!< Number of center frequencies present */
     uint32_t p_center_frequencies[63]; /*!< Center frequency as defined by a delivery_system_descriptor */
-}dvbpsi_frequency_list_dr_t;
+}dvbpsi_dvb_frequency_list_dr_t;
 
 /*****************************************************************************
- * dvbpsi_DecodeFrequencyListDr
+ * dvbpsi_decode_dvb_frequency_list_dr
  *****************************************************************************/
 /*!
- * \fn dvbpsi_frequency_list_dr_t *dvbpsi_DecodeFrequencyListDr(
+ * \fn dvbpsi_dvb_frequency_list_dr_t *dvbpsi_decode_dvb_frequency_list_dr(
  *        dvbpsi_descriptor_t *p_descriptor)
  * \brief Decode a Frequency List descriptor (tag 0x62)
  * \param p_descriptor Raw descriptor to decode.
  * \return NULL if the descriptor could not be decoded or a pointer to a
- *         dvbpsi_frequency_list_dr_t structure.
+ *         dvbpsi_dvb_frequency_list_dr_t structure.
  */
-dvbpsi_frequency_list_dr_t *dvbpsi_DecodeFrequencyListDr(dvbpsi_descriptor_t *p_descriptor);
+dvbpsi_dvb_frequency_list_dr_t *dvbpsi_decode_dvb_frequency_list_dr(dvbpsi_descriptor_t *p_descriptor);
 
 /*****************************************************************************
  * dvbpsi_Bcd8ToUint32

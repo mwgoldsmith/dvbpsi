@@ -66,40 +66,40 @@ typedef struct dvbpsi_parental_rating_s
 #define DVBPSI_PARENTAL_RATING_DR_MAX 64
 
 /*****************************************************************************
- * dvbpsi_parental_rating_dr_t
+ * dvbpsi_dvb_parental_rating_dr_t
  *****************************************************************************/
 /*!
- * \struct dvbpsi_parental_rating_dr_s
+ * \struct dvbpsi_dvb_parental_rating_dr_s
  * \brief "parental_rating" descriptor structure.
  *
  * This structure is used to store a decoded "parental_rating"
  * descriptor. (ETSI EN 300 468 section 6.2.26).
  */
 /*!
- * \typedef struct dvbpsi_parental_rating_dr_s dvbpsi_parental_rating_dr_t
- * \brief dvbpsi_parental_rating_dr_t type definition.
+ * \typedef struct dvbpsi_dvb_parental_rating_dr_s dvbpsi_dvb_parental_rating_dr_t
+ * \brief dvbpsi_dvb_parental_rating_dr_t type definition.
  */
-typedef struct dvbpsi_parental_rating_dr_s
+typedef struct dvbpsi_dvb_parental_rating_dr_s
 {
   uint8_t       i_ratings_number;                   /*!< number of rating */
   dvbpsi_parental_rating_t
                 p_parental_rating[DVBPSI_PARENTAL_RATING_DR_MAX]; /*!< parental rating table */
 
-} dvbpsi_parental_rating_dr_t;
+} dvbpsi_dvb_parental_rating_dr_t;
 
 
 /*****************************************************************************
  * dvbpsi_DecodeParentalRatingDataDr
  *****************************************************************************/
 /*!
- * \fn dvbpsi_parental_rating_dr_t * dvbpsi_DecodeParentalRatingDr(
+ * \fn dvbpsi_dvb_parental_rating_dr_t * dvbpsi_decode_dvb_parental_rating_dr(
                                         dvbpsi_descriptor_t * p_descriptor)
  * \brief "parental_rating" descriptor decoder.
  * \param p_descriptor pointer to the descriptor structure
  * \return a pointer to a new "parental_rating" descriptor structure
  * which contains the decoded data.
  */
-dvbpsi_parental_rating_dr_t* dvbpsi_DecodeParentalRatingDr(
+dvbpsi_dvb_parental_rating_dr_t* dvbpsi_decode_dvb_parental_rating_dr(
                                         dvbpsi_descriptor_t * p_descriptor);
 
 
@@ -107,8 +107,8 @@ dvbpsi_parental_rating_dr_t* dvbpsi_DecodeParentalRatingDr(
  * dvbpsi_GenParentalRatingDataDr
  *****************************************************************************/
 /*!
- * \fn dvbpsi_descriptor_t * dvbpsi_GenParentalRatingDr(
-                        dvbpsi_parental_rating_dr_t * p_decoded, bool b_duplicate)
+ * \fn dvbpsi_descriptor_t * dvbpsi_gen_dvb_parental_rating_dr(
+                        dvbpsi_dvb_parental_rating_dr_t * p_decoded, bool b_duplicate)
  * \brief "parental_rating" descriptor generator.
  * \param p_decoded pointer to a decoded "parental_rating" descriptor
  * structure
@@ -116,8 +116,8 @@ dvbpsi_parental_rating_dr_t* dvbpsi_DecodeParentalRatingDr(
  * the descriptor
  * \return a pointer to a new descriptor structure which contains encoded data.
  */
-dvbpsi_descriptor_t * dvbpsi_GenParentalRatingDr(
-                                        dvbpsi_parental_rating_dr_t * p_decoded,
+dvbpsi_descriptor_t * dvbpsi_gen_dvb_parental_rating_dr(
+                                        dvbpsi_dvb_parental_rating_dr_t * p_decoded,
                                         bool b_duplicate);
 
 

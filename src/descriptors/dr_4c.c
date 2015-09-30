@@ -40,9 +40,9 @@
 #include "dr_4c.h"
 
 /*****************************************************************************
- * dvbpsi_DecodeTimeShiftedServiceDr
+ * dvbpsi_decode_dvb_tshifted_service_dr
  *****************************************************************************/
-dvbpsi_tshifted_service_dr_t* dvbpsi_DecodeTimeShiftedServiceDr(dvbpsi_descriptor_t * p_descriptor)
+dvbpsi_dvb_tshifted_service_dr_t* dvbpsi_decode_dvb_tshifted_service_dr(dvbpsi_descriptor_t * p_descriptor)
 {
     /* Check the tag */
     if (!dvbpsi_CanDecodeAsDescriptor(p_descriptor, 0x4c))
@@ -56,8 +56,8 @@ dvbpsi_tshifted_service_dr_t* dvbpsi_DecodeTimeShiftedServiceDr(dvbpsi_descripto
         return NULL;
 
     /* Allocate memory */
-    dvbpsi_tshifted_service_dr_t *p_decoded;
-    p_decoded = (dvbpsi_tshifted_service_dr_t*)calloc(1, sizeof(dvbpsi_tshifted_service_dr_t));
+    dvbpsi_dvb_tshifted_service_dr_t *p_decoded;
+    p_decoded = (dvbpsi_dvb_tshifted_service_dr_t*)calloc(1, sizeof(dvbpsi_dvb_tshifted_service_dr_t));
     if (!p_decoded)
         return NULL;
 
@@ -71,9 +71,9 @@ dvbpsi_tshifted_service_dr_t* dvbpsi_DecodeTimeShiftedServiceDr(dvbpsi_descripto
 }
 
 /*****************************************************************************
- * dvbpsi_GenTimeShiftedServiceDr
+ * dvbpsi_gen_dvb_tshifted_service_dr
  *****************************************************************************/
-dvbpsi_descriptor_t *dvbpsi_GenTimeShiftedServiceDr(dvbpsi_tshifted_service_dr_t *p_decoded,
+dvbpsi_descriptor_t *dvbpsi_gen_dvb_tshifted_service_dr(dvbpsi_dvb_tshifted_service_dr_t *p_decoded,
                                                     bool b_duplicate)
 {
     /* Create the descriptor */
@@ -90,7 +90,7 @@ dvbpsi_descriptor_t *dvbpsi_GenTimeShiftedServiceDr(dvbpsi_tshifted_service_dr_t
         /* Duplicate decoded data */
         p_descriptor->p_decoded =
                dvbpsi_DuplicateDecodedDescriptor(p_decoded,
-                      sizeof(dvbpsi_tshifted_service_dr_t));
+                      sizeof(dvbpsi_dvb_tshifted_service_dr_t));
     }
 
     return p_descriptor;

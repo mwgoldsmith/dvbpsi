@@ -58,35 +58,35 @@ typedef struct dvbpsi_caption_service_s
 } dvbpsi_caption_service_t;
 
 /*****************************************************************************
- * dvbpsi_caption_service_dr_s
+ * dvbpsi_atsc_caption_service_dr_s
  *****************************************************************************/
 /*!
- * \struct dvbpsi_caption_service_dr_s
+ * \struct dvbpsi_atsc_caption_service_dr_s
  * \brief Caption Service Descriptor
  *
  * This structure is used to store a decoded Caption Service descriptor.
  */
 /*!
- * \typedef struct dvbpsi_caption_service_dr_s dvbpsi_caption_service_dr_t
- * \brief dvbpsi_caption_service_dr_t type definition.
+ * \typedef struct dvbpsi_atsc_caption_service_dr_s dvbpsi_atsc_caption_service_dr_t
+ * \brief dvbpsi_atsc_caption_service_dr_t type definition.
  */
-typedef struct dvbpsi_caption_service_dr_s
+typedef struct dvbpsi_atsc_caption_service_dr_s
 {
     uint8_t i_number_of_services; /*!< Number of Captions services */
     dvbpsi_caption_service_t services[0x1f]; /*!< Caption services array */
-} dvbpsi_caption_service_dr_t;
+} dvbpsi_atsc_caption_service_dr_t;
 
 /*****************************************************************************
- * dvbpsi_DecodeCaptionServiceDr
+ * dvbpsi_decode_atsc_caption_service_dr
  *****************************************************************************/
 /*!
- * \fn dvbpsi_caption_service_dr_t dvbpsi_DecodeCaptionServiceDr(dvbpsi_descriptor_t *p_descriptor)
+ * \fn dvbpsi_atsc_caption_service_dr_t dvbpsi_decode_atsc_caption_service_dr(dvbpsi_descriptor_t *p_descriptor)
  * \brief Decode a Caption Service descriptor (tag 0x86)
  * \param p_descriptor Raw descriptor to decode.
  * \return NULL if the descriptor could not be decoded or a pointer to a
- *         dvbpsi_caption_service_dr_t structure.
+ *         dvbpsi_atsc_caption_service_dr_t structure.
  */
-dvbpsi_caption_service_dr_t *dvbpsi_DecodeCaptionServiceDr(dvbpsi_descriptor_t *p_descriptor);
+dvbpsi_atsc_caption_service_dr_t *dvbpsi_decode_atsc_caption_service_dr(dvbpsi_descriptor_t *p_descriptor);
 
 #ifdef __cplusplus
 }

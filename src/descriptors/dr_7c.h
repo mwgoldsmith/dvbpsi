@@ -85,16 +85,16 @@ typedef enum dvbpsi_aac_type_s
 } dvbpsi_aac_type_t;
 
 /*!
- * \struct dvbpsi_aac_dr_s
+ * \struct dvbpsi_dvb_aac_dr_s
  * \brief "AAC Audio" descriptor structure.
  *
  * The AAC Audio descriptor is used to label the PIDs that carry AAC audio data.
  */
 /*!
- * \typedef struct dvbpsi_aac_dr_s dvbpsi_aac_dr_t
- * \brief dvbpsi_aac_dr_t type definition.
+ * \typedef struct dvbpsi_dvb_aac_dr_s dvbpsi_dvb_aac_dr_t
+ * \brief dvbpsi_dvb_aac_dr_t type definition.
  */
-typedef struct dvbpsi_aac_dr_s
+typedef struct dvbpsi_dvb_aac_dr_s
 {
     dvbpsi_aac_profile_and_level_t  i_profile_and_level;
         /*!< Specifies the Profile and Level used in MPEG-4 AAC,
@@ -109,32 +109,32 @@ typedef struct dvbpsi_aac_dr_s
                                      right after sizeof struct, when freeing this struct
                                      the additional info bytes field is freed at the same time. */
 
-} dvbpsi_aac_dr_t;
+} dvbpsi_dvb_aac_dr_t;
 
 /*****************************************************************************
- * dvbpsi_DecodeAACDr
+ * dvbpsi_decode_dvb_aac_dr
  *****************************************************************************/
 /*!
- * \fn dvbpsi_aac_dr_t * dvbpsi_DecodeAACDr(dvbpsi_descriptor_t * p_descriptor)
+ * \fn dvbpsi_dvb_aac_dr_t * dvbpsi_decode_dvb_aac_dr(dvbpsi_descriptor_t * p_descriptor)
  * \brief "AAC Audio" descriptor decoder.
  * \param p_descriptor pointer to the descriptor structure
  * \return a pointer to a new "AAC" descriptor structure
  * which contains the decoded data.
  */
-dvbpsi_aac_dr_t* dvbpsi_DecodeAACDr(dvbpsi_descriptor_t *p_descriptor);
+dvbpsi_dvb_aac_dr_t* dvbpsi_decode_dvb_aac_dr(dvbpsi_descriptor_t *p_descriptor);
 
 /*****************************************************************************
- * dvbpsi_GenAACDr
+ * dvbpsi_gen_dvb_aac_dr
  *****************************************************************************/
 /*!
- * \fn dvbpsi_descriptor_t *dvbpsi_GenAACDr(dvbpsi_aac_dr_t *p_decoded, bool b_duplicate)
+ * \fn dvbpsi_descriptor_t *dvbpsi_gen_dvb_aac_dr(dvbpsi_dvb_aac_dr_t *p_decoded, bool b_duplicate)
  * \brief "AAC" descriptor generator.
  * \param p_decoded pointer to a decoded "AAC" descriptor structure
  * \param b_duplicate if true then duplicate the p_decoded structure into
  * the descriptor
  * \return a pointer to a new descriptor structure which contains encoded data.
  */
-dvbpsi_descriptor_t *dvbpsi_GenAACDr(dvbpsi_aac_dr_t *p_decoded, bool b_duplicate);
+dvbpsi_descriptor_t *dvbpsi_gen_dvb_aac_dr(dvbpsi_dvb_aac_dr_t *p_decoded, bool b_duplicate);
 
 #ifdef __cplusplus
 };

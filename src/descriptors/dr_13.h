@@ -31,38 +31,38 @@ Decode Carousel id Descriptor.
 #define _DR_13_H
 
 /*****************************************************************************
- * dvbpsi_carousel_id_dr_s
+ * dvbpsi_mpeg_carousel_id_dr_s
  *****************************************************************************/
 /*!
- * \struct dvbpsi_carousel_id_dr_s
+ * \struct dvbpsi_mpeg_carousel_id_dr_s
  * \brief Data Broadcast id Descriptor
  *
  * This structure is used to store a decoded Carsouel ID descriptor.
  */
 /*!
- * \typedef struct dvbpsi_carousel_id_dr_s dvbpsi_carousel_id_dr_t
- * \brief dvbpsi_carousel_id_dr_t type definition.
+ * \typedef struct dvbpsi_mpeg_carousel_id_dr_s dvbpsi_mpeg_carousel_id_dr_t
+ * \brief dvbpsi_mpeg_carousel_id_dr_t type definition.
  */
-typedef struct dvbpsi_carousel_id_dr_s
+typedef struct dvbpsi_mpeg_carousel_id_dr_s
 {
     uint32_t i_carousel_id;      /*!< carousel identifier */
     uint8_t  i_private_data_len; /*!< length of private data pointer in bytes */
     uint8_t *p_private_data;     /*!< memory is allocated right after sizeof struct,
                                      when freeing this struct the private data is
                                      freed at the same time. */
-} dvbpsi_carousel_id_dr_t;
+} dvbpsi_mpeg_carousel_id_dr_t;
 
 /*****************************************************************************
- * dvbpsi_DecodeCarouselIdDr
+ * dvbpsi_decode_mpeg_carousel_id_dr
  *****************************************************************************/
 /*!
- * \fn dvbpsi_carousel_id_dr_t *dvbpsi_DecodeCarouselIdDr(
+ * \fn dvbpsi_mpeg_carousel_id_dr_t *dvbpsi_decode_mpeg_carousel_id_dr(
  *        dvbpsi_descriptor_t *p_descriptor)
  * \brief Decode a Carousel id descriptor (tag 0x13)
  * \param p_descriptor Raw descriptor to decode.
  * \return NULL if the descriptor could not be decoded or a pointer to a
- *         dvbpsi_carousel_id_dr_t structure.
+ *         dvbpsi_mpeg_carousel_id_dr_t structure.
  */
-dvbpsi_carousel_id_dr_t *dvbpsi_DecodeCarouselIdDr(dvbpsi_descriptor_t *p_descriptor);
+dvbpsi_mpeg_carousel_id_dr_t *dvbpsi_decode_mpeg_carousel_id_dr(dvbpsi_descriptor_t *p_descriptor);
 
 #endif

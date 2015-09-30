@@ -42,49 +42,49 @@ extern "C" {
 
 
 /*****************************************************************************
- * dvbpsi_stuffing_dr_t
+ * dvbpsi_dvb_stuffing_dr_t
  *****************************************************************************/
 /*!
- * \struct dvbpsi_stuffing_dr_s
+ * \struct dvbpsi_dvb_stuffing_dr_s
  * \brief "stuffing" descriptor structure.
  *
  * This structure is used to store a decoded "stuffing"
  * descriptor. (ETSI EN 300 468 section 6.2.35).
  */
 /*!
- * \typedef struct dvbpsi_stuffing_dr_s dvbpsi_stuffing_dr_t
- * \brief dvbpsi_stuffing_dr_t type definition.
+ * \typedef struct dvbpsi_dvb_stuffing_dr_s dvbpsi_dvb_stuffing_dr_t
+ * \brief dvbpsi_dvb_stuffing_dr_t type definition.
  */
-typedef struct dvbpsi_stuffing_dr_s
+typedef struct dvbpsi_dvb_stuffing_dr_s
 {
   uint8_t      i_stuffing_length;            /*!< length of the i_stuffing_byte
                                                   array */
   uint8_t      i_stuffing_byte[255];         /*!< stuffing_bytes */
 
-} dvbpsi_stuffing_dr_t;
+} dvbpsi_dvb_stuffing_dr_t;
 
 
 /*****************************************************************************
- * dvbpsi_DecodeStuffingDr
+ * dvbpsi_decode_dvb_stuffing_dr
  *****************************************************************************/
 /*!
- * \fn dvbpsi_stuffing_dr_t * dvbpsi_DecodeStuffingDr(
+ * \fn dvbpsi_dvb_stuffing_dr_t * dvbpsi_decode_dvb_stuffing_dr(
                                         dvbpsi_descriptor_t * p_descriptor)
  * \brief "stuffing" descriptor decoder.
  * \param p_descriptor pointer to the descriptor structure
  * \return a pointer to a new "stuffing" descriptor structure
  * which contains the decoded data.
  */
-dvbpsi_stuffing_dr_t* dvbpsi_DecodeStuffingDr(
+dvbpsi_dvb_stuffing_dr_t* dvbpsi_decode_dvb_stuffing_dr(
                                         dvbpsi_descriptor_t * p_descriptor);
 
 
 /*****************************************************************************
- * dvbpsi_GenStuffingDr
+ * dvbpsi_gen_dvb_stuffing_dr
  *****************************************************************************/
 /*!
- * \fn dvbpsi_descriptor_t * dvbpsi_GenStuffingDr(
-                        dvbpsi_stuffing_dr_t *p_decoded, bool b_duplicate)
+ * \fn dvbpsi_descriptor_t * dvbpsi_gen_dvb_stuffing_dr(
+                        dvbpsi_dvb_stuffing_dr_t *p_decoded, bool b_duplicate)
  * \brief "stuffing" descriptor generator.
  * \param p_decoded pointer to a decoded "stuffing" descriptor
  * structure
@@ -92,8 +92,8 @@ dvbpsi_stuffing_dr_t* dvbpsi_DecodeStuffingDr(
  * the descriptor
  * \return a pointer to a new descriptor structure which contains encoded data.
  */
-dvbpsi_descriptor_t * dvbpsi_GenStuffingDr(
-                                        dvbpsi_stuffing_dr_t * p_decoded,
+dvbpsi_descriptor_t * dvbpsi_gen_dvb_stuffing_dr(
+                                        dvbpsi_dvb_stuffing_dr_t * p_decoded,
                                         bool b_duplicate);
 
 

@@ -41,49 +41,49 @@ extern "C" {
 
 
 /*****************************************************************************
- * dvbpsi_mx_buff_utilization_dr_t
+ * dvbpsi_mpeg_mx_buff_utilization_dr_t
  *****************************************************************************/
 /*!
- * \struct dvbpsi_mx_buff_utilization_dr_s
+ * \struct dvbpsi_mpeg_mx_buff_utilization_dr_s
  * \brief "multiplex buffer utilization" descriptor structure.
  *
  * This structure is used to store a decoded "multiplex buffer utilization"
  * descriptor. (ISO/IEC 13818-1 section 2.6.22).
  */
 /*!
- * \typedef struct dvbpsi_mx_buff_utilization_dr_s dvbpsi_mx_buff_utilization_dr_t
+ * \typedef struct dvbpsi_mpeg_mx_buff_utilization_dr_s dvbpsi_mpeg_mx_buff_utilization_dr_t
  * \brief dvbpsi_systemclock_dr_t type definition.
  */
-typedef struct dvbpsi_mx_buff_utilization_dr_s
+typedef struct dvbpsi_mpeg_mx_buff_utilization_dr_s
 {
   bool          b_mdv_valid;            /*!< mdv_valid_flag */
   uint16_t      i_mx_delay_variation;   /*!< multiplex_delay_variation */
   uint8_t       i_mx_strategy;          /*!< multiplex_strategy */
 
-} dvbpsi_mx_buff_utilization_dr_t;
+} dvbpsi_mpeg_mx_buff_utilization_dr_t;
 
 
 /*****************************************************************************
- * dvbpsi_DecodeMxBuffUtilizationDr
+ * dvbpsi_decode_mpeg_mx_buff_utilization_dr
  *****************************************************************************/
 /*!
- * \fn dvbpsi_mx_buff_utilization_dr_t * dvbpsi_DecodeMxBuffUtilizationDr(
+ * \fn dvbpsi_mpeg_mx_buff_utilization_dr_t * dvbpsi_decode_mpeg_mx_buff_utilization_dr(
                                         dvbpsi_descriptor_t * p_descriptor)
  * \brief "multiplex buffer utilization" descriptor decoder.
  * \param p_descriptor pointer to the descriptor structure
  * \return a pointer to a new "multiplex buffer utilization" descriptor
  * structure which contains the decoded data.
  */
-dvbpsi_mx_buff_utilization_dr_t* dvbpsi_DecodeMxBuffUtilizationDr(
+dvbpsi_mpeg_mx_buff_utilization_dr_t* dvbpsi_decode_mpeg_mx_buff_utilization_dr(
                                         dvbpsi_descriptor_t * p_descriptor);
 
 
 /*****************************************************************************
- * dvbpsi_GenMxBuffUtilizationDr
+ * dvbpsi_gen_mpeg_mx_buff_utilization_dr
  *****************************************************************************/
 /*!
- * \fn dvbpsi_descriptor_t * dvbpsi_GenMxBuffUtilizationDr(
-                dvbpsi_mx_buff_utilization_dr_t * p_decoded, bool b_duplicate)
+ * \fn dvbpsi_descriptor_t * dvbpsi_gen_mpeg_mx_buff_utilization_dr(
+                dvbpsi_mpeg_mx_buff_utilization_dr_t * p_decoded, bool b_duplicate)
  * \brief "multiplex buffer utilization" descriptor generator.
  * \param p_decoded pointer to a decoded "system clock" descriptor
  * structure
@@ -91,8 +91,8 @@ dvbpsi_mx_buff_utilization_dr_t* dvbpsi_DecodeMxBuffUtilizationDr(
  * the descriptor
  * \return a pointer to a new descriptor structure which contains encoded data.
  */
-dvbpsi_descriptor_t * dvbpsi_GenMxBuffUtilizationDr(
-                                dvbpsi_mx_buff_utilization_dr_t * p_decoded,
+dvbpsi_descriptor_t * dvbpsi_gen_mpeg_mx_buff_utilization_dr(
+                                dvbpsi_mpeg_mx_buff_utilization_dr_t * p_decoded,
                                 bool b_duplicate);
 
 

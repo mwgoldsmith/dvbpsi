@@ -42,12 +42,12 @@
 
 
 /*****************************************************************************
- * dvbpsi_DecodeRegistrationDr
+ * dvbpsi_decode_mpeg_registration_dr
  *****************************************************************************/
-dvbpsi_registration_dr_t * dvbpsi_DecodeRegistrationDr(
+dvbpsi_mpeg_registration_dr_t * dvbpsi_decode_mpeg_registration_dr(
                                         dvbpsi_descriptor_t * p_descriptor)
 {
-  dvbpsi_registration_dr_t * p_decoded;
+  dvbpsi_mpeg_registration_dr_t * p_decoded;
 
   /* Check the tag */
   if (!dvbpsi_CanDecodeAsDescriptor(p_descriptor, 0x05))
@@ -58,8 +58,8 @@ dvbpsi_registration_dr_t * dvbpsi_DecodeRegistrationDr(
      return p_descriptor->p_decoded;
 
   /* Allocate memory */
-  p_decoded = (dvbpsi_registration_dr_t*)
-                                malloc(sizeof(dvbpsi_registration_dr_t));
+  p_decoded = (dvbpsi_mpeg_registration_dr_t*)
+                                malloc(sizeof(dvbpsi_mpeg_registration_dr_t));
   if(!p_decoded) return NULL;
 
   /* Decode data and check the length */
@@ -89,9 +89,9 @@ dvbpsi_registration_dr_t * dvbpsi_DecodeRegistrationDr(
 
 
 /*****************************************************************************
- * dvbpsi_GenRegistrationDr
+ * dvbpsi_gen_mpeg_registration_dr
  *****************************************************************************/
-dvbpsi_descriptor_t * dvbpsi_GenRegistrationDr(dvbpsi_registration_dr_t *p_decoded,
+dvbpsi_descriptor_t * dvbpsi_gen_mpeg_registration_dr(dvbpsi_mpeg_registration_dr_t *p_decoded,
                                                bool b_duplicate)
 {
     if (p_decoded->i_additional_length > 251)
@@ -119,7 +119,7 @@ dvbpsi_descriptor_t * dvbpsi_GenRegistrationDr(dvbpsi_registration_dr_t *p_decod
         /* Duplicate decoded data */
         p_descriptor->p_decoded =
                 dvbpsi_DuplicateDecodedDescriptor(p_decoded,
-                                                  sizeof(dvbpsi_registration_dr_t));
+                                                  sizeof(dvbpsi_mpeg_registration_dr_t));
     }
 
     return p_descriptor;

@@ -31,38 +31,38 @@ Decode Data Broadcast id Descriptor.
 #define _DR_66_H
 
 /*****************************************************************************
- * dvbpsi_data_broadcast_id_dr_s
+ * dvbpsi_dvb_data_broadcast_id_dr_s
  *****************************************************************************/
 /*!
- * \struct dvbpsi_data_broadcast_id_dr_s
+ * \struct dvbpsi_dvb_data_broadcast_id_dr_s
  * \brief Data Broadcast id Descriptor
  *
  * This structure is used to store a decoded Data Broadcast id descriptor.
  */
 /*!
- * \typedef struct dvbpsi_data_broadcast_id_dr_s dvbpsi_data_broadcast_id_dr_t
- * \brief dvbpsi_data_broadcast_id_dr_t type definition.
+ * \typedef struct dvbpsi_dvb_data_broadcast_id_dr_s dvbpsi_dvb_data_broadcast_id_dr_t
+ * \brief dvbpsi_dvb_data_broadcast_id_dr_t type definition.
  */
-typedef struct dvbpsi_data_broadcast_id_dr_s
+typedef struct dvbpsi_dvb_data_broadcast_id_dr_s
 {
     uint16_t i_data_broadcast_id; /*!< broadcast identifier */
     uint8_t  i_id_selector_len;   /*!< length of selector data in bytes */
     uint8_t  *p_id_selector;      /*!< pointer to selector data. Memory is allocated
                                       right after sizeof struct, when freeing this
                                       struct the private data is freed at the same time. */
-} dvbpsi_data_broadcast_id_dr_t;
+} dvbpsi_dvb_data_broadcast_id_dr_t;
 
 /*****************************************************************************
- * dvbpsi_DecodeDataBroadcastIdDr
+ * dvbpsi_decode_dvb_data_broadcast_id_dr
  *****************************************************************************/
 /*!
- * \fn dvbpsi_data_broadcast_id_dr_t *dvbpsi_DecodeDataBroadcastIdDr(
+ * \fn dvbpsi_dvb_data_broadcast_id_dr_t *dvbpsi_decode_dvb_data_broadcast_id_dr(
  *        dvbpsi_descriptor_t *p_descriptor)
  * \brief Decode a Data broadcast id descriptor (tag 0x66)
  * \param p_descriptor Raw descriptor to decode.
  * \return NULL if the descriptor could not be decoded or a pointer to a
- *         dvbpsi_data_broadcast_id_dr_t structure.
+ *         dvbpsi_dvb_data_broadcast_id_dr_t structure.
  */
-dvbpsi_data_broadcast_id_dr_t *dvbpsi_DecodeDataBroadcastIdDr(dvbpsi_descriptor_t *p_descriptor);
+dvbpsi_dvb_data_broadcast_id_dr_t *dvbpsi_decode_dvb_data_broadcast_id_dr(dvbpsi_descriptor_t *p_descriptor);
 
 #endif

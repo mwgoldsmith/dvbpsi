@@ -40,11 +40,11 @@ Decode Logical Channel Number Descriptor.
 #include "dr_83.h"
 
 /*****************************************************************************
- * dvbpsi_DecodeLCNDr
+ * dvbpsi_decode_eacem_lcn_dr
  *****************************************************************************/
-dvbpsi_lcn_dr_t *dvbpsi_DecodeLCNDr(dvbpsi_descriptor_t *p_descriptor)
+dvbpsi_eacem_lcn_dr_t *dvbpsi_decode_eacem_lcn_dr(dvbpsi_descriptor_t *p_descriptor)
 {
-    dvbpsi_lcn_dr_t *p_decoded;
+    dvbpsi_eacem_lcn_dr_t *p_decoded;
     int i;
 
     /* Check the tag */
@@ -59,7 +59,7 @@ dvbpsi_lcn_dr_t *dvbpsi_DecodeLCNDr(dvbpsi_descriptor_t *p_descriptor)
     if (p_descriptor->i_length % 4)
         return NULL;
 
-    p_decoded = (dvbpsi_lcn_dr_t*)malloc(sizeof(dvbpsi_lcn_dr_t));
+    p_decoded = (dvbpsi_eacem_lcn_dr_t*)malloc(sizeof(dvbpsi_eacem_lcn_dr_t));
     if (!p_decoded)
         return NULL;
 
@@ -85,9 +85,9 @@ dvbpsi_lcn_dr_t *dvbpsi_DecodeLCNDr(dvbpsi_descriptor_t *p_descriptor)
 }
 
 /*****************************************************************************
- * dvbpsi_GenLCNDr
+ * dvbpsi_gen_eacem_lcn_dr
  *****************************************************************************/
-dvbpsi_descriptor_t* dvbpsi_GenLCNDr(dvbpsi_lcn_dr_t* p_decoded,
+dvbpsi_descriptor_t* dvbpsi_gen_eacem_lcn_dr(dvbpsi_eacem_lcn_dr_t* p_decoded,
                                        bool b_duplicate)
 {
     if (p_decoded->i_number_of_entries > 63)
@@ -108,9 +108,9 @@ dvbpsi_descriptor_t* dvbpsi_GenLCNDr(dvbpsi_lcn_dr_t* p_decoded,
 
     if (b_duplicate)
     {
-        dvbpsi_lcn_dr_t * p_dup = (dvbpsi_lcn_dr_t*) malloc(sizeof (dvbpsi_lcn_dr_t));
+        dvbpsi_eacem_lcn_dr_t * p_dup = (dvbpsi_eacem_lcn_dr_t*) malloc(sizeof (dvbpsi_eacem_lcn_dr_t));
         if (NULL != p_dup)
-            memcpy(p_dup, p_decoded, sizeof(dvbpsi_lcn_dr_t));
+            memcpy(p_dup, p_decoded, sizeof(dvbpsi_eacem_lcn_dr_t));
         p_descriptor->p_decoded = (void*)p_dup;
     }
 

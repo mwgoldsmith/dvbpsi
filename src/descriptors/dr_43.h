@@ -41,20 +41,20 @@ extern "C" {
 
 
 /*****************************************************************************
- * dvbpsi_sat_deliv_sys_dr_t
+ * dvbpsi_dvb_sat_deliv_sys_dr_t
  *****************************************************************************/
 /*!
- * \struct dvbpsi_sat_deliv_sys_dr_s
+ * \struct dvbpsi_dvb_sat_deliv_sys_dr_s
  * \brief satellite delivery system descriptor structure.
  *
  * This structure is used to store a decoded satellite delivery system
  * descriptor. (ETSI EN 300 468 section 6.2.13.2).
  */
 /*!
- * \typedef struct dvbpsi_sat_deliv_sys_dr_s dvbpsi_sat_deliv_sys_dr_t
- * \brief dvbpsi_sat_deliv_sys_dr_t type definition.
+ * \typedef struct dvbpsi_dvb_sat_deliv_sys_dr_s dvbpsi_dvb_sat_deliv_sys_dr_t
+ * \brief dvbpsi_dvb_sat_deliv_sys_dr_t type definition.
  */
-typedef struct dvbpsi_sat_deliv_sys_dr_s
+typedef struct dvbpsi_dvb_sat_deliv_sys_dr_s
 {
   uint32_t     i_frequency;                         /*!< frequency */
   uint16_t     i_orbital_position;                  /*!< orbital position */
@@ -66,30 +66,30 @@ typedef struct dvbpsi_sat_deliv_sys_dr_s
   uint32_t     i_symbol_rate;                       /*!< symbol rate */
   uint8_t      i_fec_inner;                         /*!< FEC inner */
 
-} dvbpsi_sat_deliv_sys_dr_t;
+} dvbpsi_dvb_sat_deliv_sys_dr_t;
 
 
 /*****************************************************************************
- * dvbpsi_DecodeSatDelivSysDr
+ * dvbpsi_decode_dvb_sat_deliv_sys_dr
  *****************************************************************************/
 /*!
- * \fn dvbpsi_sat_deliv_sys_dr_t * dvbpsi_DecodeSatDelivSysDr(
+ * \fn dvbpsi_dvb_sat_deliv_sys_dr_t * dvbpsi_decode_dvb_sat_deliv_sys_dr(
                                         dvbpsi_descriptor_t * p_descriptor)
  * \brief satellite delivery system descriptor decoder.
  * \param p_descriptor pointer to the descriptor structure
  * \return a pointer to a new satellite delivery system descriptor structure
  * which contains the decoded data.
  */
-dvbpsi_sat_deliv_sys_dr_t* dvbpsi_DecodeSatDelivSysDr(
+dvbpsi_dvb_sat_deliv_sys_dr_t* dvbpsi_decode_dvb_sat_deliv_sys_dr(
                                         dvbpsi_descriptor_t * p_descriptor);
 
 
 /*****************************************************************************
- * dvbpsi_GenSatDelivSysDr
+ * dvbpsi_gen_dvb_sat_deliv_sys_dr
  *****************************************************************************/
 /*!
- * \fn dvbpsi_descriptor_t * dvbpsi_GenSatDelivSysDr(
-                        dvbpsi_sat_deliv_sys_dr_t * p_decoded, bool b_duplicate)
+ * \fn dvbpsi_descriptor_t * dvbpsi_gen_dvb_sat_deliv_sys_dr(
+                        dvbpsi_dvb_sat_deliv_sys_dr_t * p_decoded, bool b_duplicate)
  * \brief satellite delivery system descriptor generator.
  * \param p_decoded pointer to a decoded satellite delivery system descriptor
  * descriptor structure
@@ -97,8 +97,8 @@ dvbpsi_sat_deliv_sys_dr_t* dvbpsi_DecodeSatDelivSysDr(
  * the descriptor
  * \return a pointer to a new descriptor structure which contains encoded data.
  */
-dvbpsi_descriptor_t * dvbpsi_GenSatDelivSysDr(
-                                        dvbpsi_sat_deliv_sys_dr_t * p_decoded,
+dvbpsi_descriptor_t * dvbpsi_gen_dvb_sat_deliv_sys_dr(
+                                        dvbpsi_dvb_sat_deliv_sys_dr_t * p_decoded,
                                         bool b_duplicate);
 
 

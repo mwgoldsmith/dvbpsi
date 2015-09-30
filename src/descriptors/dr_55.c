@@ -42,9 +42,9 @@
 
 
 /*****************************************************************************
- * dvbpsi_DecodeParentalRatingDr
+ * dvbpsi_decode_dvb_parental_rating_dr
  *****************************************************************************/
-dvbpsi_parental_rating_dr_t * dvbpsi_DecodeParentalRatingDr(
+dvbpsi_dvb_parental_rating_dr_t * dvbpsi_decode_dvb_parental_rating_dr(
                                         dvbpsi_descriptor_t * p_descriptor)
 {
     /* Check the tag */
@@ -60,8 +60,8 @@ dvbpsi_parental_rating_dr_t * dvbpsi_DecodeParentalRatingDr(
         return NULL;
 
     /* Allocate memory */
-    dvbpsi_parental_rating_dr_t * p_decoded;
-    p_decoded = (dvbpsi_parental_rating_dr_t*)malloc(sizeof(dvbpsi_parental_rating_dr_t));
+    dvbpsi_dvb_parental_rating_dr_t * p_decoded;
+    p_decoded = (dvbpsi_dvb_parental_rating_dr_t*)malloc(sizeof(dvbpsi_dvb_parental_rating_dr_t));
     if (!p_decoded)
         return NULL;
 
@@ -87,10 +87,10 @@ dvbpsi_parental_rating_dr_t * dvbpsi_DecodeParentalRatingDr(
 
 
 /*****************************************************************************
- * dvbpsi_GenParentalRatingDr
+ * dvbpsi_gen_dvb_parental_rating_dr
  *****************************************************************************/
-dvbpsi_descriptor_t * dvbpsi_GenParentalRatingDr(
-                                        dvbpsi_parental_rating_dr_t * p_decoded,
+dvbpsi_descriptor_t * dvbpsi_gen_dvb_parental_rating_dr(
+                                        dvbpsi_dvb_parental_rating_dr_t * p_decoded,
                                         bool b_duplicate)
 {
     uint8_t i_length;
@@ -128,7 +128,7 @@ dvbpsi_descriptor_t * dvbpsi_GenParentalRatingDr(
         /* Duplicate decoded data */
         p_descriptor->p_decoded =
                 dvbpsi_DuplicateDecodedDescriptor(p_decoded,
-                                                  sizeof(dvbpsi_parental_rating_dr_t));
+                                                  sizeof(dvbpsi_dvb_parental_rating_dr_t));
     }
 
     return p_descriptor;

@@ -40,9 +40,9 @@
 
 
 /*****************************************************************************
- * dvbpsi_DecodeContentDr
+ * dvbpsi_decode_dvb_content_dr
  *****************************************************************************/
-dvbpsi_content_dr_t * dvbpsi_DecodeContentDr(
+dvbpsi_dvb_content_dr_t * dvbpsi_decode_dvb_content_dr(
                                         dvbpsi_descriptor_t * p_descriptor)
 {
     /* Check the tag */
@@ -58,8 +58,8 @@ dvbpsi_content_dr_t * dvbpsi_DecodeContentDr(
         return NULL;
 
     /* Allocate memory */
-    dvbpsi_content_dr_t * p_decoded;
-    p_decoded = (dvbpsi_content_dr_t*)malloc(sizeof(dvbpsi_content_dr_t));
+    dvbpsi_dvb_content_dr_t * p_decoded;
+    p_decoded = (dvbpsi_dvb_content_dr_t*)malloc(sizeof(dvbpsi_dvb_content_dr_t));
     if (!p_decoded)
         return NULL;
 
@@ -81,10 +81,10 @@ dvbpsi_content_dr_t * dvbpsi_DecodeContentDr(
 
 
 /*****************************************************************************
- * dvbpsi_GenContentDr
+ * dvbpsi_gen_dvb_content_dr
  *****************************************************************************/
-dvbpsi_descriptor_t * dvbpsi_GenContentDr(
-                                        dvbpsi_content_dr_t * p_decoded,
+dvbpsi_descriptor_t * dvbpsi_gen_dvb_content_dr(
+                                        dvbpsi_dvb_content_dr_t * p_decoded,
                                         bool b_duplicate)
 {
     if (p_decoded->i_contents_number > DVBPSI_CONTENT_DR_MAX)
@@ -109,7 +109,7 @@ dvbpsi_descriptor_t * dvbpsi_GenContentDr(
         /* Duplicate decoded data */
         p_descriptor->p_decoded =
                 dvbpsi_DuplicateDecodedDescriptor(p_decoded,
-                                                  sizeof(dvbpsi_content_dr_t));
+                                                  sizeof(dvbpsi_dvb_content_dr_t));
     }
 
     return p_descriptor;

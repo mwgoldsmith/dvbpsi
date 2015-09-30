@@ -35,7 +35,7 @@ extern "C" {
 #endif
 
 /*!
- * \struct dvbpsi_smoothing_buffer_dr_s
+ * \struct dvbpsi_mpeg_smoothing_buffer_dr_s
  * \brief Smoothing buffer descriptor structure.
  *
  * This structure is used to store a decoded smoothing buffer descriptor.
@@ -43,17 +43,17 @@ extern "C" {
  */
 
 /*!
- * \typedef struct dvbpsi_smoothing_buffer_dr_s dvbpsi_smoothing_buffer_dr_t
- * \brief dvbpsi_smoothing_buffer_dr_t type definition.
+ * \typedef struct dvbpsi_mpeg_smoothing_buffer_dr_s dvbpsi_mpeg_smoothing_buffer_dr_t
+ * \brief dvbpsi_mpeg_smoothing_buffer_dr_t type definition.
  */
-typedef struct dvbpsi_smoothing_buffer_dr_s
+typedef struct dvbpsi_mpeg_smoothing_buffer_dr_s
 {
   /*! Value of the leak rate out of the SBn buffer, in units of 400 bits/s. */
   uint32_t      i_sb_leak_rate;
   
   /*! Value of the size of the multiplexing buffer smoothing buffer SBn. */
   uint32_t      i_sb_size;
-} dvbpsi_smoothing_buffer_dr_t;
+} dvbpsi_mpeg_smoothing_buffer_dr_t;
 
 /*!
  * \brief Smoothing buffer descriptor decoder.
@@ -61,7 +61,7 @@ typedef struct dvbpsi_smoothing_buffer_dr_s
  * \return A pointer to a new smoothing buffer descriptor structure which
  * contains the decoded data.
  */
-dvbpsi_smoothing_buffer_dr_t* dvbpsi_DecodeSmoothingBufferDr(
+dvbpsi_mpeg_smoothing_buffer_dr_t* dvbpsi_decode_mpeg_smoothing_buffer_dr(
                                       dvbpsi_descriptor_t * p_descriptor);
 
 /*!
@@ -69,8 +69,8 @@ dvbpsi_smoothing_buffer_dr_t* dvbpsi_DecodeSmoothingBufferDr(
  * \param p_decoded pointer to a decoded smoothing buffer descriptor structure.
  * \return a pointer to a new descriptor structure which contains encoded data.
  */
-dvbpsi_descriptor_t * dvbpsi_GenSmoothingBufferDr(
-                                      dvbpsi_smoothing_buffer_dr_t * p_decoded);
+dvbpsi_descriptor_t * dvbpsi_gen_mpeg_smoothing_buffer_dr(
+                                      dvbpsi_mpeg_smoothing_buffer_dr_t * p_decoded);
 
 #ifdef __cplusplus
 }

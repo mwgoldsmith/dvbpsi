@@ -42,20 +42,20 @@ extern "C" {
 
 
 /*****************************************************************************
- * dvbpsi_service_dr_t
+ * dvbpsi_dvb_service_dr_t
  *****************************************************************************/
 /*!
- * \struct dvbpsi_service_dr_s
+ * \struct dvbpsi_dvb_service_dr_s
  * \brief "service" descriptor structure.
  *
  * This structure is used to store a decoded "service"
  * descriptor. (ETSI EN 300 468 section 6.2.30).
  */
 /*!
- * \typedef struct dvbpsi_service_dr_s dvbpsi_service_dr_t
- * \brief dvbpsi_service_dr_t type definition.
+ * \typedef struct dvbpsi_dvb_service_dr_s dvbpsi_dvb_service_dr_t
+ * \brief dvbpsi_dvb_service_dr_t type definition.
  */
-typedef struct dvbpsi_service_dr_s
+typedef struct dvbpsi_dvb_service_dr_s
 {
   uint8_t      i_service_type;              /*!< service_type*/
   uint8_t      i_service_provider_name_length; /*!< length of the
@@ -65,21 +65,21 @@ typedef struct dvbpsi_service_dr_s
                                               i_service_name array*/
   uint8_t      i_service_name[252];         /*!< name of the service */
 
-} dvbpsi_service_dr_t;
+} dvbpsi_dvb_service_dr_t;
 
 
 /*****************************************************************************
  * dvbpsi_DecodeServiceDataDr
  *****************************************************************************/
 /*!
- * \fn dvbpsi_service_dr_t * dvbpsi_DecodeServiceDr(
+ * \fn dvbpsi_dvb_service_dr_t * dvbpsi_decode_dvb_service_dr(
                                         dvbpsi_descriptor_t * p_descriptor)
  * \brief "service" descriptor decoder.
  * \param p_descriptor pointer to the descriptor structure
  * \return a pointer to a new "service" descriptor structure
  * which contains the decoded data.
  */
-dvbpsi_service_dr_t* dvbpsi_DecodeServiceDr(
+dvbpsi_dvb_service_dr_t* dvbpsi_decode_dvb_service_dr(
                                         dvbpsi_descriptor_t * p_descriptor);
 
 
@@ -87,8 +87,8 @@ dvbpsi_service_dr_t* dvbpsi_DecodeServiceDr(
  * dvbpsi_GenServiceDataDr
  *****************************************************************************/
 /*!
- * \fn dvbpsi_descriptor_t * dvbpsi_GenServiceDr(
-                        dvbpsi_service_dr_t * p_decoded, bool b_duplicate)
+ * \fn dvbpsi_descriptor_t * dvbpsi_gen_dvb_service_dr(
+                        dvbpsi_dvb_service_dr_t * p_decoded, bool b_duplicate)
  * \brief "service" descriptor generator.
  * \param p_decoded pointer to a decoded "service" descriptor
  * structure
@@ -96,8 +96,8 @@ dvbpsi_service_dr_t* dvbpsi_DecodeServiceDr(
  * the descriptor
  * \return a pointer to a new descriptor structure which contains encoded data.
  */
-dvbpsi_descriptor_t * dvbpsi_GenServiceDr(
-                                        dvbpsi_service_dr_t * p_decoded,
+dvbpsi_descriptor_t * dvbpsi_gen_dvb_service_dr(
+                                        dvbpsi_dvb_service_dr_t * p_decoded,
                                         bool b_duplicate);
 
 

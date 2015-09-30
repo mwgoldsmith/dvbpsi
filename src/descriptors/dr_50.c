@@ -40,9 +40,9 @@
 #include "dr_50.h"
 
 /*****************************************************************************
- * dvbpsi_DecodeComponentDr
+ * dvbpsi_decode_dvb_component_dr
  *****************************************************************************/
-dvbpsi_component_dr_t* dvbpsi_DecodeComponentDr(dvbpsi_descriptor_t * p_descriptor)
+dvbpsi_dvb_component_dr_t* dvbpsi_decode_dvb_component_dr(dvbpsi_descriptor_t * p_descriptor)
 {
     /* Check the tag */
     if (p_descriptor->i_tag != 0x50)
@@ -57,8 +57,8 @@ dvbpsi_component_dr_t* dvbpsi_DecodeComponentDr(dvbpsi_descriptor_t * p_descript
         return NULL;
 
     /* Allocate memory */
-    dvbpsi_component_dr_t * p_decoded;
-    p_decoded = (dvbpsi_component_dr_t*)calloc(1, sizeof(dvbpsi_component_dr_t));
+    dvbpsi_dvb_component_dr_t * p_decoded;
+    p_decoded = (dvbpsi_dvb_component_dr_t*)calloc(1, sizeof(dvbpsi_dvb_component_dr_t));
     if (!p_decoded)
         return NULL;
 
@@ -90,9 +90,9 @@ dvbpsi_component_dr_t* dvbpsi_DecodeComponentDr(dvbpsi_descriptor_t * p_descript
 }
 
 /*****************************************************************************
- * dvbpsi_GenComponentDr
+ * dvbpsi_gen_dvb_component_dr
  *****************************************************************************/
-dvbpsi_descriptor_t *dvbpsi_GenComponentDr(dvbpsi_component_dr_t * p_decoded,
+dvbpsi_descriptor_t *dvbpsi_gen_dvb_component_dr(dvbpsi_dvb_component_dr_t * p_decoded,
                                                   bool b_duplicate)
 {
     /* Create the descriptor */
@@ -114,7 +114,7 @@ dvbpsi_descriptor_t *dvbpsi_GenComponentDr(dvbpsi_component_dr_t * p_decoded,
         /* Duplicate decoded data */
         p_descriptor->p_decoded =
                dvbpsi_DuplicateDecodedDescriptor(p_decoded,
-                      sizeof(dvbpsi_component_dr_t));
+                      sizeof(dvbpsi_dvb_component_dr_t));
     }
 
     return p_descriptor;

@@ -35,34 +35,34 @@ extern "C" {
 #endif
 
 /*****************************************************************************
- * dvbpsi_content_id_dr_s
+ * dvbpsi_dvb_content_id_dr_s
  *****************************************************************************/
 /*!
- * \struct dvbpsi_default_authority_dr_s
+ * \struct dvbpsi_dvb_default_authority_dr_s
  * \brief Default Authority Descriptor
  *
  * This structure is used to store a decoded Default Authority descriptor.
  */
 /*!
- * \typedef struct dvbpsi_default_authority_dr_s dvbpsi_default_authority_dr_t
- * \brief dvbpsi_default_authority_dr_t type definition.
+ * \typedef struct dvbpsi_dvb_default_authority_dr_s dvbpsi_dvb_default_authority_dr_t
+ * \brief dvbpsi_dvb_default_authority_dr_t type definition.
  */
-typedef struct dvbpsi_default_authority_dr_s
+typedef struct dvbpsi_dvb_default_authority_dr_s
 {
     uint8_t authority[255]; /*!< default authority descriptor */
-} dvbpsi_default_authority_dr_t;
+} dvbpsi_dvb_default_authority_dr_t;
 
 /*****************************************************************************
- * dvbpsi_DecodeLCNDr
+ * dvbpsi_decode_eacem_lcn_dr
  *****************************************************************************/
 /*!
- * \fn dvbpsi_default_authority_dr_t *dvbpsi_DecodeDefaultAuthorityDr(dvbpsi_descriptor_t *p_descriptor)
+ * \fn dvbpsi_dvb_default_authority_dr_t *dvbpsi_decode_dvb_default_authority_dr(dvbpsi_descriptor_t *p_descriptor)
  * \brief Decode a Default Authority descriptor (tag 0x73)
  * \param p_descriptor Raw descriptor to decode.
  * \return NULL if the descriptor could not be decoded or a pointer to a
- *         dvbpsi_default_authority_dr_t structure.
+ *         dvbpsi_dvb_default_authority_dr_t structure.
  */
-dvbpsi_default_authority_dr_t *dvbpsi_DecodeDefaultAuthorityDr(dvbpsi_descriptor_t *p_descriptor);
+dvbpsi_dvb_default_authority_dr_t *dvbpsi_decode_dvb_default_authority_dr(dvbpsi_descriptor_t *p_descriptor);
 
 #ifdef __cplusplus
 };

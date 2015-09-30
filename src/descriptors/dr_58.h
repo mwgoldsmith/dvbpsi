@@ -68,53 +68,53 @@ typedef struct dvbpsi_local_time_offset_s
 /*!
  * \def DVBPSI_LOCAL_TIME_OFFSET_DR_MAX
  * \brief Maximum number of dvbpsi_local_time_offset_t entries present in
- * @see dvbpsi_local_time_offset_dr_t
+ * @see dvbpsi_dvb_local_time_offset_dr_t
  */
 #define DVBPSI_LOCAL_TIME_OFFSET_DR_MAX 19
 
 /*****************************************************************************
- * dvbpsi_local_time_offset_dr_t
+ * dvbpsi_dvb_local_time_offset_dr_t
  *****************************************************************************/
 /*!
- * \struct dvbpsi_local_time_offset_dr_s
+ * \struct dvbpsi_dvb_local_time_offset_dr_s
  * \brief "local time offset" descriptor structure.
  *
  * This structure is used to store a decoded "local time offset"
  * descriptor. (ETSI EN 300 468 section 6.2.19).
  */
 /*!
- * \typedef struct dvbpsi_local_time_offset_dr_s dvbpsi_local_time_offset_dr_t
- * \brief dvbpsi_local_time_offset_dr_t type definition.
+ * \typedef struct dvbpsi_dvb_local_time_offset_dr_s dvbpsi_dvb_local_time_offset_dr_t
+ * \brief dvbpsi_dvb_local_time_offset_dr_t type definition.
  */
-typedef struct dvbpsi_local_time_offset_dr_s
+typedef struct dvbpsi_dvb_local_time_offset_dr_s
 {
   uint8_t      i_local_time_offsets_number;             /*!< local time offset number */
   dvbpsi_local_time_offset_t
                p_local_time_offset[DVBPSI_LOCAL_TIME_OFFSET_DR_MAX]; /*!< local time offset */
 
-} dvbpsi_local_time_offset_dr_t;
+} dvbpsi_dvb_local_time_offset_dr_t;
 
 /*****************************************************************************
- * dvbpsi_DecodeLocalTimeOffsetDr
+ * dvbpsi_decode_dvb_local_time_offset_dr
  *****************************************************************************/
 /*!
- * \fn dvbpsi_local_time_offset_dr_t * dvbpsi_DecodeLocalTimeOffsetDr(
+ * \fn dvbpsi_dvb_local_time_offset_dr_t * dvbpsi_decode_dvb_local_time_offset_dr(
                                         dvbpsi_descriptor_t * p_descriptor)
  * \brief "local time offset" descriptor decoder.
  * \param p_descriptor pointer to the descriptor structure
  * \return a pointer to a new "local time offset" descriptor structure
  * which contains the decoded data.
  */
-dvbpsi_local_time_offset_dr_t* dvbpsi_DecodeLocalTimeOffsetDr(
+dvbpsi_dvb_local_time_offset_dr_t* dvbpsi_decode_dvb_local_time_offset_dr(
                                         dvbpsi_descriptor_t * p_descriptor);
 
 
 /*****************************************************************************
- * dvbpsi_GenLocalTimeOffsetDr
+ * dvbpsi_gen_dvb_local_time_offset_dr
  *****************************************************************************/
 /*!
- * \fn dvbpsi_descriptor_t * dvbpsi_GenLocalTimeOffsetDr(
-                        dvbpsi_local_time_offset_dr_t * p_decoded, bool b_duplicate)
+ * \fn dvbpsi_descriptor_t * dvbpsi_gen_dvb_local_time_offset_dr(
+                        dvbpsi_dvb_local_time_offset_dr_t * p_decoded, bool b_duplicate)
  * \brief "local time offset" descriptor generator.
  * \param p_decoded pointer to a decoded "local time offset" descriptor
  * structure
@@ -122,8 +122,8 @@ dvbpsi_local_time_offset_dr_t* dvbpsi_DecodeLocalTimeOffsetDr(
  * the descriptor
  * \return a pointer to a new descriptor structure which contains encoded data.
  */
-dvbpsi_descriptor_t * dvbpsi_GenLocalTimeOffsetDr(
-                                        dvbpsi_local_time_offset_dr_t * p_decoded,
+dvbpsi_descriptor_t * dvbpsi_gen_dvb_local_time_offset_dr(
+                                        dvbpsi_dvb_local_time_offset_dr_t * p_decoded,
                                         bool b_duplicate);
 
 

@@ -41,19 +41,19 @@ extern "C" {
 
 
 /*****************************************************************************
- * dvbpsi_short_event_dr_t
+ * dvbpsi_dvb_short_event_dr_t
  *****************************************************************************/
 /*!
- * \struct dvbpsi_short_event_dr_s
+ * \struct dvbpsi_dvb_short_event_dr_s
  * \brief "short event" descriptor structure.
  *
  * This structure is used to store a decoded "short event" descriptor.
  */
 /*!
- * \typedef struct dvbpsi_short_event_dr_s dvbpsi_short_event_dr_t
- * \brief dvbpsi_short_event_dr_t type definition.
+ * \typedef struct dvbpsi_dvb_short_event_dr_s dvbpsi_dvb_short_event_dr_t
+ * \brief dvbpsi_dvb_short_event_dr_t type definition.
  */
-typedef struct dvbpsi_short_event_dr_s
+typedef struct dvbpsi_dvb_short_event_dr_s
 {
   uint8_t i_iso_639_code[3];    /*!< ISO 639 language code */
   int     i_event_name_length;  /*!< length of event name */
@@ -61,36 +61,36 @@ typedef struct dvbpsi_short_event_dr_s
   int     i_text_length;        /*!< text length */
   uint8_t i_text[256];          /*!< "short event" text */
 
-} dvbpsi_short_event_dr_t;
+} dvbpsi_dvb_short_event_dr_t;
 
 
 /*****************************************************************************
- * dvbpsi_DecodeShortEventDr
+ * dvbpsi_decode_dvb_short_event_dr
  *****************************************************************************/
 /*!
- * \fn dvbpsi_short_event_dr_t * dvbpsi_DecodeShortEventDr(
+ * \fn dvbpsi_dvb_short_event_dr_t * dvbpsi_decode_dvb_short_event_dr(
                                         dvbpsi_descriptor_t * p_descriptor)
  * \brief "short event" descriptor decoder.
  * \param p_descriptor pointer to the descriptor structure
  * \return a pointer to a new "short event" descriptor structure which
  * contains the decoded data.
  */
-dvbpsi_short_event_dr_t* dvbpsi_DecodeShortEventDr(dvbpsi_descriptor_t * p_descriptor);
+dvbpsi_dvb_short_event_dr_t* dvbpsi_decode_dvb_short_event_dr(dvbpsi_descriptor_t * p_descriptor);
 
 
 /*****************************************************************************
- * dvbpsi_GenShortEventDr
+ * dvbpsi_gen_dvb_short_event_dr
  *****************************************************************************/
 /*!
- * \fn dvbpsi_descriptor_t * dvbpsi_GenShortEventDr(
-                        dvbpsi_short_event_dr_t * p_decoded, bool b_duplicate)
+ * \fn dvbpsi_descriptor_t * dvbpsi_gen_dvb_short_event_dr(
+                        dvbpsi_dvb_short_event_dr_t * p_decoded, bool b_duplicate)
  * \brief "short event" descriptor generator.
  * \param p_decoded pointer to a decoded "video stream" descriptor structure
  * \param b_duplicate if true then duplicate the p_decoded structure into
  * the descriptor
  * \return a pointer to a new descriptor structure which contains encoded data.
  */
-dvbpsi_descriptor_t * dvbpsi_GenShortEventDr(dvbpsi_short_event_dr_t * p_decoded,
+dvbpsi_descriptor_t * dvbpsi_gen_dvb_short_event_dr(dvbpsi_dvb_short_event_dr_t * p_decoded,
                                              bool b_duplicate);
 
 

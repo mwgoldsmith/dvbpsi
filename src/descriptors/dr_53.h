@@ -60,52 +60,52 @@ typedef struct dvbpsi_ca_system_s
 
 /*!
  * \def DVBPSI_CA_SYSTEM_ID_DR_MAX
- * \brief Maximum number of dvbpsi_ca_system_t entries present in @see dvbpsi_ca_identifier_dr_t
+ * \brief Maximum number of dvbpsi_ca_system_t entries present in @see dvbpsi_dvb_ca_identifier_dr_t
  */
 #define DVBPSI_CA_SYSTEM_ID_DR_MAX 127
 
 /*****************************************************************************
- * dvbpsi_ca_identifier_dr_s
+ * dvbpsi_dvb_ca_identifier_dr_s
  *****************************************************************************/
 /*!
- * \struct dvbpsi_ca_identifier_dr_s
+ * \struct dvbpsi_dvb_ca_identifier_dr_s
  * \brief "CA identifier" descriptor structure.
  *
  * This structure is used to store a decoded "CA identifier"
  * descriptor. (ETSI EN 300 468 section 6.2.5).
  */
 /*!
- * \typedef struct dvbpsi_ca_identifier_dr_s dvbpsi_ca_identifier_dr_t
- * \brief dvbpsi_ca_identifier_dr_t type definition.
+ * \typedef struct dvbpsi_dvb_ca_identifier_dr_s dvbpsi_dvb_ca_identifier_dr_t
+ * \brief dvbpsi_dvb_ca_identifier_dr_t type definition.
  */
-typedef struct dvbpsi_ca_identifier_dr_s
+typedef struct dvbpsi_dvb_ca_identifier_dr_s
 {
     uint8_t            i_number;                /*!< number of CA system identifiers */
     dvbpsi_ca_system_t p_system[DVBPSI_CA_SYSTEM_ID_DR_MAX]; /*!< CA system identifiers */
 
-} dvbpsi_ca_identifier_dr_t;
+} dvbpsi_dvb_ca_identifier_dr_t;
 
 
 /*****************************************************************************
- * dvbpsi_DecodeCAIdentifierDr
+ * dvbpsi_decode_dvb_ca_identifier_dr
  *****************************************************************************/
 /*!
- * \fn dvbpsi_da_identifier_dr_t * dvbpsi_DecodeCAIdentifierDr(
+ * \fn dvbpsi_da_identifier_dr_t * dvbpsi_decode_dvb_ca_identifier_dr(
                                         dvbpsi_descriptor_t *p_descriptor)
  * \brief "DA identifier" descriptor decoder.
  * \param p_descriptor pointer to the descriptor structure
  * \return a pointer to a new "CA identifier" descriptor structure
  * which contains the decoded data.
  */
-dvbpsi_ca_identifier_dr_t* dvbpsi_DecodeCAIdentifierDr(dvbpsi_descriptor_t *p_descriptor);
+dvbpsi_dvb_ca_identifier_dr_t* dvbpsi_decode_dvb_ca_identifier_dr(dvbpsi_descriptor_t *p_descriptor);
 
 
 /*****************************************************************************
- * dvbpsi_GenStreamIdentifierDr
+ * dvbpsi_gen_dvb_stream_identifier_dr
  *****************************************************************************/
 /*!
- * \fn dvbpsi_descriptor_t *dvbpsi_GenCAIdentifierDr(
-                        dvbpsi_ca_identifier_dr_t *p_decoded, bool b_duplicate)
+ * \fn dvbpsi_descriptor_t *dvbpsi_gen_dvb_ca_identifier_dr(
+                        dvbpsi_dvb_ca_identifier_dr_t *p_decoded, bool b_duplicate)
  * \brief "CA identifier" descriptor generator.
  * \param p_decoded pointer to a decoded "CA identifier" descriptor
  * structure
@@ -113,7 +113,7 @@ dvbpsi_ca_identifier_dr_t* dvbpsi_DecodeCAIdentifierDr(dvbpsi_descriptor_t *p_de
  * the descriptor
  * \return a pointer to a new descriptor structure which contains encoded data.
  */
-dvbpsi_descriptor_t *dvbpsi_GenCAIdentifierDr(dvbpsi_ca_identifier_dr_t *p_decoded,
+dvbpsi_descriptor_t *dvbpsi_gen_dvb_ca_identifier_dr(dvbpsi_dvb_ca_identifier_dr_t *p_decoded,
                                               bool b_duplicate);
 
 

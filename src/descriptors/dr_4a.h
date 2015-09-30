@@ -39,24 +39,24 @@ extern "C" {
 #endif
 
 /*****************************************************************************
- * dvbpsi_linkage_dr_t
+ * dvbpsi_dvb_linkage_dr_t
  *****************************************************************************/
 /*!
- * \struct dvbpsi_linkage_dr_t
+ * \struct dvbpsi_dvb_linkage_dr_t
  * \brief "linkage" descriptor structure.
  *
  * This structure is used to store a decoded "linkage"
  * descriptor. (ETSI EN 300 468 section 6.2.10).
  */
 /*!
- * \typedef struct dvbpsi_linkage_dr_s dvbpsi_linkage_dr_t
- * \brief dvbpsi_linkage_dr_t type definition.
+ * \typedef struct dvbpsi_dvb_linkage_dr_s dvbpsi_dvb_linkage_dr_t
+ * \brief dvbpsi_dvb_linkage_dr_t type definition.
  */
 /*!
- * \struct dvbpsi_linkage_dr_s
- * \brief struct dvbpsi_linkage_dr_s @see dvbpsi_linkage_dr_t
+ * \struct dvbpsi_dvb_linkage_dr_s
+ * \brief struct dvbpsi_dvb_linkage_dr_s @see dvbpsi_dvb_linkage_dr_t
  */
-typedef struct dvbpsi_linkage_dr_s
+typedef struct dvbpsi_dvb_linkage_dr_s
 {
   uint16_t       i_transport_stream_id;         /*!< transport stream id */
   uint16_t       i_original_network_id;         /*!< original network id */
@@ -82,26 +82,26 @@ typedef struct dvbpsi_linkage_dr_s
                                                     array */
   uint8_t       i_private_data[246];           /*!< private data */
 
-} dvbpsi_linkage_dr_t;
+} dvbpsi_dvb_linkage_dr_t;
 
 /*****************************************************************************
- * dvbpsi_DecodeLinkageDr
+ * dvbpsi_decode_dvb_linkage_dr
  *****************************************************************************/
 /*!
- * \fn dvbpsi_linkage_dr_t * dvbpsi_DecodeLinkageDr(
+ * \fn dvbpsi_dvb_linkage_dr_t * dvbpsi_decode_dvb_linkage_dr(
                                         dvbpsi_descriptor_t * p_descriptor)
  * \brief "linkage" descriptor decoder.
  * \param p_descriptor pointer to the descriptor structure
  * \return a pointer to a new "linkage" descriptor structure
  * which contains the decoded data.
  */
-dvbpsi_linkage_dr_t* dvbpsi_DecodeLinkageDr(dvbpsi_descriptor_t * p_descriptor);
+dvbpsi_dvb_linkage_dr_t* dvbpsi_decode_dvb_linkage_dr(dvbpsi_descriptor_t * p_descriptor);
 
 /*****************************************************************************
- * dvbpsi_GenLinkageDr
+ * dvbpsi_gen_dvb_linkage_dr
  *****************************************************************************/
 /*!
- * \fn dvbpsi_descriptor_t *dvbpsi_GenLinkageDr(dvbpsi_linkage_dr_t *p_decoded,
+ * \fn dvbpsi_descriptor_t *dvbpsi_gen_dvb_linkage_dr(dvbpsi_dvb_linkage_dr_t *p_decoded,
                                           bool b_duplicate);
  * \brief "linkage" descriptor generator.
  * \param p_decoded pointer to a decoded "linkage" descriptor structure
@@ -109,7 +109,7 @@ dvbpsi_linkage_dr_t* dvbpsi_DecodeLinkageDr(dvbpsi_descriptor_t * p_descriptor);
  * the descriptor
  * \return a pointer to a new descriptor structure which contains encoded data.
  */
-dvbpsi_descriptor_t *dvbpsi_GenLinkageDr(dvbpsi_linkage_dr_t * p_decoded,
+dvbpsi_descriptor_t *dvbpsi_gen_dvb_linkage_dr(dvbpsi_dvb_linkage_dr_t * p_decoded,
                                          bool b_duplicate);
 
 #ifdef __cplusplus

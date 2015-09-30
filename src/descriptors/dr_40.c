@@ -40,12 +40,12 @@
 #include "dr_40.h"
 
 /*****************************************************************************
- * dvbpsi_DecodeNetworkNameDr
+ * dvbpsi_decode_dvb_network_name_dr
  *****************************************************************************/
-dvbpsi_network_name_dr_t* dvbpsi_DecodeNetworkNameDr(
+dvbpsi_dvb_network_name_dr_t* dvbpsi_decode_dvb_network_name_dr(
                                         dvbpsi_descriptor_t * p_descriptor)
 {
-    dvbpsi_network_name_dr_t * p_decoded;
+    dvbpsi_dvb_network_name_dr_t * p_decoded;
 
     /* Check the tag */
     if (!dvbpsi_CanDecodeAsDescriptor(p_descriptor, 0x40))
@@ -56,7 +56,7 @@ dvbpsi_network_name_dr_t* dvbpsi_DecodeNetworkNameDr(
        return p_descriptor->p_decoded;
 
     /* Allocate memory */
-    p_decoded = (dvbpsi_network_name_dr_t*)calloc(1, sizeof(dvbpsi_network_name_dr_t));
+    p_decoded = (dvbpsi_dvb_network_name_dr_t*)calloc(1, sizeof(dvbpsi_dvb_network_name_dr_t));
     if (!p_decoded)
         return NULL;
 
@@ -75,10 +75,10 @@ dvbpsi_network_name_dr_t* dvbpsi_DecodeNetworkNameDr(
 
 
 /*****************************************************************************
- * dvbpsi_GenNetworkNameDr
+ * dvbpsi_gen_dvb_network_name_dr
  *****************************************************************************/
-dvbpsi_descriptor_t * dvbpsi_GenNetworkNameDr(
-                                        dvbpsi_network_name_dr_t * p_decoded,
+dvbpsi_descriptor_t * dvbpsi_gen_dvb_network_name_dr(
+                                        dvbpsi_dvb_network_name_dr_t * p_decoded,
                                         bool b_duplicate)
 {
     /* Create the descriptor */
@@ -98,7 +98,7 @@ dvbpsi_descriptor_t * dvbpsi_GenNetworkNameDr(
         /* Duplicate decoded data */
         p_descriptor->p_decoded =
                 dvbpsi_DuplicateDecodedDescriptor(p_decoded,
-                                                  sizeof(dvbpsi_network_name_dr_t));
+                                                  sizeof(dvbpsi_dvb_network_name_dr_t));
     }
 
     return p_descriptor;

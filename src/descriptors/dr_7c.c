@@ -219,9 +219,9 @@ static uint8_t dvbpsi_aac_type_to_hex(const dvbpsi_aac_type_t type)
 }
 
 /*****************************************************************************
- * dvbpsi_DecodeAACDr
+ * dvbpsi_decode_dvb_aac_dr
  *****************************************************************************/
-dvbpsi_aac_dr_t *dvbpsi_DecodeAACDr(dvbpsi_descriptor_t *p_descriptor)
+dvbpsi_dvb_aac_dr_t *dvbpsi_decode_dvb_aac_dr(dvbpsi_descriptor_t *p_descriptor)
 {
     /* Check the tag */
     if (!dvbpsi_CanDecodeAsDescriptor(p_descriptor, 0x7c))
@@ -235,8 +235,8 @@ dvbpsi_aac_dr_t *dvbpsi_DecodeAACDr(dvbpsi_descriptor_t *p_descriptor)
         return NULL;
 
     /* Allocate memory */
-    dvbpsi_aac_dr_t *p_decoded;
-    p_decoded = (dvbpsi_aac_dr_t*)calloc(1, sizeof(dvbpsi_aac_dr_t));
+    dvbpsi_dvb_aac_dr_t *p_decoded;
+    p_decoded = (dvbpsi_dvb_aac_dr_t*)calloc(1, sizeof(dvbpsi_dvb_aac_dr_t));
     if (!p_decoded)
         return NULL;
 
@@ -253,13 +253,13 @@ dvbpsi_aac_dr_t *dvbpsi_DecodeAACDr(dvbpsi_descriptor_t *p_descriptor)
     if (p_descriptor->i_length > 1)
     {
         uint8_t i_info_length = p_descriptor->i_length - (p_decoded->b_type ? 3 : 2);
-        dvbpsi_aac_dr_t *p_tmp = realloc(p_decoded, sizeof(dvbpsi_aac_dr_t) + i_info_length);
+        dvbpsi_dvb_aac_dr_t *p_tmp = realloc(p_decoded, sizeof(dvbpsi_dvb_aac_dr_t) + i_info_length);
         if (!p_tmp)
         {
             free(p_decoded);
             return NULL;
         }
-        p_decoded->p_additional_info = ((uint8_t*)p_tmp + sizeof(dvbpsi_aac_dr_t));
+        p_decoded->p_additional_info = ((uint8_t*)p_tmp + sizeof(dvbpsi_dvb_aac_dr_t));
         p_decoded->i_additional_info_length = i_info_length;
 
         uint8_t i_data = p_decoded->b_type ? 3 : 2;
@@ -273,9 +273,9 @@ dvbpsi_aac_dr_t *dvbpsi_DecodeAACDr(dvbpsi_descriptor_t *p_descriptor)
 }
 
 /*****************************************************************************
- * dvbpsi_GenAACDr
+ * dvbpsi_gen_dvb_aac_dr
  *****************************************************************************/
-dvbpsi_descriptor_t *dvbpsi_GenAACDr(dvbpsi_aac_dr_t *p_decoded, bool b_duplicate)
+dvbpsi_descriptor_t *dvbpsi_gen_dvb_aac_dr(dvbpsi_dvb_aac_dr_t *p_decoded, bool b_duplicate)
 {
     /* Create the descriptor */
     uint8_t i_length = p_decoded->b_type ? 3 + p_decoded->i_additional_info_length : 1;
@@ -306,7 +306,7 @@ dvbpsi_descriptor_t *dvbpsi_GenAACDr(dvbpsi_aac_dr_t *p_decoded, bool b_duplicat
     {
         /* Duplicate decoded data */
         p_descriptor->p_decoded =
-                dvbpsi_DuplicateDecodedDescriptor(p_decoded, sizeof(dvbpsi_aac_dr_t));
+                dvbpsi_DuplicateDecodedDescriptor(p_decoded, sizeof(dvbpsi_dvb_aac_dr_t));
     }
 
     return p_descriptor;

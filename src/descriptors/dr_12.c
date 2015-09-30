@@ -33,9 +33,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 #include "dr_12.h"
 
-dvbpsi_ibp_dr_t* dvbpsi_DecodeIBPDr(dvbpsi_descriptor_t * p_descriptor)
+dvbpsi_mpeg_ibp_dr_t* dvbpsi_decode_mpeg_ibp_dr(dvbpsi_descriptor_t * p_descriptor)
 {
-    dvbpsi_ibp_dr_t * p_decoded;
+    dvbpsi_mpeg_ibp_dr_t * p_decoded;
     
     /* check the tag. */
     if (!dvbpsi_CanDecodeAsDescriptor(p_descriptor, 0x12))
@@ -49,7 +49,7 @@ dvbpsi_ibp_dr_t* dvbpsi_DecodeIBPDr(dvbpsi_descriptor_t * p_descriptor)
     if (p_descriptor->i_length != 2)
         return NULL;
     
-    p_decoded = (dvbpsi_ibp_dr_t*)malloc(sizeof(*p_decoded));
+    p_decoded = (dvbpsi_mpeg_ibp_dr_t*)malloc(sizeof(*p_decoded));
     if (!p_decoded)
         return NULL;
     
@@ -71,7 +71,7 @@ dvbpsi_ibp_dr_t* dvbpsi_DecodeIBPDr(dvbpsi_descriptor_t * p_descriptor)
     return p_decoded;
 }
 
-dvbpsi_descriptor_t * dvbpsi_GenIBPDr(dvbpsi_ibp_dr_t * p_decoded)
+dvbpsi_descriptor_t * dvbpsi_gen_mpeg_ibp_dr(dvbpsi_mpeg_ibp_dr_t * p_decoded)
 {
     dvbpsi_descriptor_t * p_descriptor = dvbpsi_NewDescriptor(0x12, 2, NULL);
     if (!p_descriptor)

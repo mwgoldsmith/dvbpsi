@@ -102,7 +102,7 @@ typedef enum dvbpsi_mpeg4_visual_profile_and_level_s
 } dvbpsi_mpeg4_visual_profile_and_level_t;
 
 /*!
- * \struct dvbpsi_mpeg4_video_dr_s
+ * \struct dvbpsi_mpeg_mpeg4_video_dr_s
  * \brief MPEG-4 video descriptor structure.
  *
  * This structure is used to store a decoded MPEG-4 video descriptor. (ISO/IEC
@@ -110,14 +110,14 @@ typedef enum dvbpsi_mpeg4_visual_profile_and_level_s
  */
 
 /*!
- * \typedef struct dvbpsi_mpeg4_video_dr_s dvbpsi_mpeg4_video_dr_t
- * \brief dvbpsi_mpeg4_video_dr_t type definition.
+ * \typedef struct dvbpsi_mpeg_mpeg4_video_dr_s dvbpsi_mpeg_mpeg4_video_dr_t
+ * \brief dvbpsi_mpeg_mpeg4_video_dr_t type definition.
  */
-typedef struct dvbpsi_mpeg4_video_dr_s
+typedef struct dvbpsi_mpeg_mpeg4_video_dr_s
 {
     /*! MPEG-4_visual_profile_and_level */
     dvbpsi_mpeg4_visual_profile_and_level_t    i_mpeg4_visual_profile_and_level;
-} dvbpsi_mpeg4_video_dr_t;
+} dvbpsi_mpeg_mpeg4_video_dr_t;
 
 /*!
  * \brief MPEG-4 video descriptor decoder.
@@ -125,7 +125,7 @@ typedef struct dvbpsi_mpeg4_video_dr_s
  * \return A pointer to a new MPEG-4 video descriptor structure which contains
  * the decoded data.
  */
-dvbpsi_mpeg4_video_dr_t* dvbpsi_DecodeMPEG4VideoDr(
+dvbpsi_mpeg_mpeg4_video_dr_t* dvbpsi_decode_mpeg_mpeg4_video_dr(
                                       dvbpsi_descriptor_t * p_descriptor);
 
 /*!
@@ -133,8 +133,8 @@ dvbpsi_mpeg4_video_dr_t* dvbpsi_DecodeMPEG4VideoDr(
  * \param p_decoded pointer to a decoded MPEG-4 video descriptor structure.
  * \return a pointer to a new descriptor structure which contains encoded data.
  */
-dvbpsi_descriptor_t * dvbpsi_GenMPEG4VideoDr(
-                                      dvbpsi_mpeg4_video_dr_t * p_decoded);
+dvbpsi_descriptor_t * dvbpsi_gen_mpeg_mpeg4_video_dr(
+                                      dvbpsi_mpeg_mpeg4_video_dr_t * p_decoded);
 
 #ifdef __cplusplus
 }

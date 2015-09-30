@@ -37,7 +37,7 @@ extern "C" {
 #endif
 
 /*!
- * \struct dvbpsi_mpeg4_audio_dr_s
+ * \struct dvbpsi_mpeg_mpeg4_audio_dr_s
  * \brief MPEG-4 audio descriptor structure.
  *
  * This structure is used to store a decoded MPEG-4 audio descriptor. (ISO/IEC
@@ -45,14 +45,14 @@ extern "C" {
  */
 
 /*!
- * \typedef struct dvbpsi_mpeg4_audio_dr_s dvbpsi_mpeg4_audio_dr_t
- * \brief dvbpsi_mpeg4_audio_dr_t type definition.
+ * \typedef struct dvbpsi_mpeg_mpeg4_audio_dr_s dvbpsi_mpeg_mpeg4_audio_dr_t
+ * \brief dvbpsi_mpeg_mpeg4_audio_dr_t type definition.
  */
-typedef struct dvbpsi_mpeg4_audio_dr_s
+typedef struct dvbpsi_mpeg_mpeg4_audio_dr_s
 {
     /*! MPEG-4_audio_profile_and_level */
     dvbpsi_aac_profile_and_level_t    i_mpeg4_audio_profile_and_level;
-} dvbpsi_mpeg4_audio_dr_t;
+} dvbpsi_mpeg_mpeg4_audio_dr_t;
 
 /*!
  * \brief MPEG-4 audio descriptor decoder.
@@ -60,7 +60,7 @@ typedef struct dvbpsi_mpeg4_audio_dr_s
  * \return A pointer to a new MPEG-4 audio descriptor structure which contains
  * the decoded data.
  */
-dvbpsi_mpeg4_audio_dr_t* dvbpsi_DecodeMPEG4AudioDr(
+dvbpsi_mpeg_mpeg4_audio_dr_t* dvbpsi_decode_mpeg_mpeg4_audio_dr(
                                       dvbpsi_descriptor_t * p_descriptor);
 
 /*!
@@ -68,8 +68,8 @@ dvbpsi_mpeg4_audio_dr_t* dvbpsi_DecodeMPEG4AudioDr(
  * \param p_decoded pointer to a decoded MPEG-4 audio descriptor structure.
  * \return a pointer to a new descriptor structure which contains encoded data.
  */
-dvbpsi_descriptor_t * dvbpsi_GenMPEG4AudioDr(
-                                      dvbpsi_mpeg4_audio_dr_t * p_decoded);
+dvbpsi_descriptor_t * dvbpsi_gen_mpeg_mpeg4_audio_dr(
+                                      dvbpsi_mpeg_mpeg4_audio_dr_t * p_decoded);
 
 #ifdef __cplusplus
 }

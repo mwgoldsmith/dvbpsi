@@ -41,12 +41,12 @@
 
 
 /*****************************************************************************
- * dvbpsi_DecodeStreamIdentifierDr
+ * dvbpsi_decode_dvb_stream_identifier_dr
  *****************************************************************************/
-dvbpsi_stream_identifier_dr_t * dvbpsi_DecodeStreamIdentifierDr(
+dvbpsi_dvb_stream_identifier_dr_t * dvbpsi_decode_dvb_stream_identifier_dr(
                                         dvbpsi_descriptor_t * p_descriptor)
 {
-    dvbpsi_stream_identifier_dr_t * p_decoded;
+    dvbpsi_dvb_stream_identifier_dr_t * p_decoded;
 
     /* Check the tag */
     if (!dvbpsi_CanDecodeAsDescriptor(p_descriptor, 0x52))
@@ -60,7 +60,7 @@ dvbpsi_stream_identifier_dr_t * dvbpsi_DecodeStreamIdentifierDr(
         return NULL;
 
     /* Allocate memory */
-    p_decoded = (dvbpsi_stream_identifier_dr_t*)malloc(sizeof(dvbpsi_stream_identifier_dr_t));
+    p_decoded = (dvbpsi_dvb_stream_identifier_dr_t*)malloc(sizeof(dvbpsi_dvb_stream_identifier_dr_t));
     if (!p_decoded)
         return NULL;
 
@@ -73,10 +73,10 @@ dvbpsi_stream_identifier_dr_t * dvbpsi_DecodeStreamIdentifierDr(
 
 
 /*****************************************************************************
- * dvbpsi_GenStreamIdentifierDr
+ * dvbpsi_gen_dvb_stream_identifier_dr
  *****************************************************************************/
-dvbpsi_descriptor_t * dvbpsi_GenStreamIdentifierDr(
-                                        dvbpsi_stream_identifier_dr_t * p_decoded,
+dvbpsi_descriptor_t * dvbpsi_gen_dvb_stream_identifier_dr(
+                                        dvbpsi_dvb_stream_identifier_dr_t * p_decoded,
                                         bool b_duplicate)
 {
     /* Create the descriptor */
@@ -92,7 +92,7 @@ dvbpsi_descriptor_t * dvbpsi_GenStreamIdentifierDr(
         /* Duplicate decoded data */
         p_descriptor->p_decoded =
                 dvbpsi_DuplicateDecodedDescriptor(p_decoded,
-                                                  sizeof(dvbpsi_stream_identifier_dr_t));
+                                                  sizeof(dvbpsi_dvb_stream_identifier_dr_t));
     }
 
     return p_descriptor;

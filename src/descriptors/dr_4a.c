@@ -44,9 +44,9 @@
 #define DR_4A_MIN_SIZE 7
 
 /*****************************************************************************
- * dvbpsi_DecodeLinkageDr
+ * dvbpsi_decode_dvb_linkage_dr
  *****************************************************************************/
-dvbpsi_linkage_dr_t* dvbpsi_DecodeLinkageDr(dvbpsi_descriptor_t * p_descriptor)
+dvbpsi_dvb_linkage_dr_t* dvbpsi_decode_dvb_linkage_dr(dvbpsi_descriptor_t * p_descriptor)
 {
     /* Check the tag */
     if (p_descriptor->i_tag != 0x4A)
@@ -79,8 +79,8 @@ dvbpsi_linkage_dr_t* dvbpsi_DecodeLinkageDr(dvbpsi_descriptor_t * p_descriptor)
         return NULL;
 
     /* Allocate memory */
-    dvbpsi_linkage_dr_t * p_decoded;
-    p_decoded = (dvbpsi_linkage_dr_t*)calloc(1, sizeof(dvbpsi_linkage_dr_t));
+    dvbpsi_dvb_linkage_dr_t * p_decoded;
+    p_decoded = (dvbpsi_dvb_linkage_dr_t*)calloc(1, sizeof(dvbpsi_dvb_linkage_dr_t));
     if (!p_decoded)
         return NULL;
 
@@ -140,9 +140,9 @@ dvbpsi_linkage_dr_t* dvbpsi_DecodeLinkageDr(dvbpsi_descriptor_t * p_descriptor)
 }
 
 /*****************************************************************************
- * dvbpsi_GenCountryAvailabilityDr
+ * dvbpsi_gen_dvb_country_availability_dr
  *****************************************************************************/
-dvbpsi_descriptor_t * dvbpsi_GenLinkageDr(dvbpsi_linkage_dr_t * p_decoded,
+dvbpsi_descriptor_t * dvbpsi_gen_dvb_linkage_dr(dvbpsi_dvb_linkage_dr_t * p_decoded,
                                           bool b_duplicate)
 {
     /* Check the length */
@@ -226,7 +226,7 @@ dvbpsi_descriptor_t * dvbpsi_GenLinkageDr(dvbpsi_linkage_dr_t * p_decoded,
         /* Duplicate decoded data */
         p_descriptor->p_decoded =
                dvbpsi_DuplicateDecodedDescriptor(p_decoded,
-                      sizeof(dvbpsi_linkage_dr_t));
+                      sizeof(dvbpsi_dvb_linkage_dr_t));
     }
 
     return p_descriptor;

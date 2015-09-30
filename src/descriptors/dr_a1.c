@@ -42,12 +42,12 @@ Service Location Descriptor.
 
 
 /*****************************************************************************
- * dvbpsi_DecodeServiceLocationDr
+ * dvbpsi_decode_atsc_service_location_dr
  *****************************************************************************/
-dvbpsi_service_location_dr_t *
-dvbpsi_DecodeServiceLocationDr (dvbpsi_descriptor_t * p_descriptor)
+dvbpsi_atsc_service_location_dr_t *
+dvbpsi_decode_atsc_service_location_dr (dvbpsi_descriptor_t * p_descriptor)
 {
-    dvbpsi_service_location_dr_t *p_decoded;
+    dvbpsi_atsc_service_location_dr_t *p_decoded;
     uint8_t *buf = p_descriptor->p_data;
 
     /* Check the tag */
@@ -63,12 +63,12 @@ dvbpsi_DecodeServiceLocationDr (dvbpsi_descriptor_t * p_descriptor)
         return NULL;
 
     /* Allocate memory */
-    p_decoded = (dvbpsi_service_location_dr_t *)
-            malloc (sizeof (dvbpsi_service_location_dr_t));
+    p_decoded = (dvbpsi_atsc_service_location_dr_t *)
+            malloc (sizeof (dvbpsi_atsc_service_location_dr_t));
     if (!p_decoded)
         return NULL;
 
-    memset (p_decoded, 0, sizeof (dvbpsi_service_location_dr_t));
+    memset (p_decoded, 0, sizeof (dvbpsi_atsc_service_location_dr_t));
 
     p_descriptor->p_decoded = (void *) p_decoded;
 
@@ -93,10 +93,10 @@ dvbpsi_DecodeServiceLocationDr (dvbpsi_descriptor_t * p_descriptor)
 
 
 /*****************************************************************************
- * dvbpsi_GenServiceLocationDr
+ * dvbpsi_gen_atsc_service_location_dr
  *****************************************************************************/
-dvbpsi_descriptor_t* dvbpsi_GenServiceLocationDr(
-                                        dvbpsi_service_location_dr_t* p_decoded,
+dvbpsi_descriptor_t* dvbpsi_gen_atsc_service_location_dr(
+                                        dvbpsi_atsc_service_location_dr_t* p_decoded,
                                         bool b_duplicate)
 {
     if (p_decoded->i_number_elements > 42)
@@ -130,7 +130,7 @@ dvbpsi_descriptor_t* dvbpsi_GenServiceLocationDr(
     if (b_duplicate)
     {
         p_descriptor->p_decoded = dvbpsi_DuplicateDecodedDescriptor(p_decoded,
-                                         sizeof(dvbpsi_service_location_dr_t));
+                                         sizeof(dvbpsi_atsc_service_location_dr_t));
     }
 
     return p_descriptor;

@@ -41,55 +41,55 @@ extern "C" {
 
 
 /*****************************************************************************
- * dvbpsi_max_bitrate_dr_t
+ * dvbpsi_mpeg_max_bitrate_dr_t
  *****************************************************************************/
 /*!
- * \struct dvbpsi_max_bitrate_dr_s
+ * \struct dvbpsi_mpeg_max_bitrate_dr_s
  * \brief "maximum bitrate" descriptor structure.
  *
  * This structure is used to store a decoded "maximum bitrate" descriptor.
  * (ISO/IEC 13818-1 section 2.6.26).
  */
 /*!
- * \typedef struct dvbpsi_max_bitrate_dr_s dvbpsi_max_bitrate_dr_t
- * \brief dvbpsi_max_bitrate_dr_t type definition.
+ * \typedef struct dvbpsi_mpeg_max_bitrate_dr_s dvbpsi_mpeg_max_bitrate_dr_t
+ * \brief dvbpsi_mpeg_max_bitrate_dr_t type definition.
  */
-typedef struct dvbpsi_max_bitrate_dr_s
+typedef struct dvbpsi_mpeg_max_bitrate_dr_s
 {
   uint32_t      i_max_bitrate;          /*!< maximum_bitrate */
 
-} dvbpsi_max_bitrate_dr_t;
+} dvbpsi_mpeg_max_bitrate_dr_t;
 
 
 /*****************************************************************************
- * dvbpsi_DecodeMaxBitrateDr
+ * dvbpsi_decode_mpeg_max_bitrate_dr
  *****************************************************************************/
 /*!
- * \fn dvbpsi_max_bitrate_dr_t * dvbpsi_DecodeMaxBitrateDr(
+ * \fn dvbpsi_mpeg_max_bitrate_dr_t * dvbpsi_decode_mpeg_max_bitrate_dr(
                                         dvbpsi_descriptor_t * p_descriptor)
  * \brief "maximum bitrate" descriptor decoder.
  * \param p_descriptor pointer to the descriptor structure
  * \return a pointer to a new "maximum bitrate" descriptor structure which
  * contains the decoded data.
  */
-dvbpsi_max_bitrate_dr_t* dvbpsi_DecodeMaxBitrateDr(
+dvbpsi_mpeg_max_bitrate_dr_t* dvbpsi_decode_mpeg_max_bitrate_dr(
                                         dvbpsi_descriptor_t * p_descriptor);
 
 
 /*****************************************************************************
- * dvbpsi_GenMaxBitrateDr
+ * dvbpsi_gen_mpeg_max_bitrate_dr
  *****************************************************************************/
 /*!
- * \fn dvbpsi_descriptor_t * dvbpsi_GenMaxBitrateDr(
-                        dvbpsi_max_bitrate_dr_t * p_decoded, bool b_duplicate)
+ * \fn dvbpsi_descriptor_t * dvbpsi_gen_mpeg_max_bitrate_dr(
+                        dvbpsi_mpeg_max_bitrate_dr_t * p_decoded, bool b_duplicate)
  * \brief "maximum bitrate" descriptor generator.
  * \param p_decoded pointer to a decoded "maximum bitrate" descriptor structure
  * \param b_duplicate if true then duplicate the p_decoded structure into
  * the descriptor
  * \return a pointer to a new descriptor structure which contains encoded data.
  */
-dvbpsi_descriptor_t * dvbpsi_GenMaxBitrateDr(
-                                        dvbpsi_max_bitrate_dr_t * p_decoded,
+dvbpsi_descriptor_t * dvbpsi_gen_mpeg_max_bitrate_dr(
+                                        dvbpsi_mpeg_max_bitrate_dr_t * p_decoded,
                                         bool b_duplicate);
 
 

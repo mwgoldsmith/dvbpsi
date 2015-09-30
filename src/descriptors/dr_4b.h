@@ -44,12 +44,12 @@ extern "C" {
  * \struct dvbpsi_nvod_ref_t
  * \brief one "NVOD reference" structure.
  *
- * This structure is used since dvbpsi_nvod_ref_dr_t structure will contain
+ * This structure is used since dvbpsi_dvb_nvod_ref_dr_t structure will contain
  * several of these structures
  */
 /*!
  * \typedef struct dvbpsi_nvod_ref_s dvbpsi_nvod_ref_t
- * \brief dvbpsi_nvod_ref_dr_t type definition.
+ * \brief dvbpsi_dvb_nvod_ref_dr_t type definition.
  */
 /*!
  * \struct dvbpsi_nvod_ref_s
@@ -63,43 +63,43 @@ typedef struct dvbpsi_nvod_ref_s
 } dvbpsi_nvod_ref_t;
 
 /*****************************************************************************
- * dvbpsi_nvod_ref_dr_t
+ * dvbpsi_dvb_nvod_ref_dr_t
  *****************************************************************************/
 /*!
- * \struct dvbpsi_nvod_ref_dr_s
+ * \struct dvbpsi_dvb_nvod_ref_dr_s
  * \brief "NVOD reference" descriptor structure.
  *
  * This structure is used to store a decoded "Near Video On Demand (NVOD) reference"
  * descriptor. (ETSI EN 300 468 section 6.2.26).
  */
 /*!
- * \typedef struct dvbpsi_nvod_ref_dr_s dvbpsi_nvod_ref_dr_t
- * \brief dvbpsi_nvod_ref_dr_t type definition.
+ * \typedef struct dvbpsi_dvb_nvod_ref_dr_s dvbpsi_dvb_nvod_ref_dr_t
+ * \brief dvbpsi_dvb_nvod_ref_dr_t type definition.
  */
-typedef struct dvbpsi_nvod_ref_dr_s
+typedef struct dvbpsi_dvb_nvod_ref_dr_s
 {
   uint8_t               i_references;           /*!< number of nvod references */
   dvbpsi_nvod_ref_t     p_nvod_refs[43];        /*!< NVOD references */
-} dvbpsi_nvod_ref_dr_t;
+} dvbpsi_dvb_nvod_ref_dr_t;
 
 /*****************************************************************************
- * dvbpsi_DecodeNVODReferenceDr
+ * dvbpsi_decode_dvb_nvod_ref_dr
  *****************************************************************************/
 /*!
- * \fn dvbpsi_nvod_ref_dr_t * dvbpsi_DecodeNVODReferenceDr(
+ * \fn dvbpsi_dvb_nvod_ref_dr_t * dvbpsi_decode_dvb_nvod_ref_dr(
                                         dvbpsi_descriptor_t * p_descriptor)
  * \brief "NVOD reference" descriptor decoder.
  * \param p_descriptor pointer to the descriptor structure
  * \return a pointer to a new "NVOD reference" descriptor structure
  * which contains the decoded data.
  */
-dvbpsi_nvod_ref_dr_t* dvbpsi_DecodeNVODReferenceDr(dvbpsi_descriptor_t * p_descriptor);
+dvbpsi_dvb_nvod_ref_dr_t* dvbpsi_decode_dvb_nvod_ref_dr(dvbpsi_descriptor_t * p_descriptor);
 
 /*****************************************************************************
- * dvbpsi_GenNVODReferenceDr
+ * dvbpsi_gen_dvb_nvod_ref_dr
  *****************************************************************************/
 /*!
- * \fn dvbpsi_descriptor_t *dvbpsi_GenNVODReferenceDr(dvbpsi_nvod_ref_dr_t *p_decoded,
+ * \fn dvbpsi_descriptor_t *dvbpsi_gen_dvb_nvod_ref_dr(dvbpsi_dvb_nvod_ref_dr_t *p_decoded,
                                           bool b_duplicate);
  * \brief "NVOD reference" descriptor generator.
  * \param p_decoded pointer to a decoded "NVOD reference" descriptor structure
@@ -107,7 +107,7 @@ dvbpsi_nvod_ref_dr_t* dvbpsi_DecodeNVODReferenceDr(dvbpsi_descriptor_t * p_descr
  * the descriptor
  * \return a pointer to a new descriptor structure which contains encoded data.
  */
-dvbpsi_descriptor_t *dvbpsi_GenNVODReferenceDr(dvbpsi_nvod_ref_dr_t * p_decoded,
+dvbpsi_descriptor_t *dvbpsi_gen_dvb_nvod_ref_dr(dvbpsi_dvb_nvod_ref_dr_t * p_decoded,
                                          bool b_duplicate);
 
 #ifdef __cplusplus

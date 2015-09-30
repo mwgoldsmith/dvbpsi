@@ -42,11 +42,11 @@
 
 
 /*****************************************************************************
- * dvbpsi_DecodeAStreamDr
+ * dvbpsi_decode_mpeg_astream_dr
  *****************************************************************************/
-dvbpsi_astream_dr_t * dvbpsi_DecodeAStreamDr(dvbpsi_descriptor_t * p_descriptor)
+dvbpsi_mpeg_astream_dr_t * dvbpsi_decode_mpeg_astream_dr(dvbpsi_descriptor_t * p_descriptor)
 {
-  dvbpsi_astream_dr_t * p_decoded;
+  dvbpsi_mpeg_astream_dr_t * p_decoded;
 
   /* Check the tag */
   if (!dvbpsi_CanDecodeAsDescriptor(p_descriptor, 0x03))
@@ -57,7 +57,7 @@ dvbpsi_astream_dr_t * dvbpsi_DecodeAStreamDr(dvbpsi_descriptor_t * p_descriptor)
      return p_descriptor->p_decoded;
 
   /* Allocate memory */
-  p_decoded = (dvbpsi_astream_dr_t*)malloc(sizeof(dvbpsi_astream_dr_t));
+  p_decoded = (dvbpsi_mpeg_astream_dr_t*)malloc(sizeof(dvbpsi_mpeg_astream_dr_t));
   if(!p_decoded) return NULL;
 
   /* Decode data and check the length */
@@ -79,9 +79,9 @@ dvbpsi_astream_dr_t * dvbpsi_DecodeAStreamDr(dvbpsi_descriptor_t * p_descriptor)
 
 
 /*****************************************************************************
- * dvbpsi_GenAStreamDr
+ * dvbpsi_gen_mpeg_astream_dr
  *****************************************************************************/
-dvbpsi_descriptor_t *dvbpsi_GenAStreamDr(dvbpsi_astream_dr_t * p_decoded,
+dvbpsi_descriptor_t *dvbpsi_gen_mpeg_astream_dr(dvbpsi_mpeg_astream_dr_t * p_decoded,
                                          bool b_duplicate)
 {
     /* Create the descriptor */
@@ -103,7 +103,7 @@ dvbpsi_descriptor_t *dvbpsi_GenAStreamDr(dvbpsi_astream_dr_t * p_decoded,
         /* Duplicate decoded data */
         p_descriptor->p_decoded =
                 dvbpsi_DuplicateDecodedDescriptor(p_decoded,
-                                                  sizeof(dvbpsi_astream_dr_t));
+                                                  sizeof(dvbpsi_mpeg_astream_dr_t));
     }
 
     return p_descriptor;

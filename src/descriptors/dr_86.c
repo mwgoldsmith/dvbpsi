@@ -40,11 +40,11 @@ Decode Caption Service Descriptor.
 #include "dr_86.h"
 
 /*****************************************************************************
- * dvbpsi_DecodeCaptionServiceDr
+ * dvbpsi_decode_atsc_caption_service_dr
  *****************************************************************************/
-dvbpsi_caption_service_dr_t *dvbpsi_DecodeCaptionServiceDr(dvbpsi_descriptor_t *p_descriptor)
+dvbpsi_atsc_caption_service_dr_t *dvbpsi_decode_atsc_caption_service_dr(dvbpsi_descriptor_t *p_descriptor)
 {
-    dvbpsi_caption_service_dr_t *p_decoded;
+    dvbpsi_atsc_caption_service_dr_t *p_decoded;
     uint8_t * buf = p_descriptor->p_data;
 
     /* Check the tag */
@@ -59,7 +59,7 @@ dvbpsi_caption_service_dr_t *dvbpsi_DecodeCaptionServiceDr(dvbpsi_descriptor_t *
     if ((p_descriptor->i_length - 1) % 6)
         return NULL;
 
-    p_decoded = (dvbpsi_caption_service_dr_t*)malloc(sizeof(dvbpsi_caption_service_dr_t));
+    p_decoded = (dvbpsi_atsc_caption_service_dr_t*)malloc(sizeof(dvbpsi_atsc_caption_service_dr_t));
     if (!p_decoded)
         return NULL;
 

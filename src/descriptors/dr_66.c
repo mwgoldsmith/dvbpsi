@@ -39,29 +39,29 @@ Decode Data Broadcast Id Descriptor.
 
 #include "dr_66.h"
 
-static dvbpsi_data_broadcast_id_dr_t *NewDataBroadcastDr(const size_t i_private)
+static dvbpsi_dvb_data_broadcast_id_dr_t *NewDataBroadcastDr(const size_t i_private)
 {
-    dvbpsi_data_broadcast_id_dr_t *p_bcast;
+    dvbpsi_dvb_data_broadcast_id_dr_t *p_bcast;
 
     if (i_private <= 0)
         return NULL;
 
-    p_bcast = (dvbpsi_data_broadcast_id_dr_t *)
-                calloc(1, sizeof(dvbpsi_data_broadcast_id_dr_t) + i_private);
+    p_bcast = (dvbpsi_dvb_data_broadcast_id_dr_t *)
+                calloc(1, sizeof(dvbpsi_dvb_data_broadcast_id_dr_t) + i_private);
     if (p_bcast)
     {
-        p_bcast->p_id_selector = ((uint8_t *)p_bcast + sizeof(dvbpsi_data_broadcast_id_dr_t));
+        p_bcast->p_id_selector = ((uint8_t *)p_bcast + sizeof(dvbpsi_dvb_data_broadcast_id_dr_t));
         p_bcast->i_id_selector_len = i_private;
     }
     return p_bcast;
 }
 
 /*****************************************************************************
- * dvbpsi_DecodeDataBroadcastIdDr
+ * dvbpsi_decode_dvb_data_broadcast_id_dr
  *****************************************************************************/
-dvbpsi_data_broadcast_id_dr_t *dvbpsi_DecodeDataBroadcastIdDr(dvbpsi_descriptor_t *p_descriptor)
+dvbpsi_dvb_data_broadcast_id_dr_t *dvbpsi_decode_dvb_data_broadcast_id_dr(dvbpsi_descriptor_t *p_descriptor)
 {
-    dvbpsi_data_broadcast_id_dr_t *p_decoded;
+    dvbpsi_dvb_data_broadcast_id_dr_t *p_decoded;
 
     /* Check the tag */
     if (p_descriptor->i_tag != 0x66)

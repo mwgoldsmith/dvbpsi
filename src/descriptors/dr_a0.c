@@ -42,17 +42,17 @@ Decode Extended Channel Name Descriptor.
 /*****************************************************************************
  * dvbpsi_ExtendedChannelNameDr - deprecated
  *****************************************************************************/
-dvbpsi_extended_channel_name_dr_t *dvbpsi_ExtendedChannelNameDr(dvbpsi_descriptor_t *p_descriptor)
+dvbpsi_atsc_extended_channel_name_dr_t *dvbpsi_ExtendedChannelNameDr(dvbpsi_descriptor_t *p_descriptor)
 {
-    return dvbpsi_DecodeExtendedChannelNameDr(p_descriptor);
+    return dvbpsi_decode_atsc_extended_channel_name_dr(p_descriptor);
 }
 
 /*****************************************************************************
- * dvbpsi_DecodeExtendedChannelNameDr
+ * dvbpsi_decode_atsc_extended_channel_name_dr
  *****************************************************************************/
-dvbpsi_extended_channel_name_dr_t *dvbpsi_DecodeExtendedChannelNameDr(dvbpsi_descriptor_t *p_descriptor)
+dvbpsi_atsc_extended_channel_name_dr_t *dvbpsi_decode_atsc_extended_channel_name_dr(dvbpsi_descriptor_t *p_descriptor)
 {
-    dvbpsi_extended_channel_name_dr_t *p_decoded;
+    dvbpsi_atsc_extended_channel_name_dr_t *p_decoded;
 
     /* Check the tag */
     if (p_descriptor->i_tag != 0xA0)
@@ -66,7 +66,7 @@ dvbpsi_extended_channel_name_dr_t *dvbpsi_DecodeExtendedChannelNameDr(dvbpsi_des
     if (!p_descriptor->i_length)
         return NULL;
 
-    p_decoded = (dvbpsi_extended_channel_name_dr_t*)malloc(sizeof(dvbpsi_extended_channel_name_dr_t));
+    p_decoded = (dvbpsi_atsc_extended_channel_name_dr_t*)malloc(sizeof(dvbpsi_atsc_extended_channel_name_dr_t));
     if (!p_decoded)
         return NULL;
 

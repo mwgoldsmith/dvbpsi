@@ -42,12 +42,12 @@
 
 
 /*****************************************************************************
- * dvbpsi_DecodeHierarchyDr
+ * dvbpsi_decode_mpeg_hierarchy_dr
  *****************************************************************************/
-dvbpsi_hierarchy_dr_t * dvbpsi_DecodeHierarchyDr(
+dvbpsi_mpeg_hierarchy_dr_t * dvbpsi_decode_mpeg_hierarchy_dr(
                                         dvbpsi_descriptor_t * p_descriptor)
 {
-  dvbpsi_hierarchy_dr_t * p_decoded;
+  dvbpsi_mpeg_hierarchy_dr_t * p_decoded;
 
   /* Check the tag */
   if (!dvbpsi_CanDecodeAsDescriptor(p_descriptor, 0x04))
@@ -58,7 +58,7 @@ dvbpsi_hierarchy_dr_t * dvbpsi_DecodeHierarchyDr(
      return p_descriptor->p_decoded;
 
   /* Allocate memory */
-  p_decoded = (dvbpsi_hierarchy_dr_t*)malloc(sizeof(dvbpsi_hierarchy_dr_t));
+  p_decoded = (dvbpsi_mpeg_hierarchy_dr_t*)malloc(sizeof(dvbpsi_mpeg_hierarchy_dr_t));
   if(!p_decoded) return NULL;
 
   /* Decode data and check the length */
@@ -80,9 +80,9 @@ dvbpsi_hierarchy_dr_t * dvbpsi_DecodeHierarchyDr(
 
 
 /*****************************************************************************
- * dvbpsi_GenHierarchyDr
+ * dvbpsi_gen_mpeg_hierarchy_dr
  *****************************************************************************/
-dvbpsi_descriptor_t * dvbpsi_GenHierarchyDr(dvbpsi_hierarchy_dr_t * p_decoded,
+dvbpsi_descriptor_t * dvbpsi_gen_mpeg_hierarchy_dr(dvbpsi_mpeg_hierarchy_dr_t * p_decoded,
                                             bool b_duplicate)
 {
     /* Create the descriptor */
@@ -101,7 +101,7 @@ dvbpsi_descriptor_t * dvbpsi_GenHierarchyDr(dvbpsi_hierarchy_dr_t * p_decoded,
         /* Duplicate decoded data */
         p_descriptor->p_decoded =
                 dvbpsi_DuplicateDecodedDescriptor(p_decoded,
-                                                  sizeof(dvbpsi_hierarchy_dr_t));
+                                                  sizeof(dvbpsi_mpeg_hierarchy_dr_t));
     }
 
     return p_descriptor;

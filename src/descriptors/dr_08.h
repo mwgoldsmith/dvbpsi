@@ -41,55 +41,55 @@ extern "C" {
 
 
 /*****************************************************************************
- * dvbpsi_vwindow_dr_t
+ * dvbpsi_mpeg_vwindow_dr_t
  *****************************************************************************/
 /*!
- * \struct dvbpsi_vwindow_dr_s
+ * \struct dvbpsi_mpeg_vwindow_dr_s
  * \brief "video window" descriptor structure.
  *
  * This structure is used to store a decoded "video window"
  * descriptor. (ISO/IEC 13818-1 section 2.6.14).
  */
 /*!
- * \typedef struct dvbpsi_vwindow_dr_s dvbpsi_vwindow_dr_t
- * \brief dvbpsi_vwindow_dr_t type definition.
+ * \typedef struct dvbpsi_mpeg_vwindow_dr_s dvbpsi_mpeg_vwindow_dr_t
+ * \brief dvbpsi_mpeg_vwindow_dr_t type definition.
  */
-typedef struct dvbpsi_vwindow_dr_s
+typedef struct dvbpsi_mpeg_vwindow_dr_s
 {
   uint16_t      i_horizontal_offset;    /*!< horizontal_offset */
   uint16_t      i_vertical_offset;      /*!< vertical_offset */
   uint8_t       i_window_priority;      /*!< window_priority */
 
-} dvbpsi_vwindow_dr_t;
+} dvbpsi_mpeg_vwindow_dr_t;
 
 
 /*****************************************************************************
- * dvbpsi_DecodeVWindowDr
+ * dvbpsi_decode_mpeg_vwindow_dr
  *****************************************************************************/
 /*!
- * \fn dvbpsi_vwindow_dr_t * dvbpsi_DecodeVWindowDr(
+ * \fn dvbpsi_mpeg_vwindow_dr_t * dvbpsi_decode_mpeg_vwindow_dr(
                                         dvbpsi_descriptor_t * p_descriptor)
  * \brief "video window" descriptor decoder.
  * \param p_descriptor pointer to the descriptor structure
  * \return a pointer to a new "video window" descriptor structure which
  * contains the decoded data.
  */
-dvbpsi_vwindow_dr_t* dvbpsi_DecodeVWindowDr(dvbpsi_descriptor_t * p_descriptor);
+dvbpsi_mpeg_vwindow_dr_t* dvbpsi_decode_mpeg_vwindow_dr(dvbpsi_descriptor_t * p_descriptor);
 
 
 /*****************************************************************************
- * dvbpsi_GenVWindowDr
+ * dvbpsi_gen_mpeg_vwindow_dr
  *****************************************************************************/
 /*!
- * \fn dvbpsi_descriptor_t * dvbpsi_GenVWindowDr(
-                        dvbpsi_vwindow_dr_t * p_decoded, bool b_duplicate)
+ * \fn dvbpsi_descriptor_t * dvbpsi_gen_mpeg_vwindow_dr(
+                        dvbpsi_mpeg_vwindow_dr_t * p_decoded, bool b_duplicate)
  * \brief "video window" descriptor generator.
  * \param p_decoded pointer to a decoded "video window" descriptor structure
  * \param b_duplicate if true then duplicate the p_decoded structure into
  * the descriptor
  * \return a pointer to a new descriptor structure which contains encoded data.
  */
-dvbpsi_descriptor_t * dvbpsi_GenVWindowDr(dvbpsi_vwindow_dr_t * p_decoded,
+dvbpsi_descriptor_t * dvbpsi_gen_mpeg_vwindow_dr(dvbpsi_mpeg_vwindow_dr_t * p_decoded,
                                           bool b_duplicate);
 
 

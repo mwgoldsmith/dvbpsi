@@ -40,12 +40,12 @@
 #include "dr_49.h"
 
 /*****************************************************************************
- * dvbpsi_DecodeCountryAvailability
+ * dvbpsi_decode_dvb_country_availability_dr
  *****************************************************************************/
-dvbpsi_country_availability_dr_t* dvbpsi_DecodeCountryAvailability(
+dvbpsi_dvb_country_availability_dr_t* dvbpsi_decode_dvb_country_availability_dr(
                                         dvbpsi_descriptor_t * p_descriptor)
 {
-    dvbpsi_country_availability_dr_t * p_decoded;
+    dvbpsi_dvb_country_availability_dr_t * p_decoded;
 
     /* Check the tag */
     if (p_descriptor->i_tag != 0x49)
@@ -63,7 +63,7 @@ dvbpsi_country_availability_dr_t* dvbpsi_DecodeCountryAvailability(
         return NULL;
 
     /* Allocate memory */
-    p_decoded = (dvbpsi_country_availability_dr_t*)calloc(1, sizeof(dvbpsi_country_availability_dr_t));
+    p_decoded = (dvbpsi_dvb_country_availability_dr_t*)calloc(1, sizeof(dvbpsi_dvb_country_availability_dr_t));
     if (!p_decoded)
         return NULL;
 
@@ -85,10 +85,10 @@ dvbpsi_country_availability_dr_t* dvbpsi_DecodeCountryAvailability(
 
 
 /*****************************************************************************
- * dvbpsi_GenCountryAvailabilityDr
+ * dvbpsi_gen_dvb_country_availability_dr
  *****************************************************************************/
-dvbpsi_descriptor_t * dvbpsi_GenCountryAvailabilityDr(
-		                        dvbpsi_country_availability_dr_t * p_decoded,
+dvbpsi_descriptor_t * dvbpsi_gen_dvb_country_availability_dr(
+		                        dvbpsi_dvb_country_availability_dr_t * p_decoded,
                                         bool b_duplicate)
 {
     /* Check the length */    
@@ -116,7 +116,7 @@ dvbpsi_descriptor_t * dvbpsi_GenCountryAvailabilityDr(
         /* Duplicate decoded data */
         p_descriptor->p_decoded =
                dvbpsi_DuplicateDecodedDescriptor(p_decoded,
-                      sizeof(dvbpsi_country_availability_dr_t));
+                      sizeof(dvbpsi_dvb_country_availability_dr_t));
     }
 
     return p_descriptor;

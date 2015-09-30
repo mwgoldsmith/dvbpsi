@@ -31,19 +31,19 @@ Decode Association Tag Descriptor.
 #define _DR_14_H
 
 /*****************************************************************************
- * dvbpsi_association_tag_dr_s
+ * dvbpsi_mpeg_association_tag_dr_s
  *****************************************************************************/
 /*!
- * \struct dvbpsi_association_tag_dr_s
+ * \struct dvbpsi_mpeg_association_tag_dr_s
  * \brief Data Broadcast id Descriptor
  *
  * This structure is used to store a decoded Association Tag descriptor.
  */
 /*!
- * \typedef struct dvbpsi_association_tag_dr_s dvbpsi_association_tag_dr_t
- * \brief dvbpsi_association_tag_dr_t type definition.
+ * \typedef struct dvbpsi_mpeg_association_tag_dr_s dvbpsi_mpeg_association_tag_dr_t
+ * \brief dvbpsi_mpeg_association_tag_dr_t type definition.
  */
-typedef struct dvbpsi_association_tag_dr_s
+typedef struct dvbpsi_mpeg_association_tag_dr_s
 {
     uint16_t i_tag;              /*!< association tag identifier */
     uint16_t i_use;              /*!< indicator if association tag identifier is in use */
@@ -55,19 +55,19 @@ typedef struct dvbpsi_association_tag_dr_s
     uint8_t *p_private_data;     /*!< pointer to private data. Memory is allocated
                                       right after sizeof struct, when freeing this
                                       struct the private data is freed at the same time. */
-} dvbpsi_association_tag_dr_t;
+} dvbpsi_mpeg_association_tag_dr_t;
 
 /*****************************************************************************
- * dvbpsi_DecodeAssociationTagDr
+ * dvbpsi_decode_mpeg_association_tag_dr
  *****************************************************************************/
 /*!
- * \fn dvbpsi_association_tag_dr_t *dvbpsi_DecodeAssociationTagDr(
+ * \fn dvbpsi_mpeg_association_tag_dr_t *dvbpsi_decode_mpeg_association_tag_dr(
  *        dvbpsi_descriptor_t *p_descriptor)
  * \brief Decode a Association Tag descriptor (tag 0x14)
  * \param p_descriptor Raw descriptor to decode.
  * \return NULL if the descriptor could not be decoded or a pointer to a
- *         dvbpsi_association_tag_dr_t structure.
+ *         dvbpsi_mpeg_association_tag_dr_t structure.
  */
-dvbpsi_association_tag_dr_t *dvbpsi_DecodeAssociationTagDr(dvbpsi_descriptor_t *p_descriptor);
+dvbpsi_mpeg_association_tag_dr_t *dvbpsi_decode_mpeg_association_tag_dr(dvbpsi_descriptor_t *p_descriptor);
 
 #endif

@@ -41,47 +41,47 @@ extern "C" {
 
 
 /*****************************************************************************
- * dvbpsi_ds_alignment_dr_t
+ * dvbpsi_mpeg_ds_alignment_dr_t
  *****************************************************************************/
 /*!
- * \struct dvbpsi_ds_alignment_dr_s
+ * \struct dvbpsi_mpeg_ds_alignment_dr_s
  * \brief "data stream alignment" descriptor structure.
  *
  * This structure is used to store a decoded "data stream alignment"
  * descriptor. (ISO/IEC 13818-1 section 2.6.10).
  */
 /*!
- * \typedef struct dvbpsi_ds_alignment_dr_s dvbpsi_ds_alignment_dr_t
- * \brief dvbpsi_ds_alignment_dr_t type definition.
+ * \typedef struct dvbpsi_mpeg_ds_alignment_dr_s dvbpsi_mpeg_ds_alignment_dr_t
+ * \brief dvbpsi_mpeg_ds_alignment_dr_t type definition.
  */
-typedef struct dvbpsi_ds_alignment_dr_s
+typedef struct dvbpsi_mpeg_ds_alignment_dr_s
 {
   uint8_t       i_alignment_type;       /*!< alignment_type */
 
-} dvbpsi_ds_alignment_dr_t;
+} dvbpsi_mpeg_ds_alignment_dr_t;
 
 
 /*****************************************************************************
- * dvbpsi_DecodeDSAlignmentDr
+ * dvbpsi_decode_mpeg_ds_alignment_dr
  *****************************************************************************/
 /*!
- * \fn dvbpsi_ds_alignment_dr_t * dvbpsi_DecodeDSAlignmentDr(
+ * \fn dvbpsi_mpeg_ds_alignment_dr_t * dvbpsi_decode_mpeg_ds_alignment_dr(
                                         dvbpsi_descriptor_t * p_descriptor)
  * \brief "data stream alignment" descriptor decoder.
  * \param p_descriptor pointer to the descriptor structure
  * \return a pointer to a new "data stream alignment" descriptor structure
  * which contains the decoded data.
  */
-dvbpsi_ds_alignment_dr_t* dvbpsi_DecodeDSAlignmentDr(
+dvbpsi_mpeg_ds_alignment_dr_t* dvbpsi_decode_mpeg_ds_alignment_dr(
                                         dvbpsi_descriptor_t * p_descriptor);
 
 
 /*****************************************************************************
- * dvbpsi_GenDSAlignmentDr
+ * dvbpsi_gen_mpeg_ds_alignment_dr
  *****************************************************************************/
 /*!
- * \fn dvbpsi_descriptor_t * dvbpsi_GenDSAlignmentDr(
-                        dvbpsi_ds_alignment_dr_t * p_decoded, bool b_duplicate)
+ * \fn dvbpsi_descriptor_t * dvbpsi_gen_mpeg_ds_alignment_dr(
+                        dvbpsi_mpeg_ds_alignment_dr_t * p_decoded, bool b_duplicate)
  * \brief "data stream alignment" descriptor generator.
  * \param p_decoded pointer to a decoded "data stream alignment" descriptor
  * structure
@@ -89,8 +89,8 @@ dvbpsi_ds_alignment_dr_t* dvbpsi_DecodeDSAlignmentDr(
  * the descriptor
  * \return a pointer to a new descriptor structure which contains encoded data.
  */
-dvbpsi_descriptor_t * dvbpsi_GenDSAlignmentDr(
-                                        dvbpsi_ds_alignment_dr_t * p_decoded,
+dvbpsi_descriptor_t * dvbpsi_gen_mpeg_ds_alignment_dr(
+                                        dvbpsi_mpeg_ds_alignment_dr_t * p_decoded,
                                         bool b_duplicate);
 
 

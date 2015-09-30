@@ -40,9 +40,9 @@
 #include "dr_4f.h"
 
 /*****************************************************************************
- * dvbpsi_DecodeTimeShiftedEventDr
+ * dvbpsi_decode_dvb_tshifted_ev_dr
  *****************************************************************************/
-dvbpsi_tshifted_ev_dr_t* dvbpsi_DecodeTimeShiftedEventDr(dvbpsi_descriptor_t * p_descriptor) {
+dvbpsi_dvb_tshifted_ev_dr_t* dvbpsi_decode_dvb_tshifted_ev_dr(dvbpsi_descriptor_t * p_descriptor) {
     /* Check the tag */
     if (p_descriptor->i_tag != 0x4F)
         return NULL;
@@ -56,8 +56,8 @@ dvbpsi_tshifted_ev_dr_t* dvbpsi_DecodeTimeShiftedEventDr(dvbpsi_descriptor_t * p
         return NULL;
 
     /* Allocate memory */
-    dvbpsi_tshifted_ev_dr_t * p_decoded;
-    p_decoded = (dvbpsi_tshifted_ev_dr_t*)calloc(1, sizeof(dvbpsi_tshifted_ev_dr_t));
+    dvbpsi_dvb_tshifted_ev_dr_t * p_decoded;
+    p_decoded = (dvbpsi_dvb_tshifted_ev_dr_t*)calloc(1, sizeof(dvbpsi_dvb_tshifted_ev_dr_t));
     if (!p_decoded)
         return NULL;
 
@@ -73,9 +73,9 @@ dvbpsi_tshifted_ev_dr_t* dvbpsi_DecodeTimeShiftedEventDr(dvbpsi_descriptor_t * p
 }
 
 /*****************************************************************************
- * dvbpsi_GenTimeShiftedEventDr
+ * dvbpsi_gen_dvb_tshifted_ev_dr
  *****************************************************************************/
-dvbpsi_descriptor_t *dvbpsi_GenTimeShiftedEventDr(dvbpsi_tshifted_ev_dr_t * p_decoded,
+dvbpsi_descriptor_t *dvbpsi_gen_dvb_tshifted_ev_dr(dvbpsi_dvb_tshifted_ev_dr_t * p_decoded,
                                                   bool b_duplicate) {
     /* Create the descriptor */
     dvbpsi_descriptor_t * p_descriptor =
@@ -94,7 +94,7 @@ dvbpsi_descriptor_t *dvbpsi_GenTimeShiftedEventDr(dvbpsi_tshifted_ev_dr_t * p_de
         /* Duplicate decoded data */
         p_descriptor->p_decoded =
                dvbpsi_DuplicateDecodedDescriptor(p_decoded,
-                      sizeof(dvbpsi_tshifted_ev_dr_t));
+                      sizeof(dvbpsi_dvb_tshifted_ev_dr_t));
     }
 
     return p_descriptor;

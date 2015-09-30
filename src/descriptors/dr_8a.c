@@ -41,9 +41,9 @@
 #include "dr_8a.h"
 
 /*****************************************************************************
- * dvbpsi_DecodeCUEIDr
+ * dvbpsi_decode_scte_cuei_dr
  *****************************************************************************/
-dvbpsi_cuei_dr_t * dvbpsi_DecodeCUEIDr(dvbpsi_descriptor_t * p_descriptor)
+dvbpsi_scte_cuei_dr_t * dvbpsi_decode_scte_cuei_dr(dvbpsi_descriptor_t * p_descriptor)
 {
     /* Check the tag */
     if (!dvbpsi_CanDecodeAsDescriptor(p_descriptor, 0x8a))
@@ -57,8 +57,8 @@ dvbpsi_cuei_dr_t * dvbpsi_DecodeCUEIDr(dvbpsi_descriptor_t * p_descriptor)
         return NULL;
 
     /* Allocate memory */
-    dvbpsi_cuei_dr_t *p_decoded;
-    p_decoded = (dvbpsi_cuei_dr_t*)malloc(sizeof(dvbpsi_cuei_dr_t));
+    dvbpsi_scte_cuei_dr_t *p_decoded;
+    p_decoded = (dvbpsi_scte_cuei_dr_t*)malloc(sizeof(dvbpsi_scte_cuei_dr_t));
     if (!p_decoded)
         return NULL;
 
@@ -80,9 +80,9 @@ dvbpsi_cuei_dr_t * dvbpsi_DecodeCUEIDr(dvbpsi_descriptor_t * p_descriptor)
 }
 
 /*****************************************************************************
- * dvbpsi_GenCUEIDr
+ * dvbpsi_gen_scte_cuei_dr
  *****************************************************************************/
-dvbpsi_descriptor_t * dvbpsi_GenCUEIDr(dvbpsi_cuei_dr_t * p_decoded, bool b_duplicate)
+dvbpsi_descriptor_t * dvbpsi_gen_scte_cuei_dr(dvbpsi_scte_cuei_dr_t * p_decoded, bool b_duplicate)
 {
     /* Create the descriptor */
     dvbpsi_descriptor_t * p_descriptor = dvbpsi_NewDescriptor(0x8a, 0x01, NULL);
@@ -97,7 +97,7 @@ dvbpsi_descriptor_t * dvbpsi_GenCUEIDr(dvbpsi_cuei_dr_t * p_decoded, bool b_dupl
         /* Duplicate decoded data */
         p_descriptor->p_decoded =
                 dvbpsi_DuplicateDecodedDescriptor(p_decoded,
-                                                  sizeof(dvbpsi_cuei_dr_t));
+                                                  sizeof(dvbpsi_scte_cuei_dr_t));
     }
 
     return p_descriptor;

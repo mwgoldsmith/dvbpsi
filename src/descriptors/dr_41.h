@@ -39,20 +39,20 @@ extern "C" {
 #endif
 
 /*****************************************************************************
- * dvbpsi_network_name_dr_t
+ * dvbpsi_dvb_network_name_dr_t
  *****************************************************************************/
 /*!
- * \struct dvbpsi_service_list_dr_s
+ * \struct dvbpsi_dvb_service_list_dr_s
  * \brief "service list" descriptor structure.
  *
  * This structure is used to store a decoded "service list"
  * descriptor. (ETSI EN 300 468 section 6.2.35).
  */
 /*!
- * \typedef struct dvbpsi_service_list_dr_s dvbpsi_service_list_dr_t
- * \brief dvbpsi_service_list_dr_t type definition.
+ * \typedef struct dvbpsi_dvb_service_list_dr_s dvbpsi_dvb_service_list_dr_t
+ * \brief dvbpsi_dvb_service_list_dr_t type definition.
  */
-typedef struct dvbpsi_service_list_dr_s
+typedef struct dvbpsi_dvb_service_list_dr_s
 {
   uint8_t       i_service_count;            /*!< length of the i_service_list
   	                                             array */
@@ -61,29 +61,29 @@ typedef struct dvbpsi_service_list_dr_s
       uint8_t      i_service_type;          /*!< service type */
   } i_service[64];                          /*!< array of services */
 
-} dvbpsi_service_list_dr_t;
+} dvbpsi_dvb_service_list_dr_t;
 
 /*****************************************************************************
- * dvbpsi_DecodeServiceListDr
+ * dvbpsi_decode_dvb_service_list_dr
  *****************************************************************************/
 /*!
- * \fn dvbpsi_service_list_dr_t * dvbpsi_DecodeServiceListDr(
+ * \fn dvbpsi_dvb_service_list_dr_t * dvbpsi_decode_dvb_service_list_dr(
                                         dvbpsi_descriptor_t * p_descriptor)
  * \brief "service list" descriptor decoder.
  * \param p_descriptor pointer to the descriptor structure
  * \return a pointer to a new "service list" descriptor structure
  * which contains the decoded data.
  */
-dvbpsi_service_list_dr_t* dvbpsi_DecodeServiceListDr(
+dvbpsi_dvb_service_list_dr_t* dvbpsi_decode_dvb_service_list_dr(
                                         dvbpsi_descriptor_t * p_descriptor);
 
 
 /*****************************************************************************
- * dvbpsi_GenServiceListDr
+ * dvbpsi_gen_dvb_service_list_dr
  *****************************************************************************/
 /*!
- * \fn dvbpsi_descriptor_t * dvbpsi_GenServiceListDr(
-                        dvbpsi_service_list_dr_t * p_decoded, bool b_duplicate)
+ * \fn dvbpsi_descriptor_t * dvbpsi_gen_dvb_service_list_dr(
+                        dvbpsi_dvb_service_list_dr_t * p_decoded, bool b_duplicate)
  * \brief "service list" descriptor generator.
  * \param p_decoded pointer to a decoded "service list" descriptor
  * structure
@@ -91,8 +91,8 @@ dvbpsi_service_list_dr_t* dvbpsi_DecodeServiceListDr(
  * the descriptor
  * \return a pointer to a new descriptor structure which contains encoded data.
  */
-dvbpsi_descriptor_t * dvbpsi_GenServiceListDr(
-		                        dvbpsi_service_list_dr_t * p_decoded,
+dvbpsi_descriptor_t * dvbpsi_gen_dvb_service_list_dr(
+		                        dvbpsi_dvb_service_list_dr_t * p_decoded,
                                         bool b_duplicate);
 
 #ifdef __cplusplus

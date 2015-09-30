@@ -42,11 +42,11 @@
 
 
 /*****************************************************************************
- * dvbpsi_DecodeVWindowDr
+ * dvbpsi_decode_mpeg_vwindow_dr
  *****************************************************************************/
-dvbpsi_vwindow_dr_t * dvbpsi_DecodeVWindowDr(dvbpsi_descriptor_t * p_descriptor)
+dvbpsi_mpeg_vwindow_dr_t * dvbpsi_decode_mpeg_vwindow_dr(dvbpsi_descriptor_t * p_descriptor)
 {
-    dvbpsi_vwindow_dr_t * p_decoded;
+    dvbpsi_mpeg_vwindow_dr_t * p_decoded;
 
     /* Check the tag */
     if (!dvbpsi_CanDecodeAsDescriptor(p_descriptor, 0x08))
@@ -60,7 +60,7 @@ dvbpsi_vwindow_dr_t * dvbpsi_DecodeVWindowDr(dvbpsi_descriptor_t * p_descriptor)
         return NULL;
 
     /* Allocate memory */
-    p_decoded = (dvbpsi_vwindow_dr_t*)malloc(sizeof(dvbpsi_vwindow_dr_t));
+    p_decoded = (dvbpsi_mpeg_vwindow_dr_t*)malloc(sizeof(dvbpsi_mpeg_vwindow_dr_t));
     if (!p_decoded)
         return NULL;
 
@@ -79,9 +79,9 @@ dvbpsi_vwindow_dr_t * dvbpsi_DecodeVWindowDr(dvbpsi_descriptor_t * p_descriptor)
 
 
 /*****************************************************************************
- * dvbpsi_GenVWindowDr
+ * dvbpsi_gen_mpeg_vwindow_dr
  *****************************************************************************/
-dvbpsi_descriptor_t * dvbpsi_GenVWindowDr(dvbpsi_vwindow_dr_t * p_decoded,
+dvbpsi_descriptor_t * dvbpsi_gen_mpeg_vwindow_dr(dvbpsi_mpeg_vwindow_dr_t * p_decoded,
                                           bool b_duplicate)
 {
     /* Create the descriptor */
@@ -103,7 +103,7 @@ dvbpsi_descriptor_t * dvbpsi_GenVWindowDr(dvbpsi_vwindow_dr_t * p_decoded,
         /* Duplicate decoded data */
         p_descriptor->p_decoded =
                 dvbpsi_DuplicateDecodedDescriptor(p_decoded,
-                                                  sizeof(dvbpsi_vwindow_dr_t));
+                                                  sizeof(dvbpsi_mpeg_vwindow_dr_t));
     }
 
     return p_descriptor;

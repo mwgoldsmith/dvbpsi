@@ -89,40 +89,40 @@ typedef struct dvbpsi_crid_entry_s
 /*!
  * \def DVBPSI_CRID_ENTRY_DR_MAX
  * \brief Maximum number of dvbpsi_crid_entry_t entries present in
- * @see dvbpsi_content_id_dr_t
+ * @see dvbpsi_dvb_content_id_dr_t
  */
 #define DVBPSI_CRID_ENTRY_DR_MAX 85
 
 /*****************************************************************************
- * dvbpsi_content_id_dr_s
+ * dvbpsi_dvb_content_id_dr_s
  *****************************************************************************/
 /*!
- * \struct dvbpsi_content_id_dr_s
+ * \struct dvbpsi_dvb_content_id_dr_s
  * \brief Content Identifier Descriptor
  *
  * This structure is used to store a decoded Content Identifier descriptor.
  */
 /*!
- * \typedef struct dvbpsi_content_id_dr_s dvbpsi_content_id_dr_t
- * \brief dvbpsi_content_id_dr_t type definition.
+ * \typedef struct dvbpsi_dvb_content_id_dr_s dvbpsi_dvb_content_id_dr_t
+ * \brief dvbpsi_dvb_content_id_dr_t type definition.
  */
-typedef struct dvbpsi_content_id_dr_s
+typedef struct dvbpsi_dvb_content_id_dr_s
 {
     uint8_t i_number_of_entries;      /*!< Number of CRID entries present. */
     dvbpsi_crid_entry_t p_entries[DVBPSI_CRID_ENTRY_DR_MAX];/*!< Array of CRID entries. */
-} dvbpsi_content_id_dr_t;
+} dvbpsi_dvb_content_id_dr_t;
 
 /*****************************************************************************
- * dvbpsi_DecodeLCNDr
+ * dvbpsi_decode_eacem_lcn_dr
  *****************************************************************************/
 /*!
- * \fn dvbpsi_content_id_dr_s dvbpsi_DecodeContentIdDr(dvbpsi_descriptor_t *p_descriptor)
+ * \fn dvbpsi_dvb_content_id_dr_s dvbpsi_decode_dvb_content_id_dr(dvbpsi_descriptor_t *p_descriptor)
  * \brief Decode a Content Identifier descriptor (tag 0x76)
  * \param p_descriptor Raw descriptor to decode.
  * \return NULL if the descriptor could not be decoded or a pointer to a
- *         dvbpsi_content_id_dr_t structure.
+ *         dvbpsi_dvb_content_id_dr_t structure.
  */
-dvbpsi_content_id_dr_t *dvbpsi_DecodeContentIdDr(dvbpsi_descriptor_t *p_descriptor);
+dvbpsi_dvb_content_id_dr_t *dvbpsi_decode_dvb_content_id_dr(dvbpsi_descriptor_t *p_descriptor);
 
 #ifdef __cplusplus
 };

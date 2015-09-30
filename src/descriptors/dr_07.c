@@ -42,12 +42,12 @@
 
 
 /*****************************************************************************
- * dvbpsi_DecodeTargetBgGridDr
+ * dvbpsi_decode_mpeg_target_bg_grid_dr
  *****************************************************************************/
-dvbpsi_target_bg_grid_dr_t * dvbpsi_DecodeTargetBgGridDr(
+dvbpsi_mpeg_target_bg_grid_dr_t * dvbpsi_decode_mpeg_target_bg_grid_dr(
                                         dvbpsi_descriptor_t * p_descriptor)
 {
-    dvbpsi_target_bg_grid_dr_t * p_decoded;
+    dvbpsi_mpeg_target_bg_grid_dr_t * p_decoded;
 
     /* Check the tag */
     if (!dvbpsi_CanDecodeAsDescriptor(p_descriptor, 0x07))
@@ -61,7 +61,7 @@ dvbpsi_target_bg_grid_dr_t * dvbpsi_DecodeTargetBgGridDr(
         return NULL;
 
     /* Allocate memory */
-    p_decoded = (dvbpsi_target_bg_grid_dr_t*) malloc(sizeof(dvbpsi_target_bg_grid_dr_t));
+    p_decoded = (dvbpsi_mpeg_target_bg_grid_dr_t*) malloc(sizeof(dvbpsi_mpeg_target_bg_grid_dr_t));
     if (!p_decoded)
         return NULL;
 
@@ -80,9 +80,9 @@ dvbpsi_target_bg_grid_dr_t * dvbpsi_DecodeTargetBgGridDr(
 
 
 /*****************************************************************************
- * dvbpsi_GenTargetBgGridDr
+ * dvbpsi_gen_mpeg_target_bg_grid_dr
  *****************************************************************************/
-dvbpsi_descriptor_t * dvbpsi_GenTargetBgGridDr(dvbpsi_target_bg_grid_dr_t * p_decoded,
+dvbpsi_descriptor_t * dvbpsi_gen_mpeg_target_bg_grid_dr(dvbpsi_mpeg_target_bg_grid_dr_t * p_decoded,
                                                bool b_duplicate)
 {
     /* Create the descriptor */
@@ -103,7 +103,7 @@ dvbpsi_descriptor_t * dvbpsi_GenTargetBgGridDr(dvbpsi_target_bg_grid_dr_t * p_de
         /* Duplicate decoded data */
         p_descriptor->p_decoded =
                 dvbpsi_DuplicateDecodedDescriptor(p_decoded,
-                                                  sizeof(dvbpsi_target_bg_grid_dr_t));
+                                                  sizeof(dvbpsi_mpeg_target_bg_grid_dr_t));
     }
 
     return p_descriptor;
