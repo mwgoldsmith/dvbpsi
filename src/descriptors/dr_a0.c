@@ -40,14 +40,6 @@ Decode Extended Channel Name Descriptor.
 #include "dr_a0.h"
 
 /*****************************************************************************
- * dvbpsi_ExtendedChannelNameDr - deprecated
- *****************************************************************************/
-dvbpsi_atsc_extended_channel_name_dr_t *dvbpsi_ExtendedChannelNameDr(dvbpsi_descriptor_t *p_descriptor)
-{
-    return dvbpsi_decode_atsc_extended_channel_name_dr(p_descriptor);
-}
-
-/*****************************************************************************
  * dvbpsi_decode_atsc_extended_channel_name_dr
  *****************************************************************************/
 dvbpsi_atsc_extended_channel_name_dr_t *dvbpsi_decode_atsc_extended_channel_name_dr(dvbpsi_descriptor_t *p_descriptor)

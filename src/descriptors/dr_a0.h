@@ -55,19 +55,6 @@ typedef struct dvbpsi_atsc_extended_channel_name_dr_s
 }dvbpsi_atsc_extended_channel_name_dr_t;
 
 /*****************************************************************************
- * dvbpsi_ExtendedChannelNameDr - deprecated
- *****************************************************************************/
-/*!
- * \fn dvbpsi_atsc_extended_channel_name_dr_t dvbpsi_ExtendedChannelNameDr(dvbpsi_descriptor_t *p_descriptor)
- * \brief Function is deprecated use dvbpsi_decode_atsc_extended_channel_name_dr instead.
- * \param p_descriptor Raw descriptor to decode.
- * \return NULL if the descriptor could not be decoded or a pointer to a
- *         dvbpsi_atsc_extended_channel_name_dr_t structure.
- */
-__attribute__((deprecated))
-dvbpsi_atsc_extended_channel_name_dr_t *dvbpsi_ExtendedChannelNameDr(dvbpsi_descriptor_t *p_descriptor);
-
-/*****************************************************************************
  * dvbpsi_decode_atsc_extended_channel_name_dr
  *****************************************************************************/
 /*!
