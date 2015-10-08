@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #ifndef _DVBPSI_DR_1C_H_
 #define _DVBPSI_DR_1C_H_
 
-#include "types/aac_profile.h"
+#include "../types/aac_profile.h"
 
 #ifdef __cplusplus
 extern "C" {

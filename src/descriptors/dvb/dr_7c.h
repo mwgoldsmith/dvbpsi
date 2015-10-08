@@ -33,7 +33,7 @@
 #ifndef _DVBPSI_DR_7C_H_
 #define _DVBPSI_DR_7c_H_
 
-#include "types/aac_profile.h"
+#include "../types/aac_profile.h"
 
 #ifdef __cplusplus
 extern "C" {
