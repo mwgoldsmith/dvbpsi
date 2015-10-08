@@ -73,11 +73,11 @@ pkginclude_HEADERS = dvbpsi.h psi.h descriptor.h demux.h \
                      descriptors/dvb/dr_76.h \
                      descriptors/dvb/dr_7c.h \
 		     descriptors/atsc/dr_81.h \
-		     descriptors/custom/dr_83_eacem.h \
 		     descriptors/atsc/dr_86.h \
-		     descriptors/custom/dr_8a_scte.h \
 		     descriptors/atsc/dr_a0.h \
 		     descriptors/atsc/dr_a1.h \
+		     descriptors/custom/dr_83_eacem.h \
+		     descriptors/custom/dr_8a_scte.h \
 		     descriptors/types/aac_profile.h \
 		     descriptors/dr.h
 
@@ -134,11 +134,11 @@ descriptors_src = descriptors/mpeg/dr_02.c \
                   descriptors/dvb/dr_76.c \
                   descriptors/dvb/dr_7c.c \
                   descriptors/atsc/dr_81.c \
-                  descriptors/custom/dr_83_eacem.c \
                   descriptors/atsc/dr_86.c \
-		  descriptors/custom/dr_8a_scte.c \
 		  descriptors/atsc/dr_a0.c \
-		  descriptors/atsc/dr_a1.c
+		  descriptors/atsc/dr_a1.c \
+		  descriptors/custom/dr_83_eacem.c \
+		  descriptors/custom/dr_8a_scte.c
 
 tables_src = tables/pat.c tables/pat_private.h \
              tables/pmt.c tables/pmt_private.h \
