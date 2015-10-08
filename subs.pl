@@ -2,9 +2,10 @@
 
 # A simple script that is aimed to help libdvbpsi users in the transition to the
 # new descriptor API. All it really does is substituting the names of structures
-# and functions to the ones found in the new API. The substitutions are limited
-# to C and C++ header and source files. Uses the working directory by default,
-# custom dir is used if given via the commandline.
+# , functions, and header files to the ones found in the new API. The
+# substitutions are limited to C and C++ header and source files. The script
+# uses the working directory by default, and a custom dir is used if given via
+# the commandline.
 
 use warnings;
 use strict;
@@ -185,7 +186,68 @@ my %names = (
   'dvbpsi_DecodeMPEG4AudioDr' => 'dvbpsi_decode_mpeg_mpeg4_audio_dr',
   'dvbpsi_local_time_offset_dr' => 'dvbpsi_dvb_local_time_offset_dr',
   'dvbpsi_GenLocalTimeOffsetDr' => 'dvbpsi_gen_dvb_local_time_offset_dr',
-  'dvbpsi_DecodeLocalTimeOffsetDr' => 'dvbpsi_decode_dvb_local_time_offset_dr',
+  'dvbpsi_DecodeLocalTimeOffsetDr' => 'dvbpsi_decode_dvb_local_time_offset_dr'
+);
+
+my %includes = (
+  'dr_0e.h' => 'mpeg/dr_0e.h',
+  'dr_5a.h' => 'dvb/dr_5a.h',
+  'dr_7c.h' => 'dvb/dr_7c.h',
+  'dr_08.h' => 'mpeg/dr_08.h',
+  'dr_48.h' => 'dvb/dr_48.h',
+  'dr_4e.h' => 'dvb/dr_4e.h',
+  'dr_07.h' => 'mpeg/dr_07.h',
+  'dr_4a.h' => 'dvb/dr_4a.h',
+  'dr_44.h' => 'dvb/dr_44.h',
+  'dr_8a.h' => 'custom/dr_8a_scte.h',
+  'dr_56.h' => 'dvb/dr_56.h',
+  'dr_83.h' => 'custom/dr_83_eacem.h',
+  'dr_a1.h' => 'atsc/dr_a1.h',
+  'dr_05.h' => 'mpeg/dr_05.h',
+  'dr_54.h' => 'dvb/dr_54.h',
+  'dr_86.h' => 'atsc/dr_86.h',
+  'dr_24.h' => 'mpeg/dr_24.h',
+  'dr_73.h' => 'dvb/dr_73.h',
+  'dr_4c.h' => 'dvb/dr_4c.h',
+  'dr_04.h' => 'mpeg/dr_04.h',
+  'dr_47.h' => 'dvb/dr_47.h',
+  'dr_81.h' => 'atsc/dr_81.h',
+  'dr_0d.h' => 'mpeg/dr_0d.h',
+  'dr_76.h' => 'dvb/dr_76.h',
+  'dr_69.h' => 'dvb/dr_69.h',
+  'dr_09.h' => 'mpeg/dr_09.h',
+  'dr_40.h' => 'dvb/dr_40.h',
+  'dr_4b.h' => 'dvb/dr_4b.h',
+  'dr_10.h' => 'mpeg/dr_10.h',
+  'dr_50.h' => 'dvb/dr_50.h',
+  'dr_13.h' => 'mpeg/dr_13.h',
+  'dr_14.h' => 'mpeg/dr_14.h',
+  'dr_0f.h' => 'mpeg/dr_0f.h',
+  'dr_12.h' => 'mpeg/dr_12.h',
+  'dr_02.h' => 'mpeg/dr_02.h',
+  'dr_0b.h' => 'mpeg/dr_0b.h',
+  'dr_53.h' => 'dvb/dr_53.h',
+  'dr_a0.h' => 'atsc/dr_a0.h',
+  'dr_52.h' => 'dvb/dr_52.h',
+  'dr_55.h' => 'dvb/dr_55.h',
+  'dr_0c.h' => 'mpeg/dr_0c.h',
+  'dr_42.h' => 'dvb/dr_42.h',
+  'dr_45.h' => 'dvb/dr_45.h',
+  'dr_59.h' => 'dvb/dr_59.h',
+  'dr_1b.h' => 'mpeg/dr_1b.h',
+  'dr_66.h' => 'dvb/dr_66.h',
+  'dr_62.h' => 'dvb/dr_62.h',
+  'dr_4d.h' => 'dvb/dr_4d.h',
+  'dr_4f.h' => 'dvb/dr_4f.h',
+  'dr_49.h' => 'dvb/dr_49.h',
+  'dr_41.h' => 'dvb/dr_41.h',
+  'dr_06.h' => 'mpeg/dr_06.h',
+  'dr_03.h' => 'mpeg/dr_03.h',
+  'dr_0a.h' => 'mpeg/dr_0a.h',
+  'dr_43.h' => 'dvb/dr_43.h',
+  'dr_11.h' => 'mpeg/dr_11.h',
+  'dr_1c.h' => 'mpeg/dr_1c.h',
+  'dr_58.h' => 'dvb/dr_58.h'
 );
 
 sub wanted {
@@ -199,14 +261,21 @@ sub wanted {
   
   print STDERR;
   my $r_names = 0;
+  my $r_includes = 0;
   for(@file) {
     foreach my $key (keys(%names)) {
       ++$r_names if s/$key/$names{$key}/g;
     }
+    foreach my $key (keys(%includes)) {
+      # check if it looks like an include line
+      if(/^ *?# *?include *?("|<).*?("|>) *?$/) {
+        ++$r_includes if s/$key/$includes{$key}/g;
+      }
+    }
   }
   
   untie @file;
-  print STDERR " : $r_names\n";
+  print STDERR " : $r_names names, $r_includes includes\n";
 }
 
 find(\&wanted, $ARGV[0] ? $ARGV[0] : '.');
