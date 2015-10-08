@@ -33,9 +33,9 @@ Decode AC-3 Audio Descriptor.
 #include <stdint.h>
 #endif
 
-#include "../dvbpsi.h"
-#include "../dvbpsi_private.h"
-#include "../descriptor.h"
+#include "../../dvbpsi.h"
+#include "../../dvbpsi_private.h"
+#include "../../descriptor.h"
 
 #include "dr_81.h"
 
