@@ -20,7 +20,11 @@ pkginclude_HEADERS = dvbpsi.h psi.h descriptor.h demux.h \
 		     tables/atsc_vct.h tables/atsc_stt.h \
 		     tables/atsc_eit.h tables/atsc_mgt.h \
 		     tables/atsc_ett.h \
-                     descriptors/mpeg/dr_02.h \
+		     descriptors/dr.h
+
+mpegdrincludedir = $(pkgincludedir)/mpeg
+
+mpegdrinclude_HEADERS = descriptors/mpeg/dr_02.h \
                      descriptors/mpeg/dr_03.h \
                      descriptors/mpeg/dr_04.h \
                      descriptors/mpeg/dr_05.h \
@@ -41,9 +45,12 @@ pkginclude_HEADERS = dvbpsi.h psi.h descriptor.h demux.h \
                      descriptors/mpeg/dr_14.h \
                      descriptors/mpeg/dr_1b.h \
                      descriptors/mpeg/dr_1c.h \
-                     descriptors/mpeg/dr_24.h \
-		     descriptors/dvb/dr_40.h \
-		     descriptors/dvb/dr_41.h \
+                     descriptors/mpeg/dr_24.h
+
+dvbdrincludedir = $(pkgincludedir)/dvb
+
+dvbdrinclude_HEADERS = descriptors/dvb/dr_40.h \
+                     descriptors/dvb/dr_41.h \
                      descriptors/dvb/dr_42.h \
                      descriptors/dvb/dr_43.h \
                      descriptors/dvb/dr_44.h \
@@ -71,15 +78,23 @@ pkginclude_HEADERS = dvbpsi.h psi.h descriptor.h demux.h \
                      descriptors/dvb/dr_69.h \
                      descriptors/dvb/dr_73.h \
                      descriptors/dvb/dr_76.h \
-                     descriptors/dvb/dr_7c.h \
-		     descriptors/atsc/dr_81.h \
-		     descriptors/atsc/dr_86.h \
-		     descriptors/atsc/dr_a0.h \
-		     descriptors/atsc/dr_a1.h \
-		     descriptors/custom/dr_83_eacem.h \
-		     descriptors/custom/dr_8a_scte.h \
-		     descriptors/types/aac_profile.h \
-		     descriptors/dr.h
+                     descriptors/dvb/dr_7c.h
+
+atscdrincludedir = $(pkgincludedir)/atsc
+
+atscdrinclude_HEADERS = descriptors/atsc/dr_81.h \
+                     descriptors/atsc/dr_86.h \
+                     descriptors/atsc/dr_a0.h \
+                     descriptors/atsc/dr_a1.h
+
+customdrincludedir = $(pkgincludedir)/custom
+
+customdrinclude_HEADERS = descriptors/custom/dr_83_eacem.h \
+                     descriptors/custom/dr_8a_scte.h
+
+typesincludedir = $(pkgincludedir)/types
+
+typesinclude_HEADERS = descriptors/types/aac_profile.h
 
 descriptors_src = descriptors/mpeg/dr_02.c \
                   descriptors/mpeg/dr_03.c \
@@ -155,13 +170,3 @@ tables_src = tables/pat.c tables/pat_private.h \
 	     tables/atsc_eit.c tables/atsc_eit.h \
 	     tables/atsc_ett.c tables/atsc_ett.h \
 	     tables/atsc_mgt.c tables/atsc_mgt.h
-
-install-data-local:
-	mkdir -p $(DESTDIR)$(pkgincludedir)/types
-
-install-data-hook:
-	mv $(DESTDIR)$(pkgincludedir)/aac_profile.h $(DESTDIR)$(pkgincludedir)/types
-
-uninstall-local:
-	rm -f $(DESTDIR)$(pkgincludedir)/types/aac_profile.h
-	rmdir $(DESTDIR)$(pkgincludedir)/types
