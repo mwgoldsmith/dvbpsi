@@ -78,6 +78,14 @@ dvbpsi_dvb_frequency_list_dr_t *dvbpsi_decode_dvb_frequency_list_dr(dvbpsi_descr
  */
 uint32_t dvbpsi_Bcd8ToUint32(uint32_t bcd);
 
+#ifdef DVBPSI_USE_DEPRECATED_DR_API
+typedef dvbpsi_dvb_frequency_list_dr_t dvbpsi_frequency_list_dr_t ;
+
+__attribute__((deprecated,unused)) static dvbpsi_frequency_list_dr_t* dvbpsi_DecodeFrequencyListDr (dvbpsi_descriptor_t *dr) {
+    return dvbpsi_decode_dvb_frequency_list_dr (dr);
+}
+#endif
+
 #ifdef __cplusplus
 };
 #endif

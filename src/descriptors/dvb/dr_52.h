@@ -91,6 +91,17 @@ dvbpsi_descriptor_t * dvbpsi_gen_dvb_stream_identifier_dr(
                                         dvbpsi_dvb_stream_identifier_dr_t * p_decoded,
                                         bool b_duplicate);
 
+#ifdef DVBPSI_USE_DEPRECATED_DR_API
+typedef dvbpsi_dvb_stream_identifier_dr_t dvbpsi_stream_identifier_dr_t ;
+
+__attribute__((deprecated,unused)) static dvbpsi_stream_identifier_dr_t* dvbpsi_DecodeStreamIdentifierDr (dvbpsi_descriptor_t *dr) {
+    return dvbpsi_decode_dvb_stream_identifier_dr (dr);
+}
+
+__attribute__((deprecated,unused)) static dvbpsi_descriptor_t* dvbpsi_GenStreamIdentifierDr (dvbpsi_stream_identifier_dr_t* dr, bool dup) {
+    return dvbpsi_gen_dvb_stream_identifier_dr (dr, dup);
+}
+#endif
 
 #ifdef __cplusplus
 };

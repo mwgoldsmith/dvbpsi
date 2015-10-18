@@ -94,6 +94,17 @@ dvbpsi_mpeg_hierarchy_dr_t* dvbpsi_decode_mpeg_hierarchy_dr(
 dvbpsi_descriptor_t * dvbpsi_gen_mpeg_hierarchy_dr(dvbpsi_mpeg_hierarchy_dr_t * p_decoded,
                                             bool b_duplicate);
 
+#ifdef DVBPSI_USE_DEPRECATED_DR_API
+typedef dvbpsi_mpeg_hierarchy_dr_t dvbpsi_hierarchy_dr_t ;
+
+__attribute__((deprecated,unused)) static dvbpsi_descriptor_t* dvbpsi_GenHierarchyDr (dvbpsi_hierarchy_dr_t* dr, bool dup) {
+    return dvbpsi_gen_mpeg_hierarchy_dr (dr, dup);
+}
+
+__attribute__((deprecated,unused)) static dvbpsi_hierarchy_dr_t* dvbpsi_DecodeHierarchyDr (dvbpsi_descriptor_t *dr) {
+    return dvbpsi_decode_mpeg_hierarchy_dr (dr);
+}
+#endif
 
 #ifdef __cplusplus
 };

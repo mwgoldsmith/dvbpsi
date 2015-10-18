@@ -53,7 +53,7 @@ typedef struct dvbpsi_dvb_default_authority_dr_s
 } dvbpsi_dvb_default_authority_dr_t;
 
 /*****************************************************************************
- * dvbpsi_decode_eacem_lcn_dr
+ * dvbpsi_decode_dvb_default_authority_dr
  *****************************************************************************/
 /*!
  * \fn dvbpsi_dvb_default_authority_dr_t *dvbpsi_decode_dvb_default_authority_dr(dvbpsi_descriptor_t *p_descriptor)
@@ -63,6 +63,14 @@ typedef struct dvbpsi_dvb_default_authority_dr_s
  *         dvbpsi_dvb_default_authority_dr_t structure.
  */
 dvbpsi_dvb_default_authority_dr_t *dvbpsi_decode_dvb_default_authority_dr(dvbpsi_descriptor_t *p_descriptor);
+
+#ifdef DVBPSI_USE_DEPRECATED_DR_API
+typedef dvbpsi_dvb_default_authority_dr_t dvbpsi_default_authority_dr_t ;
+
+__attribute__((deprecated,unused)) static dvbpsi_default_authority_dr_t* dvbpsi_DecodeDefaultAuthorityDr (dvbpsi_descriptor_t *dr) {
+    return dvbpsi_decode_dvb_default_authority_dr (dr);
+}
+#endif
 
 #ifdef __cplusplus
 };

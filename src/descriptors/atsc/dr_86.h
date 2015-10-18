@@ -88,6 +88,14 @@ typedef struct dvbpsi_atsc_caption_service_dr_s
  */
 dvbpsi_atsc_caption_service_dr_t *dvbpsi_decode_atsc_caption_service_dr(dvbpsi_descriptor_t *p_descriptor);
 
+#ifdef DVBPSI_USE_DEPRECATED_DR_API
+typedef dvbpsi_atsc_caption_service_dr_t dvbpsi_caption_service_dr_t ;
+
+__attribute__((deprecated,unused)) static dvbpsi_caption_service_dr_t* dvbpsi_DecodeCaptionServiceDr (dvbpsi_descriptor_t *dr) {
+    return dvbpsi_decode_atsc_caption_service_dr (dr);
+}
+#endif
+
 #ifdef __cplusplus
 }
 #endif

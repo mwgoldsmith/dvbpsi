@@ -95,6 +95,17 @@ dvbpsi_descriptor_t * dvbpsi_gen_mpeg_copyright_dr(
                                         dvbpsi_mpeg_copyright_dr_t * p_decoded,
                                         bool b_duplicate);
 
+#ifdef DVBPSI_USE_DEPRECATED_DR_API
+typedef dvbpsi_mpeg_copyright_dr_t dvbpsi_copyright_dr_t ;
+
+__attribute__((deprecated,unused)) static dvbpsi_copyright_dr_t* dvbpsi_DecodeCopyrightDr (dvbpsi_descriptor_t *dr) {
+    return dvbpsi_decode_mpeg_copyright_dr (dr);
+}
+
+__attribute__((deprecated,unused)) static dvbpsi_descriptor_t* dvbpsi_GenCopyrightDr (dvbpsi_copyright_dr_t* dr, bool dup) {
+    return dvbpsi_gen_mpeg_copyright_dr (dr, dup);
+}
+#endif
 
 #ifdef __cplusplus
 };

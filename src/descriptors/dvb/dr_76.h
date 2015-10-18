@@ -113,7 +113,7 @@ typedef struct dvbpsi_dvb_content_id_dr_s
 } dvbpsi_dvb_content_id_dr_t;
 
 /*****************************************************************************
- * dvbpsi_decode_eacem_lcn_dr
+ * dvbpsi_decode_dvb_content_id_dr
  *****************************************************************************/
 /*!
  * \fn dvbpsi_dvb_content_id_dr_s dvbpsi_decode_dvb_content_id_dr(dvbpsi_descriptor_t *p_descriptor)
@@ -123,6 +123,14 @@ typedef struct dvbpsi_dvb_content_id_dr_s
  *         dvbpsi_dvb_content_id_dr_t structure.
  */
 dvbpsi_dvb_content_id_dr_t *dvbpsi_decode_dvb_content_id_dr(dvbpsi_descriptor_t *p_descriptor);
+
+#ifdef DVBPSI_USE_DEPRECATED_DR_API
+typedef dvbpsi_dvb_content_id_dr_t dvbpsi_content_id_dr_t ;
+
+__attribute__((deprecated,unused)) static dvbpsi_content_id_dr_t* dvbpsi_DecodeContentIdDr (dvbpsi_descriptor_t *dr) {
+    return dvbpsi_decode_dvb_content_id_dr (dr);
+}
+#endif
 
 #ifdef __cplusplus
 };

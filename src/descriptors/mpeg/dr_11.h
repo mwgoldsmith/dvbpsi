@@ -66,6 +66,18 @@ dvbpsi_mpeg_std_dr_t* dvbpsi_decode_mpeg_std_dr(dvbpsi_descriptor_t * p_descript
  */
 dvbpsi_descriptor_t * dvbpsi_gen_mpeg_std_dr(dvbpsi_mpeg_std_dr_t * p_decoded);
 
+#ifdef DVBPSI_USE_DEPRECATED_DR_API
+typedef dvbpsi_mpeg_std_dr_t dvbpsi_std_dr_t ;
+
+__attribute__((deprecated,unused)) static dvbpsi_std_dr_t* dvbpsi_DecodeSTDDr (dvbpsi_descriptor_t *dr) {
+    return dvbpsi_decode_mpeg_std_dr (dr);
+}
+
+__attribute__((deprecated,unused)) static dvbpsi_descriptor_t* dvbpsi_GenSTDDr (dvbpsi_std_dr_t* dr) {
+    return dvbpsi_gen_mpeg_std_dr (dr);
+}
+#endif
+
 #ifdef __cplusplus
 }
 #endif

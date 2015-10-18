@@ -71,6 +71,18 @@ dvbpsi_mpeg_mpeg4_audio_dr_t* dvbpsi_decode_mpeg_mpeg4_audio_dr(
 dvbpsi_descriptor_t * dvbpsi_gen_mpeg_mpeg4_audio_dr(
                                       dvbpsi_mpeg_mpeg4_audio_dr_t * p_decoded);
 
+#ifdef DVBPSI_USE_DEPRECATED_DR_API
+typedef dvbpsi_mpeg_mpeg4_audio_dr_t dvbpsi_mpeg4_audio_dr_t ;
+
+__attribute__((deprecated,unused)) static dvbpsi_mpeg4_audio_dr_t* dvbpsi_DecodeMPEG4AudioDr (dvbpsi_descriptor_t *dr) {
+    return dvbpsi_decode_mpeg_mpeg4_audio_dr (dr);
+}
+
+__attribute__((deprecated,unused)) static dvbpsi_descriptor_t* dvbpsi_GenMPEG4AudioDr (dvbpsi_mpeg4_audio_dr_t* dr) {
+    return dvbpsi_gen_mpeg_mpeg4_audio_dr (dr);
+}
+#endif
+
 #ifdef __cplusplus
 }
 #endif

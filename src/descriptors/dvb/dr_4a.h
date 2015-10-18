@@ -112,6 +112,18 @@ dvbpsi_dvb_linkage_dr_t* dvbpsi_decode_dvb_linkage_dr(dvbpsi_descriptor_t * p_de
 dvbpsi_descriptor_t *dvbpsi_gen_dvb_linkage_dr(dvbpsi_dvb_linkage_dr_t * p_decoded,
                                          bool b_duplicate);
 
+#ifdef DVBPSI_USE_DEPRECATED_DR_API
+typedef dvbpsi_dvb_linkage_dr_t dvbpsi_linkage_dr_t ;
+
+__attribute__((deprecated,unused)) static dvbpsi_linkage_dr_t* dvbpsi_DecodeLinkageDr (dvbpsi_descriptor_t *dr) {
+    return dvbpsi_decode_dvb_linkage_dr (dr);
+}
+
+__attribute__((deprecated,unused)) static dvbpsi_descriptor_t* dvbpsi_GenLinkageDr (dvbpsi_linkage_dr_t* dr, bool dup) {
+    return dvbpsi_gen_dvb_linkage_dr (dr, dup);
+}
+#endif
+
 #ifdef __cplusplus
 };
 #endif

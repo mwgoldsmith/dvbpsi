@@ -66,6 +66,14 @@ typedef struct dvbpsi_atsc_extended_channel_name_dr_s
  */
 dvbpsi_atsc_extended_channel_name_dr_t *dvbpsi_decode_atsc_extended_channel_name_dr(dvbpsi_descriptor_t *p_descriptor);
 
+#ifdef DVBPSI_USE_DEPRECATED_DR_API
+typedef dvbpsi_atsc_extended_channel_name_dr_t dvbpsi_extended_channel_name_dr_t ;
+
+__attribute__((deprecated,unused)) static dvbpsi_extended_channel_name_dr_t* dvbpsi_DecodeExtendedChannelNameDr (dvbpsi_descriptor_t *dr) {
+    return dvbpsi_decode_atsc_extended_channel_name_dr (dr);
+}
+#endif
+
 #ifdef __cplusplus
 }
 #endif

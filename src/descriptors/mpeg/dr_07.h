@@ -95,6 +95,17 @@ dvbpsi_descriptor_t * dvbpsi_gen_mpeg_target_bg_grid_dr(
                                         dvbpsi_mpeg_target_bg_grid_dr_t * p_decoded,
                                         bool b_duplicate);
 
+#ifdef DVBPSI_USE_DEPRECATED_DR_API
+typedef dvbpsi_mpeg_target_bg_grid_dr_t dvbpsi_target_bg_grid_dr_t ;
+
+__attribute__((deprecated,unused)) static dvbpsi_target_bg_grid_dr_t* dvbpsi_DecodeTargetBgGridDr (dvbpsi_descriptor_t *dr) {
+    return dvbpsi_decode_mpeg_target_bg_grid_dr (dr);
+}
+
+__attribute__((deprecated,unused)) static dvbpsi_descriptor_t* dvbpsi_GenTargetBgGridDr (dvbpsi_target_bg_grid_dr_t* dr, bool dup) {
+    return dvbpsi_gen_mpeg_target_bg_grid_dr (dr, dup);
+}
+#endif
 
 #ifdef __cplusplus
 };

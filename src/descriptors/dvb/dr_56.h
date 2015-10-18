@@ -91,7 +91,7 @@ typedef struct dvbpsi_dvb_teletext_dr_s
 } dvbpsi_dvb_teletext_dr_t;
 
 /*****************************************************************************
- * dvbpsi_DecodeTeletextDataDr
+ * dvbpsi_decode_dvb_teletext_dr
  *****************************************************************************/
 /*!
  * \fn dvbpsi_dvb_teletext_dr_t * dvbpsi_decode_dvb_teletext_dr(
@@ -122,6 +122,17 @@ dvbpsi_descriptor_t * dvbpsi_gen_dvb_teletext_dr(
                                         dvbpsi_dvb_teletext_dr_t * p_decoded,
                                         bool b_duplicate);
 
+#ifdef DVBPSI_USE_DEPRECATED_DR_API
+typedef dvbpsi_dvb_teletext_dr_t dvbpsi_teletext_dr_t ;
+
+__attribute__((deprecated,unused)) static dvbpsi_teletext_dr_t* dvbpsi_DecodeTeletextDr (dvbpsi_descriptor_t *dr) {
+    return dvbpsi_decode_dvb_teletext_dr (dr);
+}
+
+__attribute__((deprecated,unused)) static dvbpsi_descriptor_t* dvbpsi_GenTeletextDr (dvbpsi_teletext_dr_t* dr, bool dup) {
+    return dvbpsi_gen_dvb_teletext_dr (dr, dup);
+}
+#endif
 
 #ifdef __cplusplus
 };

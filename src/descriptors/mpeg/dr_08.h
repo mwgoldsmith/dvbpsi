@@ -92,6 +92,17 @@ dvbpsi_mpeg_vwindow_dr_t* dvbpsi_decode_mpeg_vwindow_dr(dvbpsi_descriptor_t * p_
 dvbpsi_descriptor_t * dvbpsi_gen_mpeg_vwindow_dr(dvbpsi_mpeg_vwindow_dr_t * p_decoded,
                                           bool b_duplicate);
 
+#ifdef DVBPSI_USE_DEPRECATED_DR_API
+typedef dvbpsi_mpeg_vwindow_dr_t dvbpsi_vwindow_dr_t ;
+
+__attribute__((deprecated,unused)) static dvbpsi_descriptor_t* dvbpsi_GenVWindowDr (dvbpsi_vwindow_dr_t* dr, bool dup) {
+    return dvbpsi_gen_mpeg_vwindow_dr (dr, dup);
+}
+
+__attribute__((deprecated,unused)) static dvbpsi_vwindow_dr_t* dvbpsi_DecodeVWindowDr (dvbpsi_descriptor_t *dr) {
+    return dvbpsi_decode_mpeg_vwindow_dr (dr);
+}
+#endif
 
 #ifdef __cplusplus
 };

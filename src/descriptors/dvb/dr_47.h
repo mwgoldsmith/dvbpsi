@@ -95,6 +95,17 @@ dvbpsi_descriptor_t * dvbpsi_gen_dvb_bouquet_name_dr(
                                         dvbpsi_dvb_bouquet_name_dr_t * p_decoded,
                                         bool b_duplicate);
 
+#ifdef DVBPSI_USE_DEPRECATED_DR_API
+typedef dvbpsi_dvb_bouquet_name_dr_t dvbpsi_bouquet_name_dr_t ;
+
+__attribute__((deprecated,unused)) static dvbpsi_bouquet_name_dr_t* dvbpsi_DecodeBouquetNameDr (dvbpsi_descriptor_t *dr) {
+    return dvbpsi_decode_dvb_bouquet_name_dr (dr);
+}
+
+__attribute__((deprecated,unused)) static dvbpsi_descriptor_t* dvbpsi_GenBouquetNameDr (dvbpsi_bouquet_name_dr_t* dr, bool dup) {
+    return dvbpsi_gen_dvb_bouquet_name_dr (dr, dup);
+}
+#endif
 
 #ifdef __cplusplus
 };

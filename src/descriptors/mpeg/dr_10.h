@@ -72,6 +72,18 @@ dvbpsi_mpeg_smoothing_buffer_dr_t* dvbpsi_decode_mpeg_smoothing_buffer_dr(
 dvbpsi_descriptor_t * dvbpsi_gen_mpeg_smoothing_buffer_dr(
                                       dvbpsi_mpeg_smoothing_buffer_dr_t * p_decoded);
 
+#ifdef DVBPSI_USE_DEPRECATED_DR_API
+typedef dvbpsi_mpeg_smoothing_buffer_dr_t dvbpsi_smoothing_buffer_dr_t ;
+
+__attribute__((deprecated,unused)) static dvbpsi_smoothing_buffer_dr_t* dvbpsi_DecodeSmoothingBufferDr (dvbpsi_descriptor_t *dr) {
+    return dvbpsi_decode_mpeg_smoothing_buffer_dr (dr);
+}
+
+__attribute__((deprecated,unused)) static dvbpsi_descriptor_t* dvbpsi_GenSmoothingBufferDr (dvbpsi_smoothing_buffer_dr_t* dr) {
+    return dvbpsi_gen_mpeg_smoothing_buffer_dr (dr);
+}
+#endif
+
 #ifdef __cplusplus
 }
 #endif

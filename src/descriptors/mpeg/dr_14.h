@@ -70,4 +70,12 @@ typedef struct dvbpsi_mpeg_association_tag_dr_s
  */
 dvbpsi_mpeg_association_tag_dr_t *dvbpsi_decode_mpeg_association_tag_dr(dvbpsi_descriptor_t *p_descriptor);
 
+#ifdef DVBPSI_USE_DEPRECATED_DR_API
+typedef dvbpsi_mpeg_association_tag_dr_t dvbpsi_association_tag_dr_t ;
+
+__attribute__((deprecated,unused)) static dvbpsi_association_tag_dr_t* dvbpsi_DecodeAssociationTagDr (dvbpsi_descriptor_t *dr) {
+    return dvbpsi_decode_mpeg_association_tag_dr (dr);
+}
+#endif
+
 #endif

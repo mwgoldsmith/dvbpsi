@@ -65,4 +65,12 @@ typedef struct dvbpsi_mpeg_carousel_id_dr_s
  */
 dvbpsi_mpeg_carousel_id_dr_t *dvbpsi_decode_mpeg_carousel_id_dr(dvbpsi_descriptor_t *p_descriptor);
 
+#ifdef DVBPSI_USE_DEPRECATED_DR_API
+typedef dvbpsi_mpeg_carousel_id_dr_t dvbpsi_carousel_id_dr_t ;
+
+__attribute__((deprecated,unused)) static dvbpsi_carousel_id_dr_t* dvbpsi_DecodeCarouselIdDr (dvbpsi_descriptor_t *dr) {
+    return dvbpsi_decode_mpeg_carousel_id_dr (dr);
+}
+#endif
+
 #endif

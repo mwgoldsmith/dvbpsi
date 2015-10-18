@@ -92,7 +92,7 @@ typedef struct dvbpsi_dvb_ca_identifier_dr_s
 /*!
  * \fn dvbpsi_da_identifier_dr_t * dvbpsi_decode_dvb_ca_identifier_dr(
                                         dvbpsi_descriptor_t *p_descriptor)
- * \brief "DA identifier" descriptor decoder.
+ * \brief "CA identifier" descriptor decoder.
  * \param p_descriptor pointer to the descriptor structure
  * \return a pointer to a new "CA identifier" descriptor structure
  * which contains the decoded data.
@@ -116,6 +116,17 @@ dvbpsi_dvb_ca_identifier_dr_t* dvbpsi_decode_dvb_ca_identifier_dr(dvbpsi_descrip
 dvbpsi_descriptor_t *dvbpsi_gen_dvb_ca_identifier_dr(dvbpsi_dvb_ca_identifier_dr_t *p_decoded,
                                               bool b_duplicate);
 
+#ifdef DVBPSI_USE_DEPRECATED_DR_API
+typedef dvbpsi_dvb_ca_identifier_dr_t dvbpsi_ca_identifier_dr_t ;
+
+__attribute__((deprecated,unused)) static dvbpsi_ca_identifier_dr_t* dvbpsi_DecodeCAIdentifierDr (dvbpsi_descriptor_t *dr) {
+    return dvbpsi_decode_dvb_ca_identifier_dr (dr);
+}
+
+__attribute__((deprecated,unused)) static dvbpsi_descriptor_t* dvbpsi_GenCAIdentifierDr (dvbpsi_ca_identifier_dr_t* dr, bool dup) {
+    return dvbpsi_gen_dvb_ca_identifier_dr (dr, dup);
+}
+#endif
 
 #ifdef __cplusplus
 };

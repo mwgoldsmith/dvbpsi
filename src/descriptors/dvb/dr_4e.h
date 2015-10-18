@@ -102,6 +102,17 @@ dvbpsi_dvb_extended_event_dr_t* dvbpsi_decode_dvb_extended_event_dr(dvbpsi_descr
 dvbpsi_descriptor_t * dvbpsi_gen_dvb_extended_event_dr(dvbpsi_dvb_extended_event_dr_t * p_decoded,
                                                 bool b_duplicate);
 
+#ifdef DVBPSI_USE_DEPRECATED_DR_API
+typedef dvbpsi_dvb_extended_event_dr_t dvbpsi_extended_event_dr_t ;
+
+__attribute__((deprecated,unused)) static dvbpsi_extended_event_dr_t* dvbpsi_DecodeExtendedEventDr (dvbpsi_descriptor_t *dr) {
+    return dvbpsi_decode_dvb_extended_event_dr (dr);
+}
+
+__attribute__((deprecated,unused)) static dvbpsi_descriptor_t* dvbpsi_GenExtendedEventDr (dvbpsi_extended_event_dr_t* dr, bool dup) {
+    return dvbpsi_gen_dvb_extended_event_dr (dr, dup);
+}
+#endif
 
 #ifdef __cplusplus
 };

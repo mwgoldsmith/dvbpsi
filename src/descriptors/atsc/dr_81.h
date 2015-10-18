@@ -82,6 +82,14 @@ typedef struct dvbpsi_atsc_ac3_audio_dr_s
  */
 dvbpsi_atsc_ac3_audio_dr_t *dvbpsi_decode_atsc_ac3_audio_dr(dvbpsi_descriptor_t *p_descriptor);
 
+#ifdef DVBPSI_USE_DEPRECATED_DR_API
+typedef dvbpsi_atsc_ac3_audio_dr_t dvbpsi_ac3_audio_dr_t ;
+
+__attribute__((deprecated,unused)) static dvbpsi_ac3_audio_dr_t* dvbpsi_DecodeAc3AudioDr (dvbpsi_descriptor_t *dr) {
+    return dvbpsi_decode_atsc_ac3_audio_dr (dr);
+}
+#endif
+
 #ifdef __cplusplus
 }
 #endif

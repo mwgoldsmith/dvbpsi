@@ -59,7 +59,7 @@ typedef struct dvbpsi_scte_cuei_dr_s
 
 
 /*****************************************************************************
- * dvbpsi_DecodeCUEIDataDr
+ * dvbpsi_decode_scte_cuei_dr
  *****************************************************************************/
 /*!
  * \fn dvbpsi_scte_cuei_dr_t * dvbpsi_decode_scte_cuei_dr(dvbpsi_descriptor_t * p_descriptor)
@@ -72,7 +72,7 @@ dvbpsi_scte_cuei_dr_t* dvbpsi_decode_scte_cuei_dr(dvbpsi_descriptor_t * p_descri
 
 
 /*****************************************************************************
- * dvbpsi_GenCUEIDataDr
+ * dvbpsi_gen_scte_cuei_dr
  *****************************************************************************/
 /*!
  * \fn dvbpsi_descriptor_t * dvbpsi_gen_scte_cuei_dr(
@@ -86,6 +86,17 @@ dvbpsi_scte_cuei_dr_t* dvbpsi_decode_scte_cuei_dr(dvbpsi_descriptor_t * p_descri
  */
 dvbpsi_descriptor_t * dvbpsi_gen_scte_cuei_dr(dvbpsi_scte_cuei_dr_t * p_decoded, bool b_duplicate);
 
+#ifdef DVBPSI_USE_DEPRECATED_DR_API
+typedef dvbpsi_scte_cuei_dr_t dvbpsi_cuei_dr_t ;
+
+__attribute__((deprecated,unused)) static dvbpsi_cuei_dr_t* dvbpsi_DecodeCUEIDr (dvbpsi_descriptor_t *dr) {
+    return dvbpsi_decode_scte_cuei_dr (dr);
+}
+
+__attribute__((deprecated,unused)) static dvbpsi_descriptor_t* dvbpsi_GenCUEIDr (dvbpsi_cuei_dr_t* dr, bool dup) {
+    return dvbpsi_gen_scte_cuei_dr (dr, dup);
+}
+#endif
 
 #ifdef __cplusplus
 };

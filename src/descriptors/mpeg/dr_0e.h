@@ -92,6 +92,17 @@ dvbpsi_descriptor_t * dvbpsi_gen_mpeg_max_bitrate_dr(
                                         dvbpsi_mpeg_max_bitrate_dr_t * p_decoded,
                                         bool b_duplicate);
 
+#ifdef DVBPSI_USE_DEPRECATED_DR_API
+typedef dvbpsi_mpeg_max_bitrate_dr_t dvbpsi_max_bitrate_dr_t ;
+
+__attribute__((deprecated,unused)) static dvbpsi_descriptor_t* dvbpsi_GenMaxBitrateDr (dvbpsi_max_bitrate_dr_t* dr, bool dup) {
+    return dvbpsi_gen_mpeg_max_bitrate_dr (dr, dup);
+}
+
+__attribute__((deprecated,unused)) static dvbpsi_max_bitrate_dr_t* dvbpsi_DecodeMaxBitrateDr (dvbpsi_descriptor_t *dr) {
+    return dvbpsi_decode_mpeg_max_bitrate_dr (dr);
+}
+#endif
 
 #ifdef __cplusplus
 };

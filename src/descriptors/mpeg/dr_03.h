@@ -93,6 +93,17 @@ dvbpsi_mpeg_astream_dr_t* dvbpsi_decode_mpeg_astream_dr(dvbpsi_descriptor_t * p_
 dvbpsi_descriptor_t * dvbpsi_gen_mpeg_astream_dr(dvbpsi_mpeg_astream_dr_t * p_decoded,
                                           bool b_duplicate);
 
+#ifdef DVBPSI_USE_DEPRECATED_DR_API
+typedef dvbpsi_mpeg_astream_dr_t dvbpsi_astream_dr_t ;
+
+__attribute__((deprecated,unused)) static dvbpsi_astream_dr_t* dvbpsi_DecodeAStreamDr (dvbpsi_descriptor_t *dr) {
+    return dvbpsi_decode_mpeg_astream_dr (dr);
+}
+
+__attribute__((deprecated,unused)) static dvbpsi_descriptor_t* dvbpsi_GenAStreamDr (dvbpsi_astream_dr_t* dr, bool dup) {
+    return dvbpsi_gen_mpeg_astream_dr (dr, dup);
+}
+#endif
 
 #ifdef __cplusplus
 };

@@ -65,4 +65,12 @@ typedef struct dvbpsi_dvb_data_broadcast_id_dr_s
  */
 dvbpsi_dvb_data_broadcast_id_dr_t *dvbpsi_decode_dvb_data_broadcast_id_dr(dvbpsi_descriptor_t *p_descriptor);
 
+#ifdef DVBPSI_USE_DEPRECATED_DR_API
+typedef dvbpsi_dvb_data_broadcast_id_dr_t dvbpsi_data_broadcast_id_dr_t ;
+
+__attribute__((deprecated,unused)) static dvbpsi_data_broadcast_id_dr_t* dvbpsi_DecodeDataBroadcastIdDr (dvbpsi_descriptor_t *dr) {
+    return dvbpsi_decode_dvb_data_broadcast_id_dr (dr);
+}
+#endif
+
 #endif

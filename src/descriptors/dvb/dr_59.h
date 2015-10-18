@@ -91,7 +91,7 @@ typedef struct dvbpsi_dvb_subtitling_dr_s
 
 
 /*****************************************************************************
- * dvbpsi_DecodeSubtitlingDataDr
+ * dvbpsi_decode_dvb_subtitling_dr
  *****************************************************************************/
 /*!
  * \fn dvbpsi_dvb_subtitling_dr_t * dvbpsi_decode_dvb_subtitling_dr(
@@ -106,7 +106,7 @@ dvbpsi_dvb_subtitling_dr_t* dvbpsi_decode_dvb_subtitling_dr(
 
 
 /*****************************************************************************
- * dvbpsi_GenSubtitlingDataDr
+ * dvbpsi_gen_dvb_subtitling_dr
  *****************************************************************************/
 /*!
  * \fn dvbpsi_descriptor_t * dvbpsi_gen_dvb_subtitling_dr(
@@ -122,6 +122,17 @@ dvbpsi_descriptor_t * dvbpsi_gen_dvb_subtitling_dr(
                                         dvbpsi_dvb_subtitling_dr_t * p_decoded,
                                         bool b_duplicate);
 
+#ifdef DVBPSI_USE_DEPRECATED_DR_API
+typedef dvbpsi_dvb_subtitling_dr_t dvbpsi_subtitling_dr_t ;
+
+__attribute__((deprecated,unused)) static dvbpsi_subtitling_dr_t* dvbpsi_DecodeSubtitlingDr (dvbpsi_descriptor_t *dr) {
+    return dvbpsi_decode_dvb_subtitling_dr (dr);
+}
+
+__attribute__((deprecated,unused)) static dvbpsi_descriptor_t* dvbpsi_GenSubtitlingDr (dvbpsi_subtitling_dr_t* dr, bool dup) {
+    return dvbpsi_gen_dvb_subtitling_dr (dr, dup);
+}
+#endif
 
 #ifdef __cplusplus
 };
