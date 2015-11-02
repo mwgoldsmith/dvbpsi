@@ -82,6 +82,18 @@ if test "$release" != "true"; then
   CFLAGS_dist="${CFLAGS_dist} -DDVBPSI_DIST"
 fi
 
+dnl --enable-compat
+AC_ARG_ENABLE(compat,
+[  --enable-compat         Enable API compatibility layer (default disabled)],
+[case "${enableval}" in
+  yes) compat=true ;;
+  no)  compat=false ;;
+  *) AC_MSG_ERROR(bad value ${enableval} for --enable-compat) ;;
+esac],[compat=false])
+if test "$compat" = "true"; then
+  CFLAGS_dist="${CFLAGS_dist} -DDVBPSI_USE_DEPRECATED_DR_API"
+fi
+
 dnl compile feature tests
 CFLAGS="${CFLAGS_save} ${CFLAGS_dist}"
 
@@ -150,6 +162,7 @@ libdvbpsi configuration
 libdvbpsi version     : ${VERSION}
 debug                 : ${debug}
 release               : ${release}
+compatibility old api : ${compat}
 compile flags         : ${CFLAGS}
 build for             : ${SYS}
 "
