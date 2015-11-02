@@ -67,6 +67,7 @@ N: Daniel Kamil Kozar
 E: dkk089@gmail.com
 D: descriptors 0x10, 0x11, 0x12, 0x1b, 0x1c
 D: Bugfixing
+D: Move descriptors into subdirectories
 
 N: Jean-Baptiste Kempf
 E: jb@videolan.org
