@@ -252,12 +252,12 @@ bool dvbpsi_decoder_present(dvbpsi_t *p_dvbpsi)
  *****************************************************************************
  * Injection of a TS packet into a PSI decoder.
  *****************************************************************************/
-bool dvbpsi_packet_push(dvbpsi_t *p_dvbpsi, uint8_t* p_data)
+bool dvbpsi_packet_push(dvbpsi_t *p_dvbpsi, const uint8_t* p_data)
 {
     uint8_t i_expected_counter;           /* Expected continuity counter */
     dvbpsi_psi_section_t* p_section;      /* Current section */
-    uint8_t* p_payload_pos;               /* Where in the TS packet */
-    uint8_t* p_new_pos = NULL;            /* Beginning of the new section,
+    const uint8_t* p_payload_pos;         /* Where in the TS packet */
+    const uint8_t* p_new_pos = NULL;      /* Beginning of the new section,
                                              updated to NULL when the new
                                              section is handled */
     int i_available;                      /* Byte count available in the

@@ -196,7 +196,7 @@ void dvbpsi_delete(dvbpsi_t *p_dvbpsi);
  *
  * Injection of a TS packet into a PSI decoder.
  */
-bool dvbpsi_packet_push(dvbpsi_t *p_dvbpsi, uint8_t* p_data);
+bool dvbpsi_packet_push(dvbpsi_t *p_dvbpsi, const uint8_t* p_data);
 
 /*****************************************************************************
  * dvbpsi_psi_section_t
