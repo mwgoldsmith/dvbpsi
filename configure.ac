@@ -1,23 +1,24 @@
 AC_INIT([libdvbpsi], [2.0.0-git])
 
-AC_PREREQ([2.50])
+AC_PREREQ([2.65])
 AC_CONFIG_AUX_DIR([.auto])
 AC_CANONICAL_SYSTEM
+AC_CANONICAL_HOST
 AC_CONFIG_SRCDIR([src/dvbpsi.c])
 
 AM_INIT_AUTOMAKE([foreign dist-bzip2 subdir-objects])
 AC_CONFIG_HEADERS(config.h)
 AC_CONFIG_MACRO_DIR([m4])
 
-dnl AC_CANONICAL_HOST
 AC_PROG_CC
-AC_STDC_HEADERS
+AC_HEADER_STDC
 AC_C_INLINE
 
 AM_PROG_CC_C_O
 
-AC_LIBTOOL_WIN32_DLL
+dnl AC_LIBTOOL_WIN32_DLL
 AM_PROG_LIBTOOL
+LT_INIT([win32-dll])
 
 dnl store CFLAGS from user
 CFLAGS_save="${CFLAGS}"
@@ -147,7 +148,7 @@ fi
 dnl
 dnl Generate Makefiles and other output files
 dnl
-AC_OUTPUT([Makefile
+AC_CONFIG_FILES([Makefile
            src/Makefile
            examples/Makefile
            examples/dvbinfo/Makefile
@@ -155,7 +156,7 @@ AC_OUTPUT([Makefile
            doc/Makefile
            libdvbpsi.pc
            libdvbpsi.spec])
-
+AC_OUTPUT
 echo "
 libdvbpsi configuration
 -----------------------
