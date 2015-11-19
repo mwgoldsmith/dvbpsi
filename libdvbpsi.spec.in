@@ -1,6 +1,5 @@
 %define name		libdvbpsi
 %define version		@PACKAGE_VERSION@
-%define release		1
 
 %define lib_name	%{name}
 
@@ -10,7 +9,10 @@
 %define configure2_5x CFLAGS="$RPM_OPT_FLAGS" ./configure --prefix=/usr --libdir=%{_libdir}
 %define make %__make
 %define makeinstall_std %__make DESTDIR="$RPM_BUILD_ROOT" install
+%define release		1%{?dist}
 # adjust define for Redhat.
+%else
+%define release		1
 %endif
 
 Summary:	A library for decoding and generating MPEG 2 and DVB PSI sections.
