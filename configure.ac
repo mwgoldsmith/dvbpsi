@@ -5,7 +5,7 @@ AC_CONFIG_AUX_DIR([.auto])
 AC_CANONICAL_SYSTEM
 AC_CONFIG_SRCDIR([src/dvbpsi.c])
 
-AM_INIT_AUTOMAKE([subdir-objects])
+AM_INIT_AUTOMAKE([foreign dist-bzip2 subdir-objects])
 AC_CONFIG_HEADERS(config.h)
 AC_CONFIG_MACRO_DIR([m4])
 

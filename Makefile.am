@@ -10,8 +10,6 @@ EXTRA_DIST = libdvbpsi.spec libdvbpsi.spec.in libdvbpsi.pc.in bootstrap
 pkgconfigdir = $(libdir)/pkgconfig
 pkgconfig_DATA = libdvbpsi.pc
 
-AUTOMAKE_OPTIONS = foreign dist-bzip2 subdir-objects
-
 doc-dummy:
 
 doc: doc-dummy
