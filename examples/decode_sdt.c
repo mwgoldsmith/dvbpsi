@@ -43,13 +43,13 @@
 #ifdef DVBPSI_DIST
 #include "../src/dvbpsi.h"
 #include "../src/psi.h"
-#include "../src/demux.h"
+#include "../src/chain.h"
 #include "../src/descriptor.h"
 #include "../src/tables/sdt.h"
 #else
 #include <dvbpsi/dvbpsi.h>
 #include <dvbpsi/psi.h>
-#include <dvbpsi/demux.h>
+#include <dvbpsi/chain.h>
 #include <dvbpsi/descriptor.h>
 #include <dvbpsi/sdt.h>
 #endif
@@ -152,11 +152,23 @@ static void NewSubtable(dvbpsi_t *p_dvbpsi, uint8_t i_table_id, uint16_t i_exten
 }
 
 /*****************************************************************************
+ * DelSubtable
+ *****************************************************************************/
+static void DelSubtable(dvbpsi_t *p_dvbpsi, uint8_t i_table_id, uint16_t i_extension)
+{
+  if(i_table_id == 0x42)
+  {
+     dvbpsi_sdt_detach(p_dvbpsi, i_table_id, i_extension);
+  }
+}
+
+/*****************************************************************************
  * main
  *****************************************************************************/
 int main(int i_argc, char* pa_argv[])
 {
   int i_fd;
+  int ret = 1;
   uint8_t data[188];
   dvbpsi_t *p_dvbpsi;
   bool b_ok;
@@ -172,7 +184,7 @@ int main(int i_argc, char* pa_argv[])
   if (p_dvbpsi == NULL)
       goto out;
 
-  if (!dvbpsi_AttachDemux(p_dvbpsi, NewSubtable, NULL))
+  if (!dvbpsi_decoder_chain_new(p_dvbpsi, NewSubtable, DelSubtable, NULL))
       goto out;
 
   b_ok = ReadPacket(i_fd, data);
@@ -185,13 +197,15 @@ int main(int i_argc, char* pa_argv[])
     b_ok = ReadPacket(i_fd, data);
   }
 
+  ret = 0;
+
 out:
   if (p_dvbpsi)
   {
-    dvbpsi_DetachDemux(p_dvbpsi);
+    if (!dvbpsi_decoder_chain_delete(p_dvbpsi))
+        ret = 1;
     dvbpsi_delete(p_dvbpsi);
   }
   close(i_fd);
-  return 0;
+  return ret;
 }
-
