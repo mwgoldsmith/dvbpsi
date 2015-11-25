@@ -43,7 +43,7 @@
 #include "../dvbpsi_private.h"
 #include "../psi.h"
 #include "../descriptor.h"
-#include "../demux.h"
+#include "../chain.h"
 
 #include "sis.h"
 #include "sis_private.h"
@@ -57,13 +57,10 @@ bool dvbpsi_sis_attach(dvbpsi_t *p_dvbpsi, uint8_t i_table_id, uint16_t i_extens
                       dvbpsi_sis_callback pf_callback, void* p_cb_data)
 {
     assert(p_dvbpsi);
-    assert(p_dvbpsi->p_decoder);
-
-    dvbpsi_demux_t* p_demux = (dvbpsi_demux_t*)p_dvbpsi->p_decoder;
 
     i_extension = 0;
-
-    if (dvbpsi_demuxGetSubDec(p_demux, i_table_id, i_extension))
+    dvbpsi_decoder_t *p_dec = dvbpsi_decoder_chain_get(p_dvbpsi, i_table_id, i_extension);
+    if (p_dec != NULL)
     {
         dvbpsi_error(p_dvbpsi, "SIS decoder",
                          "Already a decoder for (table_id == 0x%02x,"
@@ -73,29 +70,25 @@ bool dvbpsi_sis_attach(dvbpsi_t *p_dvbpsi, uint8_t i_table_id, uint16_t i_extens
     }
 
     dvbpsi_sis_decoder_t*  p_sis_decoder;
-    p_sis_decoder = (dvbpsi_sis_decoder_t*) dvbpsi_decoder_new(NULL,
-                                             0, true, sizeof(dvbpsi_sis_decoder_t));
+    p_sis_decoder = (dvbpsi_sis_decoder_t*) dvbpsi_decoder_new(dvbpsi_sis_sections_gather,
+                                                4096, true, sizeof(dvbpsi_sis_decoder_t));
     if (p_sis_decoder == NULL)
         return false;
-
-    /* subtable decoder configuration */
-    dvbpsi_demux_subdec_t* p_subdec;
-    p_subdec = dvbpsi_NewDemuxSubDecoder(i_table_id, i_extension, dvbpsi_sis_detach,
-                                         dvbpsi_sis_sections_gather, DVBPSI_DECODER(p_sis_decoder));
-    if (p_subdec == NULL)
-    {
-        dvbpsi_decoder_delete(DVBPSI_DECODER(p_sis_decoder));
-        return false;
-    }
-
-    /* Attach the subtable decoder to the demux */
-    dvbpsi_AttachDemuxSubDecoder(p_demux, p_subdec);
 
     /* SIS decoder information */
     p_sis_decoder->pf_sis_callback = pf_callback;
     p_sis_decoder->p_cb_data = p_cb_data;
     p_sis_decoder->p_building_sis = NULL;
 
+    p_sis_decoder->i_table_id = i_table_id;
+    p_sis_decoder->i_extension = i_extension;
+
+    /* Add SIS decoder to decoder chain */
+    if (!dvbpsi_decoder_chain_add(p_dvbpsi, DVBPSI_DECODER(p_sis_decoder)))
+    {
+        dvbpsi_decoder_delete(DVBPSI_DECODER(p_sis_decoder));
+        return false;
+    }
     return true;
 }
 
@@ -107,14 +100,10 @@ bool dvbpsi_sis_attach(dvbpsi_t *p_dvbpsi, uint8_t i_table_id, uint16_t i_extens
 void dvbpsi_sis_detach(dvbpsi_t *p_dvbpsi, uint8_t i_table_id, uint16_t i_extension)
 {
     assert(p_dvbpsi);
-    assert(p_dvbpsi->p_decoder);
-
-    dvbpsi_demux_t *p_demux = (dvbpsi_demux_t *) p_dvbpsi->p_decoder;
 
     i_extension = 0;
-    dvbpsi_demux_subdec_t* p_subdec;
-    p_subdec = dvbpsi_demuxGetSubDec(p_demux, i_table_id, i_extension);
-    if (p_subdec == NULL)
+    dvbpsi_decoder_t *p_dec = dvbpsi_decoder_chain_get(p_dvbpsi, i_table_id, i_extension);
+    if (p_dec == NULL)
     {
         dvbpsi_error(p_dvbpsi, "SIS Decoder",
                          "No such SIS decoder (table_id == 0x%02x,"
@@ -123,16 +112,22 @@ void dvbpsi_sis_detach(dvbpsi_t *p_dvbpsi, uint8_t i_table_id, uint16_t i_extens
         return;
     }
 
-    assert(p_subdec->p_decoder);
+    /* Remove table decoder from decoder chain */
+    if (!dvbpsi_decoder_chain_remove(p_dvbpsi, p_dec))
+    {
+        dvbpsi_error(p_dvbpsi, "SIS Decoder",
+                     "Failed to remove"
+                     "extension == 0x%02x)",
+                      i_table_id, i_extension);
+        return;
+    }
 
-    dvbpsi_sis_decoder_t* p_sis_decoder;
-    p_sis_decoder = (dvbpsi_sis_decoder_t*)p_subdec->p_decoder;
+    dvbpsi_sis_decoder_t* p_sis_decoder = (dvbpsi_sis_decoder_t*)p_dec;
     if (p_sis_decoder->p_building_sis)
         dvbpsi_sis_delete(p_sis_decoder->p_building_sis);
     p_sis_decoder->p_building_sis = NULL;
-
-    dvbpsi_DetachDemuxSubDecoder(p_demux, p_subdec);
-    dvbpsi_DeleteDemuxSubDecoder(p_subdec);
+    dvbpsi_decoder_delete(p_dec);
+    p_dec = NULL;
 }
 
 /*****************************************************************************
@@ -328,9 +323,7 @@ static bool dvbpsi_AddSectionSIS(dvbpsi_t *p_dvbpsi, dvbpsi_sis_decoder_t *p_sis
  *****************************************************************************
  * Callback for the subtable demultiplexor.
  *****************************************************************************/
-void dvbpsi_sis_sections_gather(dvbpsi_t *p_dvbpsi,
-                              dvbpsi_decoder_t *p_decoder,
-                              dvbpsi_psi_section_t * p_section)
+void dvbpsi_sis_sections_gather(dvbpsi_t *p_dvbpsi, dvbpsi_psi_section_t * p_section)
 {
     assert(p_dvbpsi);
     assert(p_dvbpsi->p_decoder);
@@ -342,8 +335,13 @@ void dvbpsi_sis_sections_gather(dvbpsi_t *p_dvbpsi,
     }
 
     /* */
-    dvbpsi_demux_t *p_demux = (dvbpsi_demux_t *) p_dvbpsi->p_decoder;
-    dvbpsi_sis_decoder_t * p_sis_decoder = (dvbpsi_sis_decoder_t*)p_decoder;
+    dvbpsi_sis_decoder_t *p_sis_decoder = (dvbpsi_sis_decoder_t*)
+            dvbpsi_decoder_chain_get(p_dvbpsi, p_section->i_table_id, p_section->i_extension);
+    if (!p_sis_decoder)
+    {
+        dvbpsi_DeletePSISections(p_section);
+        return;
+    }
 
     if (p_section->b_private_indicator)
     {
@@ -355,11 +353,10 @@ void dvbpsi_sis_sections_gather(dvbpsi_t *p_dvbpsi,
     }
 
     /* TS discontinuity check */
-    if (p_demux->b_discontinuity)
+    if (p_sis_decoder->b_discontinuity)
     {
         dvbpsi_ReInitSIS(p_sis_decoder, true);
         p_sis_decoder->b_discontinuity = false;
-        p_demux->b_discontinuity = false;
     }
     else
     {
