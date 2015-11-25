@@ -40,6 +40,37 @@ extern "C" {
 #endif
 
 /*****************************************************************************
+ * dvbpsi_decoder_chain_new
+ *****************************************************************************/
+/*!
+ * \fn bool dvbpsi_decoder_chain_new(dvbpsi_t *p_dvbpsi, dvbpsi_callback_new_t *pf_new,
+                              dvbpsi_callback_del_t *pf_del, void *p_data)
+ * \brief dvbpsi_decoder_chain_new creates a decoder for demuxing PSI tables and subtables.
+ * \param p_dvbpsi pointer to dvbpsi_t handle
+ * \param pf_new callback function for calling the specific PSI table/subtable attach function
+ * \param pf_del callback function for calling the specific PSI table/subtable detach function
+ * \param p_data pointer to data that must be passed to PSI table/subtable its
+ *        dvbpsi_xxx_attach() function
+ * \return true on success, false on failure
+ */
+bool dvbpsi_decoder_chain_new(dvbpsi_t *p_dvbpsi, dvbpsi_callback_new_t pf_new,
+                              dvbpsi_callback_del_t pf_del, void *p_data);
+
+/*****************************************************************************
+ * dvbpsi_decoder_chain_delete
+ *****************************************************************************/
+/*!
+ * \fn bool dvbpsi_decoder_chain_delete(dvbpsi_t *p_dvbpsi)
+ * \brief dvbpsi_decoder_chain_delete walks the chain of PSI (sub-)table decoders
+ * and removes them from the chain before calling its pf_detach callback. The pointers
+ * to the PSI (sub-)table decoders are no longer valid after this function has been called.
+ * Nor is the decoder chain list valid.
+ * \param p_dvbpsi pointer to dvbpsi_t handle
+ * \return true on success, false on failure
+ */
+bool dvbpsi_decoder_chain_delete(dvbpsi_t *p_dvbpsi);
+
+/*****************************************************************************
  * dvbpsi_decoder_chain_add
  *****************************************************************************/
 /*!

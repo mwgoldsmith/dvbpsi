@@ -87,6 +87,10 @@ void *dvbpsi_decoder_new(dvbpsi_callback_gather_t pf_gather,
 
     memcpy(&p_decoder->i_magic[0], "psi", 3);
     p_decoder->pf_gather = pf_gather;
+    p_decoder->pf_new = NULL;
+    p_decoder->pf_del = NULL;
+    p_decoder->p_priv = NULL;
+
     p_decoder->p_current_section = NULL;
     p_decoder->i_section_max_size = i_section_max_size;
     p_decoder->b_discontinuity = b_discontinuity;
@@ -225,6 +229,7 @@ out:
 void dvbpsi_decoder_delete(dvbpsi_decoder_t *p_decoder)
 {
     assert(p_decoder);
+    assert(p_decoder->p_priv == NULL);
 
     if (p_decoder->p_sections)
     {

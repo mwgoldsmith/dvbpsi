@@ -43,6 +43,91 @@
 #include "psi.h"
 #include "chain.h"
 
+/*****************************************************************************
+ * dvbpsi_decoder_chain_demux
+ *****************************************************************************
+ * Sends a PSI section to the right subtable decoder
+ *****************************************************************************/
+static void dvbpsi_decoder_chain_demux(dvbpsi_t *p_dvbpsi, dvbpsi_psi_section_t *p_section)
+{
+    assert(p_dvbpsi);
+    assert(p_dvbpsi->p_decoder);
+
+    dvbpsi_decoder_t *p_table = NULL;
+    dvbpsi_decoder_t *p_demux = (dvbpsi_decoder_t *)p_dvbpsi->p_decoder;
+    if (p_demux == NULL) {
+        dvbpsi_DeletePSISections(p_section);
+        return;
+    }
+
+    p_table = dvbpsi_decoder_chain_get(p_dvbpsi, p_section->i_table_id, p_section->i_extension);
+    if (p_table == NULL) {
+        if (p_demux->pf_new)
+            p_demux->pf_new(p_dvbpsi, p_section->i_table_id, p_section->i_extension, p_demux->p_priv);
+    }
+
+    /* Check if new table created */
+    dvbpsi_decoder_t *p_subtable;
+    p_subtable = dvbpsi_decoder_chain_get(p_dvbpsi, p_section->i_table_id, p_section->i_extension);
+    if (p_subtable)
+       p_subtable->pf_gather(p_dvbpsi, p_section);
+    else
+       dvbpsi_DeletePSISections(p_section);
+}
+
+/*****************************************************************************
+ * dvbpsi_decoder_chain_new
+ *****************************************************************************
+ * Create chain decoder
+ *****************************************************************************/
+bool dvbpsi_decoder_chain_new(dvbpsi_t *p_dvbpsi, dvbpsi_callback_new_t pf_new,
+                              dvbpsi_callback_del_t pf_del, void *p_data)
+{
+    if (p_dvbpsi->p_decoder) {
+        dvbpsi_error(p_dvbpsi, "chain", "cannot initialize decoder chain");
+        return false;
+    }
+
+    /* FIXME: We need an alternative for dvbpsi_Demux() !!!*/
+    dvbpsi_decoder_t *p_chain = (dvbpsi_decoder_t *)dvbpsi_decoder_new(&dvbpsi_decoder_chain_demux,
+                                                                      4096, true,
+                                                                      sizeof(dvbpsi_decoder_t));
+    if (!p_chain)
+        return false;
+
+    p_chain->pf_new = pf_new;
+    p_chain->pf_del = pf_del;
+    p_chain->p_priv = p_data;
+
+    /* Remomber decoder */
+    p_dvbpsi->p_decoder = DVBPSI_DECODER(p_chain);
+    return true;
+}
+
+/*****************************************************************************
+ * dvbpsi_decoder_chain_delete
+ *****************************************************************************
+ * Remove all decoders from list and free all resources.
+ *****************************************************************************/
+bool dvbpsi_decoder_chain_delete(dvbpsi_t *p_dvbpsi)
+{
+    dvbpsi_decoder_t *p = p_dvbpsi->p_decoder;
+    if (!p) return false;
+
+    while (p) {
+        dvbpsi_decoder_t *p_dec = p;
+        p = p_dec->p_next;
+        if (p_dec->pf_del)
+            p_dec->pf_del(p_dvbpsi, p_dec->i_table_id, p_dec->i_extension);
+        /* FIXME: p->pf_del() calls eventually the dvbpsi_XXX_detach() function
+         * which walks the list again. This is a waste of time and needs improvement
+         * on the mechanism on how to create/delete and attach/detach a subtable decoder.
+         */
+        dvbpsi_decoder_delete(p_dec);
+    }
+    p_dvbpsi->p_decoder = NULL;
+    return true;
+}
 
 /*****************************************************************************
  * dvbpsi_decoder_chain_add
@@ -130,4 +215,3 @@ dvbpsi_decoder_t *dvbpsi_decoder_chain_get(dvbpsi_t *p_dvbpsi, const uint16_t ta
     dvbpsi_error(p_dvbpsi, "chain", "decoder not found");
     return NULL;
 }
-
