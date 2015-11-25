@@ -46,7 +46,7 @@
 #include "../dvbpsi_private.h"
 #include "../psi.h"
 #include "../descriptor.h"
-#include "../demux.h"
+#include "../chain.h"
 #include "tot.h"
 #include "tot_private.h"
 
@@ -59,12 +59,10 @@ bool dvbpsi_tot_attach(dvbpsi_t* p_dvbpsi, uint8_t i_table_id, uint16_t i_extens
                        dvbpsi_tot_callback pf_callback, void* p_cb_data)
 {
     assert(p_dvbpsi);
-    assert(p_dvbpsi->p_decoder);
-
-    dvbpsi_demux_t* p_demux = (dvbpsi_demux_t*)p_dvbpsi->p_decoder;
 
     i_extension = 0; /* NOTE: force to 0 when handling TDT/TOT */
-    if (dvbpsi_demuxGetSubDec(p_demux, i_table_id, i_extension))
+    dvbpsi_decoder_t *p_dec = dvbpsi_decoder_chain_get(p_dvbpsi, i_table_id, i_extension);
+    if (p_dec != NULL)
     {
         dvbpsi_error(p_dvbpsi, "TDT/TOT decoder",
                      "Already a decoder for (table_id == 0x%02x,"
@@ -74,29 +72,25 @@ bool dvbpsi_tot_attach(dvbpsi_t* p_dvbpsi, uint8_t i_table_id, uint16_t i_extens
     }
 
     dvbpsi_tot_decoder_t *p_tot_decoder;
-    p_tot_decoder = (dvbpsi_tot_decoder_t *) dvbpsi_decoder_new(NULL,
-                                                0, true, sizeof(dvbpsi_tot_decoder_t));
+    p_tot_decoder = (dvbpsi_tot_decoder_t *) dvbpsi_decoder_new(dvbpsi_tot_sections_gather,
+                                                4096, true, sizeof(dvbpsi_tot_decoder_t));
     if (p_tot_decoder == NULL)
         return false;
-
-    /* subtable decoder configuration */
-    dvbpsi_demux_subdec_t* p_subdec;
-    p_subdec = dvbpsi_NewDemuxSubDecoder(i_table_id, i_extension, dvbpsi_tot_detach,
-                                         dvbpsi_tot_sections_gather, DVBPSI_DECODER(p_tot_decoder));
-    if (p_subdec == NULL)
-    {
-        dvbpsi_decoder_delete(DVBPSI_DECODER(p_tot_decoder));
-        return false;
-    }
-
-    /* Attach the subtable decoder to the demux */
-    dvbpsi_AttachDemuxSubDecoder(p_demux, p_subdec);
 
     /* TDT/TOT decoder information */
     p_tot_decoder->pf_tot_callback = pf_callback;
     p_tot_decoder->p_cb_data = p_cb_data;
     p_tot_decoder->p_building_tot = NULL;
 
+    p_tot_decoder->i_table_id = i_table_id;
+    p_tot_decoder->i_extension = i_extension;
+
+    /* add TOT decoder to decoder chain */
+    if (!dvbpsi_decoder_chain_add(p_dvbpsi, DVBPSI_DECODER(p_tot_decoder)))
+    {
+        dvbpsi_decoder_delete(DVBPSI_DECODER(p_tot_decoder));
+        return false;
+    }
     return true;
 }
 
@@ -105,18 +99,13 @@ bool dvbpsi_tot_attach(dvbpsi_t* p_dvbpsi, uint8_t i_table_id, uint16_t i_extens
  *****************************************************************************
  * Close a TDT/TOT decoder.
  *****************************************************************************/
-void dvbpsi_tot_detach(dvbpsi_t* p_dvbpsi, uint8_t i_table_id,
-                      uint16_t i_extension)
+void dvbpsi_tot_detach(dvbpsi_t* p_dvbpsi, uint8_t i_table_id, uint16_t i_extension)
 {
     assert(p_dvbpsi);
-    assert(p_dvbpsi->p_decoder);
-
-    dvbpsi_demux_t *p_demux = (dvbpsi_demux_t *)p_dvbpsi->p_decoder;
-    dvbpsi_demux_subdec_t* p_subdec;
 
     i_extension = 0; /* NOTE: force to 0 when handling TDT/TOT */
-    p_subdec = dvbpsi_demuxGetSubDec(p_demux, i_table_id, i_extension);
-    if (p_subdec == NULL)
+    dvbpsi_decoder_t *p_dec = dvbpsi_decoder_chain_get(p_dvbpsi, i_table_id, i_extension);
+    if (p_dec == NULL)
     {
         dvbpsi_error(p_dvbpsi, "TDT/TOT Decoder",
                      "No such TDT/TOT decoder (table_id == 0x%02x,"
@@ -125,16 +114,22 @@ void dvbpsi_tot_detach(dvbpsi_t* p_dvbpsi, uint8_t i_table_id,
         return;
     }
 
-    assert(p_subdec->p_decoder);
+    /* Remove table decoder from decoder chain */
+    if (!dvbpsi_decoder_chain_remove(p_dvbpsi, p_dec))
+    {
+        dvbpsi_error(p_dvbpsi, "TDT/TOT Decoder",
+                     "Failed to remove"
+                     "extension == 0x%02x)",
+                      i_table_id, i_extension);
+        return;
+    }
 
-    dvbpsi_tot_decoder_t* p_tot_decoder;
-    p_tot_decoder = (dvbpsi_tot_decoder_t*)p_subdec->p_decoder;
+    dvbpsi_tot_decoder_t* p_tot_decoder = (dvbpsi_tot_decoder_t *)p_dec;
     if (p_tot_decoder->p_building_tot)
         dvbpsi_tot_delete(p_tot_decoder->p_building_tot);
     p_tot_decoder->p_building_tot = NULL;
-
-    dvbpsi_DetachDemuxSubDecoder(p_demux, p_subdec);
-    dvbpsi_DeleteDemuxSubDecoder(p_subdec);
+    dvbpsi_decoder_delete(p_dec);
+    p_dec = NULL;
 }
 
 /*****************************************************************************
@@ -307,11 +302,9 @@ static bool dvbpsi_AddSectionTOT(dvbpsi_t *p_dvbpsi, dvbpsi_tot_decoder_t *p_tot
  * Callback for the PSI decoder.
  *****************************************************************************/
 void dvbpsi_tot_sections_gather(dvbpsi_t* p_dvbpsi,
-                                dvbpsi_decoder_t* p_decoder,
                                 dvbpsi_psi_section_t* p_section)
 {
     assert(p_dvbpsi);
-    assert(p_dvbpsi->p_decoder);
 
     const uint8_t i_table_id = ((p_section->i_table_id == 0x70 ||  /* TDT */
                                  p_section->i_table_id == 0x73)) ? /* TOT */
@@ -323,8 +316,15 @@ void dvbpsi_tot_sections_gather(dvbpsi_t* p_dvbpsi,
         return;
     }
 
+    dvbpsi_tot_decoder_t* p_tot_decoder = (dvbpsi_tot_decoder_t*)
+                                    dvbpsi_decoder_chain_get(p_dvbpsi, i_table_id, 0);
+    if (!p_tot_decoder)
+    {
+        dvbpsi_DeletePSISections(p_section);
+        return;
+    }
+
     /* Valid TDT/TOT section */
-    dvbpsi_tot_decoder_t* p_tot_decoder = (dvbpsi_tot_decoder_t*)p_decoder;
 
     /* TS discontinuity check */
     if (p_tot_decoder->b_discontinuity)
