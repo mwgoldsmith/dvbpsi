@@ -42,13 +42,13 @@
 #ifdef DVBPSI_DIST
 #include "../src/dvbpsi.h"
 #include "../src/psi.h"
-#include "../src/demux.h"
+#include "../src/chain.h"
 #include "../src/descriptor.h"
 #include "../src/tables/bat.h"
 #else
 #include <dvbpsi/dvbpsi.h>
 #include <dvbpsi/psi.h>
-#include <dvbpsi/demux.h>
+#include <dvbpsi/chain.h>
 #include <dvbpsi/descriptor.h>
 #include <dvbpsi/bat.h>
 #endif
@@ -194,7 +194,6 @@ static void DumpBAT(void* p_zero, dvbpsi_bat_t* p_bat)
   dvbpsi_bat_delete(p_bat);
 }
 
-
 /*****************************************************************************
  * NewSubtable
  *****************************************************************************/
@@ -207,6 +206,18 @@ static void NewSubtableBAT(dvbpsi_t *p_dvbpsi, uint8_t i_table_id, uint16_t i_ex
         fprintf(stderr, "failed to attach BAT subdecoder\n");
   }
 }
+
+/*****************************************************************************
+ * DelSubtable
+ *****************************************************************************/
+static void DelSubtableBAT(dvbpsi_t *p_dvbpsi, uint8_t i_table_id, uint16_t i_extension)
+{
+  if(i_table_id == 0x4a)
+  {
+    dvbpsi_bat_detach(p_dvbpsi, i_table_id, i_extension);
+  }
+}
+
 
 static void message(dvbpsi_t *handle, const dvbpsi_msg_level_t level, const char* msg)
 {
@@ -227,21 +238,22 @@ static void message(dvbpsi_t *handle, const dvbpsi_msg_level_t level, const char
 int main(int i_argc, char* pa_argv[])
 {
   int i_fd;
+  int ret = 1;
   uint8_t data[188];
   dvbpsi_t *p_dvbpsi;
   bool b_ok;
 
   if(i_argc != 2)
-    return 1;
+    return ret;
 
   i_fd = open(pa_argv[1], 0);
   if (i_fd < 0)
-      return 1;
+      return ret;
 
   p_dvbpsi = dvbpsi_new(&message, DVBPSI_MSG_DEBUG);
   if (p_dvbpsi == NULL)
       goto out;
-  if (!dvbpsi_AttachDemux(p_dvbpsi, NewSubtableBAT, NULL))
+  if (!dvbpsi_decoder_chain_new(p_dvbpsi, NewSubtableBAT, DelSubtableBAT, NULL))
       goto out;
 
   b_ok = ReadPacket(i_fd, data);
@@ -254,12 +266,15 @@ int main(int i_argc, char* pa_argv[])
     b_ok = ReadPacket(i_fd, data);
   }
 
+  ret = 0;
+
 out:
   if (p_dvbpsi)
   {
-    dvbpsi_DetachDemux(p_dvbpsi);
+    if (!dvbpsi_decoder_chain_delete(p_dvbpsi))
+        ret = 1;
     dvbpsi_delete(p_dvbpsi);
   }
   close(i_fd);
-  return 0;
+  return ret;
 }
