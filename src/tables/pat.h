@@ -101,28 +101,33 @@ typedef void (* dvbpsi_pat_callback)(void* p_cb_data, dvbpsi_pat_t* p_new_pat);
  * dvbpsi_pat_attach
  *****************************************************************************/
 /*!
- * \fn bool dvbpsi_pat_attach(dvbpsi_t *p_dvbpsi, dvbpsi_pat_callback pf_callback, void* p_cb_data)
+ * \fn bool dvbpsi_pat_attach(dvbpsi_t *p_dvbpsi, uint8_t i_table_id, uint16_t i_extension,
+ *                            dvbpsi_pat_callback pf_callback, void* p_cb_data)
  * \brief Creation and initialization of a PAT decoder. The decoder will be attached to 'p_dvbpsi' argument.
  * \param p_dvbpsi handle to dvbpsi with attached decoder
+ * \param i_table_id Table ID
+ * \param i_extension Table ID extension
  * \param pf_callback function to call back on new PAT
  * \param p_cb_data private data given in argument to the callback
  * \return true on success, false on failure
  */
-bool dvbpsi_pat_attach(dvbpsi_t *p_dvbpsi, dvbpsi_pat_callback pf_callback,
-                       void* p_cb_data);
+bool dvbpsi_pat_attach(dvbpsi_t *p_dvbpsi, uint8_t i_table_id, uint16_t i_extension,
+                       dvbpsi_pat_callback pf_callback, void* p_cb_data);
 
 /*****************************************************************************
  * dvbpsi_pat_detach
  *****************************************************************************/
 /*!
- * \fn void dvbpsi_pat_detach(dvbpsi_t *p_dvbpsi)
+ * \fn void dvbpsi_pat_detach(dvbpsi_t *p_dvbpsi, uint8_t i_table_id, uint16_t i_extension)
  * \brief Destroy a PAT decoder.
  * \param p_dvbpsi pointer to dvbpsi_t handle
+ * \param i_table_id Table ID
+ * \param i_extension Table ID extension
  * \return nothing.
  *
  * The handle isn't valid any more.
  */
-void dvbpsi_pat_detach(dvbpsi_t *p_dvbpsi);
+void dvbpsi_pat_detach(dvbpsi_t *p_dvbpsi, uint8_t i_table_id, uint16_t i_extension);
 
 /*****************************************************************************
  * dvbpsi_pat_init/dvbpsi_pat_new
