@@ -43,12 +43,14 @@
 #ifdef DVBPSI_DIST
 #include "../src/dvbpsi.h"
 #include "../src/psi.h"
+#include "../src/chain.h"
 #include "../src/descriptor.h"
 #include "../src/tables/pmt.h"
 #include "../src/descriptors/dr.h"
 #else
 #include <dvbpsi/dvbpsi.h>
 #include <dvbpsi/psi.h>
+#include <dvbpsi/chain.h>
 #include <dvbpsi/descriptor.h>
 #include <dvbpsi/pmt.h>
 #include <dvbpsi/dr.h>
@@ -211,7 +213,6 @@ static void DumpDescriptors(const char* str, dvbpsi_descriptor_t* p_descriptor)
   }
 };
 
-
 /*****************************************************************************
  * DumpPMT
  *****************************************************************************/
@@ -258,17 +259,18 @@ static void message(dvbpsi_t *handle, const dvbpsi_msg_level_t level, const char
 int main(int i_argc, char* pa_argv[])
 {
   int i_fd;
+  int ret = 1;
   uint8_t data[188];
   dvbpsi_t *p_dvbpsi;
   bool b_ok;
   uint16_t i_program_number, i_pmt_pid;
 
   if (i_argc != 4)
-    return 1;
+    return ret;
 
   i_fd = open(pa_argv[1], 0);
   if (i_fd < 0)
-      return 1;
+      return ret;
 
   i_program_number = atoi(pa_argv[2]);
   i_pmt_pid = atoi(pa_argv[3]);
@@ -276,8 +278,7 @@ int main(int i_argc, char* pa_argv[])
   p_dvbpsi = dvbpsi_new(&message, DVBPSI_MSG_DEBUG);
   if (p_dvbpsi == NULL)
         goto out;
-
-  if (!dvbpsi_pmt_attach(p_dvbpsi, i_program_number, DumpPMT, NULL))
+  if (!dvbpsi_pmt_attach(p_dvbpsi, 0x02, 0x0, i_program_number, DumpPMT, NULL))
       goto out;
 
   b_ok = ReadPacket(i_fd, data);
@@ -290,14 +291,16 @@ int main(int i_argc, char* pa_argv[])
     b_ok = ReadPacket(i_fd, data);
   }
 
+  ret = 0;
+
 out:
   if (p_dvbpsi)
   {
-    dvbpsi_pmt_detach(p_dvbpsi);
+    dvbpsi_pmt_detach(p_dvbpsi, 0x02, 0x0);
     dvbpsi_delete(p_dvbpsi);
   }
   close(i_fd);
 
-  return 0;
+  return ret;
 }
 

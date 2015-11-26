@@ -43,6 +43,7 @@
 #include "../dvbpsi.h"
 #include "../dvbpsi_private.h"
 #include "../psi.h"
+#include "../chain.h"
 #include "../descriptor.h"
 #include "pmt.h"
 #include "pmt_private.h"
@@ -52,11 +53,20 @@
  *****************************************************************************
  * Initialize a PMT decoder and return a handle on it.
  *****************************************************************************/
-bool dvbpsi_pmt_attach(dvbpsi_t *p_dvbpsi, uint16_t i_program_number,
-                      dvbpsi_pmt_callback pf_callback, void* p_cb_data)
+bool dvbpsi_pmt_attach(dvbpsi_t *p_dvbpsi, uint8_t i_table_id, uint16_t i_extension,
+                       uint16_t i_program_number, dvbpsi_pmt_callback pf_callback, void* p_cb_data)
 {
     assert(p_dvbpsi);
-    assert(p_dvbpsi->p_decoder == NULL);
+
+    dvbpsi_decoder_t* p_dec = dvbpsi_decoder_chain_get(p_dvbpsi, i_table_id, i_extension);
+    if (p_dec != NULL)
+    {
+        dvbpsi_error(p_dvbpsi, "PMT decoder",
+                     "Already a decoder for (table_id == 0x%02x,"
+                     "extension == 0x%02x)",
+                     i_table_id, i_extension);
+        return false;
+    }
 
     dvbpsi_pmt_decoder_t* p_pmt_decoder;
     p_pmt_decoder = (dvbpsi_pmt_decoder_t*) dvbpsi_decoder_new(&dvbpsi_pmt_sections_gather,
@@ -64,13 +74,21 @@ bool dvbpsi_pmt_attach(dvbpsi_t *p_dvbpsi, uint16_t i_program_number,
     if (p_pmt_decoder == NULL)
         return false;
 
-    p_dvbpsi->p_decoder = DVBPSI_DECODER(p_pmt_decoder);
-
     /* PMT decoder configuration */
     p_pmt_decoder->i_program_number = i_program_number;
     p_pmt_decoder->pf_pmt_callback = pf_callback;
     p_pmt_decoder->p_cb_data = p_cb_data;
     p_pmt_decoder->p_building_pmt = NULL;
+
+    p_pmt_decoder->i_table_id = i_table_id;
+    p_pmt_decoder->i_extension = i_extension;
+
+    /* Add pmt decoder to decoder chain */
+    if (!dvbpsi_decoder_chain_add(p_dvbpsi, DVBPSI_DECODER(p_pmt_decoder)))
+    {
+        dvbpsi_decoder_delete(DVBPSI_DECODER(p_pmt_decoder));
+        return false;
+    }
 
     return true;
 }
@@ -80,19 +98,36 @@ bool dvbpsi_pmt_attach(dvbpsi_t *p_dvbpsi, uint16_t i_program_number,
  *****************************************************************************
  * Close a PMT decoder. The handle isn't valid any more.
  *****************************************************************************/
-void dvbpsi_pmt_detach(dvbpsi_t *p_dvbpsi)
+void dvbpsi_pmt_detach(dvbpsi_t *p_dvbpsi, uint8_t i_table_id, uint16_t i_extension)
 {
     assert(p_dvbpsi);
-    assert(p_dvbpsi->p_decoder);
 
-    dvbpsi_pmt_decoder_t* p_pmt_decoder;
-    p_pmt_decoder = (dvbpsi_pmt_decoder_t*)p_dvbpsi->p_decoder;
+    dvbpsi_pmt_decoder_t *p_pmt_decoder =
+            (dvbpsi_pmt_decoder_t*) dvbpsi_decoder_chain_get(p_dvbpsi, i_table_id, i_extension);
+    if (!p_pmt_decoder)
+    {
+        dvbpsi_error(p_dvbpsi, "PMT Decoder",
+                     "No such PMT decoder (table_id == 0x%02x,"
+                     "extension == 0x%02x)",
+                     i_table_id, i_extension);
+        return;
+    }
+
+    /* Remove table decoder from chain */
+    if (!dvbpsi_decoder_chain_remove(p_dvbpsi, DVBPSI_DECODER(p_pmt_decoder)))
+    {
+        dvbpsi_error(p_dvbpsi, "PMT Decoder",
+                     "Failed to remove"
+                     "extension == 0x%02x)",
+                      i_table_id, i_extension);
+        return;
+    }
+
     if (p_pmt_decoder->p_building_pmt)
         dvbpsi_pmt_delete(p_pmt_decoder->p_building_pmt);
     p_pmt_decoder->p_building_pmt = NULL;
-
-    dvbpsi_decoder_delete(p_dvbpsi->p_decoder);
-    p_dvbpsi->p_decoder = NULL;
+    dvbpsi_decoder_delete(DVBPSI_DECODER(p_pmt_decoder));
+    p_pmt_decoder = NULL;
 }
 
 /*****************************************************************************
@@ -258,13 +293,10 @@ static void dvbpsi_ReInitPMT(dvbpsi_pmt_decoder_t* p_decoder, const bool b_force
     p_decoder->p_building_pmt = NULL;
 }
 
-static bool dvbpsi_CheckPMT(dvbpsi_t *p_dvbpsi, dvbpsi_psi_section_t *p_section)
+static bool dvbpsi_CheckPMT(dvbpsi_t *p_dvbpsi, dvbpsi_pmt_decoder_t* p_pmt_decoder,
+                            dvbpsi_psi_section_t *p_section)
 {
     bool b_reinit = false;
-    assert(p_dvbpsi->p_decoder);
-
-    dvbpsi_pmt_decoder_t* p_pmt_decoder;
-    p_pmt_decoder = (dvbpsi_pmt_decoder_t *)p_dvbpsi->p_decoder;
 
     if (p_pmt_decoder->p_building_pmt->i_version != p_section->i_version)
     {
@@ -322,7 +354,6 @@ static bool dvbpsi_AddSectionPMT(dvbpsi_t *p_dvbpsi, dvbpsi_pmt_decoder_t *p_pmt
 void dvbpsi_pmt_sections_gather(dvbpsi_t *p_dvbpsi, dvbpsi_psi_section_t* p_section)
 {
     assert(p_dvbpsi);
-    assert(p_dvbpsi->p_decoder);
 
     if (!dvbpsi_CheckPSISection(p_dvbpsi, p_section, 0x02, "PMT decoder"))
     {
@@ -331,10 +362,15 @@ void dvbpsi_pmt_sections_gather(dvbpsi_t *p_dvbpsi, dvbpsi_psi_section_t* p_sect
     }
 
     /* */
-    dvbpsi_pmt_decoder_t* p_pmt_decoder = (dvbpsi_pmt_decoder_t*)p_dvbpsi->p_decoder;
-    assert(p_pmt_decoder);
+    dvbpsi_decoder_t *p_dec = dvbpsi_decoder_chain_get(p_dvbpsi, p_section->i_table_id, p_section->i_extension);
+    if (!p_dec)
+    {
+        dvbpsi_DeletePSISections(p_section);
+        return;
+    }
 
     /* We have a valid PMT section */
+    dvbpsi_pmt_decoder_t* p_pmt_decoder = (dvbpsi_pmt_decoder_t*) p_dec;
     if (p_pmt_decoder->i_program_number != p_section->i_extension)
     {
         /* Invalid program_number */
@@ -355,7 +391,7 @@ void dvbpsi_pmt_sections_gather(dvbpsi_t *p_dvbpsi, dvbpsi_psi_section_t* p_sect
         /* Perform some few sanity checks */
         if (p_pmt_decoder->p_building_pmt)
         {
-            if (dvbpsi_CheckPMT(p_dvbpsi, p_section))
+            if (dvbpsi_CheckPMT(p_dvbpsi, p_pmt_decoder, p_section))
                 dvbpsi_ReInitPMT(p_pmt_decoder, true);
         }
         else
