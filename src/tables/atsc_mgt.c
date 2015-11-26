@@ -40,7 +40,7 @@ Decode PSIP Master Guide Table.
 #include "../dvbpsi_private.h"
 #include "../psi.h"
 #include "../descriptor.h"
-#include "../demux.h"
+#include "../chain.h"
 
 #include "atsc_mgt.h"
 
@@ -73,7 +73,6 @@ static dvbpsi_descriptor_t *dvbpsi_atsc_MGTTableAddDescriptor(
                                                uint8_t *p_data);
 
 static void dvbpsi_atsc_GatherMGTSections(dvbpsi_t * p_dvbpsi,
-                                          dvbpsi_decoder_t *p_decoder,
                                           dvbpsi_psi_section_t * p_section);
 
 static void dvbpsi_atsc_DecodeMGTSections(dvbpsi_atsc_mgt_t* p_mgt,
@@ -88,11 +87,9 @@ bool dvbpsi_atsc_AttachMGT(dvbpsi_t *p_dvbpsi, uint8_t i_table_id, uint16_t i_ex
                            dvbpsi_atsc_mgt_callback pf_callback, void* p_cb_data)
 {
     assert(p_dvbpsi);
-    assert(p_dvbpsi->p_decoder);
 
-    dvbpsi_demux_t *p_demux = (dvbpsi_demux_t*)p_dvbpsi->p_decoder;
-
-    if (dvbpsi_demuxGetSubDec(p_demux, i_table_id, i_extension))
+    dvbpsi_decoder_t *p_dec = dvbpsi_decoder_chain_get(p_dvbpsi, i_table_id, i_extension);
+    if (p_dec != NULL)
     {
         dvbpsi_error(p_dvbpsi, "ATSC MGT decoder",
                      "Already a decoder for (table_id == 0x%02x extension == 0x%04x)",
@@ -101,27 +98,24 @@ bool dvbpsi_atsc_AttachMGT(dvbpsi_t *p_dvbpsi, uint8_t i_table_id, uint16_t i_ex
     }
 
     dvbpsi_atsc_mgt_decoder_t*  p_mgt_decoder;
-    p_mgt_decoder = (dvbpsi_atsc_mgt_decoder_t*) dvbpsi_decoder_new(NULL,
-                                                  0, true, sizeof(dvbpsi_atsc_mgt_decoder_t));
-    if(p_mgt_decoder == NULL)
+    p_mgt_decoder = (dvbpsi_atsc_mgt_decoder_t*) dvbpsi_decoder_new(dvbpsi_atsc_GatherMGTSections,
+                                                     4096, true, sizeof(dvbpsi_atsc_mgt_decoder_t));
+    if (p_mgt_decoder == NULL)
         return false;
-
-    dvbpsi_demux_subdec_t* p_subdec;
-    p_subdec = dvbpsi_NewDemuxSubDecoder(i_table_id, i_extension, dvbpsi_atsc_DetachMGT,
-                                         dvbpsi_atsc_GatherMGTSections, DVBPSI_DECODER(p_mgt_decoder));
-    if (p_subdec == NULL)
-    {
-        dvbpsi_decoder_delete(DVBPSI_DECODER(p_mgt_decoder));
-        return false;
-    }
-
-    /* Attach the subtable decoder to the demux */
-    dvbpsi_AttachDemuxSubDecoder(p_demux, p_subdec);
 
     /* MGT decoder information */
     p_mgt_decoder->pf_mgt_callback = pf_callback;
     p_mgt_decoder->p_cb_data = p_cb_data;
     p_mgt_decoder->p_building_mgt = NULL;
+    p_mgt_decoder->i_table_id = i_table_id;
+    p_mgt_decoder->i_extension = i_extension;
+
+    /* add decoder to decoder chain */
+    if (!dvbpsi_decoder_chain_add(p_dvbpsi, DVBPSI_DECODER(p_mgt_decoder)))
+    {
+        dvbpsi_decoder_delete(DVBPSI_DECODER(p_mgt_decoder));
+        return false;
+    }
 
     return true;
 }
@@ -134,13 +128,9 @@ bool dvbpsi_atsc_AttachMGT(dvbpsi_t *p_dvbpsi, uint8_t i_table_id, uint16_t i_ex
 void dvbpsi_atsc_DetachMGT(dvbpsi_t *p_dvbpsi, uint8_t i_table_id, uint16_t i_extension)
 {
     assert(p_dvbpsi);
-    assert(p_dvbpsi->p_decoder);
 
-    dvbpsi_demux_t *p_demux = (dvbpsi_demux_t *) p_dvbpsi->p_decoder;
-
-    dvbpsi_demux_subdec_t* p_subdec;
-    p_subdec = dvbpsi_demuxGetSubDec(p_demux, i_table_id, i_extension);
-    if (p_subdec == NULL)
+    dvbpsi_decoder_t *p_dec = dvbpsi_decoder_chain_get(p_dvbpsi, i_table_id, i_extension);
+    if (p_dec == NULL)
     {
         dvbpsi_error(p_dvbpsi, "ATSC MGT Decoder",
                          "No such MGT decoder (table_id == 0x%02x,"
@@ -149,17 +139,22 @@ void dvbpsi_atsc_DetachMGT(dvbpsi_t *p_dvbpsi, uint8_t i_table_id, uint16_t i_ex
         return;
     }
 
-    dvbpsi_atsc_mgt_decoder_t* p_mgt_decoder;
-    p_mgt_decoder = (dvbpsi_atsc_mgt_decoder_t*)p_subdec->p_decoder;
-    if (!p_mgt_decoder)
+    /* Remove table decoder from decoder chain */
+    if (!dvbpsi_decoder_chain_remove(p_dvbpsi, p_dec))
+    {
+        dvbpsi_error(p_dvbpsi, "ATSC MGT Decoder",
+                     "Failed to remove"
+                     "extension == 0x%02x)",
+                      i_table_id, i_extension);
         return;
+    }
 
+    dvbpsi_atsc_mgt_decoder_t* p_mgt_decoder = (dvbpsi_atsc_mgt_decoder_t*)p_dec;
     if (p_mgt_decoder->p_building_mgt)
         dvbpsi_atsc_DeleteMGT(p_mgt_decoder->p_building_mgt);
     p_mgt_decoder->p_building_mgt = NULL;
-
-    dvbpsi_DetachDemuxSubDecoder(p_demux, p_subdec);
-    dvbpsi_DeleteDemuxSubDecoder(p_subdec);
+    dvbpsi_decoder_delete(p_dec);
+    p_dec = NULL;
 }
 
 /*****************************************************************************
@@ -402,12 +397,9 @@ static bool dvbpsi_AddSectionMGT(dvbpsi_t *p_dvbpsi, dvbpsi_atsc_mgt_decoder_t *
  *****************************************************************************
  * Callback for the subtable demultiplexor.
  *****************************************************************************/
-static void dvbpsi_atsc_GatherMGTSections(dvbpsi_t * p_dvbpsi,
-                              dvbpsi_decoder_t *p_decoder,
-                              dvbpsi_psi_section_t * p_section)
+static void dvbpsi_atsc_GatherMGTSections(dvbpsi_t *p_dvbpsi, dvbpsi_psi_section_t *p_section)
 {
     assert(p_dvbpsi);
-    assert(p_dvbpsi->p_decoder);
 
     if (!dvbpsi_CheckPSISection(p_dvbpsi, p_section, 0xC7, "ATSC MGT decoder"))
     {
@@ -415,22 +407,21 @@ static void dvbpsi_atsc_GatherMGTSections(dvbpsi_t * p_dvbpsi,
         return;
     }
 
-    /* We have a valid MGT section */
-    dvbpsi_demux_t *p_demux = (dvbpsi_demux_t *) p_dvbpsi->p_decoder;
-    dvbpsi_atsc_mgt_decoder_t * p_mgt_decoder = (dvbpsi_atsc_mgt_decoder_t*)p_decoder;
-    if (!p_mgt_decoder)
+    dvbpsi_decoder_t *p_dec = dvbpsi_decoder_chain_get(p_dvbpsi, p_section->i_table_id, p_section->i_extension);
+    if (!p_dec)
     {
-        dvbpsi_error(p_dvbpsi, "ATSC MGT decoder", "No decoder specified");
         dvbpsi_DeletePSISections(p_section);
         return;
     }
 
+    /* We have a valid MGT section */
+    dvbpsi_atsc_mgt_decoder_t *p_mgt_decoder = (dvbpsi_atsc_mgt_decoder_t*)p_dec;
+
     /* TS discontinuity check */
-    if (p_demux->b_discontinuity)
+    if (p_mgt_decoder->b_discontinuity)
     {
         dvbpsi_ReInitMGT(p_mgt_decoder, true);
         p_mgt_decoder->b_discontinuity = false;
-        p_demux->b_discontinuity = false;
     }
     else
     {
