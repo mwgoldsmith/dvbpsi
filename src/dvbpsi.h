@@ -133,7 +133,7 @@ typedef struct dvbpsi_decoder_s dvbpsi_decoder_t;
  * \brief DVBPSI handle structure
  *
  * This structure provides a handle to libdvbpsi API and should be used instead
- * of dvbpsi_decoder_t.
+ * of dvbpsi_decoder_t. Do not access members directly but use wrapper functions.
  */
 /*!
  * \typedef struct dvbpsi_s dvbpsi_t
@@ -141,8 +141,8 @@ typedef struct dvbpsi_decoder_s dvbpsi_decoder_t;
  */
 struct dvbpsi_s
 {
-    dvbpsi_decoder_t             *p_decoder;          /*!< private pointer to
-                                                          specific decoder */
+    dvbpsi_decoder_t             *p_decoder;          /*!< private pointer to chain of decoders,
+                                                           @see dvbpsi_decoder_chain_get() */
     /* Messages callback */
     dvbpsi_message_cb             pf_message;           /*!< Log message callback */
     enum dvbpsi_msg_level         i_msg_level;          /*!< Log level */
