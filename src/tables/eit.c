@@ -45,7 +45,7 @@
 #include "../dvbpsi_private.h"
 #include "../psi.h"
 #include "../descriptor.h"
-#include "../demux.h"
+#include "../chain.h"
 #include "eit.h"
 #include "eit_private.h"
 
@@ -58,11 +58,9 @@ bool dvbpsi_eit_attach(dvbpsi_t *p_dvbpsi, uint8_t i_table_id, uint16_t i_extens
                            dvbpsi_eit_callback pf_callback, void* p_cb_data)
 {
     assert(p_dvbpsi);
-    assert(p_dvbpsi->p_decoder);
 
-    dvbpsi_demux_t* p_demux = (dvbpsi_demux_t*)p_dvbpsi->p_decoder;
-
-    if (dvbpsi_demuxGetSubDec(p_demux, i_table_id, i_extension) != NULL)
+    dvbpsi_decoder_t *p_dec = dvbpsi_decoder_chain_get(p_dvbpsi, i_table_id, i_extension);
+    if (p_dec != NULL)
     {
         dvbpsi_error(p_dvbpsi, "EIT decoder",
                      "Already a decoder for (table_id == 0x%02x,"
@@ -72,28 +70,25 @@ bool dvbpsi_eit_attach(dvbpsi_t *p_dvbpsi, uint8_t i_table_id, uint16_t i_extens
     }
 
     dvbpsi_eit_decoder_t*  p_eit_decoder;
-    p_eit_decoder = (dvbpsi_eit_decoder_t*) dvbpsi_decoder_new(NULL,
-                                             0, true, sizeof(dvbpsi_eit_decoder_t));
+    p_eit_decoder = (dvbpsi_eit_decoder_t*) dvbpsi_decoder_new(dvbpsi_eit_sections_gather,
+                                                    4096, true, sizeof(dvbpsi_eit_decoder_t));
     if (p_eit_decoder == NULL)
         return false;
-
-    /* subtable decoder configuration */
-    dvbpsi_demux_subdec_t* p_subdec;
-    p_subdec = dvbpsi_NewDemuxSubDecoder(i_table_id, i_extension, dvbpsi_eit_detach,
-                                         dvbpsi_eit_sections_gather, DVBPSI_DECODER(p_eit_decoder));
-    if (p_subdec == NULL)
-    {
-        dvbpsi_decoder_delete(DVBPSI_DECODER(p_eit_decoder));
-        return false;
-    }
-
-    /* Attach the subtable decoder to the demux */
-    dvbpsi_AttachDemuxSubDecoder(p_demux, p_subdec);
 
     /* EIT decoder information */
     p_eit_decoder->pf_eit_callback = pf_callback;
     p_eit_decoder->p_cb_data = p_cb_data;
     p_eit_decoder->p_building_eit = NULL;
+
+    p_eit_decoder->i_table_id = i_table_id;
+    p_eit_decoder->i_extension = i_extension;
+
+    /* add sdt decoder to decoder chain */
+    if (!dvbpsi_decoder_chain_add(p_dvbpsi, DVBPSI_DECODER(p_eit_decoder)))
+    {
+        dvbpsi_decoder_delete(DVBPSI_DECODER(p_eit_decoder));
+        return false;
+    }
 
     return true;
 }
@@ -103,17 +98,12 @@ bool dvbpsi_eit_attach(dvbpsi_t *p_dvbpsi, uint8_t i_table_id, uint16_t i_extens
  *****************************************************************************
  * Close a EIT decoder.
  *****************************************************************************/
-void dvbpsi_eit_detach(dvbpsi_t *p_dvbpsi, uint8_t i_table_id,
-          uint16_t i_extension)
+void dvbpsi_eit_detach(dvbpsi_t *p_dvbpsi, uint8_t i_table_id, uint16_t i_extension)
 {
     assert(p_dvbpsi);
-    assert(p_dvbpsi->p_decoder);
 
-    dvbpsi_demux_t *p_demux = (dvbpsi_demux_t *) p_dvbpsi->p_decoder;
-
-    dvbpsi_demux_subdec_t* p_subdec;
-    p_subdec = dvbpsi_demuxGetSubDec(p_demux, i_table_id, i_extension);
-    if (p_subdec == NULL)
+    dvbpsi_decoder_t *p_dec = dvbpsi_decoder_chain_get(p_dvbpsi, i_table_id, i_extension);
+    if (p_dec == NULL)
     {
         dvbpsi_error(p_dvbpsi, "EIT Decoder",
                      "No such EIT decoder (table_id == 0x%02x,"
@@ -122,14 +112,22 @@ void dvbpsi_eit_detach(dvbpsi_t *p_dvbpsi, uint8_t i_table_id,
         return;
     }
 
-    dvbpsi_eit_decoder_t* p_eit_decoder;
-    p_eit_decoder = (dvbpsi_eit_decoder_t*)p_subdec->p_decoder;
+    /* Remove table decoder from decoder chain */
+    if (!dvbpsi_decoder_chain_remove(p_dvbpsi, p_dec))
+    {
+        dvbpsi_error(p_dvbpsi, "EIT Decoder",
+                     "Failed to remove"
+                     "extension == 0x%02x)",
+                      i_table_id, i_extension);
+        return;
+   }
+
+    dvbpsi_eit_decoder_t* p_eit_decoder = (dvbpsi_eit_decoder_t*)p_dec;
     if (p_eit_decoder->p_building_eit)
         dvbpsi_eit_delete(p_eit_decoder->p_building_eit);
     p_eit_decoder->p_building_eit = NULL;
-
-    dvbpsi_DetachDemuxSubDecoder(p_demux, p_subdec);
-    dvbpsi_DeleteDemuxSubDecoder(p_subdec);
+    dvbpsi_decoder_delete(p_dec);
+    p_dec = NULL;
 }
 
 /*****************************************************************************
@@ -421,11 +419,9 @@ static bool dvbpsi_AddSectionEIT(dvbpsi_t *p_dvbpsi, dvbpsi_eit_decoder_t *p_eit
  *****************************************************************************
  * Callback for the subtable demultiplexor.
  *****************************************************************************/
-void dvbpsi_eit_sections_gather(dvbpsi_t *p_dvbpsi, dvbpsi_decoder_t *p_private_decoder,
-                               dvbpsi_psi_section_t *p_section)
+void dvbpsi_eit_sections_gather(dvbpsi_t *p_dvbpsi, dvbpsi_psi_section_t *p_section)
 {
     assert(p_dvbpsi);
-    assert(p_dvbpsi->p_decoder);
 
     const uint8_t i_table_id = (p_section->i_table_id >= 0x4e &&
                                 p_section->i_table_id <= 0x6f) ?
@@ -437,17 +433,21 @@ void dvbpsi_eit_sections_gather(dvbpsi_t *p_dvbpsi, dvbpsi_decoder_t *p_private_
         return;
     }
 
+    dvbpsi_decoder_t *p_dec = dvbpsi_decoder_chain_get(p_dvbpsi, i_table_id, p_section->i_extension);
+    if (!p_dec)
+    {
+        dvbpsi_DeletePSISections(p_section);
+        return;
+    }
+
     /* We have a valid EIT section */
-    dvbpsi_demux_t *p_demux = (dvbpsi_demux_t *) p_dvbpsi->p_decoder;
-    dvbpsi_eit_decoder_t* p_eit_decoder
-                        = (dvbpsi_eit_decoder_t*)p_private_decoder;
+    dvbpsi_eit_decoder_t* p_eit_decoder = (dvbpsi_eit_decoder_t*)p_dec;
 
     /* TS discontinuity check */
-    if (p_demux->b_discontinuity)
+    if (p_eit_decoder->b_discontinuity)
     {
         dvbpsi_ReInitEIT(p_eit_decoder, true);
         p_eit_decoder->b_discontinuity = false;
-        p_demux->b_discontinuity = false;
     }
     else
     {
