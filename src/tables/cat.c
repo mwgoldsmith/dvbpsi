@@ -46,6 +46,7 @@
 #include "../dvbpsi_private.h"
 #include "../psi.h"
 #include "../descriptor.h"
+#include "../chain.h"
 #include "cat.h"
 #include "cat_private.h"
 
@@ -54,11 +55,20 @@
  *****************************************************************************
  * Initialize a CAT decoder and return a handle on it.
  *****************************************************************************/
-bool dvbpsi_cat_attach(dvbpsi_t *p_dvbpsi, dvbpsi_cat_callback pf_callback,
-                      void* p_cb_data)
+bool dvbpsi_cat_attach(dvbpsi_t *p_dvbpsi, uint8_t i_table_id, uint16_t i_extension,
+                       dvbpsi_cat_callback pf_callback, void* p_cb_data)
 {
     assert(p_dvbpsi);
-    assert(p_dvbpsi->p_decoder == NULL);
+
+    dvbpsi_decoder_t* p_dec = dvbpsi_decoder_chain_get(p_dvbpsi, i_table_id, i_extension);
+    if (p_dec != NULL)
+    {
+        dvbpsi_error(p_dvbpsi, "CAT decoder",
+                     "Already a decoder for (table_id == 0x%02x,"
+                     "extension == 0x%02x)",
+                     i_table_id, i_extension);
+        return false;
+    }
 
     dvbpsi_cat_decoder_t* p_cat_decoder;
     p_cat_decoder = (dvbpsi_cat_decoder_t*) dvbpsi_decoder_new(&dvbpsi_cat_sections_gather,
@@ -71,7 +81,16 @@ bool dvbpsi_cat_attach(dvbpsi_t *p_dvbpsi, dvbpsi_cat_callback pf_callback,
     p_cat_decoder->p_cb_data = p_cb_data;
     p_cat_decoder->p_building_cat = NULL;
 
-    p_dvbpsi->p_decoder = DVBPSI_DECODER(p_cat_decoder);
+    p_cat_decoder->i_table_id = i_table_id;
+    p_cat_decoder->i_extension = i_extension;
+
+    /* Add decoder to decoder chain */
+    if (!dvbpsi_decoder_chain_add(p_dvbpsi, DVBPSI_DECODER(p_cat_decoder)))
+    {
+        dvbpsi_decoder_delete(DVBPSI_DECODER(p_cat_decoder));
+        return false;
+    }
+
     return true;
 }
 
@@ -80,19 +99,36 @@ bool dvbpsi_cat_attach(dvbpsi_t *p_dvbpsi, dvbpsi_cat_callback pf_callback,
  *****************************************************************************
  * Close a CAT decoder. The handle isn't valid any more.
  *****************************************************************************/
-void dvbpsi_cat_detach(dvbpsi_t *p_dvbpsi)
+void dvbpsi_cat_detach(dvbpsi_t *p_dvbpsi, uint8_t i_table_id, uint16_t i_extension)
 {
     assert(p_dvbpsi);
-    assert(p_dvbpsi->p_decoder);
 
-    dvbpsi_cat_decoder_t* p_cat_decoder
-                        = (dvbpsi_cat_decoder_t*)p_dvbpsi->p_decoder;
+    dvbpsi_cat_decoder_t *p_cat_decoder =
+            (dvbpsi_cat_decoder_t*) dvbpsi_decoder_chain_get(p_dvbpsi, i_table_id, i_extension);
+    if (!p_cat_decoder)
+    {
+        dvbpsi_error(p_dvbpsi, "CAT Decoder",
+                     "No such CAT decoder (table_id == 0x%02x,"
+                     "extension == 0x%02x)",
+                     i_table_id, i_extension);
+        return;
+    }
+
+    /* Remove table decoder from chain */
+    if (!dvbpsi_decoder_chain_remove(p_dvbpsi, DVBPSI_DECODER(p_cat_decoder)))
+    {
+        dvbpsi_error(p_dvbpsi, "CAT Decoder",
+                     "Failed to remove"
+                     "extension == 0x%02x)",
+                      i_table_id, i_extension);
+        return;
+    }
+
     if (p_cat_decoder->p_building_cat)
         dvbpsi_cat_delete(p_cat_decoder->p_building_cat);
     p_cat_decoder->p_building_cat = NULL;
-
-    dvbpsi_decoder_delete(p_dvbpsi->p_decoder);
-    p_dvbpsi->p_decoder = NULL;
+    dvbpsi_decoder_delete(DVBPSI_DECODER(p_cat_decoder));
+    p_cat_decoder = NULL;
 }
 
 /*****************************************************************************
@@ -185,20 +221,17 @@ static void dvbpsi_ReInitCAT(dvbpsi_cat_decoder_t* p_decoder, const bool b_force
     p_decoder->p_building_cat = NULL;
 }
 
-static bool dvbpsi_CheckCAT(dvbpsi_t *p_dvbpsi, dvbpsi_psi_section_t *p_section)
+static bool dvbpsi_CheckCAT(dvbpsi_t *p_dvbpsi, dvbpsi_cat_decoder_t* p_cat_decoder,
+                            dvbpsi_psi_section_t *p_section)
 {
     bool b_reinit = false;
-    assert(p_dvbpsi->p_decoder);
-
-    dvbpsi_cat_decoder_t* p_cat_decoder;
-    p_cat_decoder = (dvbpsi_cat_decoder_t *)p_dvbpsi->p_decoder;
 
     /* Perform a few sanity checks */
 #if 0
-    if (p_pat_decoder->p_building_pat->i_ts_id != p_section->i_extension)
+    if (p_cat_decoder->p_building_pat->i_ts_id != p_section->i_extension)
     {
         /* transport_stream_id */
-        dvbpsi_error(p_dvbpsi, "PAT decoder",
+        dvbpsi_error(p_dvbpsi, "CAT decoder",
                         "'transport_stream_id' differs"
                         " whereas no TS discontinuity has occurred");
         b_reinit = true;
@@ -256,11 +289,9 @@ static bool dvbpsi_AddSectionCAT(dvbpsi_t *p_dvbpsi, dvbpsi_cat_decoder_t *p_dec
  *****************************************************************************
  * Callback for the PSI decoder.
  *****************************************************************************/
-void dvbpsi_cat_sections_gather(dvbpsi_t *p_dvbpsi,
-                              dvbpsi_psi_section_t* p_section)
+void dvbpsi_cat_sections_gather(dvbpsi_t *p_dvbpsi, dvbpsi_psi_section_t* p_section)
 {
     assert(p_dvbpsi);
-    assert(p_dvbpsi->p_decoder);
 
     if (!dvbpsi_CheckPSISection(p_dvbpsi, p_section, 0x01, "CAT decoder"))
     {
@@ -269,10 +300,15 @@ void dvbpsi_cat_sections_gather(dvbpsi_t *p_dvbpsi,
     }
 
     /* */
-    dvbpsi_cat_decoder_t* p_cat_decoder
-                          = (dvbpsi_cat_decoder_t*)p_dvbpsi->p_decoder;
+    dvbpsi_decoder_t *p_dec = dvbpsi_decoder_chain_get(p_dvbpsi, p_section->i_table_id, p_section->i_extension);
+    if (!p_dec)
+    {
+        dvbpsi_DeletePSISections(p_section);
+        return;
+    }
 
     /* TS discontinuity check */
+    dvbpsi_cat_decoder_t* p_cat_decoder = (dvbpsi_cat_decoder_t*)p_dec;
     if (p_cat_decoder->b_discontinuity)
     {
         dvbpsi_ReInitCAT(p_cat_decoder, true);
@@ -283,7 +319,7 @@ void dvbpsi_cat_sections_gather(dvbpsi_t *p_dvbpsi,
         /* Perform some few sanity checks */
         if (p_cat_decoder->p_building_cat)
         {
-            if (dvbpsi_CheckCAT(p_dvbpsi, p_section))
+            if (dvbpsi_CheckCAT(p_dvbpsi, p_cat_decoder, p_section))
                 dvbpsi_ReInitCAT(p_cat_decoder, true);
         }
         else
