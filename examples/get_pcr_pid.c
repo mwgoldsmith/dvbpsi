@@ -42,17 +42,15 @@
 #ifdef DVBPSI_DIST
 #include "../src/dvbpsi.h"
 #include "../src/descriptor.h"
-#include "../src/demux.h"
+#include "../src/psi.h"
 #include "../src/tables/pat.h"
 #include "../src/tables/pmt.h"
-#include "../src/psi.h"
 #else
 #include <dvbpsi/dvbpsi.h>
 #include <dvbpsi/descriptor.h>
-#include <dvbpsi/demux.h>
+#include <dvbpsi/psi.h>
 #include <dvbpsi/pat.h>
 #include <dvbpsi/pmt.h>
-#include <dvbpsi/psi.h>
 #endif
 
 /*****************************************************************************
@@ -126,7 +124,7 @@ static void PATCallback( void *_unused, dvbpsi_pat_t *p_pat )
             p_pmt_dvbpsi_fds[i_nb_programs] = dvbpsi_new(&message, DVBPSI_MSG_DEBUG);
             if (p_pmt_dvbpsi_fds[i_nb_programs])
             {
-                if (dvbpsi_pmt_attach(p_pmt_dvbpsi_fds[i_nb_programs],
+                if (dvbpsi_pmt_attach(p_pmt_dvbpsi_fds[i_nb_programs], 0x02, 0x0,
                                       p_program->i_number, PMTCallback, NULL))
                     i_nb_programs++;
             }
@@ -206,7 +204,7 @@ int main( int i_argc, char **pp_argv )
     if (p_pat_dvbpsi_fd == NULL)
         goto out;
 
-    if (!dvbpsi_pat_attach(p_pat_dvbpsi_fd, PATCallback, NULL ))
+    if (!dvbpsi_pat_attach(p_pat_dvbpsi_fd, 0x0, 0x0, PATCallback, NULL))
         goto out;
 
     p_buffer = malloc( TS_SIZE * READ_ONCE );
@@ -241,7 +239,7 @@ int main( int i_argc, char **pp_argv )
     {
         if (p_pmt_dvbpsi_fds[i])
         {
-            dvbpsi_pmt_detach(p_pmt_dvbpsi_fds[i]);
+            dvbpsi_pmt_detach(p_pmt_dvbpsi_fds[i], 0x02, 0x0);
             dvbpsi_delete(p_pmt_dvbpsi_fds[i]);
         }
         p_pmt_dvbpsi_fds[i] = NULL;
@@ -251,7 +249,7 @@ int main( int i_argc, char **pp_argv )
 out:
     if (p_pat_dvbpsi_fd)
     {
-      dvbpsi_pat_detach(p_pat_dvbpsi_fd);
+      dvbpsi_pat_detach(p_pat_dvbpsi_fd, 0x0, 0x0);
       dvbpsi_delete(p_pat_dvbpsi_fd);
     }
     close( i_fd );
