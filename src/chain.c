@@ -123,7 +123,7 @@ bool dvbpsi_decoder_chain_delete(dvbpsi_t *p_dvbpsi)
          * which walks the list again. This is a waste of time and needs improvement
          * on the mechanism on how to create/delete and attach/detach a subtable decoder.
          */
-        dvbpsi_decoder_delete(p_dec);
+        else dvbpsi_decoder_delete(p_dec);
     }
     p_dvbpsi->p_decoder = NULL;
     return true;
