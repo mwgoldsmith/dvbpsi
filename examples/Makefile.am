@@ -3,7 +3,7 @@
 SUBDIRS = dvbinfo
 DIST_SUBDIRS = $(SUBDIRS)
 
-noinst_PROGRAMS = decode_pat decode_pmt get_pcr_pid decode_sdt decode_mpeg decode_bat dump_pids check_cc_pid
+noinst_PROGRAMS = decode_pat decode_pmt get_pcr_pid decode_sdt decode_bat dump_pids check_cc_pid
 
 dump_pids_SOURCES = dump_pids.c
 dump_pids_CPPFLAGS =
@@ -28,13 +28,6 @@ get_pcr_pid_LDFLAGS = -L../src -ldvbpsi -lm
 decode_sdt_SOURCES = decode_sdt.c
 decode_sdt_CPPFLAGS = -DDVBPSI_DIST
 decode_sdt_LDFLAGS = -L../src -ldvbpsi
-
-decode_mpeg_SOURCES = decode_mpeg.c
-if HAVE_SYS_SOCKET_H
-decode_mpeg_SOURCES += connect.c connect.h
-endif
-decode_mpeg_CPPFLAGS = -D_FILE_OFFSET_BITS=64 -DDVBPSI_DIST
-decode_mpeg_LDFLAGS = -L../src -ldvbpsi -lm
 
 decode_bat_SOURCES = decode_bat.c
 decode_bat_CPPFLAGS = -DDVBPSI_DIST
