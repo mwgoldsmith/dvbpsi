@@ -140,7 +140,7 @@ struct dvbpsi_demux_s
  * \param p_new_cb_data Data given to the previous callback.
  * \return true on success, false on failure
  */
-__attribute__((deprecated))
+__attribute__((deprecated,unused))
 bool dvbpsi_AttachDemux(dvbpsi_t *            p_dvbpsi,
                         dvbpsi_demux_new_cb_t pf_new_cb,
                         void *                p_new_cb_data);
@@ -154,7 +154,7 @@ bool dvbpsi_AttachDemux(dvbpsi_t *            p_dvbpsi,
  * \param p_dvbpsi The handle of the demux to be destroyed.
  * \return nothing
  */
-__attribute__((deprecated))
+__attribute__((deprecated,unused))
 void dvbpsi_DetachDemux(dvbpsi_t *p_dvbpsi);
 
 /*****************************************************************************
@@ -169,7 +169,7 @@ void dvbpsi_DetachDemux(dvbpsi_t *p_dvbpsi);
  * \return a pointer to the found subdecoder, or NULL.
  *
  */
-__attribute__((deprecated))
+__attribute__((deprecated,unused))
 dvbpsi_demux_subdec_t * dvbpsi_demuxGetSubDec(dvbpsi_demux_t * p_demux,
                                               uint8_t          i_table_id,
                                               uint16_t         i_extension);
@@ -184,7 +184,7 @@ dvbpsi_demux_subdec_t * dvbpsi_demuxGetSubDec(dvbpsi_demux_t * p_demux,
  * \param p_dvbpsi PSI decoder handle.
  * \param p_section PSI section.
  */
-__attribute__((deprecated))
+__attribute__((deprecated,unused))
 void dvbpsi_Demux(dvbpsi_t *p_dvbpsi, dvbpsi_psi_section_t *p_section);
 
 /*****************************************************************************
@@ -204,7 +204,7 @@ void dvbpsi_Demux(dvbpsi_t *p_dvbpsi, dvbpsi_psi_section_t *p_section);
  * \param p_decoder pointer to private decoder.
  * \return pointer to demux subtable decoder.
  */
-__attribute__((deprecated))
+__attribute__((deprecated,unused))
 dvbpsi_demux_subdec_t *dvbpsi_NewDemuxSubDecoder(const uint8_t i_table_id,
                                                  const uint16_t i_extension,
                                                  dvbpsi_demux_detach_cb_t pf_detach,
@@ -221,7 +221,7 @@ dvbpsi_demux_subdec_t *dvbpsi_NewDemuxSubDecoder(const uint8_t i_table_id,
  * \param p_subdec pointer to demux subtable decoder.
  * \return nothing.
  */
-__attribute__((deprecated))
+__attribute__((deprecated,unused))
 void dvbpsi_DeleteDemuxSubDecoder(dvbpsi_demux_subdec_t *p_subdec);
 
 /*****************************************************************************
@@ -234,7 +234,7 @@ void dvbpsi_DeleteDemuxSubDecoder(dvbpsi_demux_subdec_t *p_subdec);
  * \param p_subdec pointer to dvbpsi_demux_subdec_t
  * \return nothing
  */
-__attribute__((deprecated))
+__attribute__((deprecated,unused))
 void dvbpsi_AttachDemuxSubDecoder(dvbpsi_demux_t *p_demux, dvbpsi_demux_subdec_t *p_subdec);
 
 /*****************************************************************************
@@ -247,7 +247,7 @@ void dvbpsi_AttachDemuxSubDecoder(dvbpsi_demux_t *p_demux, dvbpsi_demux_subdec_t
  * \param p_subdec pointer to dvbpsi_demux_subdec_t
  * \return nothing
  */
-__attribute__((deprecated))
+__attribute__((deprecated,unused))
 void dvbpsi_DetachDemuxSubDecoder(dvbpsi_demux_t *p_demux, dvbpsi_demux_subdec_t *p_subdec);
 
 #ifdef __cplusplus
