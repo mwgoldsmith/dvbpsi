@@ -2538,7 +2538,7 @@ void libdvbpsi_exit(ts_stream_t *stream)
 {
    summary(stdout, stream);
 
-   if (dvbpsi_decoder_chain_delete(stream->pat.handle))
+   if (!dvbpsi_decoder_chain_delete(stream->pat.handle))
        fprintf(stderr, "dvbinfo: failed to delete PAT decoder chain! .. possibly leaking memory!!\n");
 
    ts_pmt_t *p_pmt = stream->pmt;
@@ -2575,17 +2575,17 @@ void libdvbpsi_exit(ts_stream_t *stream)
        free(p_atsc_prev);
    }
 
-   if (dvbpsi_decoder_chain_delete(stream->cat.handle))
+   if (!dvbpsi_decoder_chain_delete(stream->cat.handle))
        fprintf(stderr, "dvbinfo: failed to delete CAT decoder chain! .. possibly leaking memory!!\n");
-   if (dvbpsi_decoder_chain_delete(stream->sdt.handle))
+   if (!dvbpsi_decoder_chain_delete(stream->sdt.handle))
        fprintf(stderr, "dvbinfo: failed to delete SDT decoder chain! .. possibly leaking memory!!\n");
-   if (dvbpsi_decoder_chain_delete(stream->eit.handle))
+   if (!dvbpsi_decoder_chain_delete(stream->eit.handle))
        fprintf(stderr, "dvbinfo: failed to delete EIT decoder chain! .. possibly leaking memory!!\n");
-   if (dvbpsi_decoder_chain_delete(stream->rst.handle))
+   if (!dvbpsi_decoder_chain_delete(stream->rst.handle))
        fprintf(stderr, "dvbinfo: failed to delete RST decoder chain! .. possibly leaking memory!!\n");
-   if (dvbpsi_decoder_chain_delete(stream->tdt.handle))
+   if (!dvbpsi_decoder_chain_delete(stream->tdt.handle))
        fprintf(stderr, "dvbinfo: failed to delete TDT decoder chain! .. possibly leaking memory!!\n");
-   if (dvbpsi_decoder_chain_delete(stream->atsc.handle))
+   if (!dvbpsi_decoder_chain_delete(stream->atsc.handle))
        fprintf(stderr, "dvbinfo: failed to delete ATSC decoder chain! .. possibly leaking memory!!\n");
 
    if (stream->pat.handle)
