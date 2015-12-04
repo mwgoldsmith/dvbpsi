@@ -381,7 +381,10 @@ bool dvbpsi_decoder_psi_section_add(dvbpsi_decoder_t *p_decoder, dvbpsi_psi_sect
  *
  * Determines if a decoder is attached to this dvbpsi_t handle. When the dvbpsi
  * handle is invalid the fuction will return false.
+ *
+ * DEPRECATED @see dvbpsi_decoder_chain_get() instead.
  */
+__attribute__((deprecated,unused))
 bool dvbpsi_decoder_present(dvbpsi_t *p_dvbpsi);
 
 #ifdef __cplusplus

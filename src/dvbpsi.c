@@ -242,7 +242,7 @@ void dvbpsi_decoder_delete(dvbpsi_decoder_t *p_decoder)
 }
 
 /*****************************************************************************
- * dvbpsi_decoder_present
+ * dvbpsi_decoder_present: DEPRECATED use dvbpsi_decoder_chain_get() instead.
  *****************************************************************************/
 bool dvbpsi_decoder_present(dvbpsi_t *p_dvbpsi)
 {
