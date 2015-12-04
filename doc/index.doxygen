@@ -53,6 +53,7 @@ describes how to use it and the "C" API.</p>
   <li>\ref usage</li>
   <li>\ref newdec</li>
   <li>\ref howto-new-api</li>
+  <li>\ref migrate-v1-to-v2</li>
 </ul>
 
 */
