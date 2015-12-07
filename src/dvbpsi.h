@@ -325,12 +325,14 @@ void *dvbpsi_decoder_new(dvbpsi_callback_gather_t pf_gather,
  *****************************************************************************/
 /*!
  * \fn void dvbpsi_decoder_delete(dvbpsi_decoder_t *p_decoder);
- * \brief Deletes decoder struct and frees its memory
+ * \brief Deletes decoder struct and frees any associated PSI section memory.
+ * Any memory attached to the dvbpsi_decoder_t::p_priv pointer member is the
+ * responsibility of the calling application.
  * \param p_decoder pointer to dvbpsi_decoder_t with decoder
  * \return nothing
  *
  * Delets a dvbpsi_t handle by calling free(handle). Make sure to detach any
- * decoder of encoder before deleting the dvbpsi handle.
+ * decoder or encoder before deleting the dvbpsi handle.
  */
 void dvbpsi_decoder_delete(dvbpsi_decoder_t *p_decoder);
 

@@ -229,7 +229,7 @@ out:
 void dvbpsi_decoder_delete(dvbpsi_decoder_t *p_decoder)
 {
     assert(p_decoder);
-    assert(p_decoder->p_priv == NULL);
+
 
     if (p_decoder->p_sections)
     {
