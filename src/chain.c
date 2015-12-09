@@ -76,11 +76,11 @@ static void dvbpsi_decoder_chain_demux(dvbpsi_t *p_dvbpsi, dvbpsi_psi_section_t 
 }
 
 /*****************************************************************************
- * dvbpsi_decoder_chain_new
+ * dvbpsi_chain_demux_new
  *****************************************************************************
- * Create chain decoder
+ * Create chain demux decoder
  *****************************************************************************/
-bool dvbpsi_decoder_chain_new(dvbpsi_t *p_dvbpsi, dvbpsi_callback_new_t pf_new,
+bool dvbpsi_chain_demux_new(dvbpsi_t *p_dvbpsi, dvbpsi_callback_new_t pf_new,
                               dvbpsi_callback_del_t pf_del, void *p_data)
 {
     if (p_dvbpsi->p_decoder) {
@@ -88,7 +88,6 @@ bool dvbpsi_decoder_chain_new(dvbpsi_t *p_dvbpsi, dvbpsi_callback_new_t pf_new,
         return false;
     }
 
-    /* FIXME: We need an alternative for dvbpsi_Demux() !!!*/
     dvbpsi_decoder_t *p_chain = (dvbpsi_decoder_t *)dvbpsi_decoder_new(&dvbpsi_decoder_chain_demux,
                                                                       4096, true,
                                                                       sizeof(dvbpsi_decoder_t));
@@ -105,13 +104,14 @@ bool dvbpsi_decoder_chain_new(dvbpsi_t *p_dvbpsi, dvbpsi_callback_new_t pf_new,
 }
 
 /*****************************************************************************
- * dvbpsi_decoder_chain_delete
+ * dvbpsi_chain_demux_delete
  *****************************************************************************
  * Remove all decoders from list and free all resources.
  *****************************************************************************/
-bool dvbpsi_decoder_chain_delete(dvbpsi_t *p_dvbpsi)
+bool dvbpsi_chain_demux_delete(dvbpsi_t *p_dvbpsi)
 {
-    dvbpsi_decoder_t *p = p_dvbpsi->p_decoder;
+    dvbpsi_decoder_t *p_demux = p_dvbpsi->p_decoder;
+    dvbpsi_decoder_t *p = p_demux->p_next; /* First subtable decoder */
     if (!p) return false;
 
     while (p) {
@@ -125,6 +125,9 @@ bool dvbpsi_decoder_chain_delete(dvbpsi_t *p_dvbpsi)
          */
         else dvbpsi_decoder_delete(p_dec);
     }
+
+    /* Delete demux decoder */
+    dvbpsi_decoder_delete(p_demux);
     p_dvbpsi->p_decoder = NULL;
     return true;
 }
@@ -185,6 +188,7 @@ bool dvbpsi_decoder_chain_remove(dvbpsi_t *p_dvbpsi, const dvbpsi_decoder_t *p_d
     while (pp_prev) {
         if ((p_decoder->i_table_id == (*pp_prev)->i_table_id) &&
             (p_decoder->i_extension == (*pp_prev)->i_extension)) {
+            assert(*pp_prev == p_decoder);
             *pp_prev = p_decoder->p_next;
             /* NOTE: caller must call dvbpsi_decoder_delete(p_decoder) */
             return true;

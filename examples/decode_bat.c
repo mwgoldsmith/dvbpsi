@@ -253,7 +253,7 @@ int main(int i_argc, char* pa_argv[])
   p_dvbpsi = dvbpsi_new(&message, DVBPSI_MSG_DEBUG);
   if (p_dvbpsi == NULL)
       goto out;
-  if (!dvbpsi_decoder_chain_new(p_dvbpsi, NewSubtableBAT, DelSubtableBAT, NULL))
+  if (!dvbpsi_chain_demux_new(p_dvbpsi, NewSubtableBAT, DelSubtableBAT, NULL))
       goto out;
 
   b_ok = ReadPacket(i_fd, data);
@@ -271,7 +271,7 @@ int main(int i_argc, char* pa_argv[])
 out:
   if (p_dvbpsi)
   {
-    if (!dvbpsi_decoder_chain_delete(p_dvbpsi))
+    if (!dvbpsi_chain_demux_delete(p_dvbpsi))
         ret = 1;
     dvbpsi_delete(p_dvbpsi);
   }

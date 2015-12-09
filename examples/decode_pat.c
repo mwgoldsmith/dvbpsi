@@ -148,7 +148,7 @@ int main(int i_argc, char* pa_argv[])
   if (p_dvbpsi == NULL)
       goto out;
 
-  if (!dvbpsi_decoder_chain_new(p_dvbpsi, AttachPAT, DetachPAT, NULL))
+  if (!dvbpsi_chain_demux_new(p_dvbpsi, AttachPAT, DetachPAT, NULL))
       goto out;
 
   b_ok = ReadPacket(i_fd, data);
@@ -165,7 +165,7 @@ int main(int i_argc, char* pa_argv[])
 out:
   if (p_dvbpsi)
   {
-    if (!dvbpsi_decoder_chain_delete(p_dvbpsi))
+    if (!dvbpsi_chain_demux_delete(p_dvbpsi))
         ret = 1;
     dvbpsi_delete(p_dvbpsi);
   }

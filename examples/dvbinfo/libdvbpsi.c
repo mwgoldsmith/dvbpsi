@@ -1950,7 +1950,7 @@ static void handle_atsc_MGT(void *p_data, dvbpsi_atsc_mgt_t *p_mgt)
             p->pid->i_pid = p_table->i_table_type_pid;
             p->p_next = NULL;
 
-            if (!dvbpsi_decoder_chain_new(p->handle, handle_subtable, DeleteTableDecoder, p_stream))
+            if (!dvbpsi_chain_demux_new(p->handle, handle_subtable, DeleteTableDecoder, p_stream))
             {
                  fprintf(stderr, "dvbinfo: Failed to attach new ATSC EIT decoder\n");
                  dvbpsi_delete(p->handle);
@@ -2416,7 +2416,7 @@ ts_stream_t *libdvbpsi_init(int debug, ts_stream_log_cb pf_log, void *cb_data)
     stream->pat.handle = dvbpsi_new(&dvbpsi_message, stream->level);
     if (stream->pat.handle == NULL)
         goto error;
-    if (!dvbpsi_decoder_chain_new(stream->pat.handle, handle_subtable, DeleteTableDecoder, stream))
+    if (!dvbpsi_chain_demux_new(stream->pat.handle, handle_subtable, DeleteTableDecoder, stream))
     {
         dvbpsi_delete(stream->pat.handle);
         stream->pat.handle = NULL;
@@ -2426,7 +2426,7 @@ ts_stream_t *libdvbpsi_init(int debug, ts_stream_log_cb pf_log, void *cb_data)
     stream->cat.handle = dvbpsi_new(&dvbpsi_message, stream->level);
     if (stream->cat.handle == NULL)
         goto error;
-    if (!dvbpsi_decoder_chain_new(stream->cat.handle, handle_subtable, DeleteTableDecoder, stream))
+    if (!dvbpsi_chain_demux_new(stream->cat.handle, handle_subtable, DeleteTableDecoder, stream))
     {
         dvbpsi_delete(stream->cat.handle);
         stream->cat.handle = NULL;
@@ -2436,7 +2436,7 @@ ts_stream_t *libdvbpsi_init(int debug, ts_stream_log_cb pf_log, void *cb_data)
     stream->sdt.handle = dvbpsi_new(&dvbpsi_message, stream->level);
     if (stream->sdt.handle == NULL)
         goto error;
-    if (!dvbpsi_decoder_chain_new(stream->sdt.handle, handle_subtable, DeleteTableDecoder, stream))
+    if (!dvbpsi_chain_demux_new(stream->sdt.handle, handle_subtable, DeleteTableDecoder, stream))
     {
         dvbpsi_delete(stream->sdt.handle);
         stream->sdt.handle = NULL;
@@ -2446,7 +2446,7 @@ ts_stream_t *libdvbpsi_init(int debug, ts_stream_log_cb pf_log, void *cb_data)
     stream->rst.handle = dvbpsi_new(&dvbpsi_message, stream->level);
     if (stream->rst.handle == NULL)
         goto error;
-    if (!dvbpsi_decoder_chain_new(stream->rst.handle, handle_subtable, DeleteTableDecoder, stream))
+    if (!dvbpsi_chain_demux_new(stream->rst.handle, handle_subtable, DeleteTableDecoder, stream))
     {
         dvbpsi_delete(stream->rst.handle);
         stream->rst.handle = NULL;
@@ -2456,7 +2456,7 @@ ts_stream_t *libdvbpsi_init(int debug, ts_stream_log_cb pf_log, void *cb_data)
     stream->eit.handle = dvbpsi_new(&dvbpsi_message, stream->level);
     if (stream->eit.handle == NULL)
         goto error;
-    if (!dvbpsi_decoder_chain_new(stream->eit.handle, handle_subtable, DeleteTableDecoder, stream))
+    if (!dvbpsi_chain_demux_new(stream->eit.handle, handle_subtable, DeleteTableDecoder, stream))
     {
         dvbpsi_delete(stream->eit.handle);
         stream->eit.handle = NULL;
@@ -2466,7 +2466,7 @@ ts_stream_t *libdvbpsi_init(int debug, ts_stream_log_cb pf_log, void *cb_data)
     stream->tdt.handle = dvbpsi_new(&dvbpsi_message, stream->level);
     if (stream->tdt.handle == NULL)
         goto error;
-    if (!dvbpsi_decoder_chain_new(stream->tdt.handle, handle_subtable, DeleteTableDecoder, stream))
+    if (!dvbpsi_chain_demux_new(stream->tdt.handle, handle_subtable, DeleteTableDecoder, stream))
     {
         dvbpsi_delete(stream->tdt.handle);
         stream->tdt.handle = NULL;
@@ -2477,7 +2477,7 @@ ts_stream_t *libdvbpsi_init(int debug, ts_stream_log_cb pf_log, void *cb_data)
     stream->atsc.handle = dvbpsi_new(&dvbpsi_message, stream->level);
     if (stream->atsc.handle == NULL)
         goto error;
-    if (!dvbpsi_decoder_chain_new(stream->atsc.handle, handle_subtable, DeleteTableDecoder, stream))
+    if (!dvbpsi_chain_demux_new(stream->atsc.handle, handle_subtable, DeleteTableDecoder, stream))
     {
         dvbpsi_delete(stream->atsc.handle);
         stream->atsc.handle = NULL;
@@ -2499,19 +2499,19 @@ ts_stream_t *libdvbpsi_init(int debug, ts_stream_log_cb pf_log, void *cb_data)
     return stream;
 
 error:
-    if (dvbpsi_decoder_chain_delete(stream->pat.handle))
+    if (dvbpsi_chain_demux_delete(stream->pat.handle))
         fprintf(stderr, "dvbinfo: failed to delete PAT decoder chain! .. possibly leaking memory!!\n");
-    if (dvbpsi_decoder_chain_delete(stream->cat.handle))
+    if (dvbpsi_chain_demux_delete(stream->cat.handle))
         fprintf(stderr, "dvbinfo: failed to delete CAT decoder chain! .. possibly leaking memory!!\n");
-    if (dvbpsi_decoder_chain_delete(stream->sdt.handle))
+    if (dvbpsi_chain_demux_delete(stream->sdt.handle))
         fprintf(stderr, "dvbinfo: failed to delete SDT decoder chain! .. possibly leaking memory!!\n");
-    if (dvbpsi_decoder_chain_delete(stream->eit.handle))
+    if (dvbpsi_chain_demux_delete(stream->eit.handle))
         fprintf(stderr, "dvbinfo: failed to delete EIT decoder chain! .. possibly leaking memory!!\n");
-    if (dvbpsi_decoder_chain_delete(stream->rst.handle))
+    if (dvbpsi_chain_demux_delete(stream->rst.handle))
         fprintf(stderr, "dvbinfo: failed to delete RST decoder chain! .. possibly leaking memory!!\n");
-    if (dvbpsi_decoder_chain_delete(stream->tdt.handle))
+    if (dvbpsi_chain_demux_delete(stream->tdt.handle))
         fprintf(stderr, "dvbinfo: failed to delete TDT decoder chain! .. possibly leaking memory!!\n");
-    if (dvbpsi_decoder_chain_delete(stream->atsc.handle))
+    if (dvbpsi_chain_demux_delete(stream->atsc.handle))
         fprintf(stderr, "dvbinfo: failed to delete ATSC decoder chain! .. possibly leaking memory!!\n");
 
     if (stream->pat.handle)
@@ -2538,7 +2538,7 @@ void libdvbpsi_exit(ts_stream_t *stream)
 {
    summary(stdout, stream);
 
-   if (!dvbpsi_decoder_chain_delete(stream->pat.handle))
+   if (!dvbpsi_chain_demux_delete(stream->pat.handle))
        fprintf(stderr, "dvbinfo: failed to delete PAT decoder chain! .. possibly leaking memory!!\n");
 
    ts_pmt_t *p_pmt = stream->pmt;
@@ -2546,7 +2546,7 @@ void libdvbpsi_exit(ts_stream_t *stream)
    while (p_pmt)
    {
        dvbpsi_t *handle = p_pmt->handle;
-       if (!dvbpsi_decoder_chain_delete(handle))
+       if (!dvbpsi_chain_demux_delete(handle))
            fprintf(stderr, "dvbinfo: failed to delete PMT decoder chain! .. possibly leaking memory!!\n");
        dvbpsi_delete(p_pmt->handle);
 
@@ -2563,7 +2563,7 @@ void libdvbpsi_exit(ts_stream_t *stream)
    while (p_atsc_eit)
    {
        dvbpsi_t *handle = p_atsc_eit->handle;
-       if (!dvbpsi_decoder_chain_delete(handle))
+       if (!dvbpsi_chain_demux_delete(handle))
            fprintf(stderr, "dvbinfo: failed to delete EIT decoder chain! .. possibly leaking memory!!\n");
        dvbpsi_delete(p_atsc_eit->handle);
 
@@ -2575,17 +2575,17 @@ void libdvbpsi_exit(ts_stream_t *stream)
        free(p_atsc_prev);
    }
 
-   if (!dvbpsi_decoder_chain_delete(stream->cat.handle))
+   if (!dvbpsi_chain_demux_delete(stream->cat.handle))
        fprintf(stderr, "dvbinfo: failed to delete CAT decoder chain! .. possibly leaking memory!!\n");
-   if (!dvbpsi_decoder_chain_delete(stream->sdt.handle))
+   if (!dvbpsi_chain_demux_delete(stream->sdt.handle))
        fprintf(stderr, "dvbinfo: failed to delete SDT decoder chain! .. possibly leaking memory!!\n");
-   if (!dvbpsi_decoder_chain_delete(stream->eit.handle))
+   if (!dvbpsi_chain_demux_delete(stream->eit.handle))
        fprintf(stderr, "dvbinfo: failed to delete EIT decoder chain! .. possibly leaking memory!!\n");
-   if (!dvbpsi_decoder_chain_delete(stream->rst.handle))
+   if (!dvbpsi_chain_demux_delete(stream->rst.handle))
        fprintf(stderr, "dvbinfo: failed to delete RST decoder chain! .. possibly leaking memory!!\n");
-   if (!dvbpsi_decoder_chain_delete(stream->tdt.handle))
+   if (!dvbpsi_chain_demux_delete(stream->tdt.handle))
        fprintf(stderr, "dvbinfo: failed to delete TDT decoder chain! .. possibly leaking memory!!\n");
-   if (!dvbpsi_decoder_chain_delete(stream->atsc.handle))
+   if (!dvbpsi_chain_demux_delete(stream->atsc.handle))
        fprintf(stderr, "dvbinfo: failed to delete ATSC decoder chain! .. possibly leaking memory!!\n");
 
    if (stream->pat.handle)
