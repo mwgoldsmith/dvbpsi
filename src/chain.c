@@ -216,6 +216,5 @@ dvbpsi_decoder_t *dvbpsi_decoder_chain_get(dvbpsi_t *p_dvbpsi, const uint16_t ta
         p = p->p_next;
     }
 
-    dvbpsi_error(p_dvbpsi, "chain", "decoder not found");
     return NULL;
 }
