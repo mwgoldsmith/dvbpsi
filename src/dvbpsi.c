@@ -85,6 +85,9 @@ void *dvbpsi_decoder_new(dvbpsi_callback_gather_t pf_gather,
     if (p_decoder == NULL)
         return NULL;
 
+    p_decoder->i_table_id = 0xff;
+    p_decoder->i_extension = 0xffff;
+
     memcpy(&p_decoder->i_magic[0], "psi", 3);
     p_decoder->pf_gather = pf_gather;
     p_decoder->pf_new = NULL;
