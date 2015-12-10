@@ -111,21 +111,26 @@ bool dvbpsi_chain_demux_new(dvbpsi_t *p_dvbpsi, dvbpsi_callback_new_t pf_new,
 bool dvbpsi_chain_demux_delete(dvbpsi_t *p_dvbpsi)
 {
     dvbpsi_decoder_t *p_demux = p_dvbpsi->p_decoder;
-    dvbpsi_decoder_t *p = p_demux->p_next; /* First subtable decoder */
-    if (!p) return false;
+    if (!p_demux) return false;
 
+    /* Get first subtable decoder */
+    dvbpsi_decoder_t *p = p_demux->p_next;
+    if (!p) goto out;
+
+    /* Walk linked list */
+    /* FIXME: p->pf_del() calls eventually the dvbpsi_XXX_detach() function
+     * which walks the list again. This is a waste of time and needs improvement
+     * on the mechanism on how to create/delete and attach/detach a subtable decoder.
+     */
     while (p) {
         dvbpsi_decoder_t *p_dec = p;
         p = p_dec->p_next;
         if (p_dec->pf_del)
             p_dec->pf_del(p_dvbpsi, p_dec->i_table_id, p_dec->i_extension);
-        /* FIXME: p->pf_del() calls eventually the dvbpsi_XXX_detach() function
-         * which walks the list again. This is a waste of time and needs improvement
-         * on the mechanism on how to create/delete and attach/detach a subtable decoder.
-         */
         else dvbpsi_decoder_delete(p_dec);
     }
 
+out:
     /* Delete demux decoder */
     dvbpsi_decoder_delete(p_demux);
     p_dvbpsi->p_decoder = NULL;
