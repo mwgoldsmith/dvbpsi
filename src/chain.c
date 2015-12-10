@@ -53,13 +53,13 @@ static void dvbpsi_decoder_chain_demux(dvbpsi_t *p_dvbpsi, dvbpsi_psi_section_t 
     assert(p_dvbpsi);
     assert(p_dvbpsi->p_decoder);
 
-    dvbpsi_decoder_t *p_table = NULL;
     dvbpsi_decoder_t *p_demux = (dvbpsi_decoder_t *)p_dvbpsi->p_decoder;
     if (p_demux == NULL) {
         dvbpsi_DeletePSISections(p_section);
         return;
     }
 
+    dvbpsi_decoder_t *p_table = NULL;
     p_table = dvbpsi_decoder_chain_get(p_dvbpsi, p_section->i_table_id, p_section->i_extension);
     if (p_table == NULL) {
         if (p_demux->pf_new)
@@ -67,10 +67,9 @@ static void dvbpsi_decoder_chain_demux(dvbpsi_t *p_dvbpsi, dvbpsi_psi_section_t 
     }
 
     /* Check if new table created */
-    dvbpsi_decoder_t *p_subtable;
-    p_subtable = dvbpsi_decoder_chain_get(p_dvbpsi, p_section->i_table_id, p_section->i_extension);
-    if (p_subtable)
-       p_subtable->pf_gather(p_dvbpsi, p_section);
+    p_table = dvbpsi_decoder_chain_get(p_dvbpsi, p_section->i_table_id, p_section->i_extension);
+    if (p_table)
+       p_table->pf_gather(p_dvbpsi, p_section);
     else
        dvbpsi_DeletePSISections(p_section);
 }
