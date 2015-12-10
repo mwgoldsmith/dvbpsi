@@ -759,7 +759,7 @@ static void handle_PAT(void* p_data, dvbpsi_pat_t* p_pat)
             p_pmt->p_next = NULL;
 
             /* PMT table_id == 0x02 and extenion == 0x0 */
-            if (!dvbpsi_pmt_attach(p_pmt->handle, 0x02, 0x0,
+            if (!dvbpsi_pmt_attach(p_pmt->handle, 0x02, 0x00,
                                    p_program->i_number, handle_PMT, p_stream))
             {
                  fprintf(stderr, "dvbinfo: Failed to attach new pmt decoder\n");
@@ -2546,8 +2546,7 @@ void libdvbpsi_exit(ts_stream_t *stream)
    while (p_pmt)
    {
        dvbpsi_t *handle = p_pmt->handle;
-       if (!dvbpsi_chain_demux_delete(handle))
-           fprintf(stderr, "dvbinfo: failed to delete PMT decoder chain! .. possibly leaking memory!!\n");
+       dvbpsi_pmt_detach(handle, 0x02, 0x0);
        dvbpsi_delete(p_pmt->handle);
 
        stream->i_pmt--;
