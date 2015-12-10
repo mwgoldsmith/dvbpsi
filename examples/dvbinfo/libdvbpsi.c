@@ -706,7 +706,7 @@ static void handle_subtable(dvbpsi_t *p_dvbpsi, uint8_t i_table_id, uint16_t i_e
                     fprintf(stderr, "dvbinfo: Failed to attach ATSC ETT subdecoder\n");
             break;
         case 0xCD: /* ATSC STT */
-            if (!dvbpsi_atsc_AttachSTT(p_dvbpsi, i_table_id, i_extension, handle_atsc_STT, p_data))
+            if (!dvbpsi_atsc_stt_attach(p_dvbpsi, i_table_id, i_extension, handle_atsc_STT, p_data))
                     fprintf(stderr, "dvbinfo: Failed to attach ATSC STT subdecoder\n");
             break;
 #ifdef TS_USE_SCTE_SIS
@@ -2139,7 +2139,7 @@ static void handle_atsc_STT(void* p_data, dvbpsi_atsc_stt_t *p_stt)
     printf("\t\tHour of day : %d\n", i_hour);
 
     DumpDescriptors("\t  |  ]", p_stt->p_first_descriptor);
-    dvbpsi_atsc_DeleteSTT(p_stt);
+    dvbpsi_atsc_stt_delete(p_stt);
 }
 
 static void DumpRSTEvents(const char* str, dvbpsi_rst_event_t* p_event)
@@ -2377,7 +2377,7 @@ static void DeleteTableDecoder(dvbpsi_t *p_dvbpsi, uint8_t i_table, uint16_t i_e
         case 0xC9: dvbpsi_atsc_DetachVCT(p_dvbpsi, i_table, i_extension); break; /* ATSC VCT */
         case 0xCB: dvbpsi_atsc_eit_detach(p_dvbpsi, i_table, i_extension); break; /* ATSC EIT */
         case 0xCC: dvbpsi_atsc_ett_detach(p_dvbpsi, i_table, i_extension); break; /* ATSC ETT */
-        case 0xCD: dvbpsi_atsc_DetachSTT(p_dvbpsi, i_table, i_extension); break; /* ATSC STT */
+        case 0xCD: dvbpsi_atsc_stt_detach(p_dvbpsi, i_table, i_extension); break; /* ATSC STT */
 #ifdef TS_USE_SCTE_SIS
         case 0xFC: dvbpsi_sis_detach(p_dvbpsi, i_table, i_extension); break; /* SIS */
 #endif

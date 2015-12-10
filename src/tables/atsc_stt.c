@@ -66,11 +66,11 @@ static void dvbpsi_atsc_DecodeSTTSections(dvbpsi_atsc_stt_t* p_stt,
                                           dvbpsi_psi_section_t* p_section);
 
 /*****************************************************************************
- * dvbpsi_atsc_AttachSTT
+ * dvbpsi_atsc_stt_attach
  *****************************************************************************
  * Initialize a STT subtable decoder.
  *****************************************************************************/
-bool dvbpsi_atsc_AttachSTT(dvbpsi_t* p_dvbpsi, uint8_t i_table_id, uint16_t i_extension,
+bool dvbpsi_atsc_stt_attach(dvbpsi_t* p_dvbpsi, uint8_t i_table_id, uint16_t i_extension,
                            dvbpsi_atsc_stt_callback pf_stt_callback, void* p_cb_data)
 {
     assert(p_dvbpsi);
@@ -109,11 +109,11 @@ bool dvbpsi_atsc_AttachSTT(dvbpsi_t* p_dvbpsi, uint8_t i_table_id, uint16_t i_ex
 }
 
 /*****************************************************************************
- * dvbpsi_atsc_DetachSTT
+ * dvbpsi_atsc_stt_detach
  *****************************************************************************
  * Close a STT decoder.
  *****************************************************************************/
-void dvbpsi_atsc_DetachSTT(dvbpsi_t *p_dvbpsi, uint8_t i_table_id, uint16_t i_extension)
+void dvbpsi_atsc_stt_detach(dvbpsi_t *p_dvbpsi, uint8_t i_table_id, uint16_t i_extension)
 {
     assert(p_dvbpsi);
 
@@ -141,18 +141,18 @@ void dvbpsi_atsc_DetachSTT(dvbpsi_t *p_dvbpsi, uint8_t i_table_id, uint16_t i_ex
 
     dvbpsi_atsc_stt_decoder_t* p_stt_decoder = (dvbpsi_atsc_stt_decoder_t*)p_dec;
     if (p_stt_decoder->p_building_stt)
-        dvbpsi_atsc_DeleteSTT(p_stt_decoder->p_building_stt);
+        dvbpsi_atsc_stt_delete(p_stt_decoder->p_building_stt);
     p_stt_decoder->p_building_stt = NULL;
     dvbpsi_decoder_delete(p_dec);
     p_dec = NULL;
 }
 
 /*****************************************************************************
- * dvbpsi_atsc_InitSTT
+ * dvbpsi_atsc_stt_init
  *****************************************************************************
  * Initialize a pre-allocated dvbpsi_atsc_stt_t structure.
  *****************************************************************************/
-void dvbpsi_atsc_InitSTT(dvbpsi_atsc_stt_t *p_stt, uint8_t i_table_id,
+void dvbpsi_atsc_stt_init(dvbpsi_atsc_stt_t *p_stt, uint8_t i_table_id,
                          uint16_t i_extension, uint8_t i_version, bool b_current_next)
 {
     assert(p_stt);
@@ -167,40 +167,40 @@ void dvbpsi_atsc_InitSTT(dvbpsi_atsc_stt_t *p_stt, uint8_t i_table_id,
 }
 
 /*****************************************************************************
- * dvbpsi_atsc_NewSTT
+ * dvbpsi_atsc_stt_new
  *****************************************************************************
  * Allocate and initialize a dvbpsi_atsc_stt_t structure.
  *****************************************************************************/
-dvbpsi_atsc_stt_t *dvbpsi_atsc_NewSTT(uint8_t i_table_id, uint16_t i_extension,
+dvbpsi_atsc_stt_t *dvbpsi_atsc_stt_new(uint8_t i_table_id, uint16_t i_extension,
                                       uint8_t i_version, bool b_current_next)
 {
     dvbpsi_atsc_stt_t *p_stt;
     p_stt = (dvbpsi_atsc_stt_t*)malloc(sizeof(dvbpsi_atsc_stt_t));
     if (p_stt != NULL)
-        dvbpsi_atsc_InitSTT(p_stt, i_table_id, i_extension, i_version, b_current_next);
+        dvbpsi_atsc_stt_init(p_stt, i_table_id, i_extension, i_version, b_current_next);
     return p_stt;
 }
 
 /*****************************************************************************
- * dvbpsi_atsc_EmptySTT
+ * dvbpsi_atsc_stt_empty
  *****************************************************************************
  * Clean a dvbpsi_atsc_stt_t structure.
  *****************************************************************************/
-void dvbpsi_atsc_EmptySTT(dvbpsi_atsc_stt_t* p_stt)
+void dvbpsi_atsc_stt_empty(dvbpsi_atsc_stt_t* p_stt)
 {
   dvbpsi_DeleteDescriptors(p_stt->p_first_descriptor);
   p_stt->p_first_descriptor = NULL;
 }
 
 /*****************************************************************************
- * dvbpsi_atsc_DeleteSTT
+ * dvbpsi_atsc_stt_delete
  *****************************************************************************
  * Empty and Delere a dvbpsi_atsc_stt_t structure.
  *****************************************************************************/
-void dvbpsi_atsc_DeleteSTT(dvbpsi_atsc_stt_t *p_stt)
+void dvbpsi_atsc_stt_delete(dvbpsi_atsc_stt_t *p_stt)
 {
     if (p_stt)
-        dvbpsi_atsc_EmptySTT(p_stt);
+        dvbpsi_atsc_stt_empty(p_stt);
     free(p_stt);
     p_stt = NULL;
 }
@@ -241,7 +241,7 @@ static void dvbpsi_ReInitSTT(dvbpsi_atsc_stt_decoder_t *p_decoder, const bool b_
     {
         /* Free structures */
         if (p_decoder->p_building_stt)
-            dvbpsi_atsc_DeleteSTT(p_decoder->p_building_stt);
+            dvbpsi_atsc_stt_delete(p_decoder->p_building_stt);
     }
     p_decoder->p_building_stt = NULL;
 }
@@ -284,7 +284,7 @@ static bool dvbpsi_AddSectionSTT(dvbpsi_t *p_dvbpsi, dvbpsi_atsc_stt_decoder_t *
     /* Initialize the structures if it's the first section received */
     if (!p_decoder->p_building_stt)
     {
-        p_decoder->p_building_stt = dvbpsi_atsc_NewSTT(p_section->i_table_id, p_section->i_extension,
+        p_decoder->p_building_stt = dvbpsi_atsc_stt_new(p_section->i_table_id, p_section->i_extension,
                                                        p_section->i_version, p_section->b_current_next);
         if (!p_decoder->p_building_stt)
             return false;
