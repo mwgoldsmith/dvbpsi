@@ -265,8 +265,10 @@ int main(int i_argc, char* pa_argv[])
   bool b_ok;
   uint16_t i_program_number, i_pmt_pid;
 
-  if (i_argc != 4)
-    return ret;
+  if (i_argc != 4) {
+      fprintf(stderr, "Usage: decode_pmt <file> <program nummer> <pmt pid>\n");
+      return ret;
+  }
 
   i_fd = open(pa_argv[1], 0);
   if (i_fd < 0)
