@@ -79,11 +79,11 @@ static void dvbpsi_atsc_DecodeMGTSections(dvbpsi_atsc_mgt_t* p_mgt,
                               dvbpsi_psi_section_t* p_section);
 
 /*****************************************************************************
- * dvbpsi_atsc_AttachMGT
+ * dvbpsi_atsc_mgt_attach
  *****************************************************************************
  * Initialize a MGT subtable decoder.
  *****************************************************************************/
-bool dvbpsi_atsc_AttachMGT(dvbpsi_t *p_dvbpsi, uint8_t i_table_id, uint16_t i_extension,
+bool dvbpsi_atsc_mgt_attach(dvbpsi_t *p_dvbpsi, uint8_t i_table_id, uint16_t i_extension,
                            dvbpsi_atsc_mgt_callback pf_callback, void* p_cb_data)
 {
     assert(p_dvbpsi);
@@ -121,11 +121,11 @@ bool dvbpsi_atsc_AttachMGT(dvbpsi_t *p_dvbpsi, uint8_t i_table_id, uint16_t i_ex
 }
 
 /*****************************************************************************
- * dvbpsi_atsc_DetachMGT
+ * dvbpsi_atsc_mgt_detach
  *****************************************************************************
  * Close a MGT decoder.
  *****************************************************************************/
-void dvbpsi_atsc_DetachMGT(dvbpsi_t *p_dvbpsi, uint8_t i_table_id, uint16_t i_extension)
+void dvbpsi_atsc_mgt_detach(dvbpsi_t *p_dvbpsi, uint8_t i_table_id, uint16_t i_extension)
 {
     assert(p_dvbpsi);
 
@@ -151,18 +151,18 @@ void dvbpsi_atsc_DetachMGT(dvbpsi_t *p_dvbpsi, uint8_t i_table_id, uint16_t i_ex
 
     dvbpsi_atsc_mgt_decoder_t* p_mgt_decoder = (dvbpsi_atsc_mgt_decoder_t*)p_dec;
     if (p_mgt_decoder->p_building_mgt)
-        dvbpsi_atsc_DeleteMGT(p_mgt_decoder->p_building_mgt);
+        dvbpsi_atsc_mgt_delete(p_mgt_decoder->p_building_mgt);
     p_mgt_decoder->p_building_mgt = NULL;
     dvbpsi_decoder_delete(p_dec);
     p_dec = NULL;
 }
 
 /*****************************************************************************
- * dvbpsi_atsc_InitMGT
+ * dvbpsi_atsc_mgt_init
  *****************************************************************************
  * Initialize a pre-allocated dvbpsi_atsc_mgt_t structure.
  *****************************************************************************/
-void dvbpsi_atsc_InitMGT(dvbpsi_atsc_mgt_t* p_mgt, uint8_t i_table_id, uint16_t i_extension,
+void dvbpsi_atsc_mgt_init(dvbpsi_atsc_mgt_t* p_mgt, uint8_t i_table_id, uint16_t i_extension,
                          uint8_t i_version, uint8_t i_protocol, bool b_current_next)
 {
     assert(p_mgt);
@@ -177,22 +177,22 @@ void dvbpsi_atsc_InitMGT(dvbpsi_atsc_mgt_t* p_mgt, uint8_t i_table_id, uint16_t 
     p_mgt->p_first_descriptor = NULL;
 }
 
-dvbpsi_atsc_mgt_t *dvbpsi_atsc_NewMGT(uint8_t i_table_id, uint16_t i_extension,
+dvbpsi_atsc_mgt_t *dvbpsi_atsc_mgt_new(uint8_t i_table_id, uint16_t i_extension,
                                       uint8_t i_version, uint8_t i_protocol, bool b_current_next)
 {
     dvbpsi_atsc_mgt_t* p_mgt;
     p_mgt = (dvbpsi_atsc_mgt_t*)calloc(1, sizeof(dvbpsi_atsc_mgt_t));
     if (p_mgt != NULL)
-        dvbpsi_atsc_InitMGT(p_mgt, i_table_id, i_extension, i_version, i_protocol, b_current_next);
+        dvbpsi_atsc_mgt_init(p_mgt, i_table_id, i_extension, i_version, i_protocol, b_current_next);
     return p_mgt;
 }
 
 /*****************************************************************************
- * dvbpsi_atsc_EmptyMGT
+ * dvbpsi_atsc_mgt_empty
  *****************************************************************************
  * Clean a dvbpsi_atsc_mgt_t structure.
  *****************************************************************************/
-void dvbpsi_atsc_EmptyMGT(dvbpsi_atsc_mgt_t* p_mgt)
+void dvbpsi_atsc_mgt_empty(dvbpsi_atsc_mgt_t* p_mgt)
 {
   dvbpsi_atsc_mgt_table_t* p_table = p_mgt->p_first_table;
 
@@ -208,10 +208,10 @@ void dvbpsi_atsc_EmptyMGT(dvbpsi_atsc_mgt_t* p_mgt)
   p_mgt->p_first_descriptor = NULL;
 }
 
-void dvbpsi_atsc_DeleteMGT(dvbpsi_atsc_mgt_t *p_mgt)
+void dvbpsi_atsc_mgt_delete(dvbpsi_atsc_mgt_t *p_mgt)
 {
     if (p_mgt)
-        dvbpsi_atsc_EmptyMGT(p_mgt);
+        dvbpsi_atsc_mgt_empty(p_mgt);
     free(p_mgt);
     p_mgt = NULL;
 }
@@ -323,7 +323,7 @@ static void dvbpsi_ReInitMGT(dvbpsi_atsc_mgt_decoder_t *p_decoder, const bool b_
     {
         /* Free structures */
         if (p_decoder->p_building_mgt)
-            dvbpsi_atsc_DeleteMGT(p_decoder->p_building_mgt);
+            dvbpsi_atsc_mgt_delete(p_decoder->p_building_mgt);
     }
     p_decoder->p_building_mgt = NULL;
 }
@@ -374,7 +374,7 @@ static bool dvbpsi_AddSectionMGT(dvbpsi_t *p_dvbpsi, dvbpsi_atsc_mgt_decoder_t *
     /* Initialize the structures if it's the first section received */
     if (!p_decoder->p_building_mgt)
     {
-        p_decoder->p_building_mgt = dvbpsi_atsc_NewMGT(p_section->i_table_id,
+        p_decoder->p_building_mgt = dvbpsi_atsc_mgt_new(p_section->i_table_id,
                                                        p_section->i_extension,
                                                        p_section->i_version,
                                                        p_section->p_payload_start[0],

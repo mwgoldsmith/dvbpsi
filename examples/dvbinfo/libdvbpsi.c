@@ -689,7 +689,7 @@ static void handle_subtable(dvbpsi_t *p_dvbpsi, uint8_t i_table_id, uint16_t i_e
 #endif
         /* Handle ATSC PSI tables */
         case 0xC7: /* ATSC MGT */
-            if (!dvbpsi_atsc_AttachMGT(p_dvbpsi, i_table_id, i_extension, handle_atsc_MGT, p_data))
+            if (!dvbpsi_atsc_mgt_attach(p_dvbpsi, i_table_id, i_extension, handle_atsc_MGT, p_data))
                 fprintf(stderr, "dvbinfo: Failed to attach ATSC MGT subdecoder\n");
             break;
         case 0xC8:
@@ -1979,7 +1979,7 @@ static void handle_atsc_MGT(void *p_data, dvbpsi_atsc_mgt_t *p_mgt)
     }
 
     DumpDescriptors("\t  |  ]", p_mgt->p_first_descriptor);
-    dvbpsi_atsc_DeleteMGT(p_mgt);
+    dvbpsi_atsc_mgt_delete(p_mgt);
 }
 
 static const char *GetAtscVCTModulationModes(const uint8_t i_mode)
@@ -2372,7 +2372,7 @@ static void DeleteTableDecoder(dvbpsi_t *p_dvbpsi, uint8_t i_table, uint16_t i_e
         case 0x79: // resolution notification section (TS 102 323 [13])
 #endif
         /* Handle ATSC PSI tables */
-        case 0xC7: dvbpsi_atsc_DetachMGT(p_dvbpsi, i_table, i_extension); break; /* ATSC MGT */
+        case 0xC7: dvbpsi_atsc_mgt_detach(p_dvbpsi, i_table, i_extension); break; /* ATSC MGT */
         case 0xC8: /* ATSC VCT */
         case 0xC9: dvbpsi_atsc_DetachVCT(p_dvbpsi, i_table, i_extension); break; /* ATSC VCT */
         case 0xCB: dvbpsi_atsc_eit_detach(p_dvbpsi, i_table, i_extension); break; /* ATSC EIT */
