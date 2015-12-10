@@ -280,7 +280,7 @@ int main(int i_argc, char* pa_argv[])
   p_dvbpsi = dvbpsi_new(&message, DVBPSI_MSG_DEBUG);
   if (p_dvbpsi == NULL)
         goto out;
-  if (!dvbpsi_pmt_attach(p_dvbpsi, 0x02, i_program_number, i_program_number, DumpPMT, NULL))
+  if (!dvbpsi_pmt_attach(p_dvbpsi, 0x02, i_program_number, DumpPMT, NULL))
       goto out;
 
   b_ok = ReadPacket(i_fd, data);

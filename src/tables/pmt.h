@@ -109,21 +109,19 @@ typedef void (* dvbpsi_pmt_callback)(void* p_cb_data, dvbpsi_pmt_t* p_new_pmt);
  * \fn bool dvbpsi_pmt_attach(dvbpsi_t *p_dvbpsi,
  *                            uint8_t i_table_id,
  *                            uint16_t i_extension,
-                              uint16_t i_program_number,
                               dvbpsi_pmt_callback pf_callback,
                               void* p_cb_data)
  * \brief Creates and initialization of a PMT decoder and attaches it to dvbpsi_t
  *        handle
  * \param p_dvbpsi handle
  * \param i_table_id Table ID
- * \param i_extension Table ID extension
- * \param i_program_number program number
+ * \param i_extension Normally Table ID extension number,
+ *                    but for PMT's it is the program_number;
  * \param pf_callback function to call back on new PMT
  * \param p_cb_data private data given in argument to the callback
  * \return true on success, false on failure
  */
 bool dvbpsi_pmt_attach(dvbpsi_t *p_dvbpsi, uint8_t i_table_id, uint16_t i_extension,
-                       uint16_t i_program_number,
                        dvbpsi_pmt_callback pf_callback, void* p_cb_data);
 
 /*****************************************************************************
@@ -134,7 +132,8 @@ bool dvbpsi_pmt_attach(dvbpsi_t *p_dvbpsi, uint8_t i_table_id, uint16_t i_extens
  * \brief Destroy a PMT decoder.
  * \param p_dvbpsi handle
  * \param i_table_id Table ID
- * \param i_extension Table ID extension
+ * \param i_extension Normally Table ID extension number,
+ *                    but for PMT's it is the program_number;
  * \return nothing.
  *
  * The handle isn't valid any more.

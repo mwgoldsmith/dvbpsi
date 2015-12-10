@@ -124,7 +124,7 @@ static void PATCallback( void *_unused, dvbpsi_pat_t *p_pat )
             p_pmt_dvbpsi_fds[i_nb_programs] = dvbpsi_new(&message, DVBPSI_MSG_DEBUG);
             if (p_pmt_dvbpsi_fds[i_nb_programs])
             {
-                if (dvbpsi_pmt_attach(p_pmt_dvbpsi_fds[i_nb_programs], 0x02, 0x0,
+                if (dvbpsi_pmt_attach(p_pmt_dvbpsi_fds[i_nb_programs], 0x02,
                                       p_program->i_number, PMTCallback, NULL))
                     i_nb_programs++;
             }

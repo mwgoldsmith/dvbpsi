@@ -54,7 +54,7 @@
  * Initialize a PMT decoder and return a handle on it.
  *****************************************************************************/
 bool dvbpsi_pmt_attach(dvbpsi_t *p_dvbpsi, uint8_t i_table_id, uint16_t i_extension,
-                       uint16_t i_program_number, dvbpsi_pmt_callback pf_callback, void* p_cb_data)
+                       dvbpsi_pmt_callback pf_callback, void* p_cb_data)
 {
     assert(p_dvbpsi);
 
@@ -75,7 +75,7 @@ bool dvbpsi_pmt_attach(dvbpsi_t *p_dvbpsi, uint8_t i_table_id, uint16_t i_extens
         return false;
 
     /* PMT decoder configuration */
-    p_pmt_decoder->i_program_number = i_program_number;
+    p_pmt_decoder->i_program_number = i_extension;
     p_pmt_decoder->pf_pmt_callback = pf_callback;
     p_pmt_decoder->p_cb_data = p_cb_data;
     p_pmt_decoder->p_building_pmt = NULL;
