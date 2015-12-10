@@ -694,7 +694,7 @@ static void handle_subtable(dvbpsi_t *p_dvbpsi, uint8_t i_table_id, uint16_t i_e
             break;
         case 0xC8:
         case 0xC9: /* ATSC VCT */
-            if (!dvbpsi_atsc_AttachVCT(p_dvbpsi, i_table_id, i_extension, handle_atsc_VCT, p_data))
+            if (!dvbpsi_atsc_vct_attach(p_dvbpsi, i_table_id, i_extension, handle_atsc_VCT, p_data))
                     fprintf(stderr, "dvbinfo: Failed to attach ATSC VCT subdecoder\n");
             break;
         case 0xCB: /* ATSC EIT */
@@ -2056,7 +2056,7 @@ static void handle_atsc_VCT(void* p_data, dvbpsi_atsc_vct_t *p_vct)
 
     DumpAtscVCTChannels(p_vct->p_first_channel);
     DumpDescriptors("\t  |  ]", p_vct->p_first_descriptor);
-    dvbpsi_atsc_DeleteVCT(p_vct);
+    dvbpsi_atsc_vct_delete(p_vct);
 }
 
 static void DumpATSCEITEventDescriptors(dvbpsi_atsc_eit_event_t *p_atsc_eit_event)
@@ -2374,7 +2374,7 @@ static void DeleteTableDecoder(dvbpsi_t *p_dvbpsi, uint8_t i_table, uint16_t i_e
         /* Handle ATSC PSI tables */
         case 0xC7: dvbpsi_atsc_mgt_detach(p_dvbpsi, i_table, i_extension); break; /* ATSC MGT */
         case 0xC8: /* ATSC VCT */
-        case 0xC9: dvbpsi_atsc_DetachVCT(p_dvbpsi, i_table, i_extension); break; /* ATSC VCT */
+        case 0xC9: dvbpsi_atsc_vct_detach(p_dvbpsi, i_table, i_extension); break; /* ATSC VCT */
         case 0xCB: dvbpsi_atsc_eit_detach(p_dvbpsi, i_table, i_extension); break; /* ATSC EIT */
         case 0xCC: dvbpsi_atsc_ett_detach(p_dvbpsi, i_table, i_extension); break; /* ATSC ETT */
         case 0xCD: dvbpsi_atsc_stt_detach(p_dvbpsi, i_table, i_extension); break; /* ATSC STT */

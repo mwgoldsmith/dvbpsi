@@ -112,10 +112,10 @@ typedef struct dvbpsi_atsc_vct_s
 typedef void (* dvbpsi_atsc_vct_callback)(void* p_cb_data, dvbpsi_atsc_vct_t* p_new_vct);
 
 /*****************************************************************************
- * dvbpsi_atsc_AttachVCT
+ * dvbpsi_atsc_vct_attach
  *****************************************************************************/
 /*!
- * \fn bool dvbpsi_atsc_AttachVCT(dvbpsi_t *p_dvbpsi, uint8_t i_table_id,
+ * \fn bool dvbpsi_atsc_vct_attach(dvbpsi_t *p_dvbpsi, uint8_t i_table_id,
           uint16_t i_extension, dvbpsi_atsc_vct_callback pf_vct_callback,
                            void* p_cb_data)
  * \brief Creation and initialization of a VCT decoder.
@@ -126,15 +126,33 @@ typedef void (* dvbpsi_atsc_vct_callback)(void* p_cb_data, dvbpsi_atsc_vct_t* p_
  * \param p_cb_data private data given in argument to the callback.
  * \return true if everything went ok, else false.
  */
-bool dvbpsi_atsc_AttachVCT(dvbpsi_t *p_dvbpsi, uint8_t i_table_id,
+bool dvbpsi_atsc_vct_attach(dvbpsi_t *p_dvbpsi, uint8_t i_table_id,
           uint16_t i_extension, dvbpsi_atsc_vct_callback pf_vct_callback,
                            void* p_cb_data);
 
+/*!
+ * \brief dvbpsi_atsc_AttachVCT is deprecated use @see dvbpsi_atsc_vct_attach() instead.
+ * \param p_dvbpsi dvbpsi handle to Subtable demultiplexor to which the decoder is attached.
+ * \param i_table_id Table ID, 0xC8 or 0xC9.
+ * \param i_extension Table ID extension, here TS ID.
+ * \param pf_vct_callback function to call back on new VCT.
+ * \param p_cb_data private data given in argument to the callback.
+ * \return true if everything went ok, else false.
+ */
+__attribute__((deprecated,unused))
+inline bool dvbpsi_atsc_AttachVCT(dvbpsi_t *p_dvbpsi, uint8_t i_table_id,
+            uint16_t i_extension, dvbpsi_atsc_vct_callback pf_vct_callback,
+            void* p_cb_data)
+{
+    return dvbpsi_atsc_vct_attach(p_dvbpsi, i_table_id, i_extension,
+                                 pf_vct_callback, p_cb_data);
+}
+
 /*****************************************************************************
- * dvbpsi_DetachVCT
+ * dvbpsi_atsc_vct_detach
  *****************************************************************************/
 /*!
- * \fn void dvbpsi_atsc_DetachVCT(dvbpsi_t *p_dvbpsi, uint8_t i_table_id,
+ * \fn void dvbpsi_atsc_vct_detach(dvbpsi_t *p_dvbpsi, uint8_t i_table_id,
  *                                uint16_t i_extension)
  *
  * \brief Destroy a VCT decoder.
@@ -143,13 +161,26 @@ bool dvbpsi_atsc_AttachVCT(dvbpsi_t *p_dvbpsi, uint8_t i_table_id,
  * \param i_extension Table ID extension, here TS ID.
  * \return nothing.
  */
-void dvbpsi_atsc_DetachVCT(dvbpsi_t *p_dvbpsi, uint8_t i_table_id, uint16_t i_extension);
+void dvbpsi_atsc_vct_detach(dvbpsi_t *p_dvbpsi, uint8_t i_table_id, uint16_t i_extension);
+
+/*!
+ * \brief dvbpsi_atsc_DetachVCT is deprecated use @see dvbpsi_atsc_vct_detach() instead.
+ * \param p_dvbpsi dvbpsi handle to Subtable demultiplexor to which the decoder is attached.
+ * \param i_table_id Table ID, 0xC8 or 0xC9.
+ * \param i_extension Table ID extension, here TS ID.
+ * \return nothing.
+ */
+__attribute__((deprecated,unused))
+inline void dvbpsi_atsc_DetachVCT(dvbpsi_t *p_dvbpsi, uint8_t i_table_id, uint16_t i_extension)
+{
+    dvbpsi_atsc_vct_detach(p_dvbpsi, i_table_id, i_extension);
+}
 
 /*****************************************************************************
- * dvbpsi_atsc_InitVCT
+ * dvbpsi_atsc_vct_init
  *****************************************************************************/
 /*!
- * \fn void dvbpsi_atsc_InitVCT(dvbpsi_atsc_vct_t* p_vct, uint8_t i_table_id,
+ * \fn void dvbpsi_atsc_vct_init(dvbpsi_atsc_vct_t* p_vct, uint8_t i_table_id,
                          uint16_t i_extension, uint8_t i_protocol, bool b_cable_vct,
                          uint8_t i_version, bool b_current_next)
  * \brief Initialize a user-allocated dvbpsi_atsc_vct_t structure.
@@ -162,15 +193,34 @@ void dvbpsi_atsc_DetachVCT(dvbpsi_t *p_dvbpsi, uint8_t i_table_id, uint16_t i_ex
  * \param b_current_next current next indicator
  * \return nothing.
  */
-void dvbpsi_atsc_InitVCT(dvbpsi_atsc_vct_t* p_vct, uint8_t i_table_id,
+void dvbpsi_atsc_vct_init(dvbpsi_atsc_vct_t* p_vct, uint8_t i_table_id,
                          uint16_t i_extension, uint8_t i_protocol, bool b_cable_vct,
                          uint8_t i_version, bool b_current_next);
 
+/*!
+ * \brief dvbpsi_atsc_InitVCT is deprecated use @see dvbpsi_atsc_vct_init() instead.
+ * \param i_table_id Table ID, 0xC8 or 0xC9.
+ * \param i_extension Table ID extension, here TS ID.
+ * \param i_protocol PSIP Protocol version.
+ * \param b_cable_vct Whether this is CVCT or a TVCT.
+ * \param i_version VCT version
+ * \param b_current_next current next indicator
+ * \return nothing.
+ */
+__attribute__((deprecated,unused))
+inline void dvbpsi_atsc_InitVCT(dvbpsi_atsc_vct_t* p_vct, uint8_t i_table_id,
+                                uint16_t i_extension, uint8_t i_protocol, bool b_cable_vct,
+                                uint8_t i_version, bool b_current_next)
+{
+    dvbpsi_atsc_vct_init(p_vct, i_table_id, i_extension, i_protocol, b_cable_vct,
+                        i_version, b_current_next);
+}
+
 /*****************************************************************************
- * dvbpsi_atsc_NewVCT
+ * dvbpsi_atsc_vct_new
  *****************************************************************************/
 /*!
- * \fn dvbpsi_atsc_vct_t *dvbpsi_atsc_NewVCT(uint8_t i_table_id, uint16_t i_extension,
+ * \fn dvbpsi_atsc_vct_t *dvbpsi_atsc_vct_new(uint8_t i_table_id, uint16_t i_extension,
  *                   uint8_t i_protocol, bool b_cable_vct, uint8_t i_version, bool b_current_next);
  *
  * \brief Allocate and initialize a new dvbpsi_vct_t structure.
@@ -182,32 +232,73 @@ void dvbpsi_atsc_InitVCT(dvbpsi_atsc_vct_t* p_vct, uint8_t i_table_id,
  * \param b_current_next current next indicator
  * \return p_vct pointer to the VCT structure
  */
-dvbpsi_atsc_vct_t *dvbpsi_atsc_NewVCT(uint8_t i_table_id, uint16_t i_extension,
+dvbpsi_atsc_vct_t *dvbpsi_atsc_vct_new(uint8_t i_table_id, uint16_t i_extension,
                     uint8_t i_protocol, bool b_cable_vct, uint8_t i_version,
                     bool b_current_next);
 
+/*!
+ * \brief dvbpsi_atsc_NewVCT is deprecated use @see dvbpsi_atsc_vct_new() instead.
+ * \param i_table_id Table ID, 0xC8 or 0xC9.
+ * \param i_extension Table ID extension, here TS ID.
+ * \param i_protocol PSIP Protocol version.
+ * \param b_cable_vct Whether this is CVCT or a TVCT.
+ * \param i_version VCT version
+ * \param b_current_next current next indicator
+ * \return p_vct pointer to the VCT structure
+ */
+__attribute__((deprecated,unused))
+inline dvbpsi_atsc_vct_t *dvbpsi_atsc_NewVCT(uint8_t i_table_id, uint16_t i_extension,
+        uint8_t i_protocol, bool b_cable_vct, uint8_t i_version, bool b_current_next)
+{
+    return dvbpsi_atsc_vct_new(i_table_id, i_extension, i_protocol,
+                               b_cable_vct, i_version, b_current_next);
+}
+
 /*****************************************************************************
- * dvbpsi_atsc_EmptyVCT
+ * dvbpsi_atsc_vct_empty
  *****************************************************************************/
 /*!
- * \fn void dvbpsi_atsc_EmptyVCT(dvbpsi_atsc_vct_t* p_vct)
+ * \fn void dvbpsi_atsc_vct_empty(dvbpsi_atsc_vct_t* p_vct)
  * \brief Clean a dvbpsi_vct_t structure.
  * \param p_vct pointer to the VCT structure
  * \return nothing.
  */
-void dvbpsi_atsc_EmptyVCT(dvbpsi_atsc_vct_t *p_vct);
+void dvbpsi_atsc_vct_empty(dvbpsi_atsc_vct_t *p_vct);
+
+/*!
+ * \brief dvbpsi_atsc_EmptyVCT is deprecated use @see dvbpsi_atsc_vct_empty() instead.
+ * \brief Clean a dvbpsi_vct_t structure.
+ * \param p_vct pointer to the VCT structure
+ * \return nothing.
+ */
+__attribute__((deprecated,unused))
+inline void dvbpsi_atsc_EmptyVCT(dvbpsi_atsc_vct_t *p_vct)
+{
+    dvbpsi_atsc_vct_empty(p_vct);
+}
 
 /*****************************************************************************
- * dvbpsi_atsc_DeleteVCT
+ * dvbpsi_atsc_vct_delete
  *****************************************************************************/
 /*!
- * \fn void dvbpsi_atsc_DeleteVCT(dvbpsi_atsc_vct_t *p_vct)
+ * \fn void dvbpsi_atsc_vct_delete(dvbpsi_atsc_vct_t *p_vct)
  * \brief Clean and free a dvbpsi_vct_t structure.
  * \param p_vct pointer to the VCT structure
  * \return nothing.
  */
-void dvbpsi_atsc_DeleteVCT(dvbpsi_atsc_vct_t *p_vct);
+void dvbpsi_atsc_vct_delete(dvbpsi_atsc_vct_t *p_vct);
 
+/*!
+ * \brief dvbpsi_atsc_DeleteVCT is deprecated use @see dvbpsi_atsc_vct_delete() instead.
+ * \brief Clean a dvbpsi_vct_t structure.
+ * \param p_vct pointer to the VCT structure
+ * \return nothing.
+ */
+__attribute__((deprecated,unused))
+inline void dvbpsi_atsc_DeleteVCT(dvbpsi_atsc_vct_t *p_vct)
+{
+    dvbpsi_atsc_vct_delete(p_vct);
+}
 #ifdef __cplusplus
 };
 #endif
