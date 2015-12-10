@@ -702,7 +702,7 @@ static void handle_subtable(dvbpsi_t *p_dvbpsi, uint8_t i_table_id, uint16_t i_e
                     fprintf(stderr, "dvbinfo: Failed to attach ATSC EIT subdecoder\n");
             break;
         case 0xCC: /* ATSC ETT */
-            if (!dvbpsi_atsc_AttachETT(p_dvbpsi, i_table_id, i_extension, handle_atsc_ETT, p_data))
+            if (!dvbpsi_atsc_ett_attach(p_dvbpsi, i_table_id, i_extension, handle_atsc_ETT, p_data))
                     fprintf(stderr, "dvbinfo: Failed to attach ATSC ETT subdecoder\n");
             break;
         case 0xCD: /* ATSC STT */
@@ -2113,7 +2113,7 @@ static void handle_atsc_ETT(void* p_data, dvbpsi_atsc_ett_t* p_ett)
     printf("\tRaw Data       : '%s'\n", p_ett->p_etm_data);
 
     DumpDescriptors("\t  |  ]", p_ett->p_first_descriptor);
-    dvbpsi_atsc_DeleteETT(p_ett);
+    dvbpsi_atsc_ett_delete(p_ett);
 }
 
 static void handle_atsc_STT(void* p_data, dvbpsi_atsc_stt_t *p_stt)
@@ -2376,7 +2376,7 @@ static void DeleteTableDecoder(dvbpsi_t *p_dvbpsi, uint8_t i_table, uint16_t i_e
         case 0xC8: /* ATSC VCT */
         case 0xC9: dvbpsi_atsc_DetachVCT(p_dvbpsi, i_table, i_extension); break; /* ATSC VCT */
         case 0xCB: dvbpsi_atsc_eit_detach(p_dvbpsi, i_table, i_extension); break; /* ATSC EIT */
-        case 0xCC: dvbpsi_atsc_DetachETT(p_dvbpsi, i_table, i_extension); break; /* ATSC ETT */
+        case 0xCC: dvbpsi_atsc_ett_detach(p_dvbpsi, i_table, i_extension); break; /* ATSC ETT */
         case 0xCD: dvbpsi_atsc_DetachSTT(p_dvbpsi, i_table, i_extension); break; /* ATSC STT */
 #ifdef TS_USE_SCTE_SIS
         case 0xFC: dvbpsi_sis_detach(p_dvbpsi, i_table, i_extension); break; /* SIS */

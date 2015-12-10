@@ -78,11 +78,11 @@ static void dvbpsi_atsc_DecodeETTSections(dvbpsi_atsc_ett_t* p_ett,
                                           dvbpsi_psi_section_t* p_section);
 
 /*****************************************************************************
- * dvbpsi_atsc_AttachETT
+ * dvbpsi_atsc_ett_attach
  *****************************************************************************
  * Initialize a ETT decoder and return a handle on it.
  *****************************************************************************/
-bool dvbpsi_atsc_AttachETT(dvbpsi_t * p_dvbpsi, uint8_t i_table_id, uint16_t i_extension,
+bool dvbpsi_atsc_ett_attach(dvbpsi_t * p_dvbpsi, uint8_t i_table_id, uint16_t i_extension,
                           dvbpsi_atsc_ett_callback pf_callback, void* p_cb_data)
 {
     assert(p_dvbpsi);
@@ -121,11 +121,11 @@ bool dvbpsi_atsc_AttachETT(dvbpsi_t * p_dvbpsi, uint8_t i_table_id, uint16_t i_e
 }
 
 /*****************************************************************************
- * dvbpsi_atsc_DetachETT
+ * dvbpsi_atsc_ett_detach
  *****************************************************************************
  * Close a ETT decoder. The handle isn't valid any more.
  *****************************************************************************/
-void dvbpsi_atsc_DetachETT(dvbpsi_t *p_dvbpsi, uint8_t i_table_id, uint16_t i_extension)
+void dvbpsi_atsc_ett_detach(dvbpsi_t *p_dvbpsi, uint8_t i_table_id, uint16_t i_extension)
 {
     assert(p_dvbpsi);
 
@@ -151,18 +151,18 @@ void dvbpsi_atsc_DetachETT(dvbpsi_t *p_dvbpsi, uint8_t i_table_id, uint16_t i_ex
 
     dvbpsi_atsc_ett_decoder_t *p_ett_decoder = (dvbpsi_atsc_ett_decoder_t*)p_dec;
     if (p_ett_decoder->p_building_ett)
-        dvbpsi_atsc_DeleteETT(p_ett_decoder->p_building_ett);
+        dvbpsi_atsc_ett_delete(p_ett_decoder->p_building_ett);
     p_ett_decoder->p_building_ett = NULL;
     dvbpsi_decoder_delete(p_dec);
     p_dec = NULL;
 }
 
 /*****************************************************************************
- * dvbpsi_atsc_InitETT
+ * dvbpsi_atsc_ett_init
  *****************************************************************************
  * Initialize a pre-allocated dvbpsi_ett_t structure.
  *****************************************************************************/
-void dvbpsi_atsc_InitETT(dvbpsi_atsc_ett_t *p_ett, uint8_t i_table_id,
+void dvbpsi_atsc_ett_init(dvbpsi_atsc_ett_t *p_ett, uint8_t i_table_id,
                          uint16_t i_extension, uint8_t i_version, uint8_t i_protocol,
                          uint32_t i_etm_id, bool b_current_next)
 {
@@ -180,24 +180,24 @@ void dvbpsi_atsc_InitETT(dvbpsi_atsc_ett_t *p_ett, uint8_t i_table_id,
     p_ett->p_first_descriptor = NULL;
 }
 
-dvbpsi_atsc_ett_t *dvbpsi_atsc_NewETT(uint8_t i_table_id, uint16_t i_extension,
+dvbpsi_atsc_ett_t *dvbpsi_atsc_ett_new(uint8_t i_table_id, uint16_t i_extension,
                                       uint8_t i_version, uint8_t i_protocol,
                                       uint32_t i_etm_id, bool b_current_next)
 {
     dvbpsi_atsc_ett_t *p_ett;
     p_ett = (dvbpsi_atsc_ett_t*)malloc(sizeof(dvbpsi_atsc_ett_t));
     if (p_ett != NULL)
-        dvbpsi_atsc_InitETT(p_ett, i_table_id, i_extension, i_version,
+        dvbpsi_atsc_ett_init(p_ett, i_table_id, i_extension, i_version,
                             i_protocol, i_etm_id, b_current_next);
     return p_ett;
 }
 
 /*****************************************************************************
- * dvbpsi_atsc_EmptyETT
+ * dvbpsi_atsc_ett_empty
  *****************************************************************************
  * Clean a dvbpsi_atsc_ett_t structure.
  *****************************************************************************/
-void dvbpsi_atsc_EmptyETT(dvbpsi_atsc_ett_t *p_ett)
+void dvbpsi_atsc_ett_empty(dvbpsi_atsc_ett_t *p_ett)
 {
     assert(p_ett);
 
@@ -209,10 +209,10 @@ void dvbpsi_atsc_EmptyETT(dvbpsi_atsc_ett_t *p_ett)
     p_ett->p_first_descriptor = NULL;
 }
 
-void dvbpsi_atsc_DeleteETT(dvbpsi_atsc_ett_t *p_ett)
+void dvbpsi_atsc_ett_delete(dvbpsi_atsc_ett_t *p_ett)
 {
     if (p_ett)
-        dvbpsi_atsc_EmptyETT(p_ett);
+        dvbpsi_atsc_ett_empty(p_ett);
     free(p_ett);
     p_ett = NULL;
 }
@@ -231,7 +231,7 @@ static void dvbpsi_ReInitETT(dvbpsi_atsc_ett_decoder_t *p_decoder, const bool b_
     {
         /* Free structures */
         if (p_decoder->p_building_ett)
-            dvbpsi_atsc_DeleteETT(p_decoder->p_building_ett);
+            dvbpsi_atsc_ett_delete(p_decoder->p_building_ett);
     }
     p_decoder->p_building_ett = NULL;
 }
@@ -287,7 +287,7 @@ static bool dvbpsi_AddSectionETT(dvbpsi_t *p_dvbpsi, dvbpsi_atsc_ett_decoder_t *
                 ((uint32_t)p_section->p_payload_start[3] << 8)  |
                 ((uint32_t)p_section->p_payload_start[4] << 0);
 
-        p_decoder->p_building_ett = dvbpsi_atsc_NewETT(p_section->i_table_id,
+        p_decoder->p_building_ett = dvbpsi_atsc_ett_new(p_section->i_table_id,
                                                        p_section->i_extension,
                                                        p_section->i_version,
                                                        p_section->p_payload_start[0],
