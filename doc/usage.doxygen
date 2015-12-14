@@ -43,5 +43,6 @@ have been detached.</p>
 <ul>
 <li>\ref structure</li>
 <li>\ref howto-new-api</li>
+<li>\ref migrate-v1-to-v2</li>
 </ul>
 */

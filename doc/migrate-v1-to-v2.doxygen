@@ -46,9 +46,6 @@ error: <br />
 <p>The same snippit of code using the dvbpsi_decoder_chain_XX() functions looks like this:</p>
 
 <code>
-/***************************************************************************** <br />
-&nbsp; * AttachPAT <br />
-&nbsp; *****************************************************************************/ <br />
 static void AttachPAT(dvbpsi_t *p_dvbpsi, uint8_t i_table_id, uint16_t i_extension, <br />
 &nbsp;                void *p_zero) <br />
 { <br />
@@ -88,9 +85,6 @@ new API (version 2 and up), the code looks the same as with the example above. T
 old way of doing things. The second shows you how to write it with dvbpsi_decoder_chain_XXX() functions.</p>
 
 <code>
-/***************************************************************************** <br />
-&nbsp; * NewSubtable <br />
-&nbsp; *****************************************************************************/ <br />
 static void NewSubtable(dvbpsi_t *p_dvbpsi, uint8_t i_table_id, uint16_t i_extension, <br />
 &nbsp;                  void * p_zero) <br />
 { <br />
@@ -101,9 +95,6 @@ static void NewSubtable(dvbpsi_t *p_dvbpsi, uint8_t i_table_id, uint16_t i_exten
 &nbsp; } <br />
 } <br />
  <br />
-/***************************************************************************** <br />
-&nbsp; * main <br />
-&nbsp; *****************************************************************************/ <br />
 int main(int i_argc, char* pa_argv[]) <br />
 { <br />
 &nbsp; int i_fd; <br />
@@ -147,12 +138,11 @@ out: <br />
 &nbsp; close(i_fd); <br />
 &nbsp; return ret; <br />
 } <br />
-<code>
+</code>
+
+<p>Using v2 libdvbpsi demuxing API the above code translates in:</p>
 
 <code>
-/***************************************************************************** <br />
-&nbsp; * NewSubtable <br />
-&nbsp; *****************************************************************************/ <br />
 static void NewSubtable(dvbpsi_t *p_dvbpsi, uint8_t i_table_id, uint16_t i_extension, <br />
 &nbsp;                  void * p_zero) <br />
 { <br />
@@ -163,9 +153,6 @@ static void NewSubtable(dvbpsi_t *p_dvbpsi, uint8_t i_table_id, uint16_t i_exten
 &nbsp; } <br />
 } <br />
  <br />
-/***************************************************************************** <br />
-&nbsp; * DelSubtable <br />
-&nbsp; *****************************************************************************/ <br />
 static void DelSubtable(dvbpsi_t *p_dvbpsi, uint8_t i_table_id, uint16_t i_extension) <br />
 { <br />
 &nbsp; if(i_table_id == 0x42) <br />
@@ -174,9 +161,6 @@ static void DelSubtable(dvbpsi_t *p_dvbpsi, uint8_t i_table_id, uint16_t i_exten
 &nbsp; } <br />
 } <br />
  <br />
-/***************************************************************************** <br />
-&nbsp; * main <br />
-&nbsp; *****************************************************************************/ <br />
 int main(int i_argc, char* pa_argv[]) <br />
 { <br />
 &nbsp; int i_fd; <br />
@@ -223,3 +207,5 @@ out: <br />
 } <br />
 </code>
 */
+
+<p>In the above example one could have used dvbpsi_sdt_attach() and dvbpsi_sdt_detach() functions directly.</p>
