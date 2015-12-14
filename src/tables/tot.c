@@ -56,7 +56,7 @@
  * Initialize a TDT/TOT subtable decoder.
  *****************************************************************************/
 bool dvbpsi_tot_attach(dvbpsi_t* p_dvbpsi, uint8_t i_table_id, uint16_t i_extension,
-                       dvbpsi_tot_callback pf_callback, void* p_cb_data)
+                       dvbpsi_tot_callback pf_callback, void* p_priv)
 {
     assert(p_dvbpsi);
 
@@ -79,7 +79,7 @@ bool dvbpsi_tot_attach(dvbpsi_t* p_dvbpsi, uint8_t i_table_id, uint16_t i_extens
 
     /* TDT/TOT decoder information */
     p_tot_decoder->pf_tot_callback = pf_callback;
-    p_tot_decoder->p_cb_data = p_cb_data;
+    p_tot_decoder->p_priv = p_priv;
     p_tot_decoder->p_building_tot = NULL;
 
     p_tot_decoder->i_table_id = i_table_id;
@@ -383,7 +383,7 @@ void dvbpsi_tot_sections_gather(dvbpsi_t* p_dvbpsi,
         dvbpsi_tot_sections_decode(p_dvbpsi, p_tot_decoder->p_building_tot,
                                    p_tot_decoder->p_sections);
         /* signal the new TOT */
-        p_tot_decoder->pf_tot_callback(p_tot_decoder->p_cb_data,
+        p_tot_decoder->pf_tot_callback(p_tot_decoder->p_priv,
                                        p_tot_decoder->p_building_tot);
         /* Delete sections and Reinitialize the structures */
         dvbpsi_ReInitTOT(p_tot_decoder, false);

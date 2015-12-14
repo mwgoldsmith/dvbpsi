@@ -38,7 +38,6 @@ typedef struct dvbpsi_sdt_decoder_s
     DVBPSI_DECODER_COMMON
 
     dvbpsi_sdt_callback           pf_sdt_callback;
-    void *                        p_cb_data;
 
     dvbpsi_sdt_t                  current_sdt;
     dvbpsi_sdt_t *                p_building_sdt;

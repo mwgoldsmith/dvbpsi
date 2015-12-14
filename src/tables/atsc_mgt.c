@@ -49,7 +49,6 @@ typedef struct dvbpsi_atsc_mgt_decoder_s
     DVBPSI_DECODER_COMMON
 
     dvbpsi_atsc_mgt_callback      pf_mgt_callback;
-    void *                        p_cb_data;
 
     dvbpsi_atsc_mgt_t             current_mgt;
     dvbpsi_atsc_mgt_t *           p_building_mgt;
@@ -84,7 +83,7 @@ static void dvbpsi_atsc_DecodeMGTSections(dvbpsi_atsc_mgt_t* p_mgt,
  * Initialize a MGT subtable decoder.
  *****************************************************************************/
 bool dvbpsi_atsc_mgt_attach(dvbpsi_t *p_dvbpsi, uint8_t i_table_id, uint16_t i_extension,
-                           dvbpsi_atsc_mgt_callback pf_callback, void* p_cb_data)
+                           dvbpsi_atsc_mgt_callback pf_callback, void* p_priv)
 {
     assert(p_dvbpsi);
 
@@ -105,7 +104,7 @@ bool dvbpsi_atsc_mgt_attach(dvbpsi_t *p_dvbpsi, uint8_t i_table_id, uint16_t i_e
 
     /* MGT decoder information */
     p_mgt_decoder->pf_mgt_callback = pf_callback;
-    p_mgt_decoder->p_cb_data = p_cb_data;
+    p_mgt_decoder->p_priv = p_priv;
     p_mgt_decoder->p_building_mgt = NULL;
     p_mgt_decoder->i_table_id = i_table_id;
     p_mgt_decoder->i_extension = i_extension;
@@ -458,7 +457,7 @@ static void dvbpsi_atsc_GatherMGTSections(dvbpsi_t *p_dvbpsi, dvbpsi_psi_section
                     {
                         p_mgt_decoder->current_mgt.b_current_next = true;
                         *p_mgt = p_mgt_decoder->current_mgt;
-                        p_mgt_decoder->pf_mgt_callback(p_mgt_decoder->p_cb_data, p_mgt);
+                        p_mgt_decoder->pf_mgt_callback(p_mgt_decoder->p_priv, p_mgt);
                     }
                     else
                         dvbpsi_error(p_dvbpsi, "ATSC MGT decoder", "Could not signal new ATSC MGT.");
@@ -491,7 +490,7 @@ static void dvbpsi_atsc_GatherMGTSections(dvbpsi_t *p_dvbpsi, dvbpsi_psi_section
         dvbpsi_atsc_DecodeMGTSections(p_mgt_decoder->p_building_mgt,
                                       p_mgt_decoder->p_sections);
         /* signal the new MGT */
-        p_mgt_decoder->pf_mgt_callback(p_mgt_decoder->p_cb_data,
+        p_mgt_decoder->pf_mgt_callback(p_mgt_decoder->p_priv,
                                        p_mgt_decoder->p_building_mgt);
         /* Delete sections and Reinitialize the structures */
         dvbpsi_ReInitMGT(p_mgt_decoder, false);

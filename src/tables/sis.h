@@ -340,11 +340,11 @@ typedef struct dvbpsi_sis_cmd_bandwidth_reservation_s
  * dvbpsi_sis_callback
  *****************************************************************************/
 /*!
- * \typedef void (* dvbpsi_sis_callback)(void* p_cb_data,
+ * \typedef void (* dvbpsi_sis_callback)(void* p_priv,
                                          dvbpsi_sis_t* p_new_sis)
  * \brief Callback type definition.
  */
-typedef void (* dvbpsi_sis_callback)(void* p_cb_data, dvbpsi_sis_t* p_new_sis);
+typedef void (* dvbpsi_sis_callback)(void* p_priv, dvbpsi_sis_t* p_new_sis);
 
 /*****************************************************************************
  * dvbpsi_sis_attach
@@ -352,17 +352,17 @@ typedef void (* dvbpsi_sis_callback)(void* p_cb_data, dvbpsi_sis_t* p_new_sis);
 /*!
  * \fn bool dvbpsi_sis_attach(dvbpsi_t *p_dvbpsi, uint8_t i_table_id,
           uint16_t i_extension, dvbpsi_sis_callback pf_callback,
-                               void* p_cb_data)
+                               void* p_priv)
  * \brief Creation and initialization of a SIS decoder. It is attached to p_dvbpsi.
  * \param p_dvbpsi pointer to dvbpsi to hold decoder/demuxer structure
  * \param i_table_id Table ID, 0xFC.
  * \param i_extension Table ID extension.
  * \param pf_callback function to call back on new SIS.
- * \param p_cb_data private data given in argument to the callback.
+ * \param p_priv private data given in argument to the callback.
  * \return true on success, false on failure
  */
 bool dvbpsi_sis_attach(dvbpsi_t* p_dvbpsi, uint8_t i_table_id, uint16_t i_extension,
-                      dvbpsi_sis_callback pf_callback, void* p_cb_data);
+                      dvbpsi_sis_callback pf_callback, void* p_priv);
 
 /*****************************************************************************
  * dvbpsi_sis_detach

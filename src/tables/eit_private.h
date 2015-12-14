@@ -38,7 +38,6 @@ typedef struct dvbpsi_eit_decoder_s
     DVBPSI_DECODER_COMMON
 
     dvbpsi_eit_callback           pf_eit_callback;
-    void *                        p_cb_data;
 
     dvbpsi_eit_t                  current_eit;
     dvbpsi_eit_t *                p_building_eit;

@@ -48,7 +48,6 @@ typedef struct dvbpsi_atsc_stt_decoder_s
      DVBPSI_DECODER_COMMON
 
      dvbpsi_atsc_stt_callback      pf_stt_callback;
-     void *                        p_cb_data;
 
      dvbpsi_atsc_stt_t             current_stt;
      dvbpsi_atsc_stt_t *           p_building_stt;
@@ -71,7 +70,7 @@ static void dvbpsi_atsc_DecodeSTTSections(dvbpsi_atsc_stt_t* p_stt,
  * Initialize a STT subtable decoder.
  *****************************************************************************/
 bool dvbpsi_atsc_stt_attach(dvbpsi_t* p_dvbpsi, uint8_t i_table_id, uint16_t i_extension,
-                           dvbpsi_atsc_stt_callback pf_stt_callback, void* p_cb_data)
+                           dvbpsi_atsc_stt_callback pf_stt_callback, void* p_priv)
 {
     assert(p_dvbpsi);
 
@@ -92,7 +91,7 @@ bool dvbpsi_atsc_stt_attach(dvbpsi_t* p_dvbpsi, uint8_t i_table_id, uint16_t i_e
 
     /* STT decoder information */
     p_stt_decoder->pf_stt_callback = pf_stt_callback;
-    p_stt_decoder->p_cb_data = p_cb_data;
+    p_stt_decoder->p_priv = p_priv;
     p_stt_decoder->p_building_stt = NULL;
 
     p_stt_decoder->i_table_id = i_table_id;
@@ -365,7 +364,7 @@ static void dvbpsi_atsc_GatherSTTSections(dvbpsi_t *p_dvbpsi, dvbpsi_psi_section
                     {
                         p_stt_decoder->current_stt.b_current_next = 1;
                         *p_stt = p_stt_decoder->current_stt;
-                        p_stt_decoder->pf_stt_callback(p_stt_decoder->p_cb_data, p_stt);
+                        p_stt_decoder->pf_stt_callback(p_stt_decoder->p_priv, p_stt);
                     }
                 }
                 else
@@ -398,7 +397,7 @@ static void dvbpsi_atsc_GatherSTTSections(dvbpsi_t *p_dvbpsi, dvbpsi_psi_section
         dvbpsi_atsc_DecodeSTTSections(p_stt_decoder->p_building_stt,
                                       p_stt_decoder->p_sections);
         /* signal the new STT */
-        p_stt_decoder->pf_stt_callback(p_stt_decoder->p_cb_data,
+        p_stt_decoder->pf_stt_callback(p_stt_decoder->p_priv,
                                        p_stt_decoder->p_building_stt);
         /* Delete sections and Reinitialize the structures */
         dvbpsi_ReInitSTT(p_stt_decoder, false);

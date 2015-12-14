@@ -37,7 +37,6 @@ typedef struct dvbpsi_sis_decoder_s
     DVBPSI_DECODER_COMMON
 
     dvbpsi_sis_callback           pf_sis_callback;
-    void *                        p_cb_data;
 
     /* */
     dvbpsi_sis_t                  current_sis;

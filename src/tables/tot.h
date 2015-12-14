@@ -74,28 +74,28 @@ typedef struct dvbpsi_tot_s
  * dvbpsi_tot_callback
  *****************************************************************************/
 /*!
- * \typedef void (* dvbpsi_tot_callback)(void* p_cb_data,
+ * \typedef void (* dvbpsi_tot_callback)(void* p_priv,
                                          dvbpsi_tot_t* p_new_tot)
  * \brief Callback type definition.
  */
-typedef void (* dvbpsi_tot_callback)(void* p_cb_data, dvbpsi_tot_t* p_new_tot);
+typedef void (* dvbpsi_tot_callback)(void* p_priv, dvbpsi_tot_t* p_new_tot);
 
 /*****************************************************************************
  * dvbpsi_tot_attach
  *****************************************************************************/
 /*!
  * \fn bool dvbpsi_tot_attach(dvbpsi_t* p_dvbpsi, uint8_t i_table_id, uint16_t i_extension,
-                            dvbpsi_tot_callback pf_callback, void* p_cb_data)
+                            dvbpsi_tot_callback pf_callback, void* p_priv)
  * \brief Creation and initialization of a TDT/TOT decoder.
  * \param p_dvbpsi dvbpsi handle pointing to Subtable demultiplexor to which the decoder is attached.
  * \param i_table_id Table ID, usually 0x70
  * \param i_extension Table ID extension, unused in the TDT/TOT
  * \param pf_callback function to call back on new TDT/TOT.
- * \param p_cb_data private data given in argument to the callback.
+ * \param p_priv private data given in argument to the callback.
  * \return true on success, false on failure
  */
 bool dvbpsi_tot_attach(dvbpsi_t* p_dvbpsi, uint8_t i_table_id, uint16_t i_extension,
-                       dvbpsi_tot_callback pf_callback, void* p_cb_data);
+                       dvbpsi_tot_callback pf_callback, void* p_priv);
 
 /*****************************************************************************
  * dvbpsi_tot_detach

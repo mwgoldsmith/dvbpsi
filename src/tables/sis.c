@@ -54,7 +54,7 @@
  * Initialize a SIS subtable decoder.
  *****************************************************************************/
 bool dvbpsi_sis_attach(dvbpsi_t *p_dvbpsi, uint8_t i_table_id, uint16_t i_extension,
-                      dvbpsi_sis_callback pf_callback, void* p_cb_data)
+                      dvbpsi_sis_callback pf_callback, void* p_priv)
 {
     assert(p_dvbpsi);
 
@@ -77,7 +77,7 @@ bool dvbpsi_sis_attach(dvbpsi_t *p_dvbpsi, uint8_t i_table_id, uint16_t i_extens
 
     /* SIS decoder information */
     p_sis_decoder->pf_sis_callback = pf_callback;
-    p_sis_decoder->p_cb_data = p_cb_data;
+    p_sis_decoder->p_priv = p_priv;
     p_sis_decoder->p_building_sis = NULL;
 
     p_sis_decoder->i_table_id = i_table_id;
@@ -403,7 +403,7 @@ void dvbpsi_sis_sections_gather(dvbpsi_t *p_dvbpsi, dvbpsi_psi_section_t * p_sec
         dvbpsi_sis_sections_decode(p_dvbpsi, p_sis_decoder->p_building_sis,
                                    p_sis_decoder->p_sections);
         /* signal the new SDT */
-        p_sis_decoder->pf_sis_callback(p_sis_decoder->p_cb_data,
+        p_sis_decoder->pf_sis_callback(p_sis_decoder->p_priv,
                                        p_sis_decoder->p_building_sis);
         /* Delete sections and Reinitialize the structures */
         dvbpsi_ReInitSIS(p_sis_decoder, false);

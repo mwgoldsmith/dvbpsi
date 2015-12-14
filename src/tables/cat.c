@@ -56,7 +56,7 @@
  * Initialize a CAT decoder and return a handle on it.
  *****************************************************************************/
 bool dvbpsi_cat_attach(dvbpsi_t *p_dvbpsi, uint8_t i_table_id, uint16_t i_extension,
-                       dvbpsi_cat_callback pf_callback, void* p_cb_data)
+                       dvbpsi_cat_callback pf_callback, void* p_priv)
 {
     assert(p_dvbpsi);
 
@@ -78,7 +78,7 @@ bool dvbpsi_cat_attach(dvbpsi_t *p_dvbpsi, uint8_t i_table_id, uint16_t i_extens
 
     /* CAT decoder configuration */
     p_cat_decoder->pf_cat_callback = pf_callback;
-    p_cat_decoder->p_cb_data = p_cb_data;
+    p_cat_decoder->p_priv = p_priv;
     p_cat_decoder->p_building_cat = NULL;
 
     p_cat_decoder->i_table_id = i_table_id;
@@ -360,7 +360,7 @@ void dvbpsi_cat_sections_gather(dvbpsi_t *p_dvbpsi, dvbpsi_psi_section_t* p_sect
         dvbpsi_cat_sections_decode(p_cat_decoder->p_building_cat,
                                    p_cat_decoder->p_sections);
         /* signal the new CAT */
-        p_cat_decoder->pf_cat_callback(p_cat_decoder->p_cb_data,
+        p_cat_decoder->pf_cat_callback(p_cat_decoder->p_priv,
                                        p_cat_decoder->p_building_cat);
         /* Delete sections and Reinitialize the structures */
         dvbpsi_ReInitCAT(p_cat_decoder, false);

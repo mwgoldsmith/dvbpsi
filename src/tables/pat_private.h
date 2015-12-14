@@ -38,7 +38,6 @@ typedef struct dvbpsi_pat_decoder_s
     DVBPSI_DECODER_COMMON
 
     dvbpsi_pat_callback           pf_pat_callback;
-    void *                        p_cb_data;
 
     dvbpsi_pat_t                  current_pat;
     dvbpsi_pat_t *                p_building_pat;

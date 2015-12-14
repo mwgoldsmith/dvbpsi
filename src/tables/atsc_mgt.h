@@ -92,29 +92,29 @@ typedef struct dvbpsi_atsc_mgt_s
  * dvbpsi_mgt_callback
  *****************************************************************************/
 /*!
- * \typedef void (* dvbpsi_atsc_mgt_callback)(void* p_cb_data,
+ * \typedef void (* dvbpsi_atsc_mgt_callback)(void* p_priv,
                                          dvbpsi_atsc_mgt_t* p_new_mgt)
  * \brief Callback type definition.
  */
-typedef void (* dvbpsi_atsc_mgt_callback)(void* p_cb_data, dvbpsi_atsc_mgt_t* p_new_mgt);
+typedef void (* dvbpsi_atsc_mgt_callback)(void* p_priv, dvbpsi_atsc_mgt_t* p_new_mgt);
 
 /*****************************************************************************
  * dvbpsi_atsc_mgt_attach
  *****************************************************************************/
 /*!
  * \fn bool dvbpsi_atsc_mgt_attach(dvbpsi_t *p_dvbpsi, uint8_t i_table_id, uint16_t i_extension,
-                           dvbpsi_atsc_mgt_callback pf_callback, void* p_cb_data)
+                           dvbpsi_atsc_mgt_callback pf_callback, void* p_priv)
  *
  * \brief Creation and initialization of a MGT decoder.
  * \param p_dvbpsi dvbpsi handle to Subtable demultiplexor to which the decoder is attached
  * \param i_table_id Table ID, 0xC7.
  * \param i_extension Table ID extension, here 0x0000.
  * \param pf_callback function to call back on new MGT.
- * \param p_cb_data private data given in argument to the callback.
+ * \param p_priv private data given in argument to the callback.
  * \return true if everything went ok, false otherwise
  */
 bool dvbpsi_atsc_mgt_attach(dvbpsi_t *p_dvbpsi, uint8_t i_table_id, uint16_t i_extension,
-                           dvbpsi_atsc_mgt_callback pf_callback, void* p_cb_data);
+                           dvbpsi_atsc_mgt_callback pf_callback, void* p_priv);
 
 /*!
  * \brief dvbpsi_atsc_AttachMGT is deprecated use @see dvbpsi_atsc_mgt_attach() instead.
@@ -122,15 +122,15 @@ bool dvbpsi_atsc_mgt_attach(dvbpsi_t *p_dvbpsi, uint8_t i_table_id, uint16_t i_e
  * \param i_table_id Table ID, 0xC7.
  * \param i_extension Table ID extension, here 0x0000.
  * \param pf_callback function to call back on new MGT.
- * \param p_cb_data private data given in argument to the callback.
+ * \param p_priv private data given in argument to the callback.
  * \return true if everything went ok, false otherwise
  */
 __attribute__((deprecated,unused))
 inline bool dvbpsi_atsc_AttachMGT(dvbpsi_t *p_dvbpsi, uint8_t i_table_id,
-    uint16_t i_extension, dvbpsi_atsc_mgt_callback pf_callback, void* p_cb_data)
+    uint16_t i_extension, dvbpsi_atsc_mgt_callback pf_callback, void* p_priv)
 {
     dvbpsi_atsc_mgt_attach(p_dvbpsi, i_table_id, i_extension,
-                           pf_callback, p_cb_data);
+                           pf_callback, p_priv);
 }
 
 /*****************************************************************************

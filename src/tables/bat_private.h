@@ -39,7 +39,6 @@ typedef struct dvbpsi_bat_decoder_s
     DVBPSI_DECODER_COMMON
 
     dvbpsi_bat_callback           pf_bat_callback;
-    void *                        p_cb_data;
 
     dvbpsi_bat_t                  current_bat;
     dvbpsi_bat_t *                p_building_bat;

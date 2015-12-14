@@ -56,7 +56,7 @@
  * Initialize a BAT subtable decoder.
  *****************************************************************************/
 bool dvbpsi_bat_attach(dvbpsi_t *p_dvbpsi, uint8_t i_table_id,
-          uint16_t i_extension, dvbpsi_bat_callback pf_callback, void* p_cb_data)
+          uint16_t i_extension, dvbpsi_bat_callback pf_callback, void* p_priv)
 {
     assert(p_dvbpsi);
 
@@ -78,7 +78,7 @@ bool dvbpsi_bat_attach(dvbpsi_t *p_dvbpsi, uint8_t i_table_id,
 
     /* BAT decoder information */
     p_bat_decoder->pf_bat_callback = pf_callback;
-    p_bat_decoder->p_cb_data = p_cb_data;
+    p_bat_decoder->p_priv = p_priv;
     p_bat_decoder->p_building_bat = NULL;
 
     p_bat_decoder->i_table_id = i_table_id;
@@ -417,7 +417,7 @@ void dvbpsi_bat_sections_gather(dvbpsi_t *p_dvbpsi,
                 {
                     p_bat_decoder->current_bat.b_current_next = true;
                     memcpy(p_bat, &p_bat_decoder->current_bat, sizeof(dvbpsi_bat_t));
-                    p_bat_decoder->pf_bat_callback(p_bat_decoder->p_cb_data, p_bat);
+                    p_bat_decoder->pf_bat_callback(p_bat_decoder->p_priv, p_bat);
                 }
                 else
                     dvbpsi_error(p_dvbpsi, "BAT decoder", "Could not signal new BAT.");
@@ -449,7 +449,7 @@ void dvbpsi_bat_sections_gather(dvbpsi_t *p_dvbpsi,
         dvbpsi_bat_sections_decode(p_bat_decoder->p_building_bat,
                                    p_bat_decoder->p_sections);
         /* signal the new BAT */
-        p_bat_decoder->pf_bat_callback(p_bat_decoder->p_cb_data,
+        p_bat_decoder->pf_bat_callback(p_bat_decoder->p_priv,
                                        p_bat_decoder->p_building_bat);
         /* Delete sections and Reinitialize the structures */
         dvbpsi_ReInitBAT(p_bat_decoder, false);

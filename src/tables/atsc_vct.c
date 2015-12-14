@@ -47,7 +47,6 @@ typedef struct dvbpsi_atsc_vct_decoder_s
     DVBPSI_DECODER_COMMON
 
     dvbpsi_atsc_vct_callback      pf_vct_callback;
-    void *                        p_cb_data;
 
     dvbpsi_atsc_vct_t             current_vct;
     dvbpsi_atsc_vct_t *           p_building_vct;
@@ -93,7 +92,7 @@ static void dvbpsi_atsc_DecodeVCTSections(dvbpsi_atsc_vct_t* p_vct,
  * Initialize a VCT subtable decoder.
  *****************************************************************************/
 bool dvbpsi_atsc_vct_attach(dvbpsi_t *p_dvbpsi, uint8_t i_table_id, uint16_t i_extension,
-                          dvbpsi_atsc_vct_callback pf_vct_callback, void* p_cb_data)
+                          dvbpsi_atsc_vct_callback pf_vct_callback, void* p_priv)
 {
     assert(p_dvbpsi);
 
@@ -115,7 +114,7 @@ bool dvbpsi_atsc_vct_attach(dvbpsi_t *p_dvbpsi, uint8_t i_table_id, uint16_t i_e
 
     /* VCT decoder information */
     p_vct_decoder->pf_vct_callback = pf_vct_callback;
-    p_vct_decoder->p_cb_data = p_cb_data;
+    p_vct_decoder->p_priv = p_priv;
     p_vct_decoder->p_building_vct = NULL;
 
     p_vct_decoder->i_table_id = i_table_id;
@@ -503,7 +502,7 @@ static void dvbpsi_atsc_GatherVCTSections(dvbpsi_t *p_dvbpsi, dvbpsi_psi_section
                     {
                         p_vct_decoder->current_vct.b_current_next = 1;
                         *p_vct = p_vct_decoder->current_vct;
-                        p_vct_decoder->pf_vct_callback(p_vct_decoder->p_cb_data, p_vct);
+                        p_vct_decoder->pf_vct_callback(p_vct_decoder->p_priv, p_vct);
                     }
                 }
                 else
@@ -536,7 +535,7 @@ static void dvbpsi_atsc_GatherVCTSections(dvbpsi_t *p_dvbpsi, dvbpsi_psi_section
         dvbpsi_atsc_DecodeVCTSections(p_vct_decoder->p_building_vct,
                                       p_vct_decoder->p_sections);
         /* signal the new VCT */
-        p_vct_decoder->pf_vct_callback(p_vct_decoder->p_cb_data,
+        p_vct_decoder->pf_vct_callback(p_vct_decoder->p_priv,
                                        p_vct_decoder->p_building_vct);
         /* Delete sections and Reinitialize the structures */
         dvbpsi_ReInitVCT(p_vct_decoder, false);

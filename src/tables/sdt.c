@@ -54,7 +54,7 @@
  * Initialize a SDT subtable decoder.
  *****************************************************************************/
 bool dvbpsi_sdt_attach(dvbpsi_t *p_dvbpsi, uint8_t i_table_id, uint16_t i_extension,
-                      dvbpsi_sdt_callback pf_callback, void* p_cb_data)
+                      dvbpsi_sdt_callback pf_callback, void* p_priv)
 {
     assert(p_dvbpsi);
 
@@ -76,7 +76,7 @@ bool dvbpsi_sdt_attach(dvbpsi_t *p_dvbpsi, uint8_t i_table_id, uint16_t i_extens
 
     /* SDT decoder information */
     p_sdt_decoder->pf_sdt_callback = pf_callback;
-    p_sdt_decoder->p_cb_data = p_cb_data;
+    p_sdt_decoder->p_priv = p_priv;
     p_sdt_decoder->p_building_sdt = NULL;
 
     p_sdt_decoder->i_table_id = i_table_id;
@@ -418,7 +418,7 @@ void dvbpsi_sdt_sections_gather(dvbpsi_t *p_dvbpsi, dvbpsi_psi_section_t *p_sect
         dvbpsi_sdt_sections_decode(p_sdt_decoder->p_building_sdt,
                                    p_sdt_decoder->p_sections);
         /* signal the new SDT */
-        p_sdt_decoder->pf_sdt_callback(p_sdt_decoder->p_cb_data,
+        p_sdt_decoder->pf_sdt_callback(p_sdt_decoder->p_priv,
                                        p_sdt_decoder->p_building_sdt);
         /* Delete sections and Reinitialize the structures */
         dvbpsi_ReInitSDT(p_sdt_decoder, false);

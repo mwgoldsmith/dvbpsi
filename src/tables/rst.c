@@ -54,7 +54,7 @@
  * Initialize a RST decoder and return a handle on it.
  *****************************************************************************/
 bool dvbpsi_rst_attach(dvbpsi_t *p_dvbpsi, uint8_t i_table_id, uint16_t i_extension,
-                       dvbpsi_rst_callback pf_callback, void* p_cb_data)
+                       dvbpsi_rst_callback pf_callback, void* p_priv)
 {
     assert(p_dvbpsi);
 
@@ -76,7 +76,7 @@ bool dvbpsi_rst_attach(dvbpsi_t *p_dvbpsi, uint8_t i_table_id, uint16_t i_extens
 
     /* RST decoder configuration */
     p_rst_decoder->pf_rst_callback = pf_callback;
-    p_rst_decoder->p_cb_data = p_cb_data;
+    p_rst_decoder->p_priv = p_priv;
     p_rst_decoder->p_building_rst = NULL;
 
     p_rst_decoder->i_table_id = i_table_id;
@@ -426,7 +426,7 @@ void dvbpsi_rst_sections_gather(dvbpsi_t *p_dvbpsi,
         dvbpsi_rst_sections_decode(p_rst_decoder->p_building_rst,
                                    p_rst_decoder->p_sections);
         /* signal the new CAT */
-        p_rst_decoder->pf_rst_callback(p_rst_decoder->p_cb_data,
+        p_rst_decoder->pf_rst_callback(p_rst_decoder->p_priv,
                                        p_rst_decoder->p_building_rst);
         /* Delete sectioins and Reinitialize the structures */
         dvbpsi_rst_reset(p_rst_decoder, false);

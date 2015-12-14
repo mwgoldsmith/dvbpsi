@@ -57,7 +57,7 @@
  *****************************************************************************/
 bool dvbpsi_nit_attach(dvbpsi_t* p_dvbpsi, uint8_t i_table_id,
                       uint16_t i_extension, dvbpsi_nit_callback pf_callback,
-                      void* p_cb_data)
+                      void* p_priv)
 {
     assert(p_dvbpsi);
 
@@ -80,7 +80,7 @@ bool dvbpsi_nit_attach(dvbpsi_t* p_dvbpsi, uint8_t i_table_id,
     /* NIT decoder information */
     p_nit_decoder->i_network_id = i_extension;
     p_nit_decoder->pf_nit_callback = pf_callback;
-    p_nit_decoder->p_cb_data = p_cb_data;
+    p_nit_decoder->p_priv = p_priv;
     p_nit_decoder->p_building_nit = NULL;
 
     p_nit_decoder->i_table_id = i_table_id;
@@ -442,7 +442,7 @@ void dvbpsi_nit_sections_gather(dvbpsi_t *p_dvbpsi, dvbpsi_psi_section_t *p_sect
         dvbpsi_nit_sections_decode(p_nit_decoder->p_building_nit,
                                    p_nit_decoder->p_sections);
         /* signal the new NIT */
-        p_nit_decoder->pf_nit_callback(p_nit_decoder->p_cb_data,
+        p_nit_decoder->pf_nit_callback(p_nit_decoder->p_priv,
                                        p_nit_decoder->p_building_nit);
         /* Delete sections and Reinitialize the structures */
         dvbpsi_ReInitNIT(p_nit_decoder, false);

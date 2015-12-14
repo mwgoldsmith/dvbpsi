@@ -105,11 +105,11 @@ typedef struct dvbpsi_atsc_vct_s
  * dvbpsi_vct_callback
  *****************************************************************************/
 /*!
- * \typedef void (* dvbpsi_atsc_vct_callback)(void* p_cb_data,
+ * \typedef void (* dvbpsi_atsc_vct_callback)(void* p_priv,
  *                                       dvbpsi_atsc_vct_t* p_new_vct)
  * \brief Callback type definition.
  */
-typedef void (* dvbpsi_atsc_vct_callback)(void* p_cb_data, dvbpsi_atsc_vct_t* p_new_vct);
+typedef void (* dvbpsi_atsc_vct_callback)(void* p_priv, dvbpsi_atsc_vct_t* p_new_vct);
 
 /*****************************************************************************
  * dvbpsi_atsc_vct_attach
@@ -117,18 +117,18 @@ typedef void (* dvbpsi_atsc_vct_callback)(void* p_cb_data, dvbpsi_atsc_vct_t* p_
 /*!
  * \fn bool dvbpsi_atsc_vct_attach(dvbpsi_t *p_dvbpsi, uint8_t i_table_id,
           uint16_t i_extension, dvbpsi_atsc_vct_callback pf_vct_callback,
-                           void* p_cb_data)
+                           void* p_priv)
  * \brief Creation and initialization of a VCT decoder.
  * \param p_dvbpsi dvbpsi handle to Subtable demultiplexor to which the decoder is attached.
  * \param i_table_id Table ID, 0xC8 or 0xC9.
  * \param i_extension Table ID extension, here TS ID.
  * \param pf_vct_callback function to call back on new VCT.
- * \param p_cb_data private data given in argument to the callback.
+ * \param p_priv private data given in argument to the callback.
  * \return true if everything went ok, else false.
  */
 bool dvbpsi_atsc_vct_attach(dvbpsi_t *p_dvbpsi, uint8_t i_table_id,
           uint16_t i_extension, dvbpsi_atsc_vct_callback pf_vct_callback,
-                           void* p_cb_data);
+                           void* p_priv);
 
 /*!
  * \brief dvbpsi_atsc_AttachVCT is deprecated use @see dvbpsi_atsc_vct_attach() instead.
@@ -136,16 +136,16 @@ bool dvbpsi_atsc_vct_attach(dvbpsi_t *p_dvbpsi, uint8_t i_table_id,
  * \param i_table_id Table ID, 0xC8 or 0xC9.
  * \param i_extension Table ID extension, here TS ID.
  * \param pf_vct_callback function to call back on new VCT.
- * \param p_cb_data private data given in argument to the callback.
+ * \param p_priv private data given in argument to the callback.
  * \return true if everything went ok, else false.
  */
 __attribute__((deprecated,unused))
 inline bool dvbpsi_atsc_AttachVCT(dvbpsi_t *p_dvbpsi, uint8_t i_table_id,
             uint16_t i_extension, dvbpsi_atsc_vct_callback pf_vct_callback,
-            void* p_cb_data)
+            void* p_priv)
 {
     return dvbpsi_atsc_vct_attach(p_dvbpsi, i_table_id, i_extension,
-                                 pf_vct_callback, p_cb_data);
+                                 pf_vct_callback, p_priv);
 }
 
 /*****************************************************************************

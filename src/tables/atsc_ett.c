@@ -54,7 +54,6 @@ typedef struct dvbpsi_atsc_ett_decoder_s
     DVBPSI_DECODER_COMMON
 
     dvbpsi_atsc_ett_callback      pf_ett_callback;
-    void *                        p_cb_data;
 
     dvbpsi_atsc_ett_t             current_ett;
     dvbpsi_atsc_ett_t *           p_building_ett;
@@ -83,7 +82,7 @@ static void dvbpsi_atsc_DecodeETTSections(dvbpsi_atsc_ett_t* p_ett,
  * Initialize a ETT decoder and return a handle on it.
  *****************************************************************************/
 bool dvbpsi_atsc_ett_attach(dvbpsi_t * p_dvbpsi, uint8_t i_table_id, uint16_t i_extension,
-                          dvbpsi_atsc_ett_callback pf_callback, void* p_cb_data)
+                          dvbpsi_atsc_ett_callback pf_callback, void* p_priv)
 {
     assert(p_dvbpsi);
 
@@ -104,7 +103,7 @@ bool dvbpsi_atsc_ett_attach(dvbpsi_t * p_dvbpsi, uint8_t i_table_id, uint16_t i_
 
     /* ETT decoder information */
     p_ett_decoder->pf_ett_callback = pf_callback;
-    p_ett_decoder->p_cb_data = p_cb_data;
+    p_ett_decoder->p_priv = p_priv;
     p_ett_decoder->p_building_ett = NULL;
 
     p_ett_decoder->i_table_id = i_table_id;
@@ -384,7 +383,7 @@ static void dvbpsi_atsc_GatherETTSections(dvbpsi_t* p_dvbpsi,
         dvbpsi_atsc_DecodeETTSections(p_ett_decoder->p_building_ett,
                                       p_ett_decoder->p_sections);
         /* signal the new ETT */
-        p_ett_decoder->pf_ett_callback(p_ett_decoder->p_cb_data,
+        p_ett_decoder->pf_ett_callback(p_ett_decoder->p_priv,
                                        p_ett_decoder->p_building_ett);
         /* Delete sections and Reinitialize the structures */
         dvbpsi_ReInitETT(p_ett_decoder, false);

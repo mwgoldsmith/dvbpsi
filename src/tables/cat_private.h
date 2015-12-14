@@ -40,7 +40,6 @@ typedef struct dvbpsi_cat_decoder_s
     DVBPSI_DECODER_COMMON
 
     dvbpsi_cat_callback           pf_cat_callback;
-    void *                        p_cb_data;
 
     dvbpsi_cat_t                  current_cat;
     dvbpsi_cat_t *                p_building_cat;

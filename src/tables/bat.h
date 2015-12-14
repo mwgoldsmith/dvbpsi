@@ -105,28 +105,28 @@ typedef struct dvbpsi_bat_s
  * dvbpsi_bat_callback
  *****************************************************************************/
 /*!
- * \typedef void (* dvbpsi_bat_callback)(void* p_cb_data,
+ * \typedef void (* dvbpsi_bat_callback)(void* p_priv,
                                          dvbpsi_bat_t* p_new_bat)
  * \brief Callback type definition.
  */
-typedef void (* dvbpsi_bat_callback)(void* p_cb_data, dvbpsi_bat_t* p_new_bat);
+typedef void (* dvbpsi_bat_callback)(void* p_priv, dvbpsi_bat_t* p_new_bat);
 
 /*****************************************************************************
  * dvbpsi_bat_attach
  *****************************************************************************/
 /*!
  * \fn bool dvbpsi_bat_attach(dvbpsi_t *p_dvbpsi, uint8_t i_table_id,
-          uint16_t i_extension, dvbpsi_bat_callback pf_callback, void* p_cb_data)
+          uint16_t i_extension, dvbpsi_bat_callback pf_callback, void* p_priv)
  * \brief Creation and initialization of a BAT decoder. It will be attached to p_dvbpsi.
  * \param p_dvbpsi dvbpsi handle to Subtable demultiplexor to which the decoder is attached.
  * \param i_table_id Table ID, 0x4a.
  * \param i_extension Table ID extension, here bouquet ID.
  * \param pf_callback function to call back on new BAT.
- * \param p_cb_data private data given in argument to the callback.
+ * \param p_priv private data given in argument to the callback.
  * \return true on success, false on failure
  */
 bool dvbpsi_bat_attach(dvbpsi_t *p_dvbpsi, uint8_t i_table_id, uint16_t i_extension,
-                       dvbpsi_bat_callback pf_callback, void* p_cb_data);
+                       dvbpsi_bat_callback pf_callback, void* p_priv);
 
 /*****************************************************************************
  * dvbpsi_bat_detach

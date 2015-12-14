@@ -52,7 +52,7 @@
  * Initialize a PAT decoder and return a handle on it.
  *****************************************************************************/
 bool dvbpsi_pat_attach(dvbpsi_t *p_dvbpsi, uint8_t i_table_id, uint16_t i_extension,
-                       dvbpsi_pat_callback pf_callback, void* p_cb_data)
+                       dvbpsi_pat_callback pf_callback, void* p_priv)
 {
     assert(p_dvbpsi);
 
@@ -74,7 +74,7 @@ bool dvbpsi_pat_attach(dvbpsi_t *p_dvbpsi, uint8_t i_table_id, uint16_t i_extens
 
     /* PAT decoder information */
     p_pat_decoder->pf_pat_callback = pf_callback;
-    p_pat_decoder->p_cb_data = p_cb_data;
+    p_pat_decoder->p_priv = p_priv;
     p_pat_decoder->p_building_pat = NULL;
 
     p_pat_decoder->i_table_id = i_table_id;
@@ -378,7 +378,7 @@ void dvbpsi_pat_sections_gather(dvbpsi_t* p_dvbpsi, dvbpsi_psi_section_t* p_sect
 
         /* signal the new PAT */
         if (p_pat_decoder->b_current_valid)
-            p_pat_decoder->pf_pat_callback(p_pat_decoder->p_cb_data,
+            p_pat_decoder->pf_pat_callback(p_pat_decoder->p_priv,
                                            p_pat_decoder->p_building_pat);
 
         /* Delete sectioins and Reinitialize the structures */

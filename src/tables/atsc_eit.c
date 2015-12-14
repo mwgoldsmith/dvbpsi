@@ -48,7 +48,6 @@ typedef struct dvbpsi_atsc_eit_decoder_s
     DVBPSI_DECODER_COMMON
 
     dvbpsi_atsc_eit_callback      pf_eit_callback;
-    void *                        p_cb_data;
 
     dvbpsi_atsc_eit_t             current_eit;
     dvbpsi_atsc_eit_t *           p_building_eit;
@@ -81,7 +80,7 @@ static void dvbpsi_atsc_DecodeEITSections(dvbpsi_atsc_eit_t* p_eit,
  * Initialize a EIT subtable decoder.
  *****************************************************************************/
 bool dvbpsi_atsc_eit_attach(dvbpsi_t *p_dvbpsi, uint8_t i_table_id, uint16_t i_extension,
-                           dvbpsi_atsc_eit_callback pf_callback, void* p_cb_data)
+                           dvbpsi_atsc_eit_callback pf_callback, void* p_priv)
 {
     assert(p_dvbpsi);
 
@@ -102,7 +101,7 @@ bool dvbpsi_atsc_eit_attach(dvbpsi_t *p_dvbpsi, uint8_t i_table_id, uint16_t i_e
 
     /* EIT decoder information */
     p_eit_decoder->pf_eit_callback = pf_callback;
-    p_eit_decoder->p_cb_data = p_cb_data;
+    p_eit_decoder->p_priv = p_priv;
     p_eit_decoder->p_building_eit = NULL;
 
     p_eit_decoder->i_table_id = i_table_id;
@@ -437,7 +436,7 @@ static void dvbpsi_atsc_GatherEITSections(dvbpsi_t *p_dvbpsi,
                     {
                         p_eit_decoder->current_eit.b_current_next = true;
                         *p_eit = p_eit_decoder->current_eit;
-                        p_eit_decoder->pf_eit_callback(p_eit_decoder->p_cb_data, p_eit);
+                        p_eit_decoder->pf_eit_callback(p_eit_decoder->p_priv, p_eit);
                     }
                     else
                         dvbpsi_error(p_dvbpsi, "ATSC EIT decoder", "Could not signal new ATSC EIT.");
@@ -470,7 +469,7 @@ static void dvbpsi_atsc_GatherEITSections(dvbpsi_t *p_dvbpsi,
         dvbpsi_atsc_DecodeEITSections(p_eit_decoder->p_building_eit,
                                       p_eit_decoder->p_sections);
         /* signal the new EIT */
-        p_eit_decoder->pf_eit_callback(p_eit_decoder->p_cb_data,
+        p_eit_decoder->pf_eit_callback(p_eit_decoder->p_priv,
                                        p_eit_decoder->p_building_eit);
         /* Delete sections and Reinitialize the structures */
         dvbpsi_ReInitEIT(p_eit_decoder, false);

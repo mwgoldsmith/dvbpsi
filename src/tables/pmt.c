@@ -54,7 +54,7 @@
  * Initialize a PMT decoder and return a handle on it.
  *****************************************************************************/
 bool dvbpsi_pmt_attach(dvbpsi_t *p_dvbpsi, uint8_t i_table_id, uint16_t i_extension,
-                       dvbpsi_pmt_callback pf_callback, void* p_cb_data)
+                       dvbpsi_pmt_callback pf_callback, void* p_priv)
 {
     assert(p_dvbpsi);
 
@@ -77,7 +77,7 @@ bool dvbpsi_pmt_attach(dvbpsi_t *p_dvbpsi, uint8_t i_table_id, uint16_t i_extens
     /* PMT decoder configuration */
     p_pmt_decoder->i_program_number = i_extension;
     p_pmt_decoder->pf_pmt_callback = pf_callback;
-    p_pmt_decoder->p_cb_data = p_cb_data;
+    p_pmt_decoder->p_priv = p_priv;
     p_pmt_decoder->p_building_pmt = NULL;
 
     p_pmt_decoder->i_table_id = i_table_id;
@@ -431,7 +431,7 @@ void dvbpsi_pmt_sections_gather(dvbpsi_t *p_dvbpsi, dvbpsi_psi_section_t* p_sect
         dvbpsi_pmt_sections_decode(p_pmt_decoder->p_building_pmt,
                                    p_pmt_decoder->p_sections);
         /* signal the new PMT */
-        p_pmt_decoder->pf_pmt_callback(p_pmt_decoder->p_cb_data,
+        p_pmt_decoder->pf_pmt_callback(p_pmt_decoder->p_priv,
                                        p_pmt_decoder->p_building_pmt);
         /* Delete sections and Reinitialize the structures */
         dvbpsi_ReInitPMT(p_pmt_decoder, false);

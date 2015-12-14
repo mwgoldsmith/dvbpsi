@@ -40,7 +40,6 @@ typedef struct dvbpsi_nit_decoder_s
     DVBPSI_DECODER_COMMON
 
     dvbpsi_nit_callback           pf_nit_callback;
-    void *                        p_cb_data;
 
     dvbpsi_nit_t                  current_nit;
     dvbpsi_nit_t *                p_building_nit;

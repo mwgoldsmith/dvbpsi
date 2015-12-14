@@ -67,28 +67,28 @@ typedef struct dvbpsi_cat_s
  * dvbpsi_cat_callback
  *****************************************************************************/
 /*!
- * \typedef void (* dvbpsi_cat_callback)(void* p_cb_data,
+ * \typedef void (* dvbpsi_cat_callback)(void* p_priv,
                                          dvbpsi_cat_t* p_new_cat)
  * \brief Callback type definition.
  */
-typedef void (* dvbpsi_cat_callback)(void* p_cb_data, dvbpsi_cat_t* p_new_cat);
+typedef void (* dvbpsi_cat_callback)(void* p_priv, dvbpsi_cat_t* p_new_cat);
 
 /*****************************************************************************
  * dvbpsi_cat_attach
  *****************************************************************************/
 /*!
  * \fn bool dvbpsi_cat_attach(dvbpsi_t *p_dvbpsi, uint8_t i_table_id, uint16_t i_extension,
-                            dvbpsi_cat_callback pf_callback, void* p_cb_data)
+                            dvbpsi_cat_callback pf_callback, void* p_priv)
  * \brief Creation and initialization of a CAT decoder. It will be attached to p_dvbpsi
  * \param p_dvbpsi is a pointer to dvbpsi_t which holds a pointer to the decoder
  * \param i_table_id Table ID, here 0x01
  * \param i_extension Table ID extension.
  * \param pf_callback function to call back on new CAT
- * \param p_cb_data private data given in argument to the callback
+ * \param p_priv private data given in argument to the callback
  * \return true on success, false on failure
  */
 bool dvbpsi_cat_attach(dvbpsi_t *p_dvbpsi, uint8_t i_table_id, uint16_t i_extension,
-                       dvbpsi_cat_callback pf_callback, void* p_cb_data);
+                       dvbpsi_cat_callback pf_callback, void* p_priv);
 
 /*****************************************************************************
  * dvbpsi_cat_detach
