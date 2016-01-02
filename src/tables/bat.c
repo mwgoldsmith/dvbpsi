@@ -306,7 +306,7 @@ static bool dvbpsi_CheckBAT(dvbpsi_t *p_dvbpsi, dvbpsi_bat_decoder_t *p_bat_deco
     {
         /* bouquet_id */
         dvbpsi_error(p_dvbpsi, "BAT decoder", "'bouquet_id' differs"
-                        " whereas no TS discontinuity has occured");
+                        " whereas no TS discontinuity has occurred");
         b_reinit = true;
     }
     else if (p_bat_decoder->p_building_bat->i_version
@@ -314,7 +314,7 @@ static bool dvbpsi_CheckBAT(dvbpsi_t *p_dvbpsi, dvbpsi_bat_decoder_t *p_bat_deco
     {
         /* version_number */
         dvbpsi_error(p_dvbpsi, "BAT decoder", "'version_number' differs"
-                        " whereas no discontinuity has occured");
+                        " whereas no discontinuity has occurred");
         b_reinit = true;
     }
     else if (p_bat_decoder->i_last_section_number !=
@@ -322,7 +322,7 @@ static bool dvbpsi_CheckBAT(dvbpsi_t *p_dvbpsi, dvbpsi_bat_decoder_t *p_bat_deco
     {
         /* last_section_number */
         dvbpsi_error(p_dvbpsi, "BAT decoder", "'last_section_number' differs"
-                        " whereas no discontinuity has occured");
+                        " whereas no discontinuity has occurred");
         b_reinit = true;
     }
 

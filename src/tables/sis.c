@@ -267,14 +267,14 @@ static bool dvbpsi_CheckSIS(dvbpsi_t *p_dvbpsi, dvbpsi_sis_decoder_t* p_sis_deco
     {
         dvbpsi_error(p_dvbpsi, "SIS decoder",
                      "'protocol_version' differs"
-                     " while no discontinuity has occured");
+                     " while no discontinuity has occurred");
         b_reinit = true;
     }
     else if (p_sis_decoder->p_building_sis->i_extension != p_section->i_extension)
     {
         dvbpsi_error(p_dvbpsi, "SIS decoder",
                 "'transport_stream_id' differs"
-                " whereas no discontinuity has occured");
+                " whereas no discontinuity has occurred");
         b_reinit = true;
     }
     else if (p_sis_decoder->p_building_sis->i_version != p_section->i_version)
@@ -282,7 +282,7 @@ static bool dvbpsi_CheckSIS(dvbpsi_t *p_dvbpsi, dvbpsi_sis_decoder_t* p_sis_deco
         /* version_number */
         dvbpsi_error(p_dvbpsi, "SIS decoder",
                 "'version_number' differs"
-                " whereas no discontinuity has occured");
+                " whereas no discontinuity has occurred");
         b_reinit = true;
     }
     else if (p_sis_decoder->i_last_section_number != p_section->i_last_number)
@@ -290,7 +290,7 @@ static bool dvbpsi_CheckSIS(dvbpsi_t *p_dvbpsi, dvbpsi_sis_decoder_t* p_sis_deco
         /* last_section_number */
         dvbpsi_error(p_dvbpsi, "SIS decoder",
                 "'last_section_number' differs"
-                " whereas no discontinuity has occured");
+                " whereas no discontinuity has occurred");
         b_reinit = true;
     }
 

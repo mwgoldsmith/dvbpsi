@@ -309,7 +309,7 @@ static bool dvbpsi_CheckNIT(dvbpsi_t *p_dvbpsi, dvbpsi_nit_decoder_t *p_nit_deco
         /* version_number */
         dvbpsi_error(p_dvbpsi, "NIT decoder",
                 "'version_number' differs"
-                " whereas no discontinuity has occured");
+                " whereas no discontinuity has occurred");
         b_reinit = true;
     }
     else if (p_nit_decoder->i_last_section_number
@@ -318,7 +318,7 @@ static bool dvbpsi_CheckNIT(dvbpsi_t *p_dvbpsi, dvbpsi_nit_decoder_t *p_nit_deco
         /* last_section_number */
         dvbpsi_error(p_dvbpsi, "NIT decoder",
                 "'last_section_number' differs"
-                " whereas no discontinuity has occured");
+                " whereas no discontinuity has occurred");
         b_reinit = true;
     }
 

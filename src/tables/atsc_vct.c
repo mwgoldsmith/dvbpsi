@@ -386,7 +386,7 @@ static bool dvbpsi_CheckVCT(dvbpsi_t *p_dvbpsi, dvbpsi_atsc_vct_decoder_t *p_vct
         /* transport_stream_id */
         dvbpsi_error(p_dvbpsi, "ATSC VCT decoder",
                      "'transport_stream_id' differs"
-                     " whereas no TS discontinuity has occured");
+                     " whereas no TS discontinuity has occurred");
         b_reinit = true;
     }
     else if (p_vct_decoder->p_building_vct->i_version != p_section->i_version)
@@ -394,7 +394,7 @@ static bool dvbpsi_CheckVCT(dvbpsi_t *p_dvbpsi, dvbpsi_atsc_vct_decoder_t *p_vct
         /* version_number */
         dvbpsi_error(p_dvbpsi, "ATSC VCT decoder",
                      "'version_number' differs"
-                     " whereas no discontinuity has occured");
+                     " whereas no discontinuity has occurred");
         b_reinit = true;
     }
     else if (p_vct_decoder->i_last_section_number != p_section->i_last_number)
@@ -402,7 +402,7 @@ static bool dvbpsi_CheckVCT(dvbpsi_t *p_dvbpsi, dvbpsi_atsc_vct_decoder_t *p_vct
         /* last_section_number */
         dvbpsi_error(p_dvbpsi, "ATSC VCT decoder",
                      "'last_section_number' differs"
-                     " whereas no discontinuity has occured");
+                     " whereas no discontinuity has occurred");
         b_reinit = true;
     }
 

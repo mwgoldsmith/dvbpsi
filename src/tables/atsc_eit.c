@@ -321,7 +321,7 @@ static bool dvbpsi_CheckEIT(dvbpsi_t *p_dvbpsi, dvbpsi_atsc_eit_decoder_t *p_dec
         /* transport_stream_id */
         dvbpsi_error(p_dvbpsi, "ATSC EIT decoder",
                      "'transport_stream_id' differs"
-                     " whereas no TS discontinuity has occured");
+                     " whereas no TS discontinuity has occurred");
         b_reinit = true;
     }
     else if (p_decoder->p_building_eit->i_version != p_section->i_version)
@@ -329,7 +329,7 @@ static bool dvbpsi_CheckEIT(dvbpsi_t *p_dvbpsi, dvbpsi_atsc_eit_decoder_t *p_dec
         /* version_number */
         dvbpsi_error(p_dvbpsi, "ATSC EIT decoder",
                      "'version_number' differs"
-                     " whereas no discontinuity has occured");
+                     " whereas no discontinuity has occurred");
         b_reinit = true;
     }
     else if (p_decoder->i_last_section_number != p_section->i_last_number)
@@ -337,7 +337,7 @@ static bool dvbpsi_CheckEIT(dvbpsi_t *p_dvbpsi, dvbpsi_atsc_eit_decoder_t *p_dec
         /* last_section_number */
         dvbpsi_error(p_dvbpsi, "ATSC EIT decoder",
                      "'last_section_number' differs"
-                     " whereas no discontinuity has occured");
+                     " whereas no discontinuity has occurred");
         b_reinit = true;
     }
 

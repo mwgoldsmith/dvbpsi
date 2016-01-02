@@ -271,7 +271,7 @@ static bool dvbpsi_CheckPMT(dvbpsi_t *p_dvbpsi, dvbpsi_psi_section_t *p_section)
         /* version_number */
         dvbpsi_error(p_dvbpsi, "PMT decoder",
                         "'version_number' differs"
-                        " whereas no discontinuity has occured");
+                        " whereas no discontinuity has occurred");
         b_reinit = true;
     }
     else if (p_pmt_decoder->i_last_section_number != p_section->i_last_number)
@@ -279,7 +279,7 @@ static bool dvbpsi_CheckPMT(dvbpsi_t *p_dvbpsi, dvbpsi_psi_section_t *p_section)
         /* last_section_number */
         dvbpsi_error(p_dvbpsi, "PMT decoder",
                         "'last_section_number' differs"
-                        " whereas no discontinuity has occured");
+                        " whereas no discontinuity has occurred");
         b_reinit = true;
     }
 

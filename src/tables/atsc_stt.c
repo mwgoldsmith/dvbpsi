@@ -261,7 +261,7 @@ static bool dvbpsi_CheckSTT(dvbpsi_t *p_dvbpsi, dvbpsi_atsc_stt_decoder_t *p_dec
         /* version_number */
         dvbpsi_error(p_dvbpsi, "ATSC STT decoder",
                      "'version_number' differs"
-                     " whereas no discontinuity has occured");
+                     " whereas no discontinuity has occurred");
         b_reinit = true;
     }
     else if (p_decoder->i_last_section_number != p_section->i_last_number)
@@ -269,7 +269,7 @@ static bool dvbpsi_CheckSTT(dvbpsi_t *p_dvbpsi, dvbpsi_atsc_stt_decoder_t *p_dec
         /* last_section_number */
         dvbpsi_error(p_dvbpsi, "ATSC STT decoder",
                      "'last_section_number' differs"
-                     " whereas no discontinuity has occured");
+                     " whereas no discontinuity has occurred");
         b_reinit = true;
     }
 
