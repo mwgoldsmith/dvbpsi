@@ -390,13 +390,13 @@ static int dvbinfo_process(dvbinfo_capture_t *capture)
             if (size < 0) /* error writing */
             {
                 libdvbpsi_log(param, DVBINFO_LOG_ERROR,
-                              "error (%d) writting to %s\n", errno, param->output);
+                              "error (%d) writing to %s\n", errno, param->output);
                 break;
             }
-            else if ((size_t)size < buffer->i_size) /* short writting disk full? */
+            else if ((size_t)size < buffer->i_size) /* short writing disk full? */
             {
                 libdvbpsi_log(param, DVBINFO_LOG_ERROR,
-                              "error writting to %s (disk full?)\n", param->output);
+                              "error writing to %s (disk full?)\n", param->output);
                 break;
             }
         }
