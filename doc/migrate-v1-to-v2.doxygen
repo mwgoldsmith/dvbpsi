@@ -39,7 +39,7 @@ error: <br />
 &nbsp; if (dvbpsi_decoder_present(handle)) <br />
 &nbsp; &nbsp; dvbpsi_pat_detach(handle); <br />
 &nbsp; if (handle) <br />
-&nbsp; &nbsp;  dvbpsi_delete(handle); <br />
+&nbsp; nbsp; dvbpsi_delete(handle); <br />
 &nbsp; return -1; <br />
 </code>
 
@@ -63,7 +63,7 @@ void main(int argc, char** argv) <br />
 &nbsp; dvbpsi_t *handle = dvbpsi_new(&dvbpsi_message, DVBPSI_MSG_DEBUG); <br />
 &nbsp; if (handle == NULL) <br />
 &nbsp; &nbsp; goto error; <br />
-&nbsp; &nbsp; if (!dvbpsi_decoder_chain_new(p_dvbpsi, AttachPAT, DetachPAT, NULL)) <br />
+&nbsp; if (!dvbpsi_decoder_chain_new(p_dvbpsi, AttachPAT, DetachPAT, NULL)) <br />
 &nbsp; &nbsp; goto error; <br />
 &nbsp; <br />
 &nbsp; .. other code .. <br />
