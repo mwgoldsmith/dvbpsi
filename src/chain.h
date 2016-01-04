@@ -25,11 +25,34 @@
 /*!
  * \file <chain.h>
  * \author Jean-Paul Saman <jpsaman@videolan.org>
- * \brief Chain PSI table decoders based on table_id and extension.
+ * \brief Chain PSI table decoders for demuxing based on table_id and extension.
  *
- * Chain PSI table decoders based on table_id and extension. The
- * decoder chain is kept inside the dvbpsi_t handle at the
- * dvbpsi_t::dvbpsi_decoder_t member variable.
+ * Chain PSI table decoders for demuxing based on table_id and extension. The
+ * decoder chain is kept inside the dvbpsi_t handle at the dvbpsi_t::dvbpsi_decoder_t
+ * member variable.
+ *
+ * @note: The use of demux.h API's has been discontinued and replaced by the API's in
+ * this description. The table below shows how a mapping from old to new API's:
+ *
+ * -----------------------------------------------------------------------------------
+ * - Old demux API from demux.h             | is replaced by chain.h                 -
+ * -----------------------------------------------------------------------------------
+ * - dvbpsi_AttachDemux                     | @see dvbpsi_demux_chain_new            -
+ * - dvbpsi_DetachDemux                     | @see dvbpsi_demux_chain_delete         -
+ * - dvbpsi_Demux                           |                                        -
+ * - dvbpsi_demuxGetSubDecoder              | @see dvbpsi_decoder_chain_get          -
+ * - dvbpsi_NewDemuxSubDecoder              |                                        -
+ * - dvbpsi_AttachDemuxSubDecoder           |                                        -
+ * - dvbspi_DetachDemuxSubDecoder           |                                        -
+ * ------------------------------------------------------------------------------------
+ *
+ * Note that for dvbpsi_Demux(), dvbpsi_NewDemuxSubDecoder(), dvbpsi_AttachDemuxSubDecoder(),
+ * and dvbspi_DetachDemuxSubDecoder() no replacement API is available. These functions are
+ * discontinued since the dvbpsi_subdec_t indirection has been removed. A dvbpsi_decoder_t
+ * can be added in a demux chain directly. It is important to use the API call
+ * dvbpsi_demux_chain_new(), since that will install the callback function
+ * dvbpsi_decoder_chain_demux(). This will do the same job dvbpsi_Demux() function had in
+ * the subsdecoder architecture of demux.h.
  */
 
 #ifndef _DVBPSI_CHAIN_H_
@@ -43,8 +66,8 @@ extern "C" {
  * dvbpsi_chain_demux_new
  *****************************************************************************/
 /*!
- * \fn bool dvbpsi_chain_demux_new(dvbpsi_t *p_dvbpsi, dvbpsi_callback_new_t *pf_new,
-                              dvbpsi_callback_del_t *pf_del, void *p_data)
+ * \fn bool dvbpsi_chain_demux_new(dvbpsi_t *p_dvbpsi, dvbpsi_callback_new_t pf_new,
+                              dvbpsi_callback_del_t pf_del, void *p_data)
  * \brief dvbpsi_chain_demux_new creates a decoder for demuxing PSI tables and subtables.
  * \param p_dvbpsi pointer to dvbpsi_t handle
  * \param pf_new callback function for calling the specific PSI table/subtable attach function
