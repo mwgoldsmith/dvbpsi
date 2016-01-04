@@ -26,7 +26,7 @@
 /*!
  * \file <demux.h>
  * \author Johan Bilien <jobi@via.ecp.fr>
- * \brief Subtable demutiplexor use @see chain.h instead
+ * \brief Deprecated Subtable demutiplexor use @see chain.h instead
  *
  * Subtable demultiplexor structure
  * @note deprecated
