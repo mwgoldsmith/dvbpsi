@@ -946,11 +946,11 @@ static char const* GetDescriptorName(uint8_t tag)
             /*19-26*/ return "Defined in ISO/IEC 13818-6";
         } else if (tag >= 0x2d && tag <= 0x3f) {
             /*45-63*/ return "ITU-T Rec. H.222.0 | ISO/IEC 13818-1 Reserved";
-        } else if ((tag >= 0x40 && tag <= 0x51) ||
-                   (tag >= 0x53 && tag <= 0x55)) {
-            /*64-81 and 83-84*/ return "User Private";
-        }
-        else
+        } else if (tag >= 0x40 && tag <= 0x51) {
+            /*64-81*/ return "User Private";
+        } else if (tag >= 0x53 && tag <= 0x55) {
+            /*83-84*/ return "User Private";
+        } else
             /*87-255*/ return "User Private";
         break;
     };
