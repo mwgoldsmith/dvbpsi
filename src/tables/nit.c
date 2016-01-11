@@ -453,7 +453,7 @@ void dvbpsi_nit_sections_gather(dvbpsi_t *p_dvbpsi,
 void dvbpsi_nit_sections_decode(dvbpsi_nit_t* p_nit,
                                 dvbpsi_psi_section_t* p_section)
 {
-    uint8_t* p_byte, * p_end;
+    uint8_t *p_byte, *p_end;
 
     while (p_section)
     {
@@ -461,8 +461,10 @@ void dvbpsi_nit_sections_decode(dvbpsi_nit_t* p_nit,
         p_byte = p_section->p_payload_start + 2;
         p_end = p_byte + (((uint16_t)(p_section->p_payload_start[0] & 0x0f) << 8)
                           | p_section->p_payload_start[1]);
+        if (p_end > p_section->p_payload_end)
+            p_end = p_section->p_payload_end;
 
-        while (p_byte + 2 <= p_end)
+        while (p_byte + 2 < p_end)
         {
             uint8_t i_tag = p_byte[0];
             uint8_t i_length = p_byte[1];
@@ -479,7 +481,7 @@ void dvbpsi_nit_sections_decode(dvbpsi_nit_t* p_nit,
         p_byte += 2;
 
         /* - TSs */
-        while(p_byte + 6 <= p_end)
+        while(p_byte + 6 < p_end)
         {
             uint8_t *p_end2; /* descriptor loop end */
 
