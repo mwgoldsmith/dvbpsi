@@ -85,12 +85,12 @@ fi
 
 dnl --enable-compat
 AC_ARG_ENABLE(compat,
-[  --enable-compat         Enable API compatibility layer (default disabled)],
+[  --enable-compat         Enable API compatibility layer (default enabled)],
 [case "${enableval}" in
   yes) compat=true ;;
   no)  compat=false ;;
   *) AC_MSG_ERROR(bad value ${enableval} for --enable-compat) ;;
-esac],[compat=false])
+esac],[compat=true])
 if test "$compat" = "true"; then
   CFLAGS_dist="${CFLAGS_dist} -DDVBPSI_USE_DEPRECATED_DR_API"
 fi
