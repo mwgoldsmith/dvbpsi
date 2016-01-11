@@ -22,6 +22,8 @@
 #include &lt;stdint.h&gt;
 #endif
 
+#include &lt;sys/types.h&gt;
+
 /* the libdvbpsi distribution defines DVBPSI_DIST */
 #ifdef DVBPSI_DIST
 #include "../src/dvbpsi.h"
