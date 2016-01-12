@@ -9,6 +9,7 @@ Changes between 1.3.0 and 2.0.0-git:
  * Moved descriptors in a namespace to allow standard specific descriptor decoders and encoders.
  * Documentation:
    - spelling fixes
+ * More descriptor tests
 
 Changes between 1.2.0 and 1.3.0:
 --------------------------------
