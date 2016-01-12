@@ -18,7 +18,7 @@ test_dr_SOURCES = test_dr.c
 test_dr_CPPFLAGS = -DDVBPSI_DIST
 test_dr_LDFLAGS = -L../src -ldvbpsi
 
-noinst_HEADERS = test_dr.h
+noinst_HEADERS = test_dr.h test_dr_cmp.h
 
 EXTRA_DIST=dr.dtd dr.xml dr.xsl
 
