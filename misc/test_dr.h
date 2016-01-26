@@ -37,12 +37,12 @@
 #define BOZO_CLEAN()                                                    \
   dvbpsi_DeleteDescriptors(p_descriptor);
 
-#define BOZO_DOJOB(fname)                                               \
+#define BOZO_DOJOB(sname)                                                \
   if(!(i_loop_count & 0xffff))                                          \
     fprintf(stdout, "\r  iteration count: %22"PRI64d, i_loop_count);       \
   i_loop_count++;                                                       \
-  p_descriptor = dvbpsi_Gen##fname##Dr(&s_decoded, 0);                  \
-  p_new_decoded = dvbpsi_Decode##fname##Dr(p_descriptor);
+  p_descriptor = dvbpsi_gen_##sname##_dr(&s_decoded, 0);                  \
+  p_new_decoded = dvbpsi_decode_##sname##_dr(p_descriptor);
 
 #define BOZO_START(name)                                                \
   fprintf(stdout, "\"%s\" descriptor check:\n", #name);
