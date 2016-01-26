@@ -26,5 +26,6 @@ noinst_HEADERS = test_dr.h test_dr_cmp.h
 EXTRA_DIST=dr.dtd dr.xml dr.xsl
 
 test_dr.c: dr.dtd dr.xml dr.xsl
+	xmllint --noout --valid dr.xml
 	xsltproc -o test_dr.c dr.xsl dr.xml
 

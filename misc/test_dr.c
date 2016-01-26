@@ -16,6 +16,8 @@
 #include <stdint.h>
 #endif
 
+#include <sys/types.h>
+
 /* the libdvbpsi distribution defines DVBPSI_DIST */
 #ifdef DVBPSI_DIST
 #include "../src/dvbpsi.h"
@@ -210,7 +212,7 @@ static int main_mpeg_vstream_2(void)
 }
 
 /* audio stream */
-static int main_mpeg_astream_(void)
+static int main_mpeg_astream_0(void)
 {
   BOZO_VARS(mpeg_astream);
   BOZO_START(audio stream);
@@ -253,7 +255,7 @@ static int main_mpeg_astream_(void)
 }
 
 /* hierarchy */
-static int main_mpeg_hierarchy_(void)
+static int main_mpeg_hierarchy_0(void)
 {
   BOZO_VARS(mpeg_hierarchy);
   BOZO_START(hierarchy);
@@ -310,7 +312,7 @@ static int main_mpeg_hierarchy_(void)
 }
 
 /* registration */
-static int main_mpeg_registration_(void)
+static int main_mpeg_registration_0(void)
 {
   BOZO_VARS(mpeg_registration);
   BOZO_START(registration);
@@ -332,7 +334,7 @@ static int main_mpeg_registration_(void)
 }
 
 /* data stream alignment */
-static int main_mpeg_ds_alignment_(void)
+static int main_mpeg_ds_alignment_0(void)
 {
   BOZO_VARS(mpeg_ds_alignment);
   BOZO_START(data stream alignment);
@@ -353,7 +355,7 @@ static int main_mpeg_ds_alignment_(void)
 }
 
 /* target background grid */
-static int main_mpeg_target_bg_grid_(void)
+static int main_mpeg_target_bg_grid_0(void)
 {
   BOZO_VARS(mpeg_target_bg_grid);
   BOZO_START(target background grid);
@@ -396,7 +398,7 @@ static int main_mpeg_target_bg_grid_(void)
 }
 
 /* video window */
-static int main_mpeg_vwindow_(void)
+static int main_mpeg_vwindow_0(void)
 {
   BOZO_VARS(mpeg_vwindow);
   BOZO_START(video window);
@@ -439,7 +441,7 @@ static int main_mpeg_vwindow_(void)
 }
 
 /* conditional access */
-static int main_mpeg_ca_(void)
+static int main_mpeg_ca_0(void)
 {
   BOZO_VARS(mpeg_ca);
   BOZO_START(conditional access);
@@ -488,7 +490,7 @@ static int main_mpeg_ca_(void)
 }
 
 /* ISO 639 language */
-static int main_mpeg_iso639_(void)
+static int main_mpeg_iso639_0(void)
 {
   BOZO_VARS(mpeg_iso639);
   BOZO_START(ISO 639 language);
@@ -512,7 +514,7 @@ static int main_mpeg_iso639_(void)
 }
 
 /* system clock */
-static int main_mpeg_system_clock_(void)
+static int main_mpeg_system_clock_0(void)
 {
   BOZO_VARS(mpeg_system_clock);
   BOZO_START(system clock);
@@ -555,7 +557,7 @@ static int main_mpeg_system_clock_(void)
 }
 
 /* multiplex buffer utilization */
-static int main_mpeg_mx_buff_utilization_(void)
+static int main_mpeg_mx_buff_utilization_0(void)
 {
   BOZO_VARS(mpeg_mx_buff_utilization);
   BOZO_START(multiplex buffer utilization);
@@ -598,7 +600,7 @@ static int main_mpeg_mx_buff_utilization_(void)
 }
 
 /* copyright */
-static int main_mpeg_copyright_(void)
+static int main_mpeg_copyright_0(void)
 {
   BOZO_VARS(mpeg_copyright);
   BOZO_START(copyright);
@@ -634,7 +636,7 @@ static int main_mpeg_copyright_(void)
 }
 
 /* maximum bitrate */
-static int main_mpeg_max_bitrate_(void)
+static int main_mpeg_max_bitrate_0(void)
 {
   BOZO_VARS(mpeg_max_bitrate);
   BOZO_START(maximum bitrate);
@@ -655,7 +657,7 @@ static int main_mpeg_max_bitrate_(void)
 }
 
 /* private data indicator */
-static int main_mpeg_private_data_(void)
+static int main_mpeg_private_data_0(void)
 {
   BOZO_VARS(mpeg_private_data);
   BOZO_START(private data indicator);
@@ -676,7 +678,7 @@ static int main_mpeg_private_data_(void)
 }
 
 /* smoothing buffer */
-static int main_mpeg_smoothing_buffer_(void)
+static int main_mpeg_smoothing_buffer_0(void)
 {
   BOZO_VARS(mpeg_smoothing_buffer);
   BOZO_START(smoothing buffer);
@@ -710,7 +712,7 @@ static int main_mpeg_smoothing_buffer_(void)
 }
 
 /* STD */
-static int main_mpeg_std_(void)
+static int main_mpeg_std_0(void)
 {
   BOZO_VARS(mpeg_std);
   BOZO_START(STD);
@@ -734,7 +736,7 @@ static int main_mpeg_std_(void)
 }
 
 /* IBP */
-static int main_mpeg_ibp_(void)
+static int main_mpeg_ibp_0(void)
 {
   BOZO_VARS(mpeg_ibp);
   BOZO_START(IBP);
@@ -780,7 +782,7 @@ static int main_mpeg_ibp_(void)
 }
 
 /* MPEG-4 video */
-static int main_mpeg_mpeg4_video_(void)
+static int main_mpeg_mpeg4_video_0(void)
 {
   BOZO_VARS(mpeg_mpeg4_video);
   BOZO_START(MPEG-4 video);
@@ -804,7 +806,7 @@ static int main_mpeg_mpeg4_video_(void)
 }
 
 /* MPEG-4 audio */
-static int main_mpeg_mpeg4_audio_(void)
+static int main_mpeg_mpeg4_audio_0(void)
 {
   BOZO_VARS(mpeg_mpeg4_audio);
   BOZO_START(MPEG-4 audio);
@@ -828,7 +830,7 @@ static int main_mpeg_mpeg4_audio_(void)
 }
 
 /* network name */
-static int main_dvb_network_name_(void)
+static int main_dvb_network_name_0(void)
 {
   BOZO_VARS(dvb_network_name);
   BOZO_START(network name);
@@ -852,7 +854,7 @@ static int main_dvb_network_name_(void)
 }
 
 /* service list */
-static int main_dvb_service_list_(void)
+static int main_dvb_service_list_0(void)
 {
   BOZO_VARS(dvb_service_list);
   BOZO_START(service list);
@@ -876,7 +878,7 @@ static int main_dvb_service_list_(void)
 }
 
 /* stuffing */
-static int main_dvb_stuffing_(void)
+static int main_dvb_stuffing_0(void)
 {
   BOZO_VARS(dvb_stuffing);
   BOZO_START(stuffing);
@@ -900,7 +902,7 @@ static int main_dvb_stuffing_(void)
 }
 
 /* satellite delivery system */
-static int main_dvb_sat_deliv_sys_(void)
+static int main_dvb_sat_deliv_sys_0(void)
 {
   BOZO_VARS(dvb_sat_deliv_sys);
   BOZO_START(satellite delivery system);
@@ -1057,7 +1059,7 @@ static int main_dvb_sat_deliv_sys_(void)
 }
 
 /* cable delivery system */
-static int main_dvb_cable_deliv_sys_(void)
+static int main_dvb_cable_deliv_sys_0(void)
 {
   BOZO_VARS(dvb_cable_deliv_sys);
   BOZO_START(cable delivery system);
@@ -1130,7 +1132,7 @@ static int main_dvb_cable_deliv_sys_(void)
 }
 
 /* bouquet name */
-static int main_dvb_bouquet_name_(void)
+static int main_dvb_bouquet_name_0(void)
 {
   BOZO_VARS(dvb_bouquet_name);
   BOZO_START(bouquet name);
@@ -1860,7 +1862,7 @@ static int main_dvb_linkage_5(void)
 }
 
 /* Near Video On Demand reference */
-static int main_dvb_nvod_ref_(void)
+static int main_dvb_nvod_ref_0(void)
 {
   BOZO_VARS(dvb_nvod_ref);
   BOZO_START(Near Video On Demand reference);
@@ -1884,7 +1886,7 @@ static int main_dvb_nvod_ref_(void)
 }
 
 /* time shifted service */
-static int main_dvb_tshifted_service_(void)
+static int main_dvb_tshifted_service_0(void)
 {
   BOZO_VARS(dvb_tshifted_service);
   BOZO_START(time shifted service);
@@ -2030,7 +2032,7 @@ static int main_dvb_short_event_2(void)
 }
 
 /* time shifted event */
-static int main_dvb_tshifted_ev_(void)
+static int main_dvb_tshifted_ev_0(void)
 {
   BOZO_VARS(dvb_tshifted_ev);
   BOZO_START(time shifted event);
@@ -2061,7 +2063,7 @@ static int main_dvb_tshifted_ev_(void)
 }
 
 /* stream identifier */
-static int main_dvb_stream_identifier_(void)
+static int main_dvb_stream_identifier_0(void)
 {
   BOZO_VARS(dvb_stream_identifier);
   BOZO_START(stream identifier);
@@ -2082,7 +2084,7 @@ static int main_dvb_stream_identifier_(void)
 }
 
 /* CA identifier */
-static int main_dvb_ca_identifier_(void)
+static int main_dvb_ca_identifier_0(void)
 {
   BOZO_VARS(dvb_ca_identifier);
   BOZO_START(CA identifier);
@@ -2106,7 +2108,7 @@ static int main_dvb_ca_identifier_(void)
 }
 
 /* content */
-static int main_dvb_content_(void)
+static int main_dvb_content_0(void)
 {
   BOZO_VARS(dvb_content);
   BOZO_START(content);
@@ -2130,7 +2132,7 @@ static int main_dvb_content_(void)
 }
 
 /* parental rating */
-static int main_dvb_parental_rating_(void)
+static int main_dvb_parental_rating_0(void)
 {
   BOZO_VARS(dvb_parental_rating);
   BOZO_START(parental rating);
@@ -2154,7 +2156,7 @@ static int main_dvb_parental_rating_(void)
 }
 
 /* teletext */
-static int main_dvb_teletext_(void)
+static int main_dvb_teletext_0(void)
 {
   BOZO_VARS(dvb_teletext);
   BOZO_START(teletext);
@@ -2178,7 +2180,7 @@ static int main_dvb_teletext_(void)
 }
 
 /* local time offset */
-static int main_dvb_local_time_offset_(void)
+static int main_dvb_local_time_offset_0(void)
 {
   BOZO_VARS(dvb_local_time_offset);
   BOZO_START(local time offset);
@@ -2202,7 +2204,7 @@ static int main_dvb_local_time_offset_(void)
 }
 
 /* subtitling */
-static int main_dvb_subtitling_(void)
+static int main_dvb_subtitling_0(void)
 {
   BOZO_VARS(dvb_subtitling);
   BOZO_START(subtitling);
@@ -2226,7 +2228,7 @@ static int main_dvb_subtitling_(void)
 }
 
 /* terrestial delivery system */
-static int main_dvb_terr_deliv_sys_(void)
+static int main_dvb_terr_deliv_sys_0(void)
 {
   BOZO_VARS(dvb_terr_deliv_sys);
   BOZO_START(terrestial delivery system);
@@ -2475,30 +2477,30 @@ int main(void)
   
   i_err |= main_mpeg_vstream_1();
   i_err |= main_mpeg_vstream_2();
-  i_err |= main_mpeg_astream_();
-  i_err |= main_mpeg_hierarchy_();
-  i_err |= main_mpeg_registration_();
-  i_err |= main_mpeg_ds_alignment_();
-  i_err |= main_mpeg_target_bg_grid_();
-  i_err |= main_mpeg_vwindow_();
-  i_err |= main_mpeg_ca_();
-  i_err |= main_mpeg_iso639_();
-  i_err |= main_mpeg_system_clock_();
-  i_err |= main_mpeg_mx_buff_utilization_();
-  i_err |= main_mpeg_copyright_();
-  i_err |= main_mpeg_max_bitrate_();
-  i_err |= main_mpeg_private_data_();
-  i_err |= main_mpeg_smoothing_buffer_();
-  i_err |= main_mpeg_std_();
-  i_err |= main_mpeg_ibp_();
-  i_err |= main_mpeg_mpeg4_video_();
-  i_err |= main_mpeg_mpeg4_audio_();
-  i_err |= main_dvb_network_name_();
-  i_err |= main_dvb_service_list_();
-  i_err |= main_dvb_stuffing_();
-  i_err |= main_dvb_sat_deliv_sys_();
-  i_err |= main_dvb_cable_deliv_sys_();
-  i_err |= main_dvb_bouquet_name_();
+  i_err |= main_mpeg_astream_0();
+  i_err |= main_mpeg_hierarchy_0();
+  i_err |= main_mpeg_registration_0();
+  i_err |= main_mpeg_ds_alignment_0();
+  i_err |= main_mpeg_target_bg_grid_0();
+  i_err |= main_mpeg_vwindow_0();
+  i_err |= main_mpeg_ca_0();
+  i_err |= main_mpeg_iso639_0();
+  i_err |= main_mpeg_system_clock_0();
+  i_err |= main_mpeg_mx_buff_utilization_0();
+  i_err |= main_mpeg_copyright_0();
+  i_err |= main_mpeg_max_bitrate_0();
+  i_err |= main_mpeg_private_data_0();
+  i_err |= main_mpeg_smoothing_buffer_0();
+  i_err |= main_mpeg_std_0();
+  i_err |= main_mpeg_ibp_0();
+  i_err |= main_mpeg_mpeg4_video_0();
+  i_err |= main_mpeg_mpeg4_audio_0();
+  i_err |= main_dvb_network_name_0();
+  i_err |= main_dvb_service_list_0();
+  i_err |= main_dvb_stuffing_0();
+  i_err |= main_dvb_sat_deliv_sys_0();
+  i_err |= main_dvb_cable_deliv_sys_0();
+  i_err |= main_dvb_bouquet_name_0();
   i_err |= main_dvb_service_1();
   i_err |= main_dvb_service_2();
   i_err |= main_dvb_service_3();
@@ -2508,20 +2510,20 @@ int main(void)
   i_err |= main_dvb_linkage_3();
   i_err |= main_dvb_linkage_4();
   i_err |= main_dvb_linkage_5();
-  i_err |= main_dvb_nvod_ref_();
-  i_err |= main_dvb_tshifted_service_();
+  i_err |= main_dvb_nvod_ref_0();
+  i_err |= main_dvb_tshifted_service_0();
   i_err |= main_dvb_short_event_0();
   i_err |= main_dvb_short_event_1();
   i_err |= main_dvb_short_event_2();
-  i_err |= main_dvb_tshifted_ev_();
-  i_err |= main_dvb_stream_identifier_();
-  i_err |= main_dvb_ca_identifier_();
-  i_err |= main_dvb_content_();
-  i_err |= main_dvb_parental_rating_();
-  i_err |= main_dvb_teletext_();
-  i_err |= main_dvb_local_time_offset_();
-  i_err |= main_dvb_subtitling_();
-  i_err |= main_dvb_terr_deliv_sys_();
+  i_err |= main_dvb_tshifted_ev_0();
+  i_err |= main_dvb_stream_identifier_0();
+  i_err |= main_dvb_ca_identifier_0();
+  i_err |= main_dvb_content_0();
+  i_err |= main_dvb_parental_rating_0();
+  i_err |= main_dvb_teletext_0();
+  i_err |= main_dvb_local_time_offset_0();
+  i_err |= main_dvb_subtitling_0();
+  i_err |= main_dvb_terr_deliv_sys_0();
 
   if(i_err)
     fprintf(stderr, "At least one test has FAILED !!!\n");
