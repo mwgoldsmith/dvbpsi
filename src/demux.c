@@ -97,7 +97,8 @@ void dvbpsi_DetachDemux(dvbpsi_t *p_dvbpsi)
     assert(p_dvbpsi);
     assert(p_dvbpsi->p_decoder);
 
-    dvbpsi_chain_demux_delete(p_dvbpsi);
+    if (!dvbpsi_chain_demux_delete(p_dvbpsi))
+        dvbpsi_error(p_dvbpsi, "demux", "could not free chain_demux decoder resources");
 }
 
 /*****************************************************************************
