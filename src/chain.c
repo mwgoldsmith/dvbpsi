@@ -82,6 +82,8 @@ static void dvbpsi_decoder_chain_demux(dvbpsi_t *p_dvbpsi, dvbpsi_psi_section_t 
 bool dvbpsi_chain_demux_new(dvbpsi_t *p_dvbpsi, dvbpsi_callback_new_t pf_new,
                               dvbpsi_callback_del_t pf_del, void *p_data)
 {
+    assert(p_dvbpsi);
+
     if (p_dvbpsi->p_decoder) {
         dvbpsi_error(p_dvbpsi, "chain", "cannot initialize decoder chain");
         return false;
