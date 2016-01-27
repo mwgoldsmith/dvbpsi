@@ -109,6 +109,8 @@ bool dvbpsi_chain_demux_new(dvbpsi_t *p_dvbpsi, dvbpsi_callback_new_t pf_new,
  *****************************************************************************/
 bool dvbpsi_chain_demux_delete(dvbpsi_t *p_dvbpsi)
 {
+    if (!p_dvbpsi) return false;
+
     dvbpsi_decoder_t *p_demux = p_dvbpsi->p_decoder;
     if (!p_demux) return false;
 
