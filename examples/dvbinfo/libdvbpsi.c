@@ -2499,19 +2499,19 @@ ts_stream_t *libdvbpsi_init(int debug, ts_stream_log_cb pf_log, void *cb_data)
     return stream;
 
 error:
-    if (dvbpsi_chain_demux_delete(stream->pat.handle))
+    if (!dvbpsi_chain_demux_delete(stream->pat.handle))
         fprintf(stderr, "dvbinfo: failed to delete PAT decoder chain! .. possibly leaking memory!!\n");
-    if (dvbpsi_chain_demux_delete(stream->cat.handle))
+    if (!dvbpsi_chain_demux_delete(stream->cat.handle))
         fprintf(stderr, "dvbinfo: failed to delete CAT decoder chain! .. possibly leaking memory!!\n");
-    if (dvbpsi_chain_demux_delete(stream->sdt.handle))
+    if (!dvbpsi_chain_demux_delete(stream->sdt.handle))
         fprintf(stderr, "dvbinfo: failed to delete SDT decoder chain! .. possibly leaking memory!!\n");
-    if (dvbpsi_chain_demux_delete(stream->eit.handle))
+    if (!dvbpsi_chain_demux_delete(stream->eit.handle))
         fprintf(stderr, "dvbinfo: failed to delete EIT decoder chain! .. possibly leaking memory!!\n");
-    if (dvbpsi_chain_demux_delete(stream->rst.handle))
+    if (!dvbpsi_chain_demux_delete(stream->rst.handle))
         fprintf(stderr, "dvbinfo: failed to delete RST decoder chain! .. possibly leaking memory!!\n");
-    if (dvbpsi_chain_demux_delete(stream->tdt.handle))
+    if (!dvbpsi_chain_demux_delete(stream->tdt.handle))
         fprintf(stderr, "dvbinfo: failed to delete TDT decoder chain! .. possibly leaking memory!!\n");
-    if (dvbpsi_chain_demux_delete(stream->atsc.handle))
+    if (!dvbpsi_chain_demux_delete(stream->atsc.handle))
         fprintf(stderr, "dvbinfo: failed to delete ATSC decoder chain! .. possibly leaking memory!!\n");
 
     if (stream->pat.handle)
