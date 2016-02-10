@@ -449,6 +449,9 @@ void dvbpsi_sis_sections_decode(dvbpsi_t* p_dvbpsi, dvbpsi_sis_t* p_sis,
             switch(p_sis->i_splice_command_type)
             {
                 case 0x00: /* splice_null */
+                    p_sis->p_splice_command = NULL;
+                    assert(p_sis->i_splice_command_length == 0);
+                    break;
                 case 0x04: /* splice_schedule */
                 case 0x05: /* splice_insert */
                 case 0x06: /* time_signal */
@@ -539,7 +542,25 @@ dvbpsi_psi_section_t *dvbpsi_sis_sections_generate(dvbpsi_t *p_dvbpsi, dvbpsi_si
     if (p_sis->i_splice_command_length > 0xfff)
         p_sis->i_splice_command_length = 0xfff; /* truncate */
 
-    /* FIXME: handle splice_command_sections */
+    /* Handle splice_command_sections */
+    uint32_t i_cmd_start = 14;
+    switch(p_sis->i_splice_command_type)
+    {
+        case 0x00: /* splice_null */
+            assert(p_sis->i_splice_command_length == 0);
+            break;
+        case 0x04: /* splice_schedule */
+        case 0x05: /* splice_insert */
+        case 0x06: /* time_signal */
+        case 0x07: /* bandwidth_reservation */
+            break;
+        default:
+            dvbpsi_error(p_dvbpsi, "SIS decoder", "invalid SIS Command found");
+            break;
+    }
+
+    /* The splice command may not overrun the start of the descriptor loop */
+    assert(i_cmd_start < i_desc_start);
 
     /* Service descriptors */
     p_current->p_data[i_desc_start] = (p_sis->i_descriptors_length >> 8);
