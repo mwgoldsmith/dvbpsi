@@ -193,12 +193,12 @@ struct dvbpsi_sis_splice_event_s
     uint8_t         i_component_count;          /*!< number of stream PID in the following
                                                      loop. A component is equivalent to
                                                      elementary stream PIDs.*/
-    dvbpsi_sis_component_utc_splice_time_t  *p_data;
+    dvbpsi_sis_component_utc_splice_time_t  *p_splice_time;
                                                 /*!< identifies the elementary PID stream containing
                                                      the Splice Point specified by the value of
                                                      splice_time() that follows. */
     /*      if (b_duration_flag) */
-    dvbpsi_sis_break_duration_t *p_break_duration;     /*!< break duration is present when
+    dvbpsi_sis_break_duration_t i_break_duration; /*!< break duration is present when
                                                      b_duration_flag is set */
     /* */
 

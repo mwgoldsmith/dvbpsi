@@ -412,6 +412,112 @@ void dvbpsi_sis_sections_gather(dvbpsi_t *p_dvbpsi, dvbpsi_psi_section_t * p_sec
 }
 
 /*****************************************************************************
+ * cmd_splice_schedule_cleanup
+ *****************************************************************************
+ * Free resource for splice_schedule command structure.
+ *****************************************************************************/
+static void cmd_splice_schedule_cleanup(dvbpsi_sis_cmd_splice_schedule_t *p_cmd)
+{
+    dvbpsi_sis_splice_event_t *p_event = p_cmd->p_splice_event;
+    while (p_event) {
+        dvbpsi_sis_splice_event_t *p_next = p_event->p_next;
+        if (p_event->p_splice_time) {
+            dvbpsi_sis_component_utc_splice_time_t *p_time = p_event->p_splice_time;
+            while (p_time) {
+                dvbpsi_sis_component_utc_splice_time_t *p_tmp = p_time->p_next;
+                free(p_time);
+                p_time = p_tmp;
+            }
+        }
+        free(p_event);
+        p_event = p_next;
+    }
+    free(p_cmd);
+}
+
+/*****************************************************************************
+ * dvbpsi_sis_cmd_splice_schedule_decode
+ *****************************************************************************
+ * splice_schedule command decoder.
+ *****************************************************************************/
+static dvbpsi_sis_cmd_splice_schedule_t *
+    dvbpsi_sis_cmd_splice_schedule_decode(uint8_t *p_data, uint16_t i_length)
+{
+    dvbpsi_sis_cmd_splice_schedule_t *p_cmd = calloc(1, sizeof(dvbpsi_sis_cmd_splice_schedule_t));
+    if (!p_cmd) return NULL;
+
+    uint32_t pos = 0;
+    p_cmd->i_splice_count = p_data[pos++];
+
+    dvbpsi_sis_splice_event_t *p_event = p_cmd->p_splice_event;
+    for (uint8_t i = 0; i < p_cmd->i_splice_count; i++) {
+        p_event = (dvbpsi_sis_splice_event_t *)calloc(1, sizeof(dvbpsi_sis_splice_event_t));
+        if (!p_event) {
+            cmd_splice_schedule_cleanup(p_cmd);
+            return NULL;
+        }
+
+        p_event->i_splice_event_id = p_data[pos];
+        pos += 4;
+        p_event->b_splice_event_cancel_indicator = (p_data[pos] & 0x80);
+        /* 7 reserved bits */
+        if (!p_event->b_splice_event_cancel_indicator) {
+            p_event->b_out_of_network_indicator = (p_data[pos++] & 0x80);
+            p_event->b_program_splice_flag = (p_data[pos++] & 0x40);
+            p_event->b_duration_flag = (p_data[pos++] & 0x20);
+            /* 5 reserved bits */
+            if (p_event->b_program_splice_flag) {
+                /* utc_splice_time */
+                p_event->i_utc_splice_time = p_data[pos];
+                pos += 4;
+            }
+            else { /* component */
+                /* Check */
+                dvbpsi_sis_component_utc_splice_time_t *p_time = p_event->p_splice_time;
+                p_event->i_component_count = p_data[pos++];
+                assert(pos + p_event->i_component_count * 5 < i_length);
+                if (pos + p_event->i_component_count * 5 >= i_length) {
+                    cmd_splice_schedule_cleanup(p_cmd);
+                    return NULL;
+                }
+
+                for (uint8_t j = 0; j < p_event->i_component_count; j++) {
+                    p_time = malloc(sizeof(dvbpsi_sis_component_utc_splice_time_t));
+                    if (!p_time) {
+                        cmd_splice_schedule_cleanup(p_cmd);
+                        return NULL;
+                    }
+                    p_time->component_tag = p_data[pos++];
+                    p_time->i_utc_splice_time = p_data[pos]; /* GPS_UTC time */
+                    pos += 4;
+                    p_time = p_time->p_next;
+                }
+            }
+            if (p_event->b_duration_flag) {
+                /* break duration */
+                p_event->i_break_duration.b_auto_return = (p_data[pos] & 0x80);
+                p_event->i_break_duration.i_duration =
+                        ((((uint64_t)p_data[pos] & 0x01) << 32) |
+                          ((uint64_t)p_data[pos + 1] << 24) |
+                          ((uint64_t)p_data[pos + 2] << 16) |
+                          ((uint64_t)p_data[pos + 3] << 8)  |
+                           (uint64_t)p_data[pos + 4]);
+            }
+            p_event->i_unique_program_id = p_data[pos];
+            pos += 2;
+            p_event->i_avail_num = p_data[pos++];
+            p_event->i_avails_expected = p_data[pos++];
+        }
+
+        p_event = p_event->p_next;
+
+        /* Check if we have an overflow */
+        assert(pos < i_length);
+    }
+    return p_cmd;
+}
+
+/*****************************************************************************
  * dvbpsi_sis_sections_decode
  *****************************************************************************
  * SIS decoder.
@@ -453,6 +559,14 @@ void dvbpsi_sis_sections_decode(dvbpsi_t* p_dvbpsi, dvbpsi_sis_t* p_sis,
                     assert(p_sis->i_splice_command_length == 0);
                     break;
                 case 0x04: /* splice_schedule */
+                    p_sis->p_splice_command =
+                            dvbpsi_sis_cmd_splice_schedule_decode(&p_byte[14],
+                                                p_sis->i_splice_command_length);
+                    if (!p_sis->p_splice_command)
+                        dvbpsi_error(p_dvbpsi, "SIS decoder",
+                                     "splice schedule command is invalid");
+                        /* somthing went wrong */
+                    break;
                 case 0x05: /* splice_insert */
                 case 0x06: /* time_signal */
                 case 0x07: /* bandwidth_reservation */
