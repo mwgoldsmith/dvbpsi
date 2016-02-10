@@ -1617,6 +1617,48 @@ static void DumpSISDescriptors(const char* str, dvbpsi_descriptor_t* p_descripto
     }
 }
 
+static void DumpSpliceScheduleCMD(dvbpsi_sis_cmd_splice_schedule_t *p_schedule)
+{
+    printf("\t\tSplice event count: %u\n", p_schedule->i_splice_count);
+    dvbpsi_sis_splice_event_t *p_event = p_schedule->p_splice_event;
+    for (int i = 0; i < p_schedule->i_splice_count; i++) {
+        printf("\t\t identifier: %u\n", p_event->i_splice_event_id);
+        printf("\t\t cancel indicator: %s\n",
+               p_event->b_splice_event_cancel_indicator ? "yes" : "no");
+        if (!p_event->b_splice_event_cancel_indicator) {
+            printf("\t\t out of network indicator: %s\n",
+                   p_event->b_out_of_network_indicator ? "yes" : "no");
+            printf("\t\t program splice flag: %s\n",
+                   p_event->b_program_splice_flag ? "yes" : "no");
+            printf("\t\t duration flag: %s",
+                   p_event->b_duration_flag ? "yes" : "no");
+            if (p_event->b_program_splice_flag) {
+                printf("\t\t utc_splice_time: %u\n", p_event->i_utc_splice_time);
+            }
+            else {
+                printf("\t\t component count: %u\n", p_event->i_component_count);
+                dvbpsi_sis_component_t *p_component = p_event->p_component;
+                for (int j = 0; j < p_event->i_component_count; j++) {
+                    printf("\t\t\tcomponent tag: %u\n", p_component->i_tag);
+                    printf("\t\t\tutc splice time: %u\n", p_component->i_utc_splice_time);
+                    p_component = p_component->p_next;
+                }
+            }
+            if (p_event->b_duration_flag) {
+                printf("\t\t break duration\n");
+                printf("\t\t\tauto return: %s\n",
+                       p_event->i_break_duration.b_auto_return ? "yes" : "no");
+                printf("\t\t\tduration: %"PRId64"\n",
+                       p_event->i_break_duration.i_duration);
+            }
+        }
+        printf("\t\t unique program id: %u\n", p_event->i_unique_program_id);
+        printf("\t\tavail number: %u\n", p_event->i_avail_num);
+        printf("\t\tavail expected: %u\n", p_event->i_avails_expected);
+        p_event = p_event->p_next;
+    }
+}
+
 static void handle_SIS(void* p_data, dvbpsi_sis_t* p_sis)
 {
     ts_stream_t* p_stream = (ts_stream_t*) p_data;
@@ -1637,19 +1679,22 @@ static void handle_SIS(void* p_data, dvbpsi_sis_t* p_sis)
     {
         default:
         case 0x00:
-            printf("splice_null");
+            printf("\tsplice_null");
             break;
         case 0x04:
-            printf("splice_schedule");
+            printf("\tsplice_schedule");
+            dvbpsi_sis_cmd_splice_schedule_t * p_schedule =
+                    (dvbpsi_sis_cmd_splice_schedule_t*) p_sis->p_splice_command;
+            DumpSpliceScheduleCMD(p_schedule);
             break;
         case 0x05:
-            printf("splice_insert");
+            printf("\tsplice_insert");
             break;
         case 0x06:
-            printf("time_signal");
+            printf("\ttime_signal");
             break;
         case 0x07:
-            printf("bandwidth_reservation");
+            printf("\tbandwidth_reservation");
             break;
     }
     printf("\n");
