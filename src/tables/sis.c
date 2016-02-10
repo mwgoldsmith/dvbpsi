@@ -522,7 +522,7 @@ dvbpsi_psi_section_t *dvbpsi_sis_sections_generate(dvbpsi_t *p_dvbpsi, dvbpsi_si
     assert(p_sis->b_encrypted_packet);
     p_current->p_data[4] |= ((p_sis->i_encryption_algorithm << 1) & 0x7E);
 
-    p_current->p_data[4] |= ((p_sis->i_pts_adjustment & 0x00800) >> 32);
+    p_current->p_data[4] |= ((p_sis->i_pts_adjustment >> 32) & 0x01);
     p_current->p_data[5] = (p_sis->i_pts_adjustment >> 24);
     p_current->p_data[6] = (p_sis->i_pts_adjustment >> 16);
     p_current->p_data[7] = (p_sis->i_pts_adjustment >> 8);
