@@ -441,11 +441,9 @@ void dvbpsi_sis_sections_decode(dvbpsi_t* p_dvbpsi, dvbpsi_sis_t* p_sis,
             p_sis->i_splice_command_type = p_byte[13];
 
             uint32_t i_splice_command_length = p_sis->i_splice_command_length;
-            if (p_sis->i_splice_command_length == 0xfff)
-            {
-                /* FIXME: size 0xfff of splice_command_section is undefined */
-                assert(p_sis->i_splice_command_length != 0xfff);
-            }
+            assert(p_sis->i_splice_command_length <= 0xfff);
+            if (p_sis->i_splice_command_length > 0xfff)
+                p_sis->i_splice_command_length = 0xfff; /* truncate */
 
             /* FIXME: handle splice_command_sections */
             switch(p_sis->i_splice_command_type)
@@ -535,11 +533,11 @@ dvbpsi_psi_section_t *dvbpsi_sis_sections_generate(dvbpsi_t *p_dvbpsi, dvbpsi_si
     p_current->p_data[13] = p_sis->i_splice_command_type;
 
     uint32_t i_desc_start = 13 + p_sis->i_splice_command_length;
-    if (p_sis->i_splice_command_length == 0xfff)
-    {
-        /* FIXME: size 0xfff of splice_command_section is undefined */
-        assert(p_sis->i_splice_command_length != 0xfff);
-    }
+    i_desc_start++; /* descriptor loop starts here */
+
+    assert(p_sis->i_splice_command_length <= 0xfff);
+    if (p_sis->i_splice_command_length > 0xfff)
+        p_sis->i_splice_command_length = 0xfff; /* truncate */
 
     /* FIXME: handle splice_command_sections */
 
