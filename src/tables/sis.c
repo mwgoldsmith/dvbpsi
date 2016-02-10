@@ -421,10 +421,10 @@ static void cmd_splice_schedule_cleanup(dvbpsi_sis_cmd_splice_schedule_t *p_cmd)
     dvbpsi_sis_splice_event_t *p_event = p_cmd->p_splice_event;
     while (p_event) {
         dvbpsi_sis_splice_event_t *p_next = p_event->p_next;
-        if (p_event->p_splice_time) {
-            dvbpsi_sis_component_utc_splice_time_t *p_time = p_event->p_splice_time;
+        if (p_event->p_component) {
+            dvbpsi_sis_component_t *p_time = p_event->p_component;
             while (p_time) {
-                dvbpsi_sis_component_utc_splice_time_t *p_tmp = p_time->p_next;
+                dvbpsi_sis_component_t *p_tmp = p_time->p_next;
                 free(p_time);
                 p_time = p_tmp;
             }
@@ -473,7 +473,7 @@ static dvbpsi_sis_cmd_splice_schedule_t *
             }
             else { /* component */
                 /* Check */
-                dvbpsi_sis_component_utc_splice_time_t *p_time = p_event->p_splice_time;
+                dvbpsi_sis_component_t *p_time = p_event->p_component;
                 p_event->i_component_count = p_data[pos++];
                 assert(pos + p_event->i_component_count * 5 < i_length);
                 if (pos + p_event->i_component_count * 5 >= i_length) {
@@ -482,12 +482,12 @@ static dvbpsi_sis_cmd_splice_schedule_t *
                 }
 
                 for (uint8_t j = 0; j < p_event->i_component_count; j++) {
-                    p_time = malloc(sizeof(dvbpsi_sis_component_utc_splice_time_t));
+                    p_time = malloc(sizeof(dvbpsi_sis_component_t));
                     if (!p_time) {
                         cmd_splice_schedule_cleanup(p_cmd);
                         return NULL;
                     }
-                    p_time->component_tag = p_data[pos++];
+                    p_time->i_tag = p_data[pos++];
                     p_time->i_utc_splice_time = p_data[pos]; /* GPS_UTC time */
                     pos += 4;
                     p_time = p_time->p_next;

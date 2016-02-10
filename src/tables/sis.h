@@ -143,17 +143,17 @@ typedef struct dvbpsi_sis_break_duration_s
 } dvbpsi_sis_break_duration_t;
 
 /*!
- * \typedef struct dvbpsi_sis_component_utc_splice_time_s dvbpsi_sis_component_utc_splice_time_t
+ * \typedef struct dvbpsi_sis_component_s dvbpsi_sis_component_t
  * \brief combined component tag and UTC splice time definition
  */
-typedef struct dvbpsi_sis_component_utc_splice_time_s dvbpsi_sis_component_utc_splice_time_t;
+typedef struct dvbpsi_sis_component_s dvbpsi_sis_component_t;
 /*!
- * \struct dvbpsi_sis_component_utc_splice_time_s
+ * \struct dvbpsi_sis_component_s
  * \brief combined component tag and UTC splice time definition
  */
-struct dvbpsi_sis_component_utc_splice_time_s
+struct dvbpsi_sis_component_s
 {
-    uint8_t     component_tag;      /*!< identifies the elementary PID stream containing
+    uint8_t     i_tag;              /*!< identifies the elementary PID stream containing
                                          the Splice Point specified by the value of
                                          splice_time() that follows. */
     uint32_t    i_utc_splice_time;  /*!< time of the signaled splice event as
@@ -162,7 +162,7 @@ struct dvbpsi_sis_component_utc_splice_time_s
                                          Maybe converted to UTC without use of
                                          GPS_UTC_offset value from System Time table. */
 
-    dvbpsi_sis_component_utc_splice_time_t *p_next; /*!< next component, utc splice time structure */
+    dvbpsi_sis_component_t *p_next; /*!< next component, utc splice time structure */
 };
 
 /*!
@@ -193,7 +193,7 @@ struct dvbpsi_sis_splice_event_s
     uint8_t         i_component_count;          /*!< number of stream PID in the following
                                                      loop. A component is equivalent to
                                                      elementary stream PIDs.*/
-    dvbpsi_sis_component_utc_splice_time_t  *p_splice_time;
+    dvbpsi_sis_component_t  *p_component;
                                                 /*!< identifies the elementary PID stream containing
                                                      the Splice Point specified by the value of
                                                      splice_time() that follows. */
