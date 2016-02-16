@@ -264,7 +264,7 @@ struct dvbpsi_sis_component_splice_time_s
                                          the Splice Point specified by the value of
                                          splice_time() that follows. */
     /* if (splice_immediate_flag) */
-    dvbpsi_sis_splice_time_t *p_splice_time; /*!< splice time defintions */
+    dvbpsi_sis_splice_time_t i_splice_time; /*!< splice time defintions */
     /* */
 
     dvbpsi_sis_component_splice_time_t *p_next; /*!< next in list */
@@ -278,7 +278,8 @@ struct dvbpsi_sis_component_splice_time_s
  * \struct dvbpsi_sis_cmd_splice_insert_s
  * \brief splice_insert() splice command definition
  */
-typedef struct dvbpsi_sis_cmd_splice_insert_s
+typedef struct dvbpsi_sis_cmd_splice_insert_s dvbpsi_sis_cmd_splice_insert_t;
+struct dvbpsi_sis_cmd_splice_insert_s
 {
     uint32_t        i_splice_event_id;               /*!< splice event identifier */
     bool            b_splice_event_cancel_indicator; /*!< cancels splice event when true */
@@ -290,25 +291,30 @@ typedef struct dvbpsi_sis_cmd_splice_insert_s
     bool            b_splice_immediate_flag;    /*!< signals immediate splice insertion */
 
     /*      if (b_program_splice_flag) && (!b_splice_immediate_flag) */
-    dvbpsi_sis_splice_time_t *p_splice_time;    /*!< splice time */
+    dvbpsi_sis_splice_time_t i_splice_time;    /*!< splice time */
 
     /*      if (!b_program_splice_flag) */
-    uint8_t         i_component_count;           /*!< number of stream PID in the following loop.
-                                                      A component is equivalent to elementary stream PIDs.*/
-    dvbpsi_sis_component_splice_time_t  *p_data; /*!< identifies the elementary PID stream containing
+    uint8_t         i_component_count;          /*!< number of stream PID in the following
+                                                     loop. A component is equivalent to
+                                                     elementary stream PIDs.*/
+    dvbpsi_sis_component_splice_time_t  *p_splice_time;
+                                                /*!< identifies the elementary PID stream containing
                                                       the Splice Point specified by the value of
                                                       splice_time() that follows. */
-    /*      if (b_duration_flag) */
-    dvbpsi_sis_break_duration_t *p_break_duration; /*!< break duration is present when b_duration_flag is set */
 
+    /*      if (b_duration_flag) */
+    dvbpsi_sis_break_duration_t i_break_duration; /*!< break duration is present when
+                                                     b_duration_flag is set */
     /* */
-    uint16_t        i_unique_program_id;      /*!< provide a unique identification for a viewing event */
-    uint8_t         i_avail_num;              /*!< identification for a specific avail within
-                                                   one unique_program_id. */
-    uint8_t         i_avails_expected;        /*!< count of the expected number of individual avails
-                                                   within the current viewing event */
+
+    uint16_t        i_unique_program_id; /*!< provide a unique identification for
+                                              a viewing event */
+    uint8_t         i_avail_num;         /*!< identification for a specific
+                                              avail within one unique_program_id. */
+    uint8_t         i_avails_expected;   /*!< count of the expected number of individual
+                                              avails within the current viewing event */
     /* end */
-} dvbpsi_sis_cmd_splice_insert_t;
+};
 
 /*!
  * \typedef struct dvbpsi_sis_cmd_time_signal_s dvbpsi_sis_cmd_time_signal_t
