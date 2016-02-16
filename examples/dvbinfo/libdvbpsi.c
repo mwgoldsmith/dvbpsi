@@ -1659,6 +1659,55 @@ static void DumpSpliceScheduleCMD(dvbpsi_sis_cmd_splice_schedule_t *p_schedule)
     }
 }
 
+static void DumpSpliceInsertCMD(dvbpsi_sis_cmd_splice_insert_t *p_cmd)
+{
+    printf("\t\tSplice event\n");
+    printf("\t\t identifier: %u\n", p_cmd->i_splice_event_id);
+    printf("\t\t cancel indicator: %s\n",
+           p_cmd->b_splice_event_cancel_indicator ? "yes" : "no");
+    if (!p_cmd->b_splice_event_cancel_indicator) {
+        printf("\t\t out of network indicator: %s\n",
+               p_cmd->b_out_of_network_indicator ? "yes" : "no");
+        printf("\t\t program splice flag: %s\n",
+               p_cmd->b_program_splice_flag ? "yes" : "no");
+        printf("\t\t break duration flag: %s",
+               p_cmd->b_duration_flag ? "yes" : "no");
+        printf("\t\t splice immediate flag: %s\n",
+               p_cmd->b_splice_immediate_flag ? "yes" : "no");
+        if (p_cmd->b_program_splice_flag && !p_cmd->b_splice_immediate_flag) {
+            printf("\t\t time specified flag: %s\n",
+                   p_cmd->i_splice_time.b_time_specified_flag ? "yes" : "no");
+            if (p_cmd->i_splice_time.b_time_specified_flag) {
+                printf("\t\t splice time: %"PRId64"\n",
+                       p_cmd->i_splice_time.i_pts_time);
+            }
+        }
+        if (!p_cmd->b_program_splice_flag) {
+            printf("\t\t component count: %u\n", p_cmd->i_component_count);
+            dvbpsi_sis_component_splice_time_t *p_time = p_cmd->p_splice_time;
+            for (uint8_t i = 0; i < p_cmd->i_component_count; i++) {
+                printf("\t\t\t component tag: %u\n", p_time->i_component_tag);
+                if (p_time->i_splice_time.b_time_specified_flag) {
+                    printf("\t\t\t time specified flag: yes\n");
+                    printf("\t\t\t time: %"PRId64"\n", p_time->i_splice_time.i_pts_time);
+                }
+                else
+                    printf("\t\t\t time specified flag: no\n");
+                p_time = p_time->p_next;
+            }
+        }
+        if (p_cmd->b_duration_flag) {
+            printf("\t\t break duration\n");
+            printf("\t\t\tauto return: %s\n",
+                   p_cmd->i_break_duration.b_auto_return ? "yes" : "no");
+            printf("\t\t\tduration: %"PRId64"\n", p_cmd->i_break_duration.i_duration);
+        }
+        printf("\t\t unique program id: %u\n", p_cmd->i_unique_program_id);
+        printf("\t\tavail number: %u\n", p_cmd->i_avail_num);
+        printf("\t\tavail expected: %u\n", p_cmd->i_avails_expected);
+    }
+}
+
 static void handle_SIS(void* p_data, dvbpsi_sis_t* p_sis)
 {
     ts_stream_t* p_stream = (ts_stream_t*) p_data;
@@ -1689,6 +1738,9 @@ static void handle_SIS(void* p_data, dvbpsi_sis_t* p_sis)
             break;
         case 0x05:
             printf("\tsplice_insert");
+            dvbpsi_sis_cmd_splice_insert_t *p_insert =
+                    (dvbpsi_sis_cmd_splice_insert_t *) p_sis->p_splice_command;
+            DumpSpliceInsertCMD(p_insert);
             break;
         case 0x06:
             printf("\ttime_signal");
