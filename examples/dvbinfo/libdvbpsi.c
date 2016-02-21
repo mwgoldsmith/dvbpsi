@@ -1083,6 +1083,18 @@ static void DumpSLDescriptor(const void *p_descriptor)
     printf("ES_ID : 0x%04" PRIx16 "\n", p_sl_dr->i_es_id);
 }
 
+static void DumpFMCDescriptor(const void *p_descriptor)
+{
+    const dvbpsi_mpeg_fmc_dr_t *p_fmc_dr = p_descriptor;
+    printf("Number of FMC structures : %" PRIu8 "\n", p_fmc_dr->i_num_fmc);
+    for(unsigned int i = 0 ; i < p_fmc_dr->i_num_fmc ; ++i)
+    {
+        const dvbpsi_fmc_t *fmc = p_fmc_dr->p_fmc + i;
+        printf("\t\tES_ID : 0x%04" PRIx16 "\n", fmc->i_es_id);
+        printf("\t\tFlexMuxChannel : 0x%02" PRIx8 "\n", fmc->i_flex_mux_channel);
+    }
+}
+
 static void DumpContentLabellingDescriptor(const void *p_descriptor)
 {
     const dvbpsi_mpeg_content_labelling_dr_t *p_content_lbl_dr = p_descriptor;
@@ -1848,6 +1860,10 @@ static void DumpDescriptor(dvbpsi_descriptor_t *p_descriptor)
         case 0x1e:
             p_decoded = dvbpsi_decode_mpeg_sl_dr(p_descriptor);
             dump_dr_fn = DumpSLDescriptor;
+            break;
+        case 0x1f:
+            p_decoded = dvbpsi_decode_mpeg_fmc_dr(p_descriptor);
+            dump_dr_fn = DumpFMCDescriptor;
             break;
         case 0x24:
             p_decoded = dvbpsi_decode_mpeg_content_labelling_dr(p_descriptor);
