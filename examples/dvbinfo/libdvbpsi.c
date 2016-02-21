@@ -1077,6 +1077,12 @@ static void DumpIODDescriptor(const void *p_descriptor)
         p_iod_dr->i_initial_object_descriptor);
 }
 
+static void DumpSLDescriptor(const void *p_descriptor)
+{
+    const dvbpsi_mpeg_sl_dr_t *p_sl_dr = p_descriptor;
+    printf("ES_ID : 0x%04" PRIx16 "\n", p_sl_dr->i_es_id);
+}
+
 static void DumpContentLabellingDescriptor(const void *p_descriptor)
 {
     const dvbpsi_mpeg_content_labelling_dr_t *p_content_lbl_dr = p_descriptor;
@@ -1838,6 +1844,10 @@ static void DumpDescriptor(dvbpsi_descriptor_t *p_descriptor)
         case 0x1d:
             p_decoded = dvbpsi_decode_mpeg_iod_dr(p_descriptor);
             dump_dr_fn = DumpIODDescriptor;
+            break;
+        case 0x1e:
+            p_decoded = dvbpsi_decode_mpeg_sl_dr(p_descriptor);
+            dump_dr_fn = DumpSLDescriptor;
             break;
         case 0x24:
             p_decoded = dvbpsi_decode_mpeg_content_labelling_dr(p_descriptor);
