@@ -1101,6 +1101,13 @@ static void DumpExternalESIDDescriptor(const void *p_descriptor)
     printf("External_ES_ID : 0x%04" PRIx16 "\n", p_ext_es_id_dr->i_ext_es_id);
 }
 
+static void DumpMultiplexBufferDescriptor(const void *p_descriptor)
+{
+    const dvbpsi_mpeg_mux_buf_dr_t *p_mux_buf_dr = p_descriptor;
+    printf("MB_buffer_size : 0x%06" PRIx32 "\n", p_mux_buf_dr->i_mb_buf_size);
+    printf("\t\tTB_leak_rate : 0x%06" PRIx32 "\n", p_mux_buf_dr->i_tb_leak_rate);
+}
+
 static void DumpContentLabellingDescriptor(const void *p_descriptor)
 {
     const dvbpsi_mpeg_content_labelling_dr_t *p_content_lbl_dr = p_descriptor;
@@ -1874,6 +1881,10 @@ static void DumpDescriptor(dvbpsi_descriptor_t *p_descriptor)
         case 0x20:
             p_decoded = dvbpsi_decode_mpeg_ext_es_id_dr(p_descriptor);
             dump_dr_fn = DumpExternalESIDDescriptor;
+            break;
+        case 0x23:
+            p_decoded = dvbpsi_decode_mpeg_mux_buf_dr(p_descriptor);
+            dump_dr_fn = DumpMultiplexBufferDescriptor;
             break;
         case 0x24:
             p_decoded = dvbpsi_decode_mpeg_content_labelling_dr(p_descriptor);
