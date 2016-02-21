@@ -135,6 +135,10 @@
     <integer name="i_iod_label" bitcount="8" default="0"/>
     <integer name="i_initial_object_descriptor" bitcount="8" default="0"/>
   </descriptor>
+  
+  <descriptor name="SL" sname="mpeg_sl" gen_args="1">
+    <integer name="i_es_id" bitcount="16" default="0"/>
+  </descriptor>
 
   <descriptor name="network name" sname="dvb_network_name">
     <array name="i_name_byte" len_name="i_name_length" min_size="0" />
