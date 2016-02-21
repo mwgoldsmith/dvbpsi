@@ -829,6 +829,52 @@ static int main_mpeg_mpeg4_audio_0(void)
   return i_err;
 }
 
+/* IOD */
+static int main_mpeg_iod_0(void)
+{
+  BOZO_VARS(mpeg_iod);
+  BOZO_START(IOD);
+
+
+  #define dvbpsi_gen_mpeg_iod_dr(x,y) \
+    dvbpsi_gen_mpeg_iod_dr(x)
+
+  /* check i_scope_of_iod_label */
+  BOZO_init_integer(i_scope_of_iod_label, 0);
+  BOZO_init_integer(i_iod_label, 0);
+  BOZO_init_integer(i_initial_object_descriptor, 0);
+  BOZO_begin_integer(i_scope_of_iod_label, 8)
+    BOZO_DOJOB(mpeg_iod);
+    BOZO_check_integer(i_scope_of_iod_label, 8)
+    BOZO_CLEAN();
+  BOZO_end_integer(i_scope_of_iod_label, 8)
+
+  /* check i_iod_label */
+  BOZO_init_integer(i_scope_of_iod_label, 0);
+  BOZO_init_integer(i_iod_label, 0);
+  BOZO_init_integer(i_initial_object_descriptor, 0);
+  BOZO_begin_integer(i_iod_label, 8)
+    BOZO_DOJOB(mpeg_iod);
+    BOZO_check_integer(i_iod_label, 8)
+    BOZO_CLEAN();
+  BOZO_end_integer(i_iod_label, 8)
+
+  /* check i_initial_object_descriptor */
+  BOZO_init_integer(i_scope_of_iod_label, 0);
+  BOZO_init_integer(i_iod_label, 0);
+  BOZO_init_integer(i_initial_object_descriptor, 0);
+  BOZO_begin_integer(i_initial_object_descriptor, 8)
+    BOZO_DOJOB(mpeg_iod);
+    BOZO_check_integer(i_initial_object_descriptor, 8)
+    BOZO_CLEAN();
+  BOZO_end_integer(i_initial_object_descriptor, 8)
+
+
+  BOZO_END(IOD);
+
+  return i_err;
+}
+
 /* network name */
 static int main_dvb_network_name_0(void)
 {
@@ -2495,6 +2541,7 @@ int main(void)
   i_err |= main_mpeg_ibp_0();
   i_err |= main_mpeg_mpeg4_video_0();
   i_err |= main_mpeg_mpeg4_audio_0();
+  i_err |= main_mpeg_iod_0();
   i_err |= main_dvb_network_name_0();
   i_err |= main_dvb_service_list_0();
   i_err |= main_dvb_stuffing_0();

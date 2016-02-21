@@ -88,6 +88,7 @@
 #include "mpeg/dr_14.h"
 #include "mpeg/dr_1b.h"
 #include "mpeg/dr_1c.h"
+#include "mpeg/dr_1d.h"
 #include "mpeg/dr_24.h"
 #include "custom/dr_83_eacem.h"
 #include "custom/dr_8a_scte.h"
