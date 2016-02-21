@@ -926,6 +926,30 @@ static int main_mpeg_fmc_0(void)
   return i_err;
 }
 
+/* External_ES_ID */
+static int main_mpeg_ext_es_id_0(void)
+{
+  BOZO_VARS(mpeg_ext_es_id);
+  BOZO_START(External_ES_ID);
+
+
+  #define dvbpsi_gen_mpeg_ext_es_id_dr(x,y) \
+    dvbpsi_gen_mpeg_ext_es_id_dr(x)
+
+  /* check i_ext_es_id */
+  BOZO_init_integer(i_ext_es_id, 0);
+  BOZO_begin_integer(i_ext_es_id, 16)
+    BOZO_DOJOB(mpeg_ext_es_id);
+    BOZO_check_integer(i_ext_es_id, 16)
+    BOZO_CLEAN();
+  BOZO_end_integer(i_ext_es_id, 16)
+
+
+  BOZO_END(External_ES_ID);
+
+  return i_err;
+}
+
 /* network name */
 static int main_dvb_network_name_0(void)
 {
@@ -2595,6 +2619,7 @@ int main(void)
   i_err |= main_mpeg_iod_0();
   i_err |= main_mpeg_sl_0();
   i_err |= main_mpeg_fmc_0();
+  i_err |= main_mpeg_ext_es_id_0();
   i_err |= main_dvb_network_name_0();
   i_err |= main_dvb_service_list_0();
   i_err |= main_dvb_stuffing_0();

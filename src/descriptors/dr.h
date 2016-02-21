@@ -91,6 +91,7 @@
 #include "mpeg/dr_1d.h"
 #include "mpeg/dr_1e.h"
 #include "mpeg/dr_1f.h"
+#include "mpeg/dr_20.h"
 #include "mpeg/dr_24.h"
 #include "custom/dr_83_eacem.h"
 #include "custom/dr_8a_scte.h"
