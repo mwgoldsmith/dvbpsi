@@ -950,6 +950,40 @@ static int main_mpeg_ext_es_id_0(void)
   return i_err;
 }
 
+/* MultiplexBuffer */
+static int main_mpeg_mux_buf_0(void)
+{
+  BOZO_VARS(mpeg_mux_buf);
+  BOZO_START(MultiplexBuffer);
+
+
+  #define dvbpsi_gen_mpeg_mux_buf_dr(x,y) \
+    dvbpsi_gen_mpeg_mux_buf_dr(x)
+
+  /* check i_mb_buf_size */
+  BOZO_init_integer(i_mb_buf_size, 0);
+  BOZO_init_integer(i_tb_leak_rate, 0);
+  BOZO_begin_integer(i_mb_buf_size, 24)
+    BOZO_DOJOB(mpeg_mux_buf);
+    BOZO_check_integer(i_mb_buf_size, 24)
+    BOZO_CLEAN();
+  BOZO_end_integer(i_mb_buf_size, 24)
+
+  /* check i_tb_leak_rate */
+  BOZO_init_integer(i_mb_buf_size, 0);
+  BOZO_init_integer(i_tb_leak_rate, 0);
+  BOZO_begin_integer(i_tb_leak_rate, 24)
+    BOZO_DOJOB(mpeg_mux_buf);
+    BOZO_check_integer(i_tb_leak_rate, 24)
+    BOZO_CLEAN();
+  BOZO_end_integer(i_tb_leak_rate, 24)
+
+
+  BOZO_END(MultiplexBuffer);
+
+  return i_err;
+}
+
 /* network name */
 static int main_dvb_network_name_0(void)
 {
@@ -2620,6 +2654,7 @@ int main(void)
   i_err |= main_mpeg_sl_0();
   i_err |= main_mpeg_fmc_0();
   i_err |= main_mpeg_ext_es_id_0();
+  i_err |= main_mpeg_mux_buf_0();
   i_err |= main_dvb_network_name_0();
   i_err |= main_dvb_service_list_0();
   i_err |= main_dvb_stuffing_0();

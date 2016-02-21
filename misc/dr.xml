@@ -148,6 +148,11 @@
     <integer name="i_ext_es_id" bitcount="16" default="0"/>
   </descriptor>
 
+  <descriptor name="MultiplexBuffer" sname="mpeg_mux_buf" gen_args="1">
+    <integer name="i_mb_buf_size" bitcount="24" default="0"/>
+    <integer name="i_tb_leak_rate" bitcount="24" default="0"/>
+  </descriptor>
+
   <descriptor name="network name" sname="dvb_network_name">
     <array name="i_name_byte" len_name="i_name_length" min_size="0" />
   </descriptor>
