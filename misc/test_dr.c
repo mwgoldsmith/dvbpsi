@@ -899,6 +899,33 @@ static int main_mpeg_sl_0(void)
   return i_err;
 }
 
+/* FMC */
+static int main_mpeg_fmc_0(void)
+{
+  BOZO_VARS(mpeg_fmc);
+  BOZO_START(FMC);
+
+
+  #define dvbpsi_gen_mpeg_fmc_dr(x,y) \
+    dvbpsi_gen_mpeg_fmc_dr(x)
+
+  /* check p_fmc */
+  BOZO_init_array(i_num_fmc);
+  BOZO_begin_array(p_fmc)
+  BOZO_loop_array_begin(p_fmc, i_num_fmc, 1)
+    BOZO_DOJOB(mpeg_fmc);
+    BOZO_check_array_begin(p_fmc, i_num_fmc)
+    BOZO_check_array_cmp(p_fmc, i_num_fmc, dvbpsi_fmc_t)
+    BOZO_CLEAN();
+  BOZO_loop_array_end(p_fmc, ARRAY_SIZE(s_decoded.p_fmc))
+  BOZO_end_array
+
+
+  BOZO_END(FMC);
+
+  return i_err;
+}
+
 /* network name */
 static int main_dvb_network_name_0(void)
 {
@@ -2567,6 +2594,7 @@ int main(void)
   i_err |= main_mpeg_mpeg4_audio_0();
   i_err |= main_mpeg_iod_0();
   i_err |= main_mpeg_sl_0();
+  i_err |= main_mpeg_fmc_0();
   i_err |= main_dvb_network_name_0();
   i_err |= main_dvb_service_list_0();
   i_err |= main_dvb_stuffing_0();

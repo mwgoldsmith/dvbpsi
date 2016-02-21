@@ -140,6 +140,10 @@
     <integer name="i_es_id" bitcount="16" default="0"/>
   </descriptor>
 
+  <descriptor name="FMC" sname="mpeg_fmc" gen_args="1">
+    <array name="p_fmc" len_name="i_num_fmc" min_size="1" type="dvbpsi_fmc_t"/>
+  </descriptor>
+
   <descriptor name="network name" sname="dvb_network_name">
     <array name="i_name_byte" len_name="i_name_length" min_size="0" />
   </descriptor>

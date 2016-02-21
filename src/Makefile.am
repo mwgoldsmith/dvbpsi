@@ -48,6 +48,7 @@ mpegdrinclude_HEADERS = descriptors/mpeg/dr_02.h \
                      descriptors/mpeg/dr_1c.h \
                      descriptors/mpeg/dr_1d.h \
                      descriptors/mpeg/dr_1e.h \
+                     descriptors/mpeg/dr_1f.h \
                      descriptors/mpeg/dr_24.h
 
 dvbdrincludedir = $(pkgincludedir)/dvb
@@ -122,6 +123,7 @@ descriptors_src = descriptors/mpeg/dr_02.c \
                   descriptors/mpeg/dr_1c.c \
                   descriptors/mpeg/dr_1d.c \
                   descriptors/mpeg/dr_1e.c \
+                  descriptors/mpeg/dr_1f.c \
                   descriptors/mpeg/dr_24.c \
 		  descriptors/dvb/dr_40.c \
 		  descriptors/dvb/dr_41.c \
