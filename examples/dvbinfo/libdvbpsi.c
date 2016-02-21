@@ -1095,6 +1095,12 @@ static void DumpFMCDescriptor(const void *p_descriptor)
     }
 }
 
+static void DumpExternalESIDDescriptor(const void *p_descriptor)
+{
+    const dvbpsi_mpeg_ext_es_id_dr_t *p_ext_es_id_dr = p_descriptor;
+    printf("External_ES_ID : 0x%04" PRIx16 "\n", p_ext_es_id_dr->i_ext_es_id);
+}
+
 static void DumpContentLabellingDescriptor(const void *p_descriptor)
 {
     const dvbpsi_mpeg_content_labelling_dr_t *p_content_lbl_dr = p_descriptor;
@@ -1864,6 +1870,10 @@ static void DumpDescriptor(dvbpsi_descriptor_t *p_descriptor)
         case 0x1f:
             p_decoded = dvbpsi_decode_mpeg_fmc_dr(p_descriptor);
             dump_dr_fn = DumpFMCDescriptor;
+            break;
+        case 0x20:
+            p_decoded = dvbpsi_decode_mpeg_ext_es_id_dr(p_descriptor);
+            dump_dr_fn = DumpExternalESIDDescriptor;
             break;
         case 0x24:
             p_decoded = dvbpsi_decode_mpeg_content_labelling_dr(p_descriptor);
