@@ -725,6 +725,9 @@ void dvbpsi_sis_sections_decode(dvbpsi_t* p_dvbpsi, dvbpsi_sis_t* p_sis,
                 p_desc += 4; /* E CRC 32 */
             }
 
+            /* check our boundaries */
+            if (p_desc + 4 >= p_section->p_payload_end)
+                break;
             /* point to next section */
             p_byte = p_desc + 4 /* CRC 32 */;
         }
