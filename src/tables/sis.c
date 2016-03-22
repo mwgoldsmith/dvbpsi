@@ -451,8 +451,9 @@ static dvbpsi_sis_cmd_splice_insert_t *
         }
         if (!p_cmd->b_program_splice_flag) {
             p_cmd->i_component_count = p_data[pos];
-            dvbpsi_sis_component_splice_time_t *p_splice_time = p_cmd->p_splice_time;
+            dvbpsi_sis_component_splice_time_t *p_last = p_cmd->p_splice_time;
             for (uint8_t i = 0; i < p_cmd->i_component_count; i++) {
+                dvbpsi_sis_component_splice_time_t *p_splice_time;
                 p_splice_time = (dvbpsi_sis_component_splice_time_t *)
                         calloc(1, sizeof(dvbpsi_sis_component_splice_time_t));
                 if (!p_splice_time) {
@@ -476,7 +477,12 @@ static dvbpsi_sis_cmd_splice_insert_t *
                     else
                         pos++;
                 }
-                p_splice_time = p_splice_time->p_next;
+                if (!p_cmd->p_splice_time)
+                    p_cmd->p_splice_time = p_last = p_splice_time;
+                else {
+                    p_last->p_next = p_splice_time;
+                    p_last = p_last->p_next;
+                }
                 /* Check if we have an overflow */
                 assert(pos < i_length);
             }
@@ -539,8 +545,9 @@ static dvbpsi_sis_cmd_splice_schedule_t *
     uint32_t pos = 0;
     p_cmd->i_splice_count = p_data[pos++];
 
-    dvbpsi_sis_splice_event_t *p_event = p_cmd->p_splice_event;
+    dvbpsi_sis_splice_event_t *p_last = p_cmd->p_splice_event;
     for (uint8_t i = 0; i < p_cmd->i_splice_count; i++) {
+        dvbpsi_sis_splice_event_t *p_event;
         p_event = (dvbpsi_sis_splice_event_t *)calloc(1, sizeof(dvbpsi_sis_splice_event_t));
         if (!p_event) {
             cmd_splice_schedule_cleanup(p_cmd);
@@ -566,24 +573,32 @@ static dvbpsi_sis_cmd_splice_schedule_t *
             }
             else { /* component */
                 /* Check */
-                dvbpsi_sis_component_t *p_time = p_event->p_component;
                 p_event->i_component_count = p_data[pos++];
                 assert(pos + p_event->i_component_count * 5 < i_length);
                 if (pos + p_event->i_component_count * 5 >= i_length) {
                     cmd_splice_schedule_cleanup(p_cmd);
+                    free(p_event);
                     return NULL;
                 }
 
+                dvbpsi_sis_component_t *p_list = p_event->p_component;
                 for (uint8_t j = 0; j < p_event->i_component_count; j++) {
-                    p_time = (dvbpsi_sis_component_t *) calloc(1, sizeof(dvbpsi_sis_component_t));
+                    dvbpsi_sis_component_t *p_time;
+                    p_time  = (dvbpsi_sis_component_t *) calloc(1, sizeof(dvbpsi_sis_component_t));
                     if (!p_time) {
                         cmd_splice_schedule_cleanup(p_cmd);
+                        free(p_event);
                         return NULL;
                     }
                     p_time->i_tag = p_data[pos++];
                     p_time->i_utc_splice_time = p_data[pos]; /* GPS_UTC time */
                     pos += 4;
-                    p_time = p_time->p_next;
+                    if (!p_event->p_component)
+                        p_event->p_component = p_list = p_time;
+                    else {
+                        p_list->p_next = p_time;
+                        p_list = p_list->p_next;
+                    }
                 }
             }
             if (p_event->b_duration_flag) {
@@ -603,7 +618,12 @@ static dvbpsi_sis_cmd_splice_schedule_t *
             p_event->i_avails_expected = p_data[pos++];
         }
 
-        p_event = p_event->p_next;
+        if (!p_cmd->p_splice_event)
+            p_cmd->p_splice_event = p_last = p_event;
+        else {
+            p_last->p_next = p_event;
+            p_last = p_last->p_next;
+        }
 
         /* Check if we have an overflow */
         assert(pos < i_length);
