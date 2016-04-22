@@ -689,10 +689,10 @@ void dvbpsi_sis_sections_decode(dvbpsi_t* p_dvbpsi, dvbpsi_sis_t* p_sis,
             p_sis->i_splice_command_length = ((p_byte[11] & 0x0F) << 8) | p_byte[12];
             p_sis->i_splice_command_type = p_byte[13];
 
-            uint32_t i_splice_command_length = p_sis->i_splice_command_length;
-            assert(p_sis->i_splice_command_length <= 0xfff);
-            if (p_sis->i_splice_command_length > 0xfff)
-                p_sis->i_splice_command_length = 0xfff; /* truncate */
+            if ((p_byte + 14 + p_sis->i_splice_command_length) >= p_section->p_payload_end) {
+                dvbpsi_error(p_dvbpsi, "SIS decoder", "corrupt section data");
+                break;
+            }
 
             /* FIXME: handle splice_command_sections */
             switch(p_sis->i_splice_command_type)
@@ -726,19 +726,22 @@ void dvbpsi_sis_sections_decode(dvbpsi_t* p_dvbpsi, dvbpsi_sis_t* p_sis,
             }
 
             /* Service descriptors */
-            uint8_t *p_desc = p_byte + 13 + i_splice_command_length;
+            uint8_t *p_desc = p_byte + 14 + p_sis->i_splice_command_length;
+            /* check our boundaries */
+            if (p_desc + 2 >= p_section->p_payload_end)
+                break;
             p_sis->i_descriptors_length = (p_desc[0] << 8) | p_desc[1];
 
             p_desc += 1;
             p_end = p_desc + p_sis->i_descriptors_length;
             if (p_end > p_section->p_payload_end) break;
 
-            while (p_desc + 2 <= p_end)
+            while (p_desc + 2 < p_end)
             {
                 uint8_t i_tag = p_desc[0];
                 uint8_t i_length = p_desc[1];
                 if ((i_length <= 254) &&
-                    (i_length + 2 <= p_end - p_desc))
+                    (i_length + 2 < p_end - p_desc))
                     dvbpsi_sis_descriptor_add(p_sis, i_tag, i_length, p_desc + 2);
                 p_desc += 2 + i_length;
             }
@@ -751,6 +754,9 @@ void dvbpsi_sis_sections_decode(dvbpsi_t* p_dvbpsi, dvbpsi_sis_t* p_sis,
                  * the result should be exactly p_sis->i_ecrc and indicates
                  * a successfull decryption.
                  */
+                /* check our boundaries */
+                if (p_desc + 4 >= p_section->p_payload_end)
+                    break;
                 p_desc += 4; /* E CRC 32 */
             }
 
