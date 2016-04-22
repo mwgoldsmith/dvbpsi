@@ -419,6 +419,9 @@ void dvbpsi_sis_sections_gather(dvbpsi_t *p_dvbpsi, dvbpsi_psi_section_t * p_sec
 static dvbpsi_sis_cmd_splice_insert_t *
     dvbpsi_sis_cmd_splice_insert_decode(uint8_t *p_data, uint16_t i_length)
 {
+    /* splice_insert() is at least 5 bytes */
+    if (i_length < 5) return NULL;
+
     dvbpsi_sis_cmd_splice_insert_t *p_cmd = calloc(1, sizeof(dvbpsi_sis_cmd_splice_insert_t));
     if (!p_cmd) return NULL;
 
@@ -428,12 +431,26 @@ static dvbpsi_sis_cmd_splice_insert_t *
                                  (uint32_t)p_data[3]);
     p_cmd->b_splice_event_cancel_indicator = (p_data[4] & 0x80);
     if (!p_cmd->b_splice_event_cancel_indicator) {
+        if (i_length < 10) /* should be at least 10 bytes now */
+            goto error;
+
         p_cmd->b_out_of_network_indicator = (p_data[5] & 0x80);
         p_cmd->b_program_splice_flag      = (p_data[5] & 0x40);
         p_cmd->b_duration_flag            = (p_data[5] & 0x20);
         p_cmd->b_splice_immediate_flag    = (p_data[5] & 0x10);
+
+        uint16_t i_needed = 10 +
+            (p_cmd->b_program_splice_flag && !p_cmd->b_splice_immediate_flag) ? 1 :
+                (p_cmd->b_duration_flag ? 5 : 0);
+        if (i_length < i_needed)
+            goto error;
+
         uint16_t pos = 6;
         if (p_cmd->b_program_splice_flag && !p_cmd->b_splice_immediate_flag) {
+            i_needed += 5;
+            if (i_length < i_needed)
+                goto error;
+
             /* splice_time () */
             p_cmd->i_splice_time.b_time_specified_flag = (p_data[pos] & 0x80);
             if (p_cmd->i_splice_time.b_time_specified_flag) {
@@ -451,6 +468,15 @@ static dvbpsi_sis_cmd_splice_insert_t *
         }
         if (!p_cmd->b_program_splice_flag) {
             p_cmd->i_component_count = p_data[pos];
+            if (p_cmd->i_component_count * 2 + pos > i_length - pos)
+                p_cmd->i_component_count = i_length - pos;
+
+            i_needed += (!p_cmd->b_splice_immediate_flag) ?
+                        (p_cmd->i_component_count * (5 + 1) ) :
+                        (p_cmd->i_component_count * 1);
+            if (i_length < i_needed)
+                goto error;
+
             dvbpsi_sis_component_splice_time_t *p_last = p_cmd->p_splice_time;
             for (uint8_t i = 0; i < p_cmd->i_component_count; i++) {
                 dvbpsi_sis_component_splice_time_t *p_splice_time;
@@ -502,9 +528,12 @@ static dvbpsi_sis_cmd_splice_insert_t *
                                        (uint16_t)p_data[pos+1]);
         pos += 2;
         p_cmd->i_avail_num = p_data[pos];
-        p_cmd->i_avails_expected = p_data[pos];
+        p_cmd->i_avails_expected = p_data[pos+1];
     }
     return p_cmd;
+error:
+    free(p_cmd);
+    return NULL;
 }
 
 /*****************************************************************************
