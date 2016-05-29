@@ -41,13 +41,21 @@
 
 #ifdef HAVE_VARIADIC_MACROS
 void dvbpsi_message(dvbpsi_t *dvbpsi, const int level, const char *fmt, ...);
-
-#  define dvbpsi_error(hnd, src, str, x...)                             \
+#  if defined(_MSC_VER)
+#    define dvbpsi_error(hnd, src, str, ...)                             \
+        dvbpsi_message(hnd, DVBPSI_MSG_ERROR, "libdvbpsi error (%s): " str, src, __VA_ARGS__)
+#    define dvbpsi_warning(hnd, src, str, ...)                                \
+        dvbpsi_message(hnd, DVBPSI_MSG_WARN, "libdvbpsi warning (%s): " str, src, __VA_ARGS__)
+#    define dvbpsi_debug(hnd, src, str, ...)                                  \
+        dvbpsi_message(hnd, DVBPSI_MSG_DEBUG, "libdvbpsi debug (%s): " str, src, __VA_ARGS__)
+#  else
+#    define dvbpsi_error(hnd, src, str, x...)                             \
         dvbpsi_message(hnd, DVBPSI_MSG_ERROR, "libdvbpsi error (%s): " str, src, ##x)
-#  define dvbpsi_warning(hnd, src, str, x...)                                \
+#    define dvbpsi_warning(hnd, src, str, x...)                                \
         dvbpsi_message(hnd, DVBPSI_MSG_WARN, "libdvbpsi warning (%s): " str, src, ##x)
-#  define dvbpsi_debug(hnd, src, str, x...)                                  \
+#    define dvbpsi_debug(hnd, src, str, x...)                                  \
         dvbpsi_message(hnd, DVBPSI_MSG_DEBUG, "libdvbpsi debug (%s): " str, src, ##x)
+#  endif
 #else
 void dvbpsi_error(dvbpsi_t *dvbpsi, const char *src, const char *fmt, ...);
 void dvbpsi_warning(dvbpsi_t *dvbpsi, const char *src, const char *fmt, ...);
