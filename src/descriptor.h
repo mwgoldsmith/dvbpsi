@@ -40,7 +40,16 @@ extern "C" {
 #endif
 
 #ifdef HAVE_SYS_TYPES_H
-#include <sys/types.h>
+#  include <sys/types.h>
+#  ifdef _WIN32
+#    ifdef _MSC_VER
+#      include <unistd.h>
+#    else
+#      include <cstdint>
+#    endif
+#  else
+#    include <tr1/cstdint>
+#  endif 
 #endif
 
 /*****************************************************************************
