@@ -1,0 +1,540 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Source Files\descriptors">
+      <UniqueIdentifier>{baaeb8fe-aeba-404d-87c1-c6555671fd19}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\tables">
+      <UniqueIdentifier>{c6961350-8aec-4137-9376-b94f0699c22a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\descriptors\mpeg">
+      <UniqueIdentifier>{13cefe4e-ee48-49cf-bc1d-0859be6c3d07}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\descriptors\types">
+      <UniqueIdentifier>{d23c9edb-79f8-41d3-a28c-24faabf6f678}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\descriptors\custom">
+      <UniqueIdentifier>{bedda8b3-54b5-4ce4-81ca-109df47bcad7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\descriptors\atsc">
+      <UniqueIdentifier>{b4e45ab0-c73e-4b67-b143-7eaff3eb168b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\descriptors\dvb">
+      <UniqueIdentifier>{c110f49a-78b8-4338-af46-1073a0d16222}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\tables">
+      <UniqueIdentifier>{ec35b821-f26c-4140-890b-a5d45f225d71}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\descriptors">
+      <UniqueIdentifier>{056bfae3-0ce8-44ff-8c01-312eeb6d0cb0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\descriptors\custom">
+      <UniqueIdentifier>{ec01e54d-9535-46a3-9ab4-b67ad63a4973}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\descriptors\dvb">
+      <UniqueIdentifier>{45a984af-2703-47d6-9deb-2625ec76dfd8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\descriptors\mpeg">
+      <UniqueIdentifier>{9aef8b17-eb3f-4080-ac08-e90648beb309}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\descriptors\types">
+      <UniqueIdentifier>{1e2a5ff1-2c4a-4c72-bcfa-e78117117881}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\descriptors\atsc">
+      <UniqueIdentifier>{17906b92-6417-451b-bb50-6c79abf246e1}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\src\dvbpsi.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\psi.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\demux.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\descriptor.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="asprintf.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="vasprintf.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\descriptors\atsc\dr_81.c">
+      <Filter>Source Files\descriptors\atsc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\descriptors\atsc\dr_86.c">
+      <Filter>Source Files\descriptors\atsc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\descriptors\atsc\dr_a0.c">
+      <Filter>Source Files\descriptors\atsc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\descriptors\atsc\dr_a1.c">
+      <Filter>Source Files\descriptors\atsc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\descriptors\custom\dr_8a_scte.c">
+      <Filter>Source Files\descriptors\custom</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\descriptors\custom\dr_83_eacem.c">
+      <Filter>Source Files\descriptors\custom</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\descriptors\dvb\dr_73.c">
+      <Filter>Source Files\descriptors\dvb</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\descriptors\dvb\dr_76.c">
+      <Filter>Source Files\descriptors\dvb</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\descriptors\dvb\dr_4a.c">
+      <Filter>Source Files\descriptors\dvb</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\descriptors\dvb\dr_4b.c">
+      <Filter>Source Files\descriptors\dvb</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\descriptors\dvb\dr_4c.c">
+      <Filter>Source Files\descriptors\dvb</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\descriptors\dvb\dr_4d.c">
+      <Filter>Source Files\descriptors\dvb</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\descriptors\dvb\dr_4e.c">
+      <Filter>Source Files\descriptors\dvb</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\descriptors\dvb\dr_4f.c">
+      <Filter>Source Files\descriptors\dvb</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\descriptors\dvb\dr_5a.c">
+      <Filter>Source Files\descriptors\dvb</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\descriptors\dvb\dr_7c.c">
+      <Filter>Source Files\descriptors\dvb</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\descriptors\dvb\dr_40.c">
+      <Filter>Source Files\descriptors\dvb</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\descriptors\dvb\dr_41.c">
+      <Filter>Source Files\descriptors\dvb</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\descriptors\dvb\dr_42.c">
+      <Filter>Source Files\descriptors\dvb</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\descriptors\dvb\dr_43.c">
+      <Filter>Source Files\descriptors\dvb</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\descriptors\dvb\dr_44.c">
+      <Filter>Source Files\descriptors\dvb</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\descriptors\dvb\dr_45.c">
+      <Filter>Source Files\descriptors\dvb</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\descriptors\dvb\dr_47.c">
+      <Filter>Source Files\descriptors\dvb</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\descriptors\dvb\dr_48.c">
+      <Filter>Source Files\descriptors\dvb</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\descriptors\dvb\dr_49.c">
+      <Filter>Source Files\descriptors\dvb</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\descriptors\dvb\dr_50.c">
+      <Filter>Source Files\descriptors\dvb</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\descriptors\dvb\dr_52.c">
+      <Filter>Source Files\descriptors\dvb</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\descriptors\dvb\dr_53.c">
+      <Filter>Source Files\descriptors\dvb</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\descriptors\dvb\dr_54.c">
+      <Filter>Source Files\descriptors\dvb</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\descriptors\dvb\dr_55.c">
+      <Filter>Source Files\descriptors\dvb</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\descriptors\dvb\dr_56.c">
+      <Filter>Source Files\descriptors\dvb</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\descriptors\dvb\dr_58.c">
+      <Filter>Source Files\descriptors\dvb</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\descriptors\dvb\dr_59.c">
+      <Filter>Source Files\descriptors\dvb</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\descriptors\dvb\dr_62.c">
+      <Filter>Source Files\descriptors\dvb</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\descriptors\dvb\dr_66.c">
+      <Filter>Source Files\descriptors\dvb</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\descriptors\dvb\dr_69.c">
+      <Filter>Source Files\descriptors\dvb</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\descriptors\mpeg\dr_13.c">
+      <Filter>Source Files\descriptors\mpeg</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\descriptors\mpeg\dr_14.c">
+      <Filter>Source Files\descriptors\mpeg</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\descriptors\mpeg\dr_24.c">
+      <Filter>Source Files\descriptors\mpeg</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\descriptors\mpeg\dr_0a.c">
+      <Filter>Source Files\descriptors\mpeg</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\descriptors\mpeg\dr_0b.c">
+      <Filter>Source Files\descriptors\mpeg</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\descriptors\mpeg\dr_0c.c">
+      <Filter>Source Files\descriptors\mpeg</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\descriptors\mpeg\dr_0d.c">
+      <Filter>Source Files\descriptors\mpeg</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\descriptors\mpeg\dr_0e.c">
+      <Filter>Source Files\descriptors\mpeg</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\descriptors\mpeg\dr_0f.c">
+      <Filter>Source Files\descriptors\mpeg</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\descriptors\mpeg\dr_1b.c">
+      <Filter>Source Files\descriptors\mpeg</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\descriptors\mpeg\dr_1c.c">
+      <Filter>Source Files\descriptors\mpeg</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\descriptors\mpeg\dr_02.c">
+      <Filter>Source Files\descriptors\mpeg</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\descriptors\mpeg\dr_03.c">
+      <Filter>Source Files\descriptors\mpeg</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\descriptors\mpeg\dr_04.c">
+      <Filter>Source Files\descriptors\mpeg</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\descriptors\mpeg\dr_05.c">
+      <Filter>Source Files\descriptors\mpeg</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\descriptors\mpeg\dr_06.c">
+      <Filter>Source Files\descriptors\mpeg</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\descriptors\mpeg\dr_07.c">
+      <Filter>Source Files\descriptors\mpeg</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\descriptors\mpeg\dr_08.c">
+      <Filter>Source Files\descriptors\mpeg</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\descriptors\mpeg\dr_09.c">
+      <Filter>Source Files\descriptors\mpeg</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\descriptors\mpeg\dr_10.c">
+      <Filter>Source Files\descriptors\mpeg</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\descriptors\mpeg\dr_11.c">
+      <Filter>Source Files\descriptors\mpeg</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\descriptors\mpeg\dr_12.c">
+      <Filter>Source Files\descriptors\mpeg</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\tables\atsc_eit.c">
+      <Filter>Source Files\tables</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\tables\atsc_ett.c">
+      <Filter>Source Files\tables</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\tables\atsc_mgt.c">
+      <Filter>Source Files\tables</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\tables\atsc_stt.c">
+      <Filter>Source Files\tables</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\tables\atsc_vct.c">
+      <Filter>Source Files\tables</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\tables\bat.c">
+      <Filter>Source Files\tables</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\tables\cat.c">
+      <Filter>Source Files\tables</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\tables\eit.c">
+      <Filter>Source Files\tables</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\tables\nit.c">
+      <Filter>Source Files\tables</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\tables\pat.c">
+      <Filter>Source Files\tables</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\tables\pmt.c">
+      <Filter>Source Files\tables</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\tables\rst.c">
+      <Filter>Source Files\tables</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\tables\sdt.c">
+      <Filter>Source Files\tables</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\tables\sis.c">
+      <Filter>Source Files\tables</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\tables\tot.c">
+      <Filter>Source Files\tables</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="config.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\dvbpsi.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\psi.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\demux.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\descriptor.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\tables\atsc_eit.h">
+      <Filter>Header Files\tables</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\tables\atsc_ett.h">
+      <Filter>Header Files\tables</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\tables\atsc_mgt.h">
+      <Filter>Header Files\tables</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\tables\atsc_stt.h">
+      <Filter>Header Files\tables</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\tables\atsc_vct.h">
+      <Filter>Header Files\tables</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\tables\bat.h">
+      <Filter>Header Files\tables</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\tables\cat.h">
+      <Filter>Header Files\tables</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\tables\tot.h">
+      <Filter>Header Files\tables</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\tables\rst.h">
+      <Filter>Header Files\tables</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\tables\sdt.h">
+      <Filter>Header Files\tables</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\tables\sis.h">
+      <Filter>Header Files\tables</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\tables\pmt.h">
+      <Filter>Header Files\tables</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\tables\eit.h">
+      <Filter>Header Files\tables</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\tables\nit.h">
+      <Filter>Header Files\tables</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\tables\pat.h">
+      <Filter>Header Files\tables</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\descriptors\types\aac_profile.h">
+      <Filter>Header Files\descriptors\types</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\descriptors\mpeg\dr_09.h">
+      <Filter>Header Files\descriptors\mpeg</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\descriptors\mpeg\dr_10.h">
+      <Filter>Header Files\descriptors\mpeg</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\descriptors\mpeg\dr_11.h">
+      <Filter>Header Files\descriptors\mpeg</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\descriptors\mpeg\dr_12.h">
+      <Filter>Header Files\descriptors\mpeg</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\descriptors\mpeg\dr_13.h">
+      <Filter>Header Files\descriptors\mpeg</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\descriptors\mpeg\dr_14.h">
+      <Filter>Header Files\descriptors\mpeg</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\descriptors\mpeg\dr_24.h">
+      <Filter>Header Files\descriptors\mpeg</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\descriptors\mpeg\dr_0a.h">
+      <Filter>Header Files\descriptors\mpeg</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\descriptors\mpeg\dr_0b.h">
+      <Filter>Header Files\descriptors\mpeg</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\descriptors\mpeg\dr_0c.h">
+      <Filter>Header Files\descriptors\mpeg</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\descriptors\mpeg\dr_0d.h">
+      <Filter>Header Files\descriptors\mpeg</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\descriptors\mpeg\dr_0e.h">
+      <Filter>Header Files\descriptors\mpeg</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\descriptors\mpeg\dr_0f.h">
+      <Filter>Header Files\descriptors\mpeg</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\descriptors\mpeg\dr_1b.h">
+      <Filter>Header Files\descriptors\mpeg</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\descriptors\mpeg\dr_1c.h">
+      <Filter>Header Files\descriptors\mpeg</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\descriptors\mpeg\dr_02.h">
+      <Filter>Header Files\descriptors\mpeg</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\descriptors\mpeg\dr_03.h">
+      <Filter>Header Files\descriptors\mpeg</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\descriptors\mpeg\dr_04.h">
+      <Filter>Header Files\descriptors\mpeg</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\descriptors\mpeg\dr_05.h">
+      <Filter>Header Files\descriptors\mpeg</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\descriptors\mpeg\dr_06.h">
+      <Filter>Header Files\descriptors\mpeg</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\descriptors\mpeg\dr_07.h">
+      <Filter>Header Files\descriptors\mpeg</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\descriptors\mpeg\dr_08.h">
+      <Filter>Header Files\descriptors\mpeg</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\descriptors\dvb\dr_40.h">
+      <Filter>Header Files\descriptors\dvb</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\descriptors\dvb\dr_41.h">
+      <Filter>Header Files\descriptors\dvb</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\descriptors\dvb\dr_42.h">
+      <Filter>Header Files\descriptors\dvb</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\descriptors\dvb\dr_43.h">
+      <Filter>Header Files\descriptors\dvb</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\descriptors\dvb\dr_44.h">
+      <Filter>Header Files\descriptors\dvb</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\descriptors\dvb\dr_45.h">
+      <Filter>Header Files\descriptors\dvb</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\descriptors\dvb\dr_47.h">
+      <Filter>Header Files\descriptors\dvb</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\descriptors\dvb\dr_48.h">
+      <Filter>Header Files\descriptors\dvb</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\descriptors\dvb\dr_49.h">
+      <Filter>Header Files\descriptors\dvb</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\descriptors\dvb\dr_50.h">
+      <Filter>Header Files\descriptors\dvb</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\descriptors\dvb\dr_52.h">
+      <Filter>Header Files\descriptors\dvb</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\descriptors\dvb\dr_53.h">
+      <Filter>Header Files\descriptors\dvb</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\descriptors\dvb\dr_54.h">
+      <Filter>Header Files\descriptors\dvb</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\descriptors\dvb\dr_55.h">
+      <Filter>Header Files\descriptors\dvb</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\descriptors\dvb\dr_56.h">
+      <Filter>Header Files\descriptors\dvb</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\descriptors\dvb\dr_58.h">
+      <Filter>Header Files\descriptors\dvb</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\descriptors\dvb\dr_59.h">
+      <Filter>Header Files\descriptors\dvb</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\descriptors\dvb\dr_62.h">
+      <Filter>Header Files\descriptors\dvb</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\descriptors\dvb\dr_66.h">
+      <Filter>Header Files\descriptors\dvb</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\descriptors\dvb\dr_69.h">
+      <Filter>Header Files\descriptors\dvb</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\descriptors\dvb\dr_73.h">
+      <Filter>Header Files\descriptors\dvb</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\descriptors\dvb\dr_76.h">
+      <Filter>Header Files\descriptors\dvb</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\descriptors\dvb\dr_4a.h">
+      <Filter>Header Files\descriptors\dvb</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\descriptors\dvb\dr_4b.h">
+      <Filter>Header Files\descriptors\dvb</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\descriptors\dvb\dr_4c.h">
+      <Filter>Header Files\descriptors\dvb</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\descriptors\dvb\dr_4d.h">
+      <Filter>Header Files\descriptors\dvb</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\descriptors\dvb\dr_4e.h">
+      <Filter>Header Files\descriptors\dvb</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\descriptors\dvb\dr_4f.h">
+      <Filter>Header Files\descriptors\dvb</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\descriptors\dvb\dr_5a.h">
+      <Filter>Header Files\descriptors\dvb</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\descriptors\dvb\dr_7c.h">
+      <Filter>Header Files\descriptors\dvb</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\descriptors\custom\dr_8a_scte.h">
+      <Filter>Header Files\descriptors\custom</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\descriptors\custom\dr_83_eacem.h">
+      <Filter>Header Files\descriptors\custom</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\descriptors\atsc\dr_86.h">
+      <Filter>Header Files\descriptors\atsc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\descriptors\atsc\dr_a0.h">
+      <Filter>Header Files\descriptors\atsc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\descriptors\atsc\dr_a1.h">
+      <Filter>Header Files\descriptors\atsc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\descriptors\atsc\dr_81.h">
+      <Filter>Header Files\descriptors\atsc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\descriptors\dr.h">
+      <Filter>Header Files\descriptors</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
