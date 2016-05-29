@@ -92,35 +92,52 @@ typedef struct dvbpsi_atsc_mgt_s
  * dvbpsi_mgt_callback
  *****************************************************************************/
 /*!
- * \typedef void (* dvbpsi_atsc_mgt_callback)(void* p_cb_data,
+ * \typedef void (* dvbpsi_atsc_mgt_callback)(void* p_priv,
                                          dvbpsi_atsc_mgt_t* p_new_mgt)
  * \brief Callback type definition.
  */
-typedef void (* dvbpsi_atsc_mgt_callback)(void* p_cb_data, dvbpsi_atsc_mgt_t* p_new_mgt);
+typedef void (* dvbpsi_atsc_mgt_callback)(void* p_priv, dvbpsi_atsc_mgt_t* p_new_mgt);
 
 /*****************************************************************************
- * dvbpsi_atsc_AttachMGT
+ * dvbpsi_atsc_mgt_attach
  *****************************************************************************/
 /*!
- * \fn bool dvbpsi_atsc_AttachMGT(dvbpsi_t *p_dvbpsi, uint8_t i_table_id, uint16_t i_extension,
-                           dvbpsi_atsc_mgt_callback pf_callback, void* p_cb_data)
+ * \fn bool dvbpsi_atsc_mgt_attach(dvbpsi_t *p_dvbpsi, uint8_t i_table_id, uint16_t i_extension,
+                           dvbpsi_atsc_mgt_callback pf_callback, void* p_priv)
  *
  * \brief Creation and initialization of a MGT decoder.
  * \param p_dvbpsi dvbpsi handle to Subtable demultiplexor to which the decoder is attached
  * \param i_table_id Table ID, 0xC7.
  * \param i_extension Table ID extension, here 0x0000.
  * \param pf_callback function to call back on new MGT.
- * \param p_cb_data private data given in argument to the callback.
+ * \param p_priv private data given in argument to the callback.
  * \return true if everything went ok, false otherwise
  */
-bool dvbpsi_atsc_AttachMGT(dvbpsi_t *p_dvbpsi, uint8_t i_table_id, uint16_t i_extension,
-                           dvbpsi_atsc_mgt_callback pf_callback, void* p_cb_data);
+bool dvbpsi_atsc_mgt_attach(dvbpsi_t *p_dvbpsi, uint8_t i_table_id, uint16_t i_extension,
+                           dvbpsi_atsc_mgt_callback pf_callback, void* p_priv);
+
+/*!
+ * \brief dvbpsi_atsc_AttachMGT is deprecated use @see dvbpsi_atsc_mgt_attach() instead.
+ * \param p_dvbpsi dvbpsi handle to Subtable demultiplexor to which the decoder is attached
+ * \param i_table_id Table ID, 0xC7.
+ * \param i_extension Table ID extension, here 0x0000.
+ * \param pf_callback function to call back on new MGT.
+ * \param p_priv private data given in argument to the callback.
+ * \return true if everything went ok, false otherwise
+ */
+__attribute__((deprecated,unused))
+inline bool dvbpsi_atsc_AttachMGT(dvbpsi_t *p_dvbpsi, uint8_t i_table_id,
+    uint16_t i_extension, dvbpsi_atsc_mgt_callback pf_callback, void* p_priv)
+{
+    dvbpsi_atsc_mgt_attach(p_dvbpsi, i_table_id, i_extension,
+                           pf_callback, p_priv);
+}
 
 /*****************************************************************************
- * dvbpsi_DetachMGT
+ * dvbpsi_atsc_mgt_detach
  *****************************************************************************/
 /*!
- * \fn void dvbpsi_atsc_DetachMGT(dvbpsi_t *p_dvbpsi, uint8_t i_table_id, uint16_t i_extension)
+ * \fn void dvbpsi_atsc_mgt_detach(dvbpsi_t *p_dvbpsi, uint8_t i_table_id, uint16_t i_extension)
  *
  * \brief Destroy a MGT decoder.
  * \param p_dvbpsi dvbpsi handle to Subtable demultiplexor to which the decoder is attached
@@ -128,13 +145,27 @@ bool dvbpsi_atsc_AttachMGT(dvbpsi_t *p_dvbpsi, uint8_t i_table_id, uint16_t i_ex
  * \param i_extension Table ID extension, here 0x0000.
  * \return nothing.
  */
-void dvbpsi_atsc_DetachMGT(dvbpsi_t * p_dvbpsi, uint8_t i_table_id, uint16_t i_extension);
+void dvbpsi_atsc_mgt_detach(dvbpsi_t * p_dvbpsi, uint8_t i_table_id, uint16_t i_extension);
+
+/*!
+ * \brief dvbpsi_atsc_DetachMGT is deprecated use @see dvbpsi_atsc_mgt_detach() instead.
+ * \brief Destroy a MGT decoder.
+ * \param p_dvbpsi dvbpsi handle to Subtable demultiplexor to which the decoder is attached
+ * \param i_table_id Table ID, 0xC7.
+ * \param i_extension Table ID extension, here 0x0000.
+ * \return nothing.
+ */
+__attribute__((deprecated,unused))
+inline void dvbpsi_atsc_DetachMGT(dvbpsi_t *p_dvbpsi, uint8_t i_table_id, uint16_t i_extension)
+{
+    dvbpsi_atsc_mgt_detach(p_dvbpsi, i_table_id, i_extension);
+}
 
 /*****************************************************************************
- * dvbpsi_atsc_InitMGT/dvbpsi_atsc_NewMGT
+ * dvbpsi_atsc_mgt_init
  *****************************************************************************/
 /*!
- * \fn void dvbpsi_atsc_InitMGT(dvbpsi_atsc_mgt_t* p_mgt, uint8_t i_table_id, uint16_t i_extension,
+ * \fn void dvbpsi_atsc_mgt_init(dvbpsi_atsc_mgt_t* p_mgt, uint8_t i_table_id, uint16_t i_extension,
                                 uint8_t i_version, uint8_t i_protocol, bool b_current_next);
  * \brief Initialize a user-allocated dvbpsi_atsc_mgt_t structure.
  * \param p_mgt pointer to the MGT structure
@@ -145,11 +176,33 @@ void dvbpsi_atsc_DetachMGT(dvbpsi_t * p_dvbpsi, uint8_t i_table_id, uint16_t i_e
  * \param b_current_next current next indicator
  * \return nothing.
  */
-void dvbpsi_atsc_InitMGT(dvbpsi_atsc_mgt_t* p_mgt, uint8_t i_table_id, uint16_t i_extension,
+void dvbpsi_atsc_mgt_init(dvbpsi_atsc_mgt_t* p_mgt, uint8_t i_table_id, uint16_t i_extension,
                          uint8_t i_version, uint8_t i_protocol, bool b_current_next);
 
 /*!
- * \fn dvbpsi_atsc_mgt_t *dvbpsi_atsc_NewMGT(uint8_t i_table_id, uint16_t i_extension,
+ * \brief dvbpsi_atsc_InitMGT is deprecated use @see dvbpsi_atsc_mgt_init() instead.
+ * \param p_mgt pointer to the MGT structure
+ * \param i_table_id Table ID, 0xC7.
+ * \param i_extension Table ID extension, here 0x0000.
+ * \param i_version MGT version
+ * \param i_protocol PSIP Protocol version.
+ * \param b_current_next current next indicator
+ * \return nothing.
+ */
+__attribute__((deprecated,unused))
+inline void dvbpsi_atsc_InitMGT(dvbpsi_atsc_mgt_t* p_mgt, uint8_t i_table_id,
+                                uint16_t i_extension, uint8_t i_version,
+                                uint8_t i_protocol, bool b_current_next)
+{
+    dvbpsi_atsc_mgt_init(p_mgt, i_table_id, i_extension,
+                         i_version, i_protocol,b_current_next);
+}
+
+/*****************************************************************************
+ * dvbpsi_atsc_mgt_new
+ *****************************************************************************/
+/*!
+ * \fn dvbpsi_atsc_mgt_t *dvbpsi_atsc_mgt_new(uint8_t i_table_id, uint16_t i_extension,
                         uint8_t i_version, uint8_t i_protocol, bool b_current_next);
  * \brief Allocate and initialize a new dvbpsi_mgt_t structure.
  * \param i_table_id Table ID, 0xC7.
@@ -159,27 +212,70 @@ void dvbpsi_atsc_InitMGT(dvbpsi_atsc_mgt_t* p_mgt, uint8_t i_table_id, uint16_t 
  * \param b_current_next current next indicator
  * \return p_mgt pointer to the MGT structure, or NULL on failure
  */
-dvbpsi_atsc_mgt_t *dvbpsi_atsc_NewMGT(uint8_t i_table_id, uint16_t i_extension,
+dvbpsi_atsc_mgt_t *dvbpsi_atsc_mgt_new(uint8_t i_table_id, uint16_t i_extension,
                         uint8_t i_version, uint8_t i_protocol, bool b_current_next);
 
+/*!
+ * \brief dvbpsi_atsc_NewMGT is deprecated use @see dvbpsi_atsc_mgt_new() instead.
+ * \param i_table_id Table ID, 0xC7.
+ * \param i_extension Table ID extension, here 0x0000.
+ * \param i_version MGT version
+ * \param i_protocol PSIP Protocol version.
+ * \param b_current_next current next indicator
+ * \return p_mgt pointer to the MGT structure, or NULL on failure
+ */
+__attribute__((deprecated,unused))
+inline dvbpsi_atsc_mgt_t *dvbpsi_atsc_NewMGT(uint8_t i_table_id, uint16_t i_extension,
+                        uint8_t i_version, uint8_t i_protocol, bool b_current_next)
+{
+    return dvbpsi_atsc_mgt_new(i_table_id, i_extension,
+                               i_version, i_protocol, b_current_next);
+}
+
 /*****************************************************************************
- * dvbpsi_atsc_EmptyMGT/dvbpsi_atsc_DeleteMGT
+ * dvbpsi_atsc_mgt_empty
  *****************************************************************************/
 /*!
- * \fn void dvbpsi_atsc_EmptyMGT(dvbpsi_atsc_mgt_t* p_mgt)
+ * \fn void dvbpsi_atsc_mgt_empty(dvbpsi_atsc_mgt_t* p_mgt)
  * \brief Clean a dvbpsi_mgt_t structure.
  * \param p_mgt pointer to the MGT structure
  * \return nothing.
  */
-void dvbpsi_atsc_EmptyMGT(dvbpsi_atsc_mgt_t *p_mgt);
+void dvbpsi_atsc_mgt_empty(dvbpsi_atsc_mgt_t *p_mgt);
 
 /*!
- * \fn void dvbpsi_atsc_DeleteMGT(dvbpsi_atsc_mgt_t *p_mgt);
+ * \brief dvbpsi_atsc_EmptyMGT is deprecated use @see dvbpsi_atsc_mgt_empty() instead.
+ * \param p_mgt pointer to the MGT structure
+ * \return nothing.
+ */
+__attribute__((deprecated,unused))
+inline void dvbpsi_atsc_EmptyMGT(dvbpsi_atsc_mgt_t *p_mgt)
+{
+    dvbpsi_atsc_mgt_empty(p_mgt);
+}
+
+/*****************************************************************************
+ * dvbpsi_atsc_mgt_delete
+ *****************************************************************************/
+/*!
+ * \fn void dvbpsi_atsc_mgt_delete(dvbpsi_atsc_mgt_t *p_mgt);
  * \brief Clean and free a dvbpsi_mgt_t structure.
  * \param p_mgt pointer to the MGT structure
  * \return nothing.
  */
-void dvbpsi_atsc_DeleteMGT(dvbpsi_atsc_mgt_t *p_mgt);
+void dvbpsi_atsc_mgt_delete(dvbpsi_atsc_mgt_t *p_mgt);
+
+/*!
+ * \brief dvbpsi_atsc_DeleteMGT is deprecated use @see dvbpsi_atsc_mgt_delete() instead.
+ * \brief Clean and free a dvbpsi_mgt_t structure.
+ * \param p_mgt pointer to the MGT structure
+ * \return nothing.
+ */
+__attribute__((deprecated,unused))
+inline void dvbpsi_atsc_DeleteMGT(dvbpsi_atsc_mgt_t *p_mgt)
+{
+    dvbpsi_atsc_mgt_delete(p_mgt);
+}
 
 #ifdef __cplusplus
 };

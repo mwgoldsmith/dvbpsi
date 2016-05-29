@@ -42,10 +42,12 @@
 #ifdef DVBPSI_DIST
 #include "../src/dvbpsi.h"
 #include "../src/psi.h"
+#include "../src/chain.h"
 #include "../src/tables/pat.h"
 #else
 #include <dvbpsi/dvbpsi.h>
 #include <dvbpsi/psi.h>
+#include <dvbpsi/chain.h>
 #include <dvbpsi/pat.h>
 #endif
 
@@ -96,6 +98,21 @@ static void DumpPAT(void* p_zero, dvbpsi_pat_t* p_pat)
   dvbpsi_pat_delete(p_pat);
 }
 
+/*****************************************************************************
+ * AttachPAT
+ *****************************************************************************/
+static void AttachPAT(dvbpsi_t *p_dvbpsi, uint8_t i_table_id, uint16_t i_extension,
+                        void *p_zero)
+{
+   if (!dvbpsi_pat_attach(p_dvbpsi, i_table_id, i_extension, DumpPAT, NULL))
+         fprintf(stderr, "Failed to attach PAT decoder\n");
+}
+
+static void DetachPAT(dvbpsi_t *p_dvbpsi, uint8_t i_table_id, uint16_t i_extension)
+{
+    dvbpsi_pat_detach(p_dvbpsi, i_table_id, i_extension);
+}
+
 static void message(dvbpsi_t *handle, const dvbpsi_msg_level_t level, const char* msg)
 {
     switch(level)
@@ -115,22 +132,23 @@ static void message(dvbpsi_t *handle, const dvbpsi_msg_level_t level, const char
 int main(int i_argc, char* pa_argv[])
 {
   int i_fd;
+  int ret = 1;
   uint8_t data[188];
   dvbpsi_t *p_dvbpsi;
   bool b_ok;
 
   if (i_argc != 2)
-      return 1;
+      return ret;
 
   i_fd = open(pa_argv[1], 0);
   if (i_fd < 0)
-      return 1;
+      return ret;
 
   p_dvbpsi = dvbpsi_new(&message, DVBPSI_MSG_DEBUG);
   if (p_dvbpsi == NULL)
       goto out;
 
-  if (!dvbpsi_pat_attach(p_dvbpsi, DumpPAT, NULL))
+  if (!dvbpsi_chain_demux_new(p_dvbpsi, AttachPAT, DetachPAT, NULL))
       goto out;
 
   b_ok = ReadPacket(i_fd, data);
@@ -143,14 +161,15 @@ int main(int i_argc, char* pa_argv[])
     b_ok = ReadPacket(i_fd, data);
   }
 
+  ret = 0;
 out:
   if (p_dvbpsi)
   {
-    dvbpsi_pat_detach(p_dvbpsi);
+    if (!dvbpsi_chain_demux_delete(p_dvbpsi))
+        ret = 1;
     dvbpsi_delete(p_dvbpsi);
   }
   close(i_fd);
-
-  return 0;
+  return ret;
 }
 

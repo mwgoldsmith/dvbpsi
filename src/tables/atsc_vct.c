@@ -39,7 +39,7 @@ Decode PSIP Virtual Channel Table.
 #include "../dvbpsi_private.h"
 #include "../psi.h"
 #include "../descriptor.h"
-#include "../demux.h"
+#include "../chain.h"
 #include "atsc_vct.h"
 
 typedef struct dvbpsi_atsc_vct_decoder_s
@@ -47,7 +47,6 @@ typedef struct dvbpsi_atsc_vct_decoder_s
     DVBPSI_DECODER_COMMON
 
     dvbpsi_atsc_vct_callback      pf_vct_callback;
-    void *                        p_cb_data;
 
     dvbpsi_atsc_vct_t             current_vct;
     dvbpsi_atsc_vct_t *           p_building_vct;
@@ -82,25 +81,23 @@ static dvbpsi_descriptor_t *dvbpsi_atsc_VCTChannelAddDescriptor(
                                                uint8_t *p_data);
 
 static void dvbpsi_atsc_GatherVCTSections(dvbpsi_t * p_dvbpsi,
-                dvbpsi_decoder_t *p_decoder, dvbpsi_psi_section_t * p_section);
+                                          dvbpsi_psi_section_t * p_section);
 
 static void dvbpsi_atsc_DecodeVCTSections(dvbpsi_atsc_vct_t* p_vct,
-                              dvbpsi_psi_section_t* p_section);
+                                          dvbpsi_psi_section_t* p_section);
 
 /*****************************************************************************
- * dvbpsi_atsc_AttachVCT
+ * dvbpsi_atsc_vct_attach
  *****************************************************************************
  * Initialize a VCT subtable decoder.
  *****************************************************************************/
-bool dvbpsi_atsc_AttachVCT(dvbpsi_t *p_dvbpsi, uint8_t i_table_id, uint16_t i_extension,
-                          dvbpsi_atsc_vct_callback pf_vct_callback, void* p_cb_data)
+bool dvbpsi_atsc_vct_attach(dvbpsi_t *p_dvbpsi, uint8_t i_table_id, uint16_t i_extension,
+                          dvbpsi_atsc_vct_callback pf_vct_callback, void* p_priv)
 {
     assert(p_dvbpsi);
-    assert(p_dvbpsi->p_decoder);
 
-    dvbpsi_demux_t* p_demux = (dvbpsi_demux_t*)p_dvbpsi->p_decoder;
-
-    if (dvbpsi_demuxGetSubDec(p_demux, i_table_id, i_extension))
+    dvbpsi_decoder_t *p_dec = dvbpsi_decoder_chain_get(p_dvbpsi, i_table_id, i_extension);
+    if (p_dec != NULL)
     {
         dvbpsi_error(p_dvbpsi, "ATSC VCT decoder",
                      "Already a decoder for (table_id == 0x%02x,"
@@ -110,47 +107,40 @@ bool dvbpsi_atsc_AttachVCT(dvbpsi_t *p_dvbpsi, uint8_t i_table_id, uint16_t i_ex
     }
 
     dvbpsi_atsc_vct_decoder_t*  p_vct_decoder;
-    p_vct_decoder = (dvbpsi_atsc_vct_decoder_t*) dvbpsi_decoder_new(NULL,
-                                                  0, true, sizeof(dvbpsi_atsc_vct_decoder_t));
+    p_vct_decoder = (dvbpsi_atsc_vct_decoder_t*) dvbpsi_decoder_new(dvbpsi_atsc_GatherVCTSections,
+                                                     4096, true, sizeof(dvbpsi_atsc_vct_decoder_t));
     if (p_vct_decoder == NULL)
         return false;
 
-    /* subtable decoder configuration */
-    dvbpsi_demux_subdec_t* p_subdec;
-    p_subdec = dvbpsi_NewDemuxSubDecoder(i_table_id, i_extension, dvbpsi_atsc_DetachVCT,
-                                         dvbpsi_atsc_GatherVCTSections, DVBPSI_DECODER(p_vct_decoder));
-    if (p_subdec == NULL)
-    {
-        dvbpsi_decoder_delete(DVBPSI_DECODER(p_vct_decoder));
-        return false;
-    }
-
-    /* Attach the subtable decoder to the demux */
-    dvbpsi_AttachDemuxSubDecoder(p_demux, p_subdec);
-
     /* VCT decoder information */
     p_vct_decoder->pf_vct_callback = pf_vct_callback;
-    p_vct_decoder->p_cb_data = p_cb_data;
+    p_vct_decoder->p_priv = p_priv;
     p_vct_decoder->p_building_vct = NULL;
+
+    p_vct_decoder->i_table_id = i_table_id;
+    p_vct_decoder->i_extension = i_extension;
+
+    /* add vct decoder to decoder chain */
+    if (!dvbpsi_decoder_chain_add(p_dvbpsi, DVBPSI_DECODER(p_vct_decoder)))
+    {
+         dvbpsi_decoder_delete(DVBPSI_DECODER(p_vct_decoder));
+         return false;
+    }
 
     return true;
 }
 
 /*****************************************************************************
- * dvbpsi_atsc_DetachVCT
+ * dvbpsi_atsc_vct_detach
  *****************************************************************************
  * Close a VCT decoder.
  *****************************************************************************/
-void dvbpsi_atsc_DetachVCT(dvbpsi_t *p_dvbpsi, uint8_t i_table_id, uint16_t i_extension)
+void dvbpsi_atsc_vct_detach(dvbpsi_t *p_dvbpsi, uint8_t i_table_id, uint16_t i_extension)
 {
     assert(p_dvbpsi);
-    assert(p_dvbpsi->p_decoder);
 
-    dvbpsi_demux_t *p_demux = (dvbpsi_demux_t *) p_dvbpsi->p_decoder;
-
-    dvbpsi_demux_subdec_t* p_subdec;
-    p_subdec = dvbpsi_demuxGetSubDec(p_demux, i_table_id, i_extension);
-    if(p_subdec == NULL)
+    dvbpsi_decoder_t *p_dec = dvbpsi_decoder_chain_get(p_dvbpsi, i_table_id, i_extension);
+    if (p_dec == NULL)
     {
         dvbpsi_error(p_dvbpsi, "ATSC VCT Decoder",
                          "No such VCT decoder (table_id == 0x%02x,"
@@ -159,39 +149,45 @@ void dvbpsi_atsc_DetachVCT(dvbpsi_t *p_dvbpsi, uint8_t i_table_id, uint16_t i_ex
         return;
     }
 
-    dvbpsi_atsc_vct_decoder_t* p_vct_decoder;
-    p_vct_decoder = (dvbpsi_atsc_vct_decoder_t*)p_subdec->p_decoder;
-    if (!p_vct_decoder)
+    /* Remove table decoder from decoder chain */
+    if (!dvbpsi_decoder_chain_remove(p_dvbpsi, p_dec))
+    {
+        dvbpsi_error(p_dvbpsi, "ATSC VCT Decoder",
+                         "Failed to remove"
+                         "extension == 0x%02x)",
+                          i_table_id, i_extension);
         return;
-    if (p_vct_decoder->p_building_vct)
-        dvbpsi_atsc_DeleteVCT(p_vct_decoder->p_building_vct);
-    p_vct_decoder->p_building_vct = NULL;
+    }
 
-    dvbpsi_DetachDemuxSubDecoder(p_demux, p_subdec);
-    dvbpsi_DeleteDemuxSubDecoder(p_subdec);
+    dvbpsi_atsc_vct_decoder_t* p_vct_decoder = (dvbpsi_atsc_vct_decoder_t*)p_dec;
+    if (p_vct_decoder->p_building_vct)
+        dvbpsi_atsc_vct_delete(p_vct_decoder->p_building_vct);
+    p_vct_decoder->p_building_vct = NULL;
+    dvbpsi_decoder_delete(p_dec);
+    p_dec = NULL;
 }
 
 /*****************************************************************************
- * dvbpsi_atsc_NewVCT
+ * dvbpsi_atsc_vct_new
  *****************************************************************************
  * Allocate a new dvbpsi_atsc_vct_t structure and initialize it.
  *****************************************************************************/
-dvbpsi_atsc_vct_t *dvbpsi_atsc_NewVCT(uint8_t i_table_id, uint16_t i_extension,
+dvbpsi_atsc_vct_t *dvbpsi_atsc_vct_new(uint8_t i_table_id, uint16_t i_extension,
         uint8_t i_protocol, bool b_cable_vct, uint8_t i_version, bool b_current_next)
 {
     dvbpsi_atsc_vct_t *p_vct = (dvbpsi_atsc_vct_t*)malloc(sizeof(dvbpsi_atsc_vct_t));
     if (p_vct != NULL)
-        dvbpsi_atsc_InitVCT(p_vct, i_table_id, i_extension,  i_protocol,
+        dvbpsi_atsc_vct_init(p_vct, i_table_id, i_extension,  i_protocol,
                             b_cable_vct, i_version, b_current_next);
     return p_vct;
 }
 
 /*****************************************************************************
- * dvbpsi_atsc_InitVCT
+ * dvbpsi_atsc_vct_init
  *****************************************************************************
  * Initialize a pre-allocated dvbpsi_atsc_vct_t structure.
  *****************************************************************************/
-void dvbpsi_atsc_InitVCT(dvbpsi_atsc_vct_t* p_vct, uint8_t i_table_id,
+void dvbpsi_atsc_vct_init(dvbpsi_atsc_vct_t* p_vct, uint8_t i_table_id,
                          uint16_t i_extension, uint8_t i_protocol, bool b_cable_vct,
                          uint8_t i_version, bool b_current_next)
 {
@@ -208,11 +204,11 @@ void dvbpsi_atsc_InitVCT(dvbpsi_atsc_vct_t* p_vct, uint8_t i_table_id,
 }
 
 /*****************************************************************************
- * dvbpsi_atsc_EmptyVCT
+ * dvbpsi_atsc_vct_empty
  *****************************************************************************
  * Clean a dvbpsi_atsc_vct_t structure.
  *****************************************************************************/
-void dvbpsi_atsc_EmptyVCT(dvbpsi_atsc_vct_t* p_vct)
+void dvbpsi_atsc_vct_empty(dvbpsi_atsc_vct_t* p_vct)
 {
     dvbpsi_atsc_vct_channel_t* p_channel = p_vct->p_first_channel;
     dvbpsi_DeleteDescriptors(p_vct->p_first_descriptor);
@@ -229,14 +225,14 @@ void dvbpsi_atsc_EmptyVCT(dvbpsi_atsc_vct_t* p_vct)
 }
 
 /*****************************************************************************
- * dvbpsi_atsc_DeleteVCT
+ * dvbpsi_atsc_vct_delete
  *****************************************************************************
  * Empty and Delere a dvbpsi_atsc_vct_t structure.
  *****************************************************************************/
-void dvbpsi_atsc_DeleteVCT(dvbpsi_atsc_vct_t *p_vct)
+void dvbpsi_atsc_vct_delete(dvbpsi_atsc_vct_t *p_vct)
 {
     if (p_vct)
-        dvbpsi_atsc_EmptyVCT(p_vct);
+        dvbpsi_atsc_vct_empty(p_vct);
     free(p_vct);
 }
 
@@ -368,7 +364,7 @@ static void dvbpsi_ReInitVCT(dvbpsi_atsc_vct_decoder_t *p_decoder, const bool b_
     {
         /* Free structures */
         if (p_decoder->p_building_vct)
-            dvbpsi_atsc_DeleteVCT(p_decoder->p_building_vct);
+            dvbpsi_atsc_vct_delete(p_decoder->p_building_vct);
     }
     p_decoder->p_building_vct = NULL;
 }
@@ -419,7 +415,7 @@ static bool dvbpsi_AddSectionVCT(dvbpsi_t *p_dvbpsi, dvbpsi_atsc_vct_decoder_t *
     /* Initialize the structures if it's the first section received */
     if (!p_vct_decoder->p_building_vct)
     {
-        p_vct_decoder->p_building_vct = dvbpsi_atsc_NewVCT(
+        p_vct_decoder->p_building_vct = dvbpsi_atsc_vct_new(
                               p_section->i_table_id, p_section->i_extension,
                               p_section->p_payload_start[0], p_section->i_table_id == 0xC9,
                               p_section->i_version, p_section->b_current_next);
@@ -442,12 +438,9 @@ static bool dvbpsi_AddSectionVCT(dvbpsi_t *p_dvbpsi, dvbpsi_atsc_vct_decoder_t *
  *****************************************************************************
  * Callback for the subtable demultiplexor.
  *****************************************************************************/
-static void dvbpsi_atsc_GatherVCTSections(dvbpsi_t *p_dvbpsi,
-                                          dvbpsi_decoder_t *p_decoder,
-                                          dvbpsi_psi_section_t *p_section)
+static void dvbpsi_atsc_GatherVCTSections(dvbpsi_t *p_dvbpsi, dvbpsi_psi_section_t *p_section)
 {
     assert(p_dvbpsi);
-    assert(p_dvbpsi->p_decoder);
 
     const uint8_t i_table_id = (p_section->i_table_id == 0xC8 ||
                                 p_section->i_table_id == 0xC9) ?
@@ -460,15 +453,19 @@ static void dvbpsi_atsc_GatherVCTSections(dvbpsi_t *p_dvbpsi,
     }
 
     /* */
-    dvbpsi_demux_t *p_demux = (dvbpsi_demux_t *) p_dvbpsi->p_decoder;
-    dvbpsi_atsc_vct_decoder_t *p_vct_decoder = (dvbpsi_atsc_vct_decoder_t*)p_decoder;
+    dvbpsi_decoder_t *p_dec = dvbpsi_decoder_chain_get(p_dvbpsi, i_table_id, p_section->i_extension);
+    if (!p_dec)
+    {
+        dvbpsi_DeletePSISections(p_section);
+        return;
+    }
 
     /* TS discontinuity check */
-    if (p_demux->b_discontinuity)
+    dvbpsi_atsc_vct_decoder_t *p_vct_decoder = (dvbpsi_atsc_vct_decoder_t*)p_dec;
+    if (p_vct_decoder->b_discontinuity)
     {
         dvbpsi_ReInitVCT(p_vct_decoder, true);
         p_vct_decoder->b_discontinuity = false;
-        p_demux->b_discontinuity = false;
     }
     else
     {
@@ -505,7 +502,7 @@ static void dvbpsi_atsc_GatherVCTSections(dvbpsi_t *p_dvbpsi,
                     {
                         p_vct_decoder->current_vct.b_current_next = 1;
                         *p_vct = p_vct_decoder->current_vct;
-                        p_vct_decoder->pf_vct_callback(p_vct_decoder->p_cb_data, p_vct);
+                        p_vct_decoder->pf_vct_callback(p_vct_decoder->p_priv, p_vct);
                     }
                 }
                 else
@@ -538,7 +535,7 @@ static void dvbpsi_atsc_GatherVCTSections(dvbpsi_t *p_dvbpsi,
         dvbpsi_atsc_DecodeVCTSections(p_vct_decoder->p_building_vct,
                                       p_vct_decoder->p_sections);
         /* signal the new VCT */
-        p_vct_decoder->pf_vct_callback(p_vct_decoder->p_cb_data,
+        p_vct_decoder->pf_vct_callback(p_vct_decoder->p_priv,
                                        p_vct_decoder->p_building_vct);
         /* Delete sections and Reinitialize the structures */
         dvbpsi_ReInitVCT(p_vct_decoder, false);

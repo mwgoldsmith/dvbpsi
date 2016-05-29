@@ -104,10 +104,10 @@ typedef struct dvbpsi_eit_s
  * dvbpsi_eit_callback
  *****************************************************************************/
 /*!
- * \typedef void (* dvbpsi_eit_callback)(void* p_cb_data, dvbpsi_eit_t* p_new_eit)
+ * \typedef void (* dvbpsi_eit_callback)(void* p_priv, dvbpsi_eit_t* p_new_eit)
  * \brief Callback type definition.
  */
-typedef void (* dvbpsi_eit_callback)(void* p_cb_data, dvbpsi_eit_t* p_new_eit);
+typedef void (* dvbpsi_eit_callback)(void* p_priv, dvbpsi_eit_t* p_new_eit);
 
 /*****************************************************************************
  * dvbpsi_AttachEIT
@@ -115,17 +115,17 @@ typedef void (* dvbpsi_eit_callback)(void* p_cb_data, dvbpsi_eit_t* p_new_eit);
 /*!
  * \fn bool dvbpsi_eit_attach(dvbpsi_t *p_dvbpsi, uint8_t i_table_id,
           uint16_t i_extension, dvbpsi_eit_callback pf_callback,
-                               void* p_cb_data)
+                               void* p_priv)
  * \brief Creation and initialization of a EIT decoder.
  * \param p_dvbpsi pointer to Subtable demultiplexor to which the EIT decoder is attached.
  * \param i_table_id Table ID, 0x4E, 0x4F, or 0x50-0x6F.
  * \param i_extension Table ID extension, here service ID.
  * \param pf_callback function to call back on new EIT.
- * \param p_cb_data private data given in argument to the callback.
+ * \param p_priv private data given in argument to the callback.
  * \return true on success, false on failure
  */
 bool dvbpsi_eit_attach(dvbpsi_t *p_dvbpsi, uint8_t i_table_id, uint16_t i_extension,
-                       dvbpsi_eit_callback pf_callback, void* p_cb_data);
+                       dvbpsi_eit_callback pf_callback, void* p_priv);
 
 /*****************************************************************************
  * dvbpsi_eit_detach

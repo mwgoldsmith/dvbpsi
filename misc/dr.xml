@@ -2,7 +2,7 @@
 <!DOCTYPE dr SYSTEM "dr.dtd">
 
 <dr>
-  <descriptor name="video stream (b_mpeg2 = false)" sname="vstream" fname="VStream" msuffix="1" >
+  <descriptor name="video stream (b_mpeg2 = false)" sname="mpeg_vstream" msuffix="1" >
     <boolean name="b_multiple_frame_rate" default="0" />
     <integer name="i_frame_rate_code" bitcount="4" default="0" />
     <insert>
@@ -13,7 +13,7 @@
     <boolean name="b_still_picture" default="0" />
   </descriptor>
 
-  <descriptor name="video stream (b_mpeg2 = true)" sname="vstream" fname="VStream" msuffix="2" >
+  <descriptor name="video stream (b_mpeg2 = true)" sname="mpeg_vstream" msuffix="2" >
     <boolean name="b_multiple_frame_rate" default="0" />
     <integer name="i_frame_rate_code" bitcount="4" default="0" />
     <insert>
@@ -27,20 +27,20 @@
     <boolean name="b_frame_rate_extension" default="0" />
   </descriptor>
 
-  <descriptor name="audio stream" sname="astream" fname="AStream">
+  <descriptor name="audio stream" sname="mpeg_astream">
     <boolean name="b_free_format" default="0" />
     <integer name="i_id" bitcount="1" default="0" />
     <integer name="i_layer" bitcount="2" default="0" />
   </descriptor>
 
-  <descriptor name="hierarchy" sname="hierarchy" fname="Hierarchy">
+  <descriptor name="hierarchy" sname="mpeg_hierarchy">
     <integer name="i_h_type" bitcount="4" default="0" />
     <integer name="i_h_layer_index" bitcount="6" default="0" />
     <integer name="i_h_embedded_layer" bitcount="6" default="0" />
     <integer name="i_h_priority" bitcount="6" default="0" />
   </descriptor>
 
-  <descriptor name="registration" sname="registration" fname="Registration">
+  <descriptor name="registration" sname="mpeg_registration">
     <insert>
       <begin>
   s_decoded.i_additional_length = 0;</begin>
@@ -48,23 +48,23 @@
     <integer name="i_format_identifier" bitcount="32" default="0" />
   </descriptor>
 
-  <descriptor name="data stream alignment" sname="ds_alignment" fname="DSAlignment">
+  <descriptor name="data stream alignment" sname="mpeg_ds_alignment">
     <integer name="i_alignment_type" bitcount="8" default="0" />
   </descriptor>
 
-  <descriptor name="target background grid" sname="target_bg_grid" fname="TargetBgGrid">
+  <descriptor name="target background grid" sname="mpeg_target_bg_grid">
     <integer name="i_horizontal_size" bitcount="14" default="0" />
     <integer name="i_vertical_size" bitcount="14" default="0" />
     <integer name="i_pel_aspect_ratio" bitcount="4" default="0" />
   </descriptor>
 
-  <descriptor name="video window" sname="vwindow" fname="VWindow">
+  <descriptor name="video window" sname="mpeg_vwindow">
     <integer name="i_horizontal_offset" bitcount="14" default="0" />
     <integer name="i_vertical_offset" bitcount="14" default="0" />
     <integer name="i_window_priority" bitcount="4" default="0" />
   </descriptor>
 
-  <descriptor name="conditional access" sname="ca" fname="CA">
+  <descriptor name="conditional access" sname="mpeg_ca">
     <insert>
       <begin>
   s_decoded.i_private_length = 0;</begin>
@@ -74,23 +74,23 @@
     <array name="i_private_data" len_name="i_private_length" min_size="0" />
   </descriptor>
 
-  <descriptor name="ISO 639 language" sname="iso639" fname="ISO639">
+  <descriptor name="ISO 639 language" sname="mpeg_iso639">
     <array name="code" len_name="i_code_count" min_size="1" />
   </descriptor>
 
-  <descriptor name="system clock" sname="system_clock" fname="SystemClock">
+  <descriptor name="system clock" sname="mpeg_system_clock">
     <boolean name="b_external_clock_ref" default="0" />
     <integer name="i_clock_accuracy_integer" bitcount="6" default="0" />
     <integer name="i_clock_accuracy_exponent" bitcount="3" default="0" />
   </descriptor>
 
-  <descriptor name="multiplex buffer utilization" sname="mx_buff_utilization" fname="MxBuffUtilization">
+  <descriptor name="multiplex buffer utilization" sname="mpeg_mx_buff_utilization">
     <boolean name="b_mdv_valid" default="0" />
     <integer name="i_mx_delay_variation" bitcount="15" default="0" />
     <integer name="i_mx_strategy" bitcount="3" default="0" />
   </descriptor>
 
-  <descriptor name="copyright" sname="copyright" fname="Copyright">
+  <descriptor name="copyright" sname="mpeg_copyright">
     <insert>
       <begin>
   s_decoded.i_additional_length = 0;</begin>
@@ -99,50 +99,73 @@
     <array name="i_additional_info" len_name="i_additional_length" min_size="0" />
   </descriptor>
 
-  <descriptor name="maximum bitrate" sname="max_bitrate" fname="MaxBitrate">
+  <descriptor name="maximum bitrate" sname="mpeg_max_bitrate">
     <integer name="i_max_bitrate" bitcount="22" default="0" />
   </descriptor>
 
-  <descriptor name="private data indicator" sname="private_data" fname="PrivateData">
+  <descriptor name="private data indicator" sname="mpeg_private_data">
     <integer name="i_private_data" bitcount="32" default="0" />
   </descriptor>
 
-  <descriptor name="smoothing buffer" sname="smoothing_buffer" fname="SmoothingBuffer" gen_args="1">
+  <descriptor name="smoothing buffer" sname="mpeg_smoothing_buffer" gen_args="1">
     <integer name="i_sb_leak_rate" bitcount="22" default="0" />
     <integer name="i_sb_size" bitcount="22" default="0" />
   </descriptor>
 
-  <descriptor name="STD" sname="std" fname="STD" gen_args="1">
+  <descriptor name="STD" sname="mpeg_std" gen_args="1">
     <boolean name="b_leak_valid_flag" default="0" />
   </descriptor>
 
-  <descriptor name="IBP" sname="ibp" fname="IBP" gen_args="1">
+  <descriptor name="IBP" sname="mpeg_ibp" gen_args="1">
     <boolean name="b_closed_gop_flag" default="0" />
     <boolean name="b_identical_gop_flag" default="0" />
     <integer name="i_max_gop_length" bitcount="14" default="1" />
   </descriptor>
 
-  <descriptor name="MPEG-4 video" sname="mpeg4_video" fname="MPEG4Video" gen_args="1">
+  <descriptor name="MPEG-4 video" sname="mpeg_mpeg4_video" gen_args="1">
     <integer name="i_mpeg4_visual_profile_and_level" bitcount="8" default="0" />
   </descriptor>
 
-  <descriptor name="MPEG-4 audio" sname="mpeg4_audio" fname="MPEG4Audio" gen_args="1">
+  <descriptor name="MPEG-4 audio" sname="mpeg_mpeg4_audio" gen_args="1">
     <integer name="i_mpeg4_audio_profile_and_level" bitcount="8" default="0" />
   </descriptor>
 
-  <descriptor name="network name" sname="network_name" fname="NetworkName">
+  <descriptor name="IOD" sname="mpeg_iod" gen_args="1">
+    <integer name="i_scope_of_iod_label" bitcount="8" default="0"/>
+    <integer name="i_iod_label" bitcount="8" default="0"/>
+    <integer name="i_initial_object_descriptor" bitcount="8" default="0"/>
+  </descriptor>
+  
+  <descriptor name="SL" sname="mpeg_sl" gen_args="1">
+    <integer name="i_es_id" bitcount="16" default="0"/>
+  </descriptor>
+
+  <descriptor name="FMC" sname="mpeg_fmc" gen_args="1">
+    <array name="p_fmc" len_name="i_num_fmc" min_size="1" type="dvbpsi_fmc_t"/>
+  </descriptor>
+
+  <descriptor name="External_ES_ID" sname="mpeg_ext_es_id" gen_args="1">
+    <integer name="i_ext_es_id" bitcount="16" default="0"/>
+  </descriptor>
+
+  <descriptor name="MultiplexBuffer" sname="mpeg_mux_buf" gen_args="1">
+    <integer name="i_mb_buf_size" bitcount="24" default="0"/>
+    <integer name="i_tb_leak_rate" bitcount="24" default="0"/>
+  </descriptor>
+
+  <descriptor name="network name" sname="dvb_network_name">
     <array name="i_name_byte" len_name="i_name_length" min_size="0" />
   </descriptor>
 
-  <descriptor name="service list" sname="service_list" fname="ServiceList">
+  <descriptor name="service list" sname="dvb_service_list">
     <array name="i_service" len_name="i_service_count" min_size="1" type="dvbpsi_service_list_service_s" />
   </descriptor>
 
-  <descriptor name="stuffing" sname="stuffing" fname="Stuffing">
+  <descriptor name="stuffing" sname="dvb_stuffing">
     <array name="i_stuffing_byte" len_name="i_stuffing_length" min_size="0" />
   </descriptor>
 
-  <descriptor name="satellite delivery system" sname="sat_deliv_sys" fname="SatDelivSys">
+  <descriptor name="satellite delivery system" sname="dvb_sat_deliv_sys">
     <integer name="i_frequency" bitcount="32" default="0"/>
     <integer name="i_orbital_position" bitcount="16" default="0"/>
     <integer name="i_west_east_flag" bitcount="1" default="0"/>
@@ -154,7 +177,7 @@
     <integer name="i_fec_inner" bitcount="4" default="0"/>
   </descriptor>
 
-  <descriptor name="cable delivery system" sname="cable_deliv_sys" fname="CableDelivSys">
+  <descriptor name="cable delivery system" sname="dvb_cable_deliv_sys">
     <integer name="i_frequency" bitcount="32" default="0"/>
     <integer name="i_modulation" bitcount="8" default="0"/>
     <integer name="i_symbol_rate" bitcount="28" default="0"/>
@@ -162,11 +185,11 @@
     <integer name="i_fec_outer" bitcount="4" default="0"/>
   </descriptor>
 
-  <descriptor name="bouquet name" sname="bouquet_name" fname="BouquetName">
+  <descriptor name="bouquet name" sname="dvb_bouquet_name">
     <array name="i_char" len_name="i_name_length" min_size="0" />
   </descriptor>
 
-  <descriptor name="service (i_service_provider_name)" sname="service" fname="Service" msuffix="1">
+  <descriptor name="service (i_service_provider_name)" sname="dvb_service" msuffix="1">
     <insert>
       <begin>
   s_decoded.i_service_name_length = 0;</begin>
@@ -175,7 +198,7 @@
     <array name="i_service_provider_name" len_name="i_service_provider_name_length" min_size="0" />
   </descriptor>
 
-  <descriptor name="service (i_service_name)" sname="service" fname="Service" msuffix="2">
+  <descriptor name="service (i_service_name)" sname="dvb_service" msuffix="2">
     <insert>
       <begin>
   s_decoded.i_service_provider_name_length = 0;</begin>
@@ -184,7 +207,7 @@
     <array name="i_service_name" len_name="i_service_name_length" min_size="0" />
   </descriptor>
 
-  <descriptor name="service (both names)" sname="service" fname="Service" msuffix="3">
+  <descriptor name="service (both names)" sname="dvb_service" msuffix="3">
     <insert>
       <begin>
   s_decoded.i_service_provider_name_length = 0;</begin>
@@ -194,7 +217,7 @@
     <array name="i_service_provider_name" len_name="i_service_provider_name_length" min_size="0" max_size="126" />
   </descriptor>
 
-  <descriptor name="linkage (information service)" sname="linkage" fname="Linkage" msuffix="0">
+  <descriptor name="linkage (information service)" sname="dvb_linkage" msuffix="0">
     <insert>
       <begin>
   s_decoded.i_linkage_type = 1;
@@ -206,7 +229,7 @@
     <array name="i_private_data" len_name="i_private_data_length" min_size="0" />
   </descriptor>
 
-  <descriptor name="linkage (mobile handover, no extra data)" sname="linkage" fname="Linkage" msuffix="1">
+  <descriptor name="linkage (mobile handover, no extra data)" sname="dvb_linkage" msuffix="1">
     <insert>
       <begin>
   s_decoded.i_linkage_type = 8;
@@ -220,7 +243,7 @@
     <array name="i_private_data" len_name="i_private_data_length" min_size="0" max_size="245" />
   </descriptor>
 
-  <descriptor name="linkage (mobile handover, extra network_id)" sname="linkage" fname="Linkage" msuffix="2">
+  <descriptor name="linkage (mobile handover, extra network_id)" sname="dvb_linkage" msuffix="2">
     <insert>
       <begin>
   s_decoded.i_linkage_type = 8;
@@ -235,7 +258,7 @@
     <array name="i_private_data" len_name="i_private_data_length" min_size="0" max_size="243" />
   </descriptor>
 
-  <descriptor name="linkage (mobile handover, extra initial_service_id)" sname="linkage" fname="Linkage" msuffix="3">
+  <descriptor name="linkage (mobile handover, extra initial_service_id)" sname="dvb_linkage" msuffix="3">
     <insert>
       <begin>
   s_decoded.i_linkage_type = 8;
@@ -250,7 +273,7 @@
     <array name="i_private_data" len_name="i_private_data_length" min_size="0" max_size="243" />
   </descriptor>
 
-  <descriptor name="linkage (mobile handover, extra network_id and initial_service_id)" sname="linkage" fname="Linkage" msuffix="4">
+  <descriptor name="linkage (mobile handover, extra network_id and initial_service_id)" sname="dvb_linkage" msuffix="4">
     <insert>
       <begin>
   s_decoded.i_linkage_type = 8;
@@ -266,7 +289,7 @@
     <array name="i_private_data" len_name="i_private_data_length" min_size="0" max_size="241" />
   </descriptor>
 
-  <descriptor name="linkage (event linkage)" sname="linkage" fname="Linkage" msuffix="5">
+  <descriptor name="linkage (event linkage)" sname="dvb_linkage" msuffix="5">
     <insert>
       <begin>
   s_decoded.i_linkage_type = 13;
@@ -281,15 +304,15 @@
     <array name="i_private_data" len_name="i_private_data_length" min_size="0" max_size="242" />
   </descriptor>
 
-  <descriptor name="Near Video On Demand reference" sname="nvod_ref" fname="NVODReference">
+  <descriptor name="Near Video On Demand reference" sname="dvb_nvod_ref">
     <array name="p_nvod_refs" len_name="i_references" min_size="1" type="dvbpsi_nvod_ref_t"/>
   </descriptor>
 
-  <descriptor name="time shifted service" sname="tshifted_service" fname="TimeShiftedService">
+  <descriptor name="time shifted service" sname="dvb_tshifted_service">
     <integer name="i_ref_service_id" bitcount="16" default="0"/>
   </descriptor>
 
-  <descriptor name="short event (event_name)" sname="short_event" fname="ShortEvent" msuffix="0">
+  <descriptor name="short event (event_name)" sname="dvb_short_event" msuffix="0">
     <insert>
       <begin>
   s_decoded.i_text_length = 0;
@@ -299,7 +322,7 @@
     <array name="i_event_name" len_name="i_event_name_length" min_size="0" max_size="248" />
   </descriptor>
 
-  <descriptor name="short event (i_text)" sname="short_event" fname="ShortEvent" msuffix="1">
+  <descriptor name="short event (i_text)" sname="dvb_short_event" msuffix="1">
     <insert>
       <begin>
   s_decoded.i_event_name_length = 0;
@@ -309,46 +332,46 @@
     <array name="i_text" len_name="i_text_length" min_size="0" max_size="248" />
   </descriptor>
 
-  <descriptor name="short event (both)" sname="short_event" fname="ShortEvent" msuffix="2">
+  <descriptor name="short event (both)" sname="dvb_short_event" msuffix="2">
     <carray name="i_iso_639_code" />
     <array name="i_text" len_name="i_text_length" min_size="0" max_size="124" />
     <array name="i_event_name" len_name="i_event_name_length" min_size="0" max_size="124" />
   </descriptor>
 
-  <descriptor name="time shifted event" sname="tshifted_ev" fname="TimeShiftedEvent">
+  <descriptor name="time shifted event" sname="dvb_tshifted_ev">
     <integer name="i_ref_service_id" bitcount="16" default="0"/>
     <integer name="i_ref_event_id" bitcount="16" default="0"/>
   </descriptor>
 
-  <descriptor name="stream identifier" sname="stream_identifier" fname="StreamIdentifier">
+  <descriptor name="stream identifier" sname="dvb_stream_identifier">
     <integer name="i_component_tag" bitcount="8" default="0"/>
   </descriptor>
 
-  <descriptor name="CA identifier" sname="ca_identifier" fname="CAIdentifier">
+  <descriptor name="CA identifier" sname="dvb_ca_identifier">
     <array name="p_system" len_name="i_number" min_size="1" type="dvbpsi_ca_system_t"/>
   </descriptor>
 
-  <descriptor name="content" sname="content" fname="Content">
+  <descriptor name="content" sname="dvb_content">
     <array name="p_content" len_name="i_contents_number" min_size="1" type="dvbpsi_content_t"/>
   </descriptor>
 
-  <descriptor name="parental rating" sname="parental_rating" fname="ParentalRating">
+  <descriptor name="parental rating" sname="dvb_parental_rating">
     <array name="p_parental_rating" len_name="i_ratings_number" min_size="1" type="dvbpsi_parental_rating_t"/>
   </descriptor>
 
-  <descriptor name="teletext" sname="teletext" fname="Teletext">
+  <descriptor name="teletext" sname="dvb_teletext">
     <array name="p_pages" len_name="i_pages_number" min_size="1" type="dvbpsi_teletextpage_t"/>
   </descriptor>
 
-  <descriptor name="local time offset" sname="local_time_offset" fname="LocalTimeOffset">
+  <descriptor name="local time offset" sname="dvb_local_time_offset">
     <array name="p_local_time_offset" len_name="i_local_time_offsets_number" min_size="1" type="dvbpsi_local_time_offset_t"/>
   </descriptor>
 
-  <descriptor name="subtitling" sname="subtitling" fname="Subtitling">
+  <descriptor name="subtitling" sname="dvb_subtitling">
     <array name="p_subtitle" len_name="i_subtitles_number" min_size="1" type="dvbpsi_subtitle_t"/>
   </descriptor>
 
-  <descriptor name="terrestial delivery system" sname="terr_deliv_sys" fname="TerrDelivSys">
+  <descriptor name="terrestial delivery system" sname="dvb_terr_deliv_sys">
     <integer name="i_centre_frequency" bitcount="32" default="0"/>
     <integer name="i_bandwidth" bitcount="3" default="0"/>
     <integer name="i_priority" bitcount="1" default="0"/>

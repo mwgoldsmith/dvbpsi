@@ -1,6 +1,6 @@
 <!ELEMENT dr (descriptor*)>
 
-<!ELEMENT descriptor (integer | boolean | insert | array)*>
+<!ELEMENT descriptor (integer | boolean | insert | array | carray)*>
 
 <!ELEMENT integer EMPTY>
 
@@ -8,26 +8,30 @@
 
 <!ELEMENT array EMPTY>
 
+<!ELEMENT carray EMPTY>
+
 <!ELEMENT insert (begin? | check? | end?)>
 
 <!ELEMENT begin (#PCDATA)>
 
 <!ELEMENT check (#PCDATA)>
 
-<!ATTLIST descriptor name CDATA #IMPLIED>
-<!ATTLIST descriptor sname CDATA #IMPLIED>
-<!ATTLIST descriptor fname CDATA #IMPLIED>
-<!ATTLIST descriptor msuffix CDATA #IMPLIED>
-<!ATTLIST descriptor gen_args CDATA #IMPLIED>
+<!ATTLIST descriptor name CDATA #REQUIRED>
+<!ATTLIST descriptor sname CDATA #REQUIRED>
+<!ATTLIST descriptor msuffix CDATA "0">
+<!ATTLIST descriptor gen_args CDATA "0">
 
-<!ATTLIST integer name CDATA #IMPLIED>
-<!ATTLIST integer bitcount CDATA #IMPLIED>
-<!ATTLIST integer default CDATA #IMPLIED>
+<!ATTLIST integer name CDATA #REQUIRED>
+<!ATTLIST integer bitcount CDATA #REQUIRED>
+<!ATTLIST integer default CDATA #REQUIRED>
 
-<!ATTLIST boolean name CDATA #IMPLIED>
-<!ATTLIST boolean default CDATA #IMPLIED>
+<!ATTLIST boolean name CDATA #REQUIRED>
+<!ATTLIST boolean default CDATA #REQUIRED>
 
-<!ATTLIST array name CDATA #IMPLIED>
-<!ATTLIST array len_name CDATA #IMPLIED>
-<!ATTLIST array min_size CDATA #IMPLIED>
+<!ATTLIST array name CDATA #REQUIRED>
+<!ATTLIST array len_name CDATA #REQUIRED>
+<!ATTLIST array min_size CDATA #REQUIRED>
+<!ATTLIST array max_size CDATA #IMPLIED>
 <!ATTLIST array type CDATA #IMPLIED>
+
+<!ATTLIST carray name CDATA #REQUIRED>

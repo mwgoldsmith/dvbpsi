@@ -42,6 +42,7 @@
 #include "../dvbpsi.h"
 #include "../dvbpsi_private.h"
 #include "../psi.h"
+#include "../chain.h"
 #include "pat.h"
 #include "pat_private.h"
 
@@ -50,13 +51,21 @@
  *****************************************************************************
  * Initialize a PAT decoder and return a handle on it.
  *****************************************************************************/
-bool dvbpsi_pat_attach(dvbpsi_t *p_dvbpsi, dvbpsi_pat_callback pf_callback,
-                      void* p_cb_data)
+bool dvbpsi_pat_attach(dvbpsi_t *p_dvbpsi, uint8_t i_table_id, uint16_t i_extension,
+                       dvbpsi_pat_callback pf_callback, void* p_priv)
 {
     assert(p_dvbpsi);
-    assert(p_dvbpsi->p_decoder == NULL);
 
     /* PSI decoder configuration and initial state */
+    dvbpsi_decoder_t* p_dec = dvbpsi_decoder_chain_get(p_dvbpsi, i_table_id, i_extension);
+    if (p_dec != NULL)
+    {
+        dvbpsi_error(p_dvbpsi, "PAT decoder",
+                     "Already a decoder for (table_id == 0x%02x,"
+                     "extension == 0x%02x)",
+                     i_table_id, i_extension);
+        return false;
+    }
     dvbpsi_pat_decoder_t *p_pat_decoder;
     p_pat_decoder = (dvbpsi_pat_decoder_t*) dvbpsi_decoder_new(&dvbpsi_pat_sections_gather,
                                                 1024, true, sizeof(dvbpsi_pat_decoder_t));
@@ -65,10 +74,19 @@ bool dvbpsi_pat_attach(dvbpsi_t *p_dvbpsi, dvbpsi_pat_callback pf_callback,
 
     /* PAT decoder information */
     p_pat_decoder->pf_pat_callback = pf_callback;
-    p_pat_decoder->p_cb_data = p_cb_data;
+    p_pat_decoder->p_priv = p_priv;
     p_pat_decoder->p_building_pat = NULL;
 
-    p_dvbpsi->p_decoder = DVBPSI_DECODER(p_pat_decoder);
+    p_pat_decoder->i_table_id = i_table_id;
+    p_pat_decoder->i_extension = i_extension;
+
+    /* Add pat decoder to decoder chain */
+    if (!dvbpsi_decoder_chain_add(p_dvbpsi, DVBPSI_DECODER(p_pat_decoder)))
+    {
+        dvbpsi_decoder_delete(DVBPSI_DECODER(p_pat_decoder));
+        return false;
+    }
+
     return true;
 }
 
@@ -77,18 +95,36 @@ bool dvbpsi_pat_attach(dvbpsi_t *p_dvbpsi, dvbpsi_pat_callback pf_callback,
  *****************************************************************************
  * Close a PAT decoder. The handle isn't valid any more.
  *****************************************************************************/
-void dvbpsi_pat_detach(dvbpsi_t *p_dvbpsi)
+void dvbpsi_pat_detach(dvbpsi_t *p_dvbpsi, uint8_t i_table_id, uint16_t i_extension)
 {
     assert(p_dvbpsi);
-    assert(p_dvbpsi->p_decoder);
 
-    dvbpsi_pat_decoder_t* p_pat_decoder = (dvbpsi_pat_decoder_t*)p_dvbpsi->p_decoder;
+    dvbpsi_pat_decoder_t *p_pat_decoder =
+             (dvbpsi_pat_decoder_t*) dvbpsi_decoder_chain_get(p_dvbpsi, i_table_id, i_extension);
+    if (!p_pat_decoder)
+    {
+        dvbpsi_error(p_dvbpsi, "PAT Decoder",
+                     "No such PAT decoder (table_id == 0x%02x,"
+                     "extension == 0x%02x)",
+                     i_table_id, i_extension);
+        return;
+    }
+
+    /* Remove table decoder from chain */
+    if (!dvbpsi_decoder_chain_remove(p_dvbpsi, DVBPSI_DECODER(p_pat_decoder)))
+    {
+        dvbpsi_error(p_dvbpsi, "PAT Decoder",
+                     "Failed to remove"
+                     "extension == 0x%02x)",
+                      i_table_id, i_extension);
+        return;
+    }
+
     if (p_pat_decoder->p_building_pat)
         dvbpsi_pat_delete(p_pat_decoder->p_building_pat);
     p_pat_decoder->p_building_pat = NULL;
-
-    dvbpsi_decoder_delete(p_dvbpsi->p_decoder);
-    p_dvbpsi->p_decoder = NULL;
+    dvbpsi_decoder_delete(DVBPSI_DECODER(p_pat_decoder));
+    p_pat_decoder = NULL;
 }
 
 /*****************************************************************************
@@ -204,13 +240,10 @@ static void dvbpsi_ReInitPAT(dvbpsi_pat_decoder_t* p_decoder, const bool b_force
     p_decoder->p_building_pat = NULL;
 }
 
-static bool dvbpsi_CheckPAT(dvbpsi_t *p_dvbpsi, dvbpsi_psi_section_t *p_section)
+static bool dvbpsi_CheckPAT(dvbpsi_t *p_dvbpsi, dvbpsi_pat_decoder_t* p_pat_decoder,
+                            dvbpsi_psi_section_t *p_section)
 {
     bool b_reinit = false;
-    assert(p_dvbpsi->p_decoder);
-
-    dvbpsi_pat_decoder_t* p_pat_decoder;
-    p_pat_decoder = (dvbpsi_pat_decoder_t *)p_dvbpsi->p_decoder;
 
     /* Perform a few sanity checks */
     if (p_pat_decoder->p_building_pat->i_ts_id != p_section->i_extension)
@@ -273,10 +306,8 @@ static bool dvbpsi_AddSectionPAT(dvbpsi_t *p_dvbpsi, dvbpsi_pat_decoder_t *p_pat
  *****************************************************************************/
 void dvbpsi_pat_sections_gather(dvbpsi_t* p_dvbpsi, dvbpsi_psi_section_t* p_section)
 {
-    dvbpsi_pat_decoder_t* p_pat_decoder;
 
     assert(p_dvbpsi);
-    assert(p_dvbpsi->p_decoder);
 
     if (!dvbpsi_CheckPSISection(p_dvbpsi, p_section, 0x00, "PAT decoder"))
     {
@@ -285,9 +316,15 @@ void dvbpsi_pat_sections_gather(dvbpsi_t* p_dvbpsi, dvbpsi_psi_section_t* p_sect
     }
 
     /* Now we have a valid PAT section */
-    p_pat_decoder = (dvbpsi_pat_decoder_t *)p_dvbpsi->p_decoder;
+    dvbpsi_decoder_t *p_dec = dvbpsi_decoder_chain_get(p_dvbpsi, p_section->i_table_id, p_section->i_extension);
+    if (!p_dec)
+    {
+        dvbpsi_DeletePSISections(p_section);
+        return;
+    }
 
     /* TS discontinuity check */
+    dvbpsi_pat_decoder_t *p_pat_decoder = (dvbpsi_pat_decoder_t *)p_dec;
     if (p_pat_decoder->b_discontinuity)
     {
         dvbpsi_ReInitPAT(p_pat_decoder, true);
@@ -297,7 +334,7 @@ void dvbpsi_pat_sections_gather(dvbpsi_t* p_dvbpsi, dvbpsi_psi_section_t* p_sect
     {
         if (p_pat_decoder->p_building_pat)
         {
-            if (dvbpsi_CheckPAT(p_dvbpsi, p_section))
+            if (dvbpsi_CheckPAT(p_dvbpsi, p_pat_decoder, p_section))
                 dvbpsi_ReInitPAT(p_pat_decoder, true);
         }
         else
@@ -341,7 +378,7 @@ void dvbpsi_pat_sections_gather(dvbpsi_t* p_dvbpsi, dvbpsi_psi_section_t* p_sect
 
         /* signal the new PAT */
         if (p_pat_decoder->b_current_valid)
-            p_pat_decoder->pf_pat_callback(p_pat_decoder->p_cb_data,
+            p_pat_decoder->pf_pat_callback(p_pat_decoder->p_priv,
                                            p_pat_decoder->p_building_pat);
 
         /* Delete sectioins and Reinitialize the structures */

@@ -99,28 +99,28 @@ typedef struct dvbpsi_nit_s
  * dvbpsi_nit_callback
  *****************************************************************************/
 /*!
- * \typedef void (* dvbpsi_nit_callback)(void* p_cb_data,
+ * \typedef void (* dvbpsi_nit_callback)(void* p_priv,
                                          dvbpsi_nit_t* p_new_nit)
  * \brief Callback type definition.
  */
-typedef void (* dvbpsi_nit_callback)(void* p_cb_data, dvbpsi_nit_t* p_new_nit);
+typedef void (* dvbpsi_nit_callback)(void* p_priv, dvbpsi_nit_t* p_new_nit);
 
 /*****************************************************************************
  * dvbpsi_nit_attach
  *****************************************************************************/
 /*!
  * \fn bool dvbpsi_nit_attach(dvbpsi_t* p_dvbpsi, uint8_t i_table_id, uint16_t i_extension,
-                              dvbpsi_nit_callback pf_callback, void* p_cb_data)
+                              dvbpsi_nit_callback pf_callback, void* p_priv)
  * \brief Creation and initialization of a NIT decoder. It is attached to p_dvbpsi.
  * \param p_dvbpsi dvbpsi handle to Subtable demultiplexor to which the decoder is attached.
  * \param i_table_id Table ID, 0x40 (actual) or 0x41 (other).
  * \param i_extension Table ID extension, here network ID.
  * \param pf_callback function to call back on new NIT.
- * \param p_cb_data private data given in argument to the callback.
+ * \param p_priv private data given in argument to the callback.
  * \return true on success, false on failure
  */
 bool dvbpsi_nit_attach(dvbpsi_t* p_dvbpsi, uint8_t i_table_id, uint16_t i_extension,
-                       dvbpsi_nit_callback pf_callback, void* p_cb_data);
+                       dvbpsi_nit_callback pf_callback, void* p_priv);
 
 /*****************************************************************************
  * dvbpsi_nit_detach

@@ -16,6 +16,8 @@
 #include <stdint.h>
 #endif
 
+#include <sys/types.h>
+
 /* the libdvbpsi distribution defines DVBPSI_DIST */
 #ifdef DVBPSI_DIST
 #include "../src/dvbpsi.h"
@@ -31,9 +33,9 @@
 
   
 /* video stream (b_mpeg2 = false) */
-static int main_vstream_1(void)
+static int main_mpeg_vstream_1(void)
 {
-  BOZO_VARS(vstream);
+  BOZO_VARS(mpeg_vstream);
   BOZO_START(video stream (b_mpeg2 = false));
 
   
@@ -44,7 +46,7 @@ static int main_vstream_1(void)
   BOZO_init_boolean(b_constrained_parameter, 0);
   BOZO_init_boolean(b_still_picture, 0);
   BOZO_begin_boolean(b_multiple_frame_rate)
-    BOZO_DOJOB(VStream);
+    BOZO_DOJOB(mpeg_vstream);
     BOZO_check_boolean(b_multiple_frame_rate)
     BOZO_CLEAN();
   BOZO_end_boolean(b_multiple_frame_rate)
@@ -56,7 +58,7 @@ static int main_vstream_1(void)
   BOZO_init_boolean(b_constrained_parameter, 0);
   BOZO_init_boolean(b_still_picture, 0);
   BOZO_begin_integer(i_frame_rate_code, 4)
-    BOZO_DOJOB(VStream);
+    BOZO_DOJOB(mpeg_vstream);
     BOZO_check_integer(i_frame_rate_code, 4)
     BOZO_CLEAN();
   BOZO_end_integer(i_frame_rate_code, 4)
@@ -68,7 +70,7 @@ static int main_vstream_1(void)
   BOZO_init_boolean(b_constrained_parameter, 0);
   BOZO_init_boolean(b_still_picture, 0);
   BOZO_begin_boolean(b_constrained_parameter)
-    BOZO_DOJOB(VStream);
+    BOZO_DOJOB(mpeg_vstream);
     BOZO_check_boolean(b_constrained_parameter)
     BOZO_CLEAN();
   BOZO_end_boolean(b_constrained_parameter)
@@ -80,7 +82,7 @@ static int main_vstream_1(void)
   BOZO_init_boolean(b_constrained_parameter, 0);
   BOZO_init_boolean(b_still_picture, 0);
   BOZO_begin_boolean(b_still_picture)
-    BOZO_DOJOB(VStream);
+    BOZO_DOJOB(mpeg_vstream);
     BOZO_check_boolean(b_still_picture)
     BOZO_CLEAN();
   BOZO_end_boolean(b_still_picture)
@@ -92,9 +94,9 @@ static int main_vstream_1(void)
 }
 
 /* video stream (b_mpeg2 = true) */
-static int main_vstream_2(void)
+static int main_mpeg_vstream_2(void)
 {
-  BOZO_VARS(vstream);
+  BOZO_VARS(mpeg_vstream);
   BOZO_START(video stream (b_mpeg2 = true));
 
   
@@ -108,7 +110,7 @@ static int main_vstream_2(void)
   BOZO_init_integer(i_chroma_format, 0);
   BOZO_init_boolean(b_frame_rate_extension, 0);
   BOZO_begin_boolean(b_multiple_frame_rate)
-    BOZO_DOJOB(VStream);
+    BOZO_DOJOB(mpeg_vstream);
     BOZO_check_boolean(b_multiple_frame_rate)
     BOZO_CLEAN();
   BOZO_end_boolean(b_multiple_frame_rate)
@@ -123,7 +125,7 @@ static int main_vstream_2(void)
   BOZO_init_integer(i_chroma_format, 0);
   BOZO_init_boolean(b_frame_rate_extension, 0);
   BOZO_begin_integer(i_frame_rate_code, 4)
-    BOZO_DOJOB(VStream);
+    BOZO_DOJOB(mpeg_vstream);
     BOZO_check_integer(i_frame_rate_code, 4)
     BOZO_CLEAN();
   BOZO_end_integer(i_frame_rate_code, 4)
@@ -138,7 +140,7 @@ static int main_vstream_2(void)
   BOZO_init_integer(i_chroma_format, 0);
   BOZO_init_boolean(b_frame_rate_extension, 0);
   BOZO_begin_boolean(b_constrained_parameter)
-    BOZO_DOJOB(VStream);
+    BOZO_DOJOB(mpeg_vstream);
     BOZO_check_boolean(b_constrained_parameter)
     BOZO_CLEAN();
   BOZO_end_boolean(b_constrained_parameter)
@@ -153,7 +155,7 @@ static int main_vstream_2(void)
   BOZO_init_integer(i_chroma_format, 0);
   BOZO_init_boolean(b_frame_rate_extension, 0);
   BOZO_begin_boolean(b_still_picture)
-    BOZO_DOJOB(VStream);
+    BOZO_DOJOB(mpeg_vstream);
     BOZO_check_boolean(b_still_picture)
     BOZO_CLEAN();
   BOZO_end_boolean(b_still_picture)
@@ -168,7 +170,7 @@ static int main_vstream_2(void)
   BOZO_init_integer(i_chroma_format, 0);
   BOZO_init_boolean(b_frame_rate_extension, 0);
   BOZO_begin_integer(i_profile_level_indication, 8)
-    BOZO_DOJOB(VStream);
+    BOZO_DOJOB(mpeg_vstream);
     BOZO_check_integer(i_profile_level_indication, 8)
     BOZO_CLEAN();
   BOZO_end_integer(i_profile_level_indication, 8)
@@ -183,7 +185,7 @@ static int main_vstream_2(void)
   BOZO_init_integer(i_chroma_format, 0);
   BOZO_init_boolean(b_frame_rate_extension, 0);
   BOZO_begin_integer(i_chroma_format, 2)
-    BOZO_DOJOB(VStream);
+    BOZO_DOJOB(mpeg_vstream);
     BOZO_check_integer(i_chroma_format, 2)
     BOZO_CLEAN();
   BOZO_end_integer(i_chroma_format, 2)
@@ -198,7 +200,7 @@ static int main_vstream_2(void)
   BOZO_init_integer(i_chroma_format, 0);
   BOZO_init_boolean(b_frame_rate_extension, 0);
   BOZO_begin_boolean(b_frame_rate_extension)
-    BOZO_DOJOB(VStream);
+    BOZO_DOJOB(mpeg_vstream);
     BOZO_check_boolean(b_frame_rate_extension)
     BOZO_CLEAN();
   BOZO_end_boolean(b_frame_rate_extension)
@@ -210,9 +212,9 @@ static int main_vstream_2(void)
 }
 
 /* audio stream */
-static int main_astream_(void)
+static int main_mpeg_astream_0(void)
 {
-  BOZO_VARS(astream);
+  BOZO_VARS(mpeg_astream);
   BOZO_START(audio stream);
 
   
@@ -221,7 +223,7 @@ static int main_astream_(void)
   BOZO_init_integer(i_id, 0);
   BOZO_init_integer(i_layer, 0);
   BOZO_begin_boolean(b_free_format)
-    BOZO_DOJOB(AStream);
+    BOZO_DOJOB(mpeg_astream);
     BOZO_check_boolean(b_free_format)
     BOZO_CLEAN();
   BOZO_end_boolean(b_free_format)
@@ -231,7 +233,7 @@ static int main_astream_(void)
   BOZO_init_integer(i_id, 0);
   BOZO_init_integer(i_layer, 0);
   BOZO_begin_integer(i_id, 1)
-    BOZO_DOJOB(AStream);
+    BOZO_DOJOB(mpeg_astream);
     BOZO_check_integer(i_id, 1)
     BOZO_CLEAN();
   BOZO_end_integer(i_id, 1)
@@ -241,7 +243,7 @@ static int main_astream_(void)
   BOZO_init_integer(i_id, 0);
   BOZO_init_integer(i_layer, 0);
   BOZO_begin_integer(i_layer, 2)
-    BOZO_DOJOB(AStream);
+    BOZO_DOJOB(mpeg_astream);
     BOZO_check_integer(i_layer, 2)
     BOZO_CLEAN();
   BOZO_end_integer(i_layer, 2)
@@ -253,9 +255,9 @@ static int main_astream_(void)
 }
 
 /* hierarchy */
-static int main_hierarchy_(void)
+static int main_mpeg_hierarchy_0(void)
 {
-  BOZO_VARS(hierarchy);
+  BOZO_VARS(mpeg_hierarchy);
   BOZO_START(hierarchy);
 
   
@@ -265,7 +267,7 @@ static int main_hierarchy_(void)
   BOZO_init_integer(i_h_embedded_layer, 0);
   BOZO_init_integer(i_h_priority, 0);
   BOZO_begin_integer(i_h_type, 4)
-    BOZO_DOJOB(Hierarchy);
+    BOZO_DOJOB(mpeg_hierarchy);
     BOZO_check_integer(i_h_type, 4)
     BOZO_CLEAN();
   BOZO_end_integer(i_h_type, 4)
@@ -276,7 +278,7 @@ static int main_hierarchy_(void)
   BOZO_init_integer(i_h_embedded_layer, 0);
   BOZO_init_integer(i_h_priority, 0);
   BOZO_begin_integer(i_h_layer_index, 6)
-    BOZO_DOJOB(Hierarchy);
+    BOZO_DOJOB(mpeg_hierarchy);
     BOZO_check_integer(i_h_layer_index, 6)
     BOZO_CLEAN();
   BOZO_end_integer(i_h_layer_index, 6)
@@ -287,7 +289,7 @@ static int main_hierarchy_(void)
   BOZO_init_integer(i_h_embedded_layer, 0);
   BOZO_init_integer(i_h_priority, 0);
   BOZO_begin_integer(i_h_embedded_layer, 6)
-    BOZO_DOJOB(Hierarchy);
+    BOZO_DOJOB(mpeg_hierarchy);
     BOZO_check_integer(i_h_embedded_layer, 6)
     BOZO_CLEAN();
   BOZO_end_integer(i_h_embedded_layer, 6)
@@ -298,7 +300,7 @@ static int main_hierarchy_(void)
   BOZO_init_integer(i_h_embedded_layer, 0);
   BOZO_init_integer(i_h_priority, 0);
   BOZO_begin_integer(i_h_priority, 6)
-    BOZO_DOJOB(Hierarchy);
+    BOZO_DOJOB(mpeg_hierarchy);
     BOZO_check_integer(i_h_priority, 6)
     BOZO_CLEAN();
   BOZO_end_integer(i_h_priority, 6)
@@ -310,9 +312,9 @@ static int main_hierarchy_(void)
 }
 
 /* registration */
-static int main_registration_(void)
+static int main_mpeg_registration_0(void)
 {
-  BOZO_VARS(registration);
+  BOZO_VARS(mpeg_registration);
   BOZO_START(registration);
 
   
@@ -320,7 +322,7 @@ static int main_registration_(void)
   s_decoded.i_additional_length = 0;
   BOZO_init_integer(i_format_identifier, 0);
   BOZO_begin_integer(i_format_identifier, 32)
-    BOZO_DOJOB(Registration);
+    BOZO_DOJOB(mpeg_registration);
     BOZO_check_integer(i_format_identifier, 32)
     BOZO_CLEAN();
   BOZO_end_integer(i_format_identifier, 32)
@@ -332,16 +334,16 @@ static int main_registration_(void)
 }
 
 /* data stream alignment */
-static int main_ds_alignment_(void)
+static int main_mpeg_ds_alignment_0(void)
 {
-  BOZO_VARS(ds_alignment);
+  BOZO_VARS(mpeg_ds_alignment);
   BOZO_START(data stream alignment);
 
   
   /* check i_alignment_type */
   BOZO_init_integer(i_alignment_type, 0);
   BOZO_begin_integer(i_alignment_type, 8)
-    BOZO_DOJOB(DSAlignment);
+    BOZO_DOJOB(mpeg_ds_alignment);
     BOZO_check_integer(i_alignment_type, 8)
     BOZO_CLEAN();
   BOZO_end_integer(i_alignment_type, 8)
@@ -353,9 +355,9 @@ static int main_ds_alignment_(void)
 }
 
 /* target background grid */
-static int main_target_bg_grid_(void)
+static int main_mpeg_target_bg_grid_0(void)
 {
-  BOZO_VARS(target_bg_grid);
+  BOZO_VARS(mpeg_target_bg_grid);
   BOZO_START(target background grid);
 
   
@@ -364,7 +366,7 @@ static int main_target_bg_grid_(void)
   BOZO_init_integer(i_vertical_size, 0);
   BOZO_init_integer(i_pel_aspect_ratio, 0);
   BOZO_begin_integer(i_horizontal_size, 14)
-    BOZO_DOJOB(TargetBgGrid);
+    BOZO_DOJOB(mpeg_target_bg_grid);
     BOZO_check_integer(i_horizontal_size, 14)
     BOZO_CLEAN();
   BOZO_end_integer(i_horizontal_size, 14)
@@ -374,7 +376,7 @@ static int main_target_bg_grid_(void)
   BOZO_init_integer(i_vertical_size, 0);
   BOZO_init_integer(i_pel_aspect_ratio, 0);
   BOZO_begin_integer(i_vertical_size, 14)
-    BOZO_DOJOB(TargetBgGrid);
+    BOZO_DOJOB(mpeg_target_bg_grid);
     BOZO_check_integer(i_vertical_size, 14)
     BOZO_CLEAN();
   BOZO_end_integer(i_vertical_size, 14)
@@ -384,7 +386,7 @@ static int main_target_bg_grid_(void)
   BOZO_init_integer(i_vertical_size, 0);
   BOZO_init_integer(i_pel_aspect_ratio, 0);
   BOZO_begin_integer(i_pel_aspect_ratio, 4)
-    BOZO_DOJOB(TargetBgGrid);
+    BOZO_DOJOB(mpeg_target_bg_grid);
     BOZO_check_integer(i_pel_aspect_ratio, 4)
     BOZO_CLEAN();
   BOZO_end_integer(i_pel_aspect_ratio, 4)
@@ -396,9 +398,9 @@ static int main_target_bg_grid_(void)
 }
 
 /* video window */
-static int main_vwindow_(void)
+static int main_mpeg_vwindow_0(void)
 {
-  BOZO_VARS(vwindow);
+  BOZO_VARS(mpeg_vwindow);
   BOZO_START(video window);
 
   
@@ -407,7 +409,7 @@ static int main_vwindow_(void)
   BOZO_init_integer(i_vertical_offset, 0);
   BOZO_init_integer(i_window_priority, 0);
   BOZO_begin_integer(i_horizontal_offset, 14)
-    BOZO_DOJOB(VWindow);
+    BOZO_DOJOB(mpeg_vwindow);
     BOZO_check_integer(i_horizontal_offset, 14)
     BOZO_CLEAN();
   BOZO_end_integer(i_horizontal_offset, 14)
@@ -417,7 +419,7 @@ static int main_vwindow_(void)
   BOZO_init_integer(i_vertical_offset, 0);
   BOZO_init_integer(i_window_priority, 0);
   BOZO_begin_integer(i_vertical_offset, 14)
-    BOZO_DOJOB(VWindow);
+    BOZO_DOJOB(mpeg_vwindow);
     BOZO_check_integer(i_vertical_offset, 14)
     BOZO_CLEAN();
   BOZO_end_integer(i_vertical_offset, 14)
@@ -427,7 +429,7 @@ static int main_vwindow_(void)
   BOZO_init_integer(i_vertical_offset, 0);
   BOZO_init_integer(i_window_priority, 0);
   BOZO_begin_integer(i_window_priority, 4)
-    BOZO_DOJOB(VWindow);
+    BOZO_DOJOB(mpeg_vwindow);
     BOZO_check_integer(i_window_priority, 4)
     BOZO_CLEAN();
   BOZO_end_integer(i_window_priority, 4)
@@ -439,9 +441,9 @@ static int main_vwindow_(void)
 }
 
 /* conditional access */
-static int main_ca_(void)
+static int main_mpeg_ca_0(void)
 {
-  BOZO_VARS(ca);
+  BOZO_VARS(mpeg_ca);
   BOZO_START(conditional access);
 
   
@@ -451,7 +453,7 @@ static int main_ca_(void)
   BOZO_init_integer(i_ca_pid, 0);
   BOZO_init_array(i_private_length);
   BOZO_begin_integer(i_ca_system_id, 16)
-    BOZO_DOJOB(CA);
+    BOZO_DOJOB(mpeg_ca);
     BOZO_check_integer(i_ca_system_id, 16)
     BOZO_CLEAN();
   BOZO_end_integer(i_ca_system_id, 16)
@@ -462,7 +464,7 @@ static int main_ca_(void)
   BOZO_init_integer(i_ca_pid, 0);
   BOZO_init_array(i_private_length);
   BOZO_begin_integer(i_ca_pid, 13)
-    BOZO_DOJOB(CA);
+    BOZO_DOJOB(mpeg_ca);
     BOZO_check_integer(i_ca_pid, 13)
     BOZO_CLEAN();
   BOZO_end_integer(i_ca_pid, 13)
@@ -474,7 +476,7 @@ static int main_ca_(void)
   BOZO_init_array(i_private_length);
   BOZO_begin_array(i_private_data)
   BOZO_loop_array_begin(i_private_data, i_private_length, 0)
-    BOZO_DOJOB(CA);
+    BOZO_DOJOB(mpeg_ca);
     BOZO_check_array_begin(i_private_data, i_private_length)
     BOZO_check_array_gen(i_private_data, i_private_length)
     BOZO_CLEAN();
@@ -488,17 +490,17 @@ static int main_ca_(void)
 }
 
 /* ISO 639 language */
-static int main_iso639_(void)
+static int main_mpeg_iso639_0(void)
 {
-  BOZO_VARS(iso639);
+  BOZO_VARS(mpeg_iso639);
   BOZO_START(ISO 639 language);
 
-
+  
   /* check code */
   BOZO_init_array(i_code_count);
   BOZO_begin_array(code)
   BOZO_loop_array_begin(code, i_code_count, 1)
-    BOZO_DOJOB(ISO639);
+    BOZO_DOJOB(mpeg_iso639);
     BOZO_check_array_begin(code, i_code_count)
     BOZO_check_array_gen(code, i_code_count)
     BOZO_CLEAN();
@@ -512,9 +514,9 @@ static int main_iso639_(void)
 }
 
 /* system clock */
-static int main_system_clock_(void)
+static int main_mpeg_system_clock_0(void)
 {
-  BOZO_VARS(system_clock);
+  BOZO_VARS(mpeg_system_clock);
   BOZO_START(system clock);
 
   
@@ -523,7 +525,7 @@ static int main_system_clock_(void)
   BOZO_init_integer(i_clock_accuracy_integer, 0);
   BOZO_init_integer(i_clock_accuracy_exponent, 0);
   BOZO_begin_boolean(b_external_clock_ref)
-    BOZO_DOJOB(SystemClock);
+    BOZO_DOJOB(mpeg_system_clock);
     BOZO_check_boolean(b_external_clock_ref)
     BOZO_CLEAN();
   BOZO_end_boolean(b_external_clock_ref)
@@ -533,7 +535,7 @@ static int main_system_clock_(void)
   BOZO_init_integer(i_clock_accuracy_integer, 0);
   BOZO_init_integer(i_clock_accuracy_exponent, 0);
   BOZO_begin_integer(i_clock_accuracy_integer, 6)
-    BOZO_DOJOB(SystemClock);
+    BOZO_DOJOB(mpeg_system_clock);
     BOZO_check_integer(i_clock_accuracy_integer, 6)
     BOZO_CLEAN();
   BOZO_end_integer(i_clock_accuracy_integer, 6)
@@ -543,7 +545,7 @@ static int main_system_clock_(void)
   BOZO_init_integer(i_clock_accuracy_integer, 0);
   BOZO_init_integer(i_clock_accuracy_exponent, 0);
   BOZO_begin_integer(i_clock_accuracy_exponent, 3)
-    BOZO_DOJOB(SystemClock);
+    BOZO_DOJOB(mpeg_system_clock);
     BOZO_check_integer(i_clock_accuracy_exponent, 3)
     BOZO_CLEAN();
   BOZO_end_integer(i_clock_accuracy_exponent, 3)
@@ -555,9 +557,9 @@ static int main_system_clock_(void)
 }
 
 /* multiplex buffer utilization */
-static int main_mx_buff_utilization_(void)
+static int main_mpeg_mx_buff_utilization_0(void)
 {
-  BOZO_VARS(mx_buff_utilization);
+  BOZO_VARS(mpeg_mx_buff_utilization);
   BOZO_START(multiplex buffer utilization);
 
   
@@ -566,7 +568,7 @@ static int main_mx_buff_utilization_(void)
   BOZO_init_integer(i_mx_delay_variation, 0);
   BOZO_init_integer(i_mx_strategy, 0);
   BOZO_begin_boolean(b_mdv_valid)
-    BOZO_DOJOB(MxBuffUtilization);
+    BOZO_DOJOB(mpeg_mx_buff_utilization);
     BOZO_check_boolean(b_mdv_valid)
     BOZO_CLEAN();
   BOZO_end_boolean(b_mdv_valid)
@@ -576,7 +578,7 @@ static int main_mx_buff_utilization_(void)
   BOZO_init_integer(i_mx_delay_variation, 0);
   BOZO_init_integer(i_mx_strategy, 0);
   BOZO_begin_integer(i_mx_delay_variation, 15)
-    BOZO_DOJOB(MxBuffUtilization);
+    BOZO_DOJOB(mpeg_mx_buff_utilization);
     BOZO_check_integer(i_mx_delay_variation, 15)
     BOZO_CLEAN();
   BOZO_end_integer(i_mx_delay_variation, 15)
@@ -586,7 +588,7 @@ static int main_mx_buff_utilization_(void)
   BOZO_init_integer(i_mx_delay_variation, 0);
   BOZO_init_integer(i_mx_strategy, 0);
   BOZO_begin_integer(i_mx_strategy, 3)
-    BOZO_DOJOB(MxBuffUtilization);
+    BOZO_DOJOB(mpeg_mx_buff_utilization);
     BOZO_check_integer(i_mx_strategy, 3)
     BOZO_CLEAN();
   BOZO_end_integer(i_mx_strategy, 3)
@@ -598,9 +600,9 @@ static int main_mx_buff_utilization_(void)
 }
 
 /* copyright */
-static int main_copyright_(void)
+static int main_mpeg_copyright_0(void)
 {
-  BOZO_VARS(copyright);
+  BOZO_VARS(mpeg_copyright);
   BOZO_START(copyright);
 
   
@@ -609,7 +611,7 @@ static int main_copyright_(void)
   BOZO_init_integer(i_copyright_identifier, 0);
   BOZO_init_array(i_additional_length);
   BOZO_begin_integer(i_copyright_identifier, 32)
-    BOZO_DOJOB(Copyright);
+    BOZO_DOJOB(mpeg_copyright);
     BOZO_check_integer(i_copyright_identifier, 32)
     BOZO_CLEAN();
   BOZO_end_integer(i_copyright_identifier, 32)
@@ -620,7 +622,7 @@ static int main_copyright_(void)
   BOZO_init_array(i_additional_length);
   BOZO_begin_array(i_additional_info)
   BOZO_loop_array_begin(i_additional_info, i_additional_length, 0)
-    BOZO_DOJOB(Copyright);
+    BOZO_DOJOB(mpeg_copyright);
     BOZO_check_array_begin(i_additional_info, i_additional_length)
     BOZO_check_array_gen(i_additional_info, i_additional_length)
     BOZO_CLEAN();
@@ -634,16 +636,16 @@ static int main_copyright_(void)
 }
 
 /* maximum bitrate */
-static int main_max_bitrate_(void)
+static int main_mpeg_max_bitrate_0(void)
 {
-  BOZO_VARS(max_bitrate);
+  BOZO_VARS(mpeg_max_bitrate);
   BOZO_START(maximum bitrate);
 
   
   /* check i_max_bitrate */
   BOZO_init_integer(i_max_bitrate, 0);
   BOZO_begin_integer(i_max_bitrate, 22)
-    BOZO_DOJOB(MaxBitrate);
+    BOZO_DOJOB(mpeg_max_bitrate);
     BOZO_check_integer(i_max_bitrate, 22)
     BOZO_CLEAN();
   BOZO_end_integer(i_max_bitrate, 22)
@@ -655,16 +657,16 @@ static int main_max_bitrate_(void)
 }
 
 /* private data indicator */
-static int main_private_data_(void)
+static int main_mpeg_private_data_0(void)
 {
-  BOZO_VARS(private_data);
+  BOZO_VARS(mpeg_private_data);
   BOZO_START(private data indicator);
 
   
   /* check i_private_data */
   BOZO_init_integer(i_private_data, 0);
   BOZO_begin_integer(i_private_data, 32)
-    BOZO_DOJOB(PrivateData);
+    BOZO_DOJOB(mpeg_private_data);
     BOZO_check_integer(i_private_data, 32)
     BOZO_CLEAN();
   BOZO_end_integer(i_private_data, 32)
@@ -676,20 +678,20 @@ static int main_private_data_(void)
 }
 
 /* smoothing buffer */
-static int main_smoothing_buffer_(void)
+static int main_mpeg_smoothing_buffer_0(void)
 {
-  BOZO_VARS(smoothing_buffer);
+  BOZO_VARS(mpeg_smoothing_buffer);
   BOZO_START(smoothing buffer);
 
-
-  #define dvbpsi_GenSmoothingBufferDr(x,y) \
-    dvbpsi_GenSmoothingBufferDr(x)
-
+  
+  #define dvbpsi_gen_mpeg_smoothing_buffer_dr(x,y) \
+    dvbpsi_gen_mpeg_smoothing_buffer_dr(x)
+  
   /* check i_sb_leak_rate */
   BOZO_init_integer(i_sb_leak_rate, 0);
   BOZO_init_integer(i_sb_size, 0);
   BOZO_begin_integer(i_sb_leak_rate, 22)
-    BOZO_DOJOB(SmoothingBuffer);
+    BOZO_DOJOB(mpeg_smoothing_buffer);
     BOZO_check_integer(i_sb_leak_rate, 22)
     BOZO_CLEAN();
   BOZO_end_integer(i_sb_leak_rate, 22)
@@ -698,7 +700,7 @@ static int main_smoothing_buffer_(void)
   BOZO_init_integer(i_sb_leak_rate, 0);
   BOZO_init_integer(i_sb_size, 0);
   BOZO_begin_integer(i_sb_size, 22)
-    BOZO_DOJOB(SmoothingBuffer);
+    BOZO_DOJOB(mpeg_smoothing_buffer);
     BOZO_check_integer(i_sb_size, 22)
     BOZO_CLEAN();
   BOZO_end_integer(i_sb_size, 22)
@@ -710,19 +712,19 @@ static int main_smoothing_buffer_(void)
 }
 
 /* STD */
-static int main_std_(void)
+static int main_mpeg_std_0(void)
 {
-  BOZO_VARS(std);
+  BOZO_VARS(mpeg_std);
   BOZO_START(STD);
 
-
-  #define dvbpsi_GenSTDDr(x,y) \
-    dvbpsi_GenSTDDr(x)
-
+  
+  #define dvbpsi_gen_mpeg_std_dr(x,y) \
+    dvbpsi_gen_mpeg_std_dr(x)
+  
   /* check b_leak_valid_flag */
   BOZO_init_boolean(b_leak_valid_flag, 0);
   BOZO_begin_boolean(b_leak_valid_flag)
-    BOZO_DOJOB(STD);
+    BOZO_DOJOB(mpeg_std);
     BOZO_check_boolean(b_leak_valid_flag)
     BOZO_CLEAN();
   BOZO_end_boolean(b_leak_valid_flag)
@@ -734,21 +736,21 @@ static int main_std_(void)
 }
 
 /* IBP */
-static int main_ibp_(void)
+static int main_mpeg_ibp_0(void)
 {
-  BOZO_VARS(ibp);
+  BOZO_VARS(mpeg_ibp);
   BOZO_START(IBP);
 
-
-  #define dvbpsi_GenIBPDr(x,y) \
-    dvbpsi_GenIBPDr(x)
-
+  
+  #define dvbpsi_gen_mpeg_ibp_dr(x,y) \
+    dvbpsi_gen_mpeg_ibp_dr(x)
+  
   /* check b_closed_gop_flag */
   BOZO_init_boolean(b_closed_gop_flag, 0);
   BOZO_init_boolean(b_identical_gop_flag, 0);
   BOZO_init_integer(i_max_gop_length, 1);
   BOZO_begin_boolean(b_closed_gop_flag)
-    BOZO_DOJOB(IBP);
+    BOZO_DOJOB(mpeg_ibp);
     BOZO_check_boolean(b_closed_gop_flag)
     BOZO_CLEAN();
   BOZO_end_boolean(b_closed_gop_flag)
@@ -758,7 +760,7 @@ static int main_ibp_(void)
   BOZO_init_boolean(b_identical_gop_flag, 0);
   BOZO_init_integer(i_max_gop_length, 1);
   BOZO_begin_boolean(b_identical_gop_flag)
-    BOZO_DOJOB(IBP);
+    BOZO_DOJOB(mpeg_ibp);
     BOZO_check_boolean(b_identical_gop_flag)
     BOZO_CLEAN();
   BOZO_end_boolean(b_identical_gop_flag)
@@ -768,7 +770,7 @@ static int main_ibp_(void)
   BOZO_init_boolean(b_identical_gop_flag, 0);
   BOZO_init_integer(i_max_gop_length, 1);
   BOZO_begin_integer(i_max_gop_length, 14)
-    BOZO_DOJOB(IBP);
+    BOZO_DOJOB(mpeg_ibp);
     BOZO_check_integer(i_max_gop_length, 14)
     BOZO_CLEAN();
   BOZO_end_integer(i_max_gop_length, 14)
@@ -780,19 +782,19 @@ static int main_ibp_(void)
 }
 
 /* MPEG-4 video */
-static int main_mpeg4_video_(void)
+static int main_mpeg_mpeg4_video_0(void)
 {
-  BOZO_VARS(mpeg4_video);
+  BOZO_VARS(mpeg_mpeg4_video);
   BOZO_START(MPEG-4 video);
 
-
-  #define dvbpsi_GenMPEG4VideoDr(x,y) \
-    dvbpsi_GenMPEG4VideoDr(x)
-
+  
+  #define dvbpsi_gen_mpeg_mpeg4_video_dr(x,y) \
+    dvbpsi_gen_mpeg_mpeg4_video_dr(x)
+  
   /* check i_mpeg4_visual_profile_and_level */
   BOZO_init_integer(i_mpeg4_visual_profile_and_level, 0);
   BOZO_begin_integer(i_mpeg4_visual_profile_and_level, 8)
-    BOZO_DOJOB(MPEG4Video);
+    BOZO_DOJOB(mpeg_mpeg4_video);
     BOZO_check_integer(i_mpeg4_visual_profile_and_level, 8)
     BOZO_CLEAN();
   BOZO_end_integer(i_mpeg4_visual_profile_and_level, 8)
@@ -804,19 +806,19 @@ static int main_mpeg4_video_(void)
 }
 
 /* MPEG-4 audio */
-static int main_mpeg4_audio_(void)
+static int main_mpeg_mpeg4_audio_0(void)
 {
-  BOZO_VARS(mpeg4_audio);
+  BOZO_VARS(mpeg_mpeg4_audio);
   BOZO_START(MPEG-4 audio);
 
-
-  #define dvbpsi_GenMPEG4AudioDr(x,y) \
-    dvbpsi_GenMPEG4AudioDr(x)
-
+  
+  #define dvbpsi_gen_mpeg_mpeg4_audio_dr(x,y) \
+    dvbpsi_gen_mpeg_mpeg4_audio_dr(x)
+  
   /* check i_mpeg4_audio_profile_and_level */
   BOZO_init_integer(i_mpeg4_audio_profile_and_level, 0);
   BOZO_begin_integer(i_mpeg4_audio_profile_and_level, 8)
-    BOZO_DOJOB(MPEG4Audio);
+    BOZO_DOJOB(mpeg_mpeg4_audio);
     BOZO_check_integer(i_mpeg4_audio_profile_and_level, 8)
     BOZO_CLEAN();
   BOZO_end_integer(i_mpeg4_audio_profile_and_level, 8)
@@ -827,18 +829,173 @@ static int main_mpeg4_audio_(void)
   return i_err;
 }
 
-/* network name */
-static int main_network_name_(void)
+/* IOD */
+static int main_mpeg_iod_0(void)
 {
-  BOZO_VARS(network_name);
+  BOZO_VARS(mpeg_iod);
+  BOZO_START(IOD);
+
+
+  #define dvbpsi_gen_mpeg_iod_dr(x,y) \
+    dvbpsi_gen_mpeg_iod_dr(x)
+
+  /* check i_scope_of_iod_label */
+  BOZO_init_integer(i_scope_of_iod_label, 0);
+  BOZO_init_integer(i_iod_label, 0);
+  BOZO_init_integer(i_initial_object_descriptor, 0);
+  BOZO_begin_integer(i_scope_of_iod_label, 8)
+    BOZO_DOJOB(mpeg_iod);
+    BOZO_check_integer(i_scope_of_iod_label, 8)
+    BOZO_CLEAN();
+  BOZO_end_integer(i_scope_of_iod_label, 8)
+
+  /* check i_iod_label */
+  BOZO_init_integer(i_scope_of_iod_label, 0);
+  BOZO_init_integer(i_iod_label, 0);
+  BOZO_init_integer(i_initial_object_descriptor, 0);
+  BOZO_begin_integer(i_iod_label, 8)
+    BOZO_DOJOB(mpeg_iod);
+    BOZO_check_integer(i_iod_label, 8)
+    BOZO_CLEAN();
+  BOZO_end_integer(i_iod_label, 8)
+
+  /* check i_initial_object_descriptor */
+  BOZO_init_integer(i_scope_of_iod_label, 0);
+  BOZO_init_integer(i_iod_label, 0);
+  BOZO_init_integer(i_initial_object_descriptor, 0);
+  BOZO_begin_integer(i_initial_object_descriptor, 8)
+    BOZO_DOJOB(mpeg_iod);
+    BOZO_check_integer(i_initial_object_descriptor, 8)
+    BOZO_CLEAN();
+  BOZO_end_integer(i_initial_object_descriptor, 8)
+
+
+  BOZO_END(IOD);
+
+  return i_err;
+}
+
+/* SL */
+static int main_mpeg_sl_0(void)
+{
+  BOZO_VARS(mpeg_sl);
+  BOZO_START(SL);
+
+  
+  #define dvbpsi_gen_mpeg_sl_dr(x,y) \
+    dvbpsi_gen_mpeg_sl_dr(x)
+  
+  /* check i_es_id */
+  BOZO_init_integer(i_es_id, 0);
+  BOZO_begin_integer(i_es_id, 16)
+    BOZO_DOJOB(mpeg_sl);
+    BOZO_check_integer(i_es_id, 16)
+    BOZO_CLEAN();
+  BOZO_end_integer(i_es_id, 16)
+
+
+  BOZO_END(SL);
+
+  return i_err;
+}
+
+/* FMC */
+static int main_mpeg_fmc_0(void)
+{
+  BOZO_VARS(mpeg_fmc);
+  BOZO_START(FMC);
+
+
+  #define dvbpsi_gen_mpeg_fmc_dr(x,y) \
+    dvbpsi_gen_mpeg_fmc_dr(x)
+
+  /* check p_fmc */
+  BOZO_init_array(i_num_fmc);
+  BOZO_begin_array(p_fmc)
+  BOZO_loop_array_begin(p_fmc, i_num_fmc, 1)
+    BOZO_DOJOB(mpeg_fmc);
+    BOZO_check_array_begin(p_fmc, i_num_fmc)
+    BOZO_check_array_cmp(p_fmc, i_num_fmc, dvbpsi_fmc_t)
+    BOZO_CLEAN();
+  BOZO_loop_array_end(p_fmc, ARRAY_SIZE(s_decoded.p_fmc))
+  BOZO_end_array
+
+
+  BOZO_END(FMC);
+
+  return i_err;
+}
+
+/* External_ES_ID */
+static int main_mpeg_ext_es_id_0(void)
+{
+  BOZO_VARS(mpeg_ext_es_id);
+  BOZO_START(External_ES_ID);
+
+
+  #define dvbpsi_gen_mpeg_ext_es_id_dr(x,y) \
+    dvbpsi_gen_mpeg_ext_es_id_dr(x)
+
+  /* check i_ext_es_id */
+  BOZO_init_integer(i_ext_es_id, 0);
+  BOZO_begin_integer(i_ext_es_id, 16)
+    BOZO_DOJOB(mpeg_ext_es_id);
+    BOZO_check_integer(i_ext_es_id, 16)
+    BOZO_CLEAN();
+  BOZO_end_integer(i_ext_es_id, 16)
+
+
+  BOZO_END(External_ES_ID);
+
+  return i_err;
+}
+
+/* MultiplexBuffer */
+static int main_mpeg_mux_buf_0(void)
+{
+  BOZO_VARS(mpeg_mux_buf);
+  BOZO_START(MultiplexBuffer);
+
+
+  #define dvbpsi_gen_mpeg_mux_buf_dr(x,y) \
+    dvbpsi_gen_mpeg_mux_buf_dr(x)
+
+  /* check i_mb_buf_size */
+  BOZO_init_integer(i_mb_buf_size, 0);
+  BOZO_init_integer(i_tb_leak_rate, 0);
+  BOZO_begin_integer(i_mb_buf_size, 24)
+    BOZO_DOJOB(mpeg_mux_buf);
+    BOZO_check_integer(i_mb_buf_size, 24)
+    BOZO_CLEAN();
+  BOZO_end_integer(i_mb_buf_size, 24)
+
+  /* check i_tb_leak_rate */
+  BOZO_init_integer(i_mb_buf_size, 0);
+  BOZO_init_integer(i_tb_leak_rate, 0);
+  BOZO_begin_integer(i_tb_leak_rate, 24)
+    BOZO_DOJOB(mpeg_mux_buf);
+    BOZO_check_integer(i_tb_leak_rate, 24)
+    BOZO_CLEAN();
+  BOZO_end_integer(i_tb_leak_rate, 24)
+
+
+  BOZO_END(MultiplexBuffer);
+
+  return i_err;
+}
+
+/* network name */
+static int main_dvb_network_name_0(void)
+{
+  BOZO_VARS(dvb_network_name);
   BOZO_START(network name);
 
-
+  
   /* check i_name_byte */
   BOZO_init_array(i_name_length);
   BOZO_begin_array(i_name_byte)
   BOZO_loop_array_begin(i_name_byte, i_name_length, 0)
-    BOZO_DOJOB(NetworkName);
+    BOZO_DOJOB(dvb_network_name);
     BOZO_check_array_begin(i_name_byte, i_name_length)
     BOZO_check_array_gen(i_name_byte, i_name_length)
     BOZO_CLEAN();
@@ -852,17 +1009,17 @@ static int main_network_name_(void)
 }
 
 /* service list */
-static int main_service_list_(void)
+static int main_dvb_service_list_0(void)
 {
-  BOZO_VARS(service_list);
+  BOZO_VARS(dvb_service_list);
   BOZO_START(service list);
 
-
+  
   /* check i_service */
   BOZO_init_array(i_service_count);
   BOZO_begin_array(i_service)
   BOZO_loop_array_begin(i_service, i_service_count, 1)
-    BOZO_DOJOB(ServiceList);
+    BOZO_DOJOB(dvb_service_list);
     BOZO_check_array_begin(i_service, i_service_count)
     BOZO_check_array_cmp(i_service, i_service_count, dvbpsi_service_list_service_s)
     BOZO_CLEAN();
@@ -876,17 +1033,17 @@ static int main_service_list_(void)
 }
 
 /* stuffing */
-static int main_stuffing_(void)
+static int main_dvb_stuffing_0(void)
 {
-  BOZO_VARS(stuffing);
+  BOZO_VARS(dvb_stuffing);
   BOZO_START(stuffing);
 
-
+  
   /* check i_stuffing_byte */
   BOZO_init_array(i_stuffing_length);
   BOZO_begin_array(i_stuffing_byte)
   BOZO_loop_array_begin(i_stuffing_byte, i_stuffing_length, 0)
-    BOZO_DOJOB(Stuffing);
+    BOZO_DOJOB(dvb_stuffing);
     BOZO_check_array_begin(i_stuffing_byte, i_stuffing_length)
     BOZO_check_array_gen(i_stuffing_byte, i_stuffing_length)
     BOZO_CLEAN();
@@ -900,12 +1057,12 @@ static int main_stuffing_(void)
 }
 
 /* satellite delivery system */
-static int main_sat_deliv_sys_(void)
+static int main_dvb_sat_deliv_sys_0(void)
 {
-  BOZO_VARS(sat_deliv_sys);
+  BOZO_VARS(dvb_sat_deliv_sys);
   BOZO_START(satellite delivery system);
 
-
+  
   /* check i_frequency */
   BOZO_init_integer(i_frequency, 0);
   BOZO_init_integer(i_orbital_position, 0);
@@ -917,7 +1074,7 @@ static int main_sat_deliv_sys_(void)
   BOZO_init_integer(i_symbol_rate, 0);
   BOZO_init_integer(i_fec_inner, 0);
   BOZO_begin_integer(i_frequency, 32)
-    BOZO_DOJOB(SatDelivSys);
+    BOZO_DOJOB(dvb_sat_deliv_sys);
     BOZO_check_integer(i_frequency, 32)
     BOZO_CLEAN();
   BOZO_end_integer(i_frequency, 32)
@@ -933,7 +1090,7 @@ static int main_sat_deliv_sys_(void)
   BOZO_init_integer(i_symbol_rate, 0);
   BOZO_init_integer(i_fec_inner, 0);
   BOZO_begin_integer(i_orbital_position, 16)
-    BOZO_DOJOB(SatDelivSys);
+    BOZO_DOJOB(dvb_sat_deliv_sys);
     BOZO_check_integer(i_orbital_position, 16)
     BOZO_CLEAN();
   BOZO_end_integer(i_orbital_position, 16)
@@ -949,7 +1106,7 @@ static int main_sat_deliv_sys_(void)
   BOZO_init_integer(i_symbol_rate, 0);
   BOZO_init_integer(i_fec_inner, 0);
   BOZO_begin_integer(i_west_east_flag, 1)
-    BOZO_DOJOB(SatDelivSys);
+    BOZO_DOJOB(dvb_sat_deliv_sys);
     BOZO_check_integer(i_west_east_flag, 1)
     BOZO_CLEAN();
   BOZO_end_integer(i_west_east_flag, 1)
@@ -965,7 +1122,7 @@ static int main_sat_deliv_sys_(void)
   BOZO_init_integer(i_symbol_rate, 0);
   BOZO_init_integer(i_fec_inner, 0);
   BOZO_begin_integer(i_polarization, 2)
-    BOZO_DOJOB(SatDelivSys);
+    BOZO_DOJOB(dvb_sat_deliv_sys);
     BOZO_check_integer(i_polarization, 2)
     BOZO_CLEAN();
   BOZO_end_integer(i_polarization, 2)
@@ -981,7 +1138,7 @@ static int main_sat_deliv_sys_(void)
   BOZO_init_integer(i_symbol_rate, 0);
   BOZO_init_integer(i_fec_inner, 0);
   BOZO_begin_integer(i_roll_off, 2)
-    BOZO_DOJOB(SatDelivSys);
+    BOZO_DOJOB(dvb_sat_deliv_sys);
     BOZO_check_integer(i_roll_off, 2)
     BOZO_CLEAN();
   BOZO_end_integer(i_roll_off, 2)
@@ -997,7 +1154,7 @@ static int main_sat_deliv_sys_(void)
   BOZO_init_integer(i_symbol_rate, 0);
   BOZO_init_integer(i_fec_inner, 0);
   BOZO_begin_integer(i_modulation_system, 1)
-    BOZO_DOJOB(SatDelivSys);
+    BOZO_DOJOB(dvb_sat_deliv_sys);
     BOZO_check_integer(i_modulation_system, 1)
     BOZO_CLEAN();
   BOZO_end_integer(i_modulation_system, 1)
@@ -1013,7 +1170,7 @@ static int main_sat_deliv_sys_(void)
   BOZO_init_integer(i_symbol_rate, 0);
   BOZO_init_integer(i_fec_inner, 0);
   BOZO_begin_integer(i_modulation_type, 2)
-    BOZO_DOJOB(SatDelivSys);
+    BOZO_DOJOB(dvb_sat_deliv_sys);
     BOZO_check_integer(i_modulation_type, 2)
     BOZO_CLEAN();
   BOZO_end_integer(i_modulation_type, 2)
@@ -1029,7 +1186,7 @@ static int main_sat_deliv_sys_(void)
   BOZO_init_integer(i_symbol_rate, 0);
   BOZO_init_integer(i_fec_inner, 0);
   BOZO_begin_integer(i_symbol_rate, 28)
-    BOZO_DOJOB(SatDelivSys);
+    BOZO_DOJOB(dvb_sat_deliv_sys);
     BOZO_check_integer(i_symbol_rate, 28)
     BOZO_CLEAN();
   BOZO_end_integer(i_symbol_rate, 28)
@@ -1045,7 +1202,7 @@ static int main_sat_deliv_sys_(void)
   BOZO_init_integer(i_symbol_rate, 0);
   BOZO_init_integer(i_fec_inner, 0);
   BOZO_begin_integer(i_fec_inner, 4)
-    BOZO_DOJOB(SatDelivSys);
+    BOZO_DOJOB(dvb_sat_deliv_sys);
     BOZO_check_integer(i_fec_inner, 4)
     BOZO_CLEAN();
   BOZO_end_integer(i_fec_inner, 4)
@@ -1057,12 +1214,12 @@ static int main_sat_deliv_sys_(void)
 }
 
 /* cable delivery system */
-static int main_cable_deliv_sys_(void)
+static int main_dvb_cable_deliv_sys_0(void)
 {
-  BOZO_VARS(cable_deliv_sys);
+  BOZO_VARS(dvb_cable_deliv_sys);
   BOZO_START(cable delivery system);
 
-
+  
   /* check i_frequency */
   BOZO_init_integer(i_frequency, 0);
   BOZO_init_integer(i_modulation, 0);
@@ -1070,7 +1227,7 @@ static int main_cable_deliv_sys_(void)
   BOZO_init_integer(i_fec_inner, 0);
   BOZO_init_integer(i_fec_outer, 0);
   BOZO_begin_integer(i_frequency, 32)
-    BOZO_DOJOB(CableDelivSys);
+    BOZO_DOJOB(dvb_cable_deliv_sys);
     BOZO_check_integer(i_frequency, 32)
     BOZO_CLEAN();
   BOZO_end_integer(i_frequency, 32)
@@ -1082,7 +1239,7 @@ static int main_cable_deliv_sys_(void)
   BOZO_init_integer(i_fec_inner, 0);
   BOZO_init_integer(i_fec_outer, 0);
   BOZO_begin_integer(i_modulation, 8)
-    BOZO_DOJOB(CableDelivSys);
+    BOZO_DOJOB(dvb_cable_deliv_sys);
     BOZO_check_integer(i_modulation, 8)
     BOZO_CLEAN();
   BOZO_end_integer(i_modulation, 8)
@@ -1094,7 +1251,7 @@ static int main_cable_deliv_sys_(void)
   BOZO_init_integer(i_fec_inner, 0);
   BOZO_init_integer(i_fec_outer, 0);
   BOZO_begin_integer(i_symbol_rate, 28)
-    BOZO_DOJOB(CableDelivSys);
+    BOZO_DOJOB(dvb_cable_deliv_sys);
     BOZO_check_integer(i_symbol_rate, 28)
     BOZO_CLEAN();
   BOZO_end_integer(i_symbol_rate, 28)
@@ -1106,7 +1263,7 @@ static int main_cable_deliv_sys_(void)
   BOZO_init_integer(i_fec_inner, 0);
   BOZO_init_integer(i_fec_outer, 0);
   BOZO_begin_integer(i_fec_inner, 4)
-    BOZO_DOJOB(CableDelivSys);
+    BOZO_DOJOB(dvb_cable_deliv_sys);
     BOZO_check_integer(i_fec_inner, 4)
     BOZO_CLEAN();
   BOZO_end_integer(i_fec_inner, 4)
@@ -1118,7 +1275,7 @@ static int main_cable_deliv_sys_(void)
   BOZO_init_integer(i_fec_inner, 0);
   BOZO_init_integer(i_fec_outer, 0);
   BOZO_begin_integer(i_fec_outer, 4)
-    BOZO_DOJOB(CableDelivSys);
+    BOZO_DOJOB(dvb_cable_deliv_sys);
     BOZO_check_integer(i_fec_outer, 4)
     BOZO_CLEAN();
   BOZO_end_integer(i_fec_outer, 4)
@@ -1130,17 +1287,17 @@ static int main_cable_deliv_sys_(void)
 }
 
 /* bouquet name */
-static int main_bouquet_name_(void)
+static int main_dvb_bouquet_name_0(void)
 {
-  BOZO_VARS(bouquet_name);
+  BOZO_VARS(dvb_bouquet_name);
   BOZO_START(bouquet name);
 
-
+  
   /* check i_char */
   BOZO_init_array(i_name_length);
   BOZO_begin_array(i_char)
   BOZO_loop_array_begin(i_char, i_name_length, 0)
-    BOZO_DOJOB(BouquetName);
+    BOZO_DOJOB(dvb_bouquet_name);
     BOZO_check_array_begin(i_char, i_name_length)
     BOZO_check_array_gen(i_char, i_name_length)
     BOZO_CLEAN();
@@ -1154,9 +1311,9 @@ static int main_bouquet_name_(void)
 }
 
 /* service (i_service_provider_name) */
-static int main_service_1(void)
+static int main_dvb_service_1(void)
 {
-  BOZO_VARS(service);
+  BOZO_VARS(dvb_service);
   BOZO_START(service (i_service_provider_name));
 
   
@@ -1165,7 +1322,7 @@ static int main_service_1(void)
   BOZO_init_integer(i_service_type, 0);
   BOZO_init_array(i_service_provider_name_length);
   BOZO_begin_integer(i_service_type, 8)
-    BOZO_DOJOB(Service);
+    BOZO_DOJOB(dvb_service);
     BOZO_check_integer(i_service_type, 8)
     BOZO_CLEAN();
   BOZO_end_integer(i_service_type, 8)
@@ -1176,7 +1333,7 @@ static int main_service_1(void)
   BOZO_init_array(i_service_provider_name_length);
   BOZO_begin_array(i_service_provider_name)
   BOZO_loop_array_begin(i_service_provider_name, i_service_provider_name_length, 0)
-    BOZO_DOJOB(Service);
+    BOZO_DOJOB(dvb_service);
     BOZO_check_array_begin(i_service_provider_name, i_service_provider_name_length)
     BOZO_check_array_gen(i_service_provider_name, i_service_provider_name_length)
     BOZO_CLEAN();
@@ -1190,18 +1347,18 @@ static int main_service_1(void)
 }
 
 /* service (i_service_name) */
-static int main_service_2(void)
+static int main_dvb_service_2(void)
 {
-  BOZO_VARS(service);
+  BOZO_VARS(dvb_service);
   BOZO_START(service (i_service_name));
 
-
+  
   /* check i_service_type */
   s_decoded.i_service_provider_name_length = 0;
   BOZO_init_integer(i_service_type, 0);
   BOZO_init_array(i_service_name_length);
   BOZO_begin_integer(i_service_type, 8)
-    BOZO_DOJOB(Service);
+    BOZO_DOJOB(dvb_service);
     BOZO_check_integer(i_service_type, 8)
     BOZO_CLEAN();
   BOZO_end_integer(i_service_type, 8)
@@ -1212,7 +1369,7 @@ static int main_service_2(void)
   BOZO_init_array(i_service_name_length);
   BOZO_begin_array(i_service_name)
   BOZO_loop_array_begin(i_service_name, i_service_name_length, 0)
-    BOZO_DOJOB(Service);
+    BOZO_DOJOB(dvb_service);
     BOZO_check_array_begin(i_service_name, i_service_name_length)
     BOZO_check_array_gen(i_service_name, i_service_name_length)
     BOZO_CLEAN();
@@ -1226,19 +1383,19 @@ static int main_service_2(void)
 }
 
 /* service (both names) */
-static int main_service_3(void)
+static int main_dvb_service_3(void)
 {
-  BOZO_VARS(service);
+  BOZO_VARS(dvb_service);
   BOZO_START(service (both names));
 
-
+  
   /* check i_service_type */
   s_decoded.i_service_provider_name_length = 0;
   BOZO_init_integer(i_service_type, 0);
   BOZO_init_array(i_service_name_length);
   BOZO_init_array(i_service_provider_name_length);
   BOZO_begin_integer(i_service_type, 8)
-    BOZO_DOJOB(Service);
+    BOZO_DOJOB(dvb_service);
     BOZO_check_integer(i_service_type, 8)
     BOZO_CLEAN();
   BOZO_end_integer(i_service_type, 8)
@@ -1250,7 +1407,7 @@ static int main_service_3(void)
   BOZO_init_array(i_service_provider_name_length);
   BOZO_begin_array(i_service_name)
   BOZO_loop_array_begin(i_service_name, i_service_name_length, 0)
-    BOZO_DOJOB(Service);
+    BOZO_DOJOB(dvb_service);
     BOZO_check_array_begin(i_service_name, i_service_name_length)
     BOZO_check_array_gen(i_service_name, i_service_name_length)
     BOZO_CLEAN();
@@ -1264,7 +1421,7 @@ static int main_service_3(void)
   BOZO_init_array(i_service_provider_name_length);
   BOZO_begin_array(i_service_provider_name)
   BOZO_loop_array_begin(i_service_provider_name, i_service_provider_name_length, 0)
-    BOZO_DOJOB(Service);
+    BOZO_DOJOB(dvb_service);
     BOZO_check_array_begin(i_service_provider_name, i_service_provider_name_length)
     BOZO_check_array_gen(i_service_provider_name, i_service_provider_name_length)
     BOZO_CLEAN();
@@ -1278,61 +1435,61 @@ static int main_service_3(void)
 }
 
 /* linkage (information service) */
-static int main_linkage_0(void)
+static int main_dvb_linkage_0(void)
 {
-  BOZO_VARS(linkage);
+  BOZO_VARS(dvb_linkage);
   BOZO_START(linkage (information service));
 
-
+  
   /* check i_transport_stream_id */
   s_decoded.i_linkage_type = 1;
-
+      
   BOZO_init_integer(i_transport_stream_id, 0);
   BOZO_init_integer(i_original_network_id, 0);
   BOZO_init_integer(i_service_id, 0);
   BOZO_init_array(i_private_data_length);
   BOZO_begin_integer(i_transport_stream_id, 16)
-    BOZO_DOJOB(Linkage);
+    BOZO_DOJOB(dvb_linkage);
     BOZO_check_integer(i_transport_stream_id, 16)
     BOZO_CLEAN();
   BOZO_end_integer(i_transport_stream_id, 16)
 
   /* check i_original_network_id */
   s_decoded.i_linkage_type = 1;
-
+      
   BOZO_init_integer(i_transport_stream_id, 0);
   BOZO_init_integer(i_original_network_id, 0);
   BOZO_init_integer(i_service_id, 0);
   BOZO_init_array(i_private_data_length);
   BOZO_begin_integer(i_original_network_id, 16)
-    BOZO_DOJOB(Linkage);
+    BOZO_DOJOB(dvb_linkage);
     BOZO_check_integer(i_original_network_id, 16)
     BOZO_CLEAN();
   BOZO_end_integer(i_original_network_id, 16)
 
   /* check i_service_id */
   s_decoded.i_linkage_type = 1;
-
+      
   BOZO_init_integer(i_transport_stream_id, 0);
   BOZO_init_integer(i_original_network_id, 0);
   BOZO_init_integer(i_service_id, 0);
   BOZO_init_array(i_private_data_length);
   BOZO_begin_integer(i_service_id, 16)
-    BOZO_DOJOB(Linkage);
+    BOZO_DOJOB(dvb_linkage);
     BOZO_check_integer(i_service_id, 16)
     BOZO_CLEAN();
   BOZO_end_integer(i_service_id, 16)
 
   /* check i_private_data */
   s_decoded.i_linkage_type = 1;
-
+      
   BOZO_init_integer(i_transport_stream_id, 0);
   BOZO_init_integer(i_original_network_id, 0);
   BOZO_init_integer(i_service_id, 0);
   BOZO_init_array(i_private_data_length);
   BOZO_begin_array(i_private_data)
   BOZO_loop_array_begin(i_private_data, i_private_data_length, 0)
-    BOZO_DOJOB(Linkage);
+    BOZO_DOJOB(dvb_linkage);
     BOZO_check_array_begin(i_private_data, i_private_data_length)
     BOZO_check_array_gen(i_private_data, i_private_data_length)
     BOZO_CLEAN();
@@ -1346,23 +1503,23 @@ static int main_linkage_0(void)
 }
 
 /* linkage (mobile handover, no extra data) */
-static int main_linkage_1(void)
+static int main_dvb_linkage_1(void)
 {
-  BOZO_VARS(linkage);
+  BOZO_VARS(dvb_linkage);
   BOZO_START(linkage (mobile handover, no extra data));
 
-
+  
   /* check i_transport_stream_id */
   s_decoded.i_linkage_type = 8;
   s_decoded.i_handover_type = 0;
   s_decoded.i_origin_type = 1;
-
+      
   BOZO_init_integer(i_transport_stream_id, 0);
   BOZO_init_integer(i_original_network_id, 0);
   BOZO_init_integer(i_service_id, 0);
   BOZO_init_array(i_private_data_length);
   BOZO_begin_integer(i_transport_stream_id, 16)
-    BOZO_DOJOB(Linkage);
+    BOZO_DOJOB(dvb_linkage);
     BOZO_check_integer(i_transport_stream_id, 16)
     BOZO_CLEAN();
   BOZO_end_integer(i_transport_stream_id, 16)
@@ -1371,13 +1528,13 @@ static int main_linkage_1(void)
   s_decoded.i_linkage_type = 8;
   s_decoded.i_handover_type = 0;
   s_decoded.i_origin_type = 1;
-
+      
   BOZO_init_integer(i_transport_stream_id, 0);
   BOZO_init_integer(i_original_network_id, 0);
   BOZO_init_integer(i_service_id, 0);
   BOZO_init_array(i_private_data_length);
   BOZO_begin_integer(i_original_network_id, 16)
-    BOZO_DOJOB(Linkage);
+    BOZO_DOJOB(dvb_linkage);
     BOZO_check_integer(i_original_network_id, 16)
     BOZO_CLEAN();
   BOZO_end_integer(i_original_network_id, 16)
@@ -1386,13 +1543,13 @@ static int main_linkage_1(void)
   s_decoded.i_linkage_type = 8;
   s_decoded.i_handover_type = 0;
   s_decoded.i_origin_type = 1;
-
+      
   BOZO_init_integer(i_transport_stream_id, 0);
   BOZO_init_integer(i_original_network_id, 0);
   BOZO_init_integer(i_service_id, 0);
   BOZO_init_array(i_private_data_length);
   BOZO_begin_integer(i_service_id, 16)
-    BOZO_DOJOB(Linkage);
+    BOZO_DOJOB(dvb_linkage);
     BOZO_check_integer(i_service_id, 16)
     BOZO_CLEAN();
   BOZO_end_integer(i_service_id, 16)
@@ -1401,14 +1558,14 @@ static int main_linkage_1(void)
   s_decoded.i_linkage_type = 8;
   s_decoded.i_handover_type = 0;
   s_decoded.i_origin_type = 1;
-
+      
   BOZO_init_integer(i_transport_stream_id, 0);
   BOZO_init_integer(i_original_network_id, 0);
   BOZO_init_integer(i_service_id, 0);
   BOZO_init_array(i_private_data_length);
   BOZO_begin_array(i_private_data)
   BOZO_loop_array_begin(i_private_data, i_private_data_length, 0)
-    BOZO_DOJOB(Linkage);
+    BOZO_DOJOB(dvb_linkage);
     BOZO_check_array_begin(i_private_data, i_private_data_length)
     BOZO_check_array_gen(i_private_data, i_private_data_length)
     BOZO_CLEAN();
@@ -1422,24 +1579,24 @@ static int main_linkage_1(void)
 }
 
 /* linkage (mobile handover, extra network_id) */
-static int main_linkage_2(void)
+static int main_dvb_linkage_2(void)
 {
-  BOZO_VARS(linkage);
+  BOZO_VARS(dvb_linkage);
   BOZO_START(linkage (mobile handover, extra network_id));
 
-
+  
   /* check i_transport_stream_id */
   s_decoded.i_linkage_type = 8;
   s_decoded.i_handover_type = 1;
   s_decoded.i_origin_type = 1;
-
+      
   BOZO_init_integer(i_transport_stream_id, 0);
   BOZO_init_integer(i_original_network_id, 0);
   BOZO_init_integer(i_service_id, 0);
   BOZO_init_integer(i_network_id, 0);
   BOZO_init_array(i_private_data_length);
   BOZO_begin_integer(i_transport_stream_id, 16)
-    BOZO_DOJOB(Linkage);
+    BOZO_DOJOB(dvb_linkage);
     BOZO_check_integer(i_transport_stream_id, 16)
     BOZO_CLEAN();
   BOZO_end_integer(i_transport_stream_id, 16)
@@ -1448,14 +1605,14 @@ static int main_linkage_2(void)
   s_decoded.i_linkage_type = 8;
   s_decoded.i_handover_type = 1;
   s_decoded.i_origin_type = 1;
-
+      
   BOZO_init_integer(i_transport_stream_id, 0);
   BOZO_init_integer(i_original_network_id, 0);
   BOZO_init_integer(i_service_id, 0);
   BOZO_init_integer(i_network_id, 0);
   BOZO_init_array(i_private_data_length);
   BOZO_begin_integer(i_original_network_id, 16)
-    BOZO_DOJOB(Linkage);
+    BOZO_DOJOB(dvb_linkage);
     BOZO_check_integer(i_original_network_id, 16)
     BOZO_CLEAN();
   BOZO_end_integer(i_original_network_id, 16)
@@ -1464,14 +1621,14 @@ static int main_linkage_2(void)
   s_decoded.i_linkage_type = 8;
   s_decoded.i_handover_type = 1;
   s_decoded.i_origin_type = 1;
-
+      
   BOZO_init_integer(i_transport_stream_id, 0);
   BOZO_init_integer(i_original_network_id, 0);
   BOZO_init_integer(i_service_id, 0);
   BOZO_init_integer(i_network_id, 0);
   BOZO_init_array(i_private_data_length);
   BOZO_begin_integer(i_service_id, 16)
-    BOZO_DOJOB(Linkage);
+    BOZO_DOJOB(dvb_linkage);
     BOZO_check_integer(i_service_id, 16)
     BOZO_CLEAN();
   BOZO_end_integer(i_service_id, 16)
@@ -1480,14 +1637,14 @@ static int main_linkage_2(void)
   s_decoded.i_linkage_type = 8;
   s_decoded.i_handover_type = 1;
   s_decoded.i_origin_type = 1;
-
+      
   BOZO_init_integer(i_transport_stream_id, 0);
   BOZO_init_integer(i_original_network_id, 0);
   BOZO_init_integer(i_service_id, 0);
   BOZO_init_integer(i_network_id, 0);
   BOZO_init_array(i_private_data_length);
   BOZO_begin_integer(i_network_id, 16)
-    BOZO_DOJOB(Linkage);
+    BOZO_DOJOB(dvb_linkage);
     BOZO_check_integer(i_network_id, 16)
     BOZO_CLEAN();
   BOZO_end_integer(i_network_id, 16)
@@ -1496,7 +1653,7 @@ static int main_linkage_2(void)
   s_decoded.i_linkage_type = 8;
   s_decoded.i_handover_type = 1;
   s_decoded.i_origin_type = 1;
-
+      
   BOZO_init_integer(i_transport_stream_id, 0);
   BOZO_init_integer(i_original_network_id, 0);
   BOZO_init_integer(i_service_id, 0);
@@ -1504,7 +1661,7 @@ static int main_linkage_2(void)
   BOZO_init_array(i_private_data_length);
   BOZO_begin_array(i_private_data)
   BOZO_loop_array_begin(i_private_data, i_private_data_length, 0)
-    BOZO_DOJOB(Linkage);
+    BOZO_DOJOB(dvb_linkage);
     BOZO_check_array_begin(i_private_data, i_private_data_length)
     BOZO_check_array_gen(i_private_data, i_private_data_length)
     BOZO_CLEAN();
@@ -1518,24 +1675,24 @@ static int main_linkage_2(void)
 }
 
 /* linkage (mobile handover, extra initial_service_id) */
-static int main_linkage_3(void)
+static int main_dvb_linkage_3(void)
 {
-  BOZO_VARS(linkage);
+  BOZO_VARS(dvb_linkage);
   BOZO_START(linkage (mobile handover, extra initial_service_id));
 
-
+  
   /* check i_transport_stream_id */
   s_decoded.i_linkage_type = 8;
   s_decoded.i_handover_type = 0;
   s_decoded.i_origin_type = 0;
-
+      
   BOZO_init_integer(i_transport_stream_id, 0);
   BOZO_init_integer(i_original_network_id, 0);
   BOZO_init_integer(i_service_id, 0);
   BOZO_init_integer(i_initial_service_id, 0);
   BOZO_init_array(i_private_data_length);
   BOZO_begin_integer(i_transport_stream_id, 16)
-    BOZO_DOJOB(Linkage);
+    BOZO_DOJOB(dvb_linkage);
     BOZO_check_integer(i_transport_stream_id, 16)
     BOZO_CLEAN();
   BOZO_end_integer(i_transport_stream_id, 16)
@@ -1544,14 +1701,14 @@ static int main_linkage_3(void)
   s_decoded.i_linkage_type = 8;
   s_decoded.i_handover_type = 0;
   s_decoded.i_origin_type = 0;
-
+      
   BOZO_init_integer(i_transport_stream_id, 0);
   BOZO_init_integer(i_original_network_id, 0);
   BOZO_init_integer(i_service_id, 0);
   BOZO_init_integer(i_initial_service_id, 0);
   BOZO_init_array(i_private_data_length);
   BOZO_begin_integer(i_original_network_id, 16)
-    BOZO_DOJOB(Linkage);
+    BOZO_DOJOB(dvb_linkage);
     BOZO_check_integer(i_original_network_id, 16)
     BOZO_CLEAN();
   BOZO_end_integer(i_original_network_id, 16)
@@ -1560,14 +1717,14 @@ static int main_linkage_3(void)
   s_decoded.i_linkage_type = 8;
   s_decoded.i_handover_type = 0;
   s_decoded.i_origin_type = 0;
-
+      
   BOZO_init_integer(i_transport_stream_id, 0);
   BOZO_init_integer(i_original_network_id, 0);
   BOZO_init_integer(i_service_id, 0);
   BOZO_init_integer(i_initial_service_id, 0);
   BOZO_init_array(i_private_data_length);
   BOZO_begin_integer(i_service_id, 16)
-    BOZO_DOJOB(Linkage);
+    BOZO_DOJOB(dvb_linkage);
     BOZO_check_integer(i_service_id, 16)
     BOZO_CLEAN();
   BOZO_end_integer(i_service_id, 16)
@@ -1576,14 +1733,14 @@ static int main_linkage_3(void)
   s_decoded.i_linkage_type = 8;
   s_decoded.i_handover_type = 0;
   s_decoded.i_origin_type = 0;
-
+      
   BOZO_init_integer(i_transport_stream_id, 0);
   BOZO_init_integer(i_original_network_id, 0);
   BOZO_init_integer(i_service_id, 0);
   BOZO_init_integer(i_initial_service_id, 0);
   BOZO_init_array(i_private_data_length);
   BOZO_begin_integer(i_initial_service_id, 16)
-    BOZO_DOJOB(Linkage);
+    BOZO_DOJOB(dvb_linkage);
     BOZO_check_integer(i_initial_service_id, 16)
     BOZO_CLEAN();
   BOZO_end_integer(i_initial_service_id, 16)
@@ -1592,7 +1749,7 @@ static int main_linkage_3(void)
   s_decoded.i_linkage_type = 8;
   s_decoded.i_handover_type = 0;
   s_decoded.i_origin_type = 0;
-
+      
   BOZO_init_integer(i_transport_stream_id, 0);
   BOZO_init_integer(i_original_network_id, 0);
   BOZO_init_integer(i_service_id, 0);
@@ -1600,7 +1757,7 @@ static int main_linkage_3(void)
   BOZO_init_array(i_private_data_length);
   BOZO_begin_array(i_private_data)
   BOZO_loop_array_begin(i_private_data, i_private_data_length, 0)
-    BOZO_DOJOB(Linkage);
+    BOZO_DOJOB(dvb_linkage);
     BOZO_check_array_begin(i_private_data, i_private_data_length)
     BOZO_check_array_gen(i_private_data, i_private_data_length)
     BOZO_CLEAN();
@@ -1614,17 +1771,17 @@ static int main_linkage_3(void)
 }
 
 /* linkage (mobile handover, extra network_id and initial_service_id) */
-static int main_linkage_4(void)
+static int main_dvb_linkage_4(void)
 {
-  BOZO_VARS(linkage);
+  BOZO_VARS(dvb_linkage);
   BOZO_START(linkage (mobile handover, extra network_id and initial_service_id));
 
-
+  
   /* check i_transport_stream_id */
   s_decoded.i_linkage_type = 8;
   s_decoded.i_handover_type = 1;
   s_decoded.i_origin_type = 0;
-
+      
   BOZO_init_integer(i_transport_stream_id, 0);
   BOZO_init_integer(i_original_network_id, 0);
   BOZO_init_integer(i_service_id, 0);
@@ -1632,7 +1789,7 @@ static int main_linkage_4(void)
   BOZO_init_integer(i_initial_service_id, 0);
   BOZO_init_array(i_private_data_length);
   BOZO_begin_integer(i_transport_stream_id, 16)
-    BOZO_DOJOB(Linkage);
+    BOZO_DOJOB(dvb_linkage);
     BOZO_check_integer(i_transport_stream_id, 16)
     BOZO_CLEAN();
   BOZO_end_integer(i_transport_stream_id, 16)
@@ -1641,7 +1798,7 @@ static int main_linkage_4(void)
   s_decoded.i_linkage_type = 8;
   s_decoded.i_handover_type = 1;
   s_decoded.i_origin_type = 0;
-
+      
   BOZO_init_integer(i_transport_stream_id, 0);
   BOZO_init_integer(i_original_network_id, 0);
   BOZO_init_integer(i_service_id, 0);
@@ -1649,7 +1806,7 @@ static int main_linkage_4(void)
   BOZO_init_integer(i_initial_service_id, 0);
   BOZO_init_array(i_private_data_length);
   BOZO_begin_integer(i_original_network_id, 16)
-    BOZO_DOJOB(Linkage);
+    BOZO_DOJOB(dvb_linkage);
     BOZO_check_integer(i_original_network_id, 16)
     BOZO_CLEAN();
   BOZO_end_integer(i_original_network_id, 16)
@@ -1658,7 +1815,7 @@ static int main_linkage_4(void)
   s_decoded.i_linkage_type = 8;
   s_decoded.i_handover_type = 1;
   s_decoded.i_origin_type = 0;
-
+      
   BOZO_init_integer(i_transport_stream_id, 0);
   BOZO_init_integer(i_original_network_id, 0);
   BOZO_init_integer(i_service_id, 0);
@@ -1666,7 +1823,7 @@ static int main_linkage_4(void)
   BOZO_init_integer(i_initial_service_id, 0);
   BOZO_init_array(i_private_data_length);
   BOZO_begin_integer(i_service_id, 16)
-    BOZO_DOJOB(Linkage);
+    BOZO_DOJOB(dvb_linkage);
     BOZO_check_integer(i_service_id, 16)
     BOZO_CLEAN();
   BOZO_end_integer(i_service_id, 16)
@@ -1675,7 +1832,7 @@ static int main_linkage_4(void)
   s_decoded.i_linkage_type = 8;
   s_decoded.i_handover_type = 1;
   s_decoded.i_origin_type = 0;
-
+      
   BOZO_init_integer(i_transport_stream_id, 0);
   BOZO_init_integer(i_original_network_id, 0);
   BOZO_init_integer(i_service_id, 0);
@@ -1683,7 +1840,7 @@ static int main_linkage_4(void)
   BOZO_init_integer(i_initial_service_id, 0);
   BOZO_init_array(i_private_data_length);
   BOZO_begin_integer(i_network_id, 16)
-    BOZO_DOJOB(Linkage);
+    BOZO_DOJOB(dvb_linkage);
     BOZO_check_integer(i_network_id, 16)
     BOZO_CLEAN();
   BOZO_end_integer(i_network_id, 16)
@@ -1692,7 +1849,7 @@ static int main_linkage_4(void)
   s_decoded.i_linkage_type = 8;
   s_decoded.i_handover_type = 1;
   s_decoded.i_origin_type = 0;
-
+      
   BOZO_init_integer(i_transport_stream_id, 0);
   BOZO_init_integer(i_original_network_id, 0);
   BOZO_init_integer(i_service_id, 0);
@@ -1700,7 +1857,7 @@ static int main_linkage_4(void)
   BOZO_init_integer(i_initial_service_id, 0);
   BOZO_init_array(i_private_data_length);
   BOZO_begin_integer(i_initial_service_id, 16)
-    BOZO_DOJOB(Linkage);
+    BOZO_DOJOB(dvb_linkage);
     BOZO_check_integer(i_initial_service_id, 16)
     BOZO_CLEAN();
   BOZO_end_integer(i_initial_service_id, 16)
@@ -1709,7 +1866,7 @@ static int main_linkage_4(void)
   s_decoded.i_linkage_type = 8;
   s_decoded.i_handover_type = 1;
   s_decoded.i_origin_type = 0;
-
+      
   BOZO_init_integer(i_transport_stream_id, 0);
   BOZO_init_integer(i_original_network_id, 0);
   BOZO_init_integer(i_service_id, 0);
@@ -1718,7 +1875,7 @@ static int main_linkage_4(void)
   BOZO_init_array(i_private_data_length);
   BOZO_begin_array(i_private_data)
   BOZO_loop_array_begin(i_private_data, i_private_data_length, 0)
-    BOZO_DOJOB(Linkage);
+    BOZO_DOJOB(dvb_linkage);
     BOZO_check_array_begin(i_private_data, i_private_data_length)
     BOZO_check_array_gen(i_private_data, i_private_data_length)
     BOZO_CLEAN();
@@ -1732,15 +1889,15 @@ static int main_linkage_4(void)
 }
 
 /* linkage (event linkage) */
-static int main_linkage_5(void)
+static int main_dvb_linkage_5(void)
 {
-  BOZO_VARS(linkage);
+  BOZO_VARS(dvb_linkage);
   BOZO_START(linkage (event linkage));
 
-
+  
   /* check i_transport_stream_id */
   s_decoded.i_linkage_type = 13;
-
+      
   BOZO_init_integer(i_transport_stream_id, 0);
   BOZO_init_integer(i_original_network_id, 0);
   BOZO_init_integer(i_service_id, 0);
@@ -1749,14 +1906,14 @@ static int main_linkage_5(void)
   BOZO_init_boolean(b_event_simulcast, 0);
   BOZO_init_array(i_private_data_length);
   BOZO_begin_integer(i_transport_stream_id, 16)
-    BOZO_DOJOB(Linkage);
+    BOZO_DOJOB(dvb_linkage);
     BOZO_check_integer(i_transport_stream_id, 16)
     BOZO_CLEAN();
   BOZO_end_integer(i_transport_stream_id, 16)
 
   /* check i_original_network_id */
   s_decoded.i_linkage_type = 13;
-
+      
   BOZO_init_integer(i_transport_stream_id, 0);
   BOZO_init_integer(i_original_network_id, 0);
   BOZO_init_integer(i_service_id, 0);
@@ -1765,14 +1922,14 @@ static int main_linkage_5(void)
   BOZO_init_boolean(b_event_simulcast, 0);
   BOZO_init_array(i_private_data_length);
   BOZO_begin_integer(i_original_network_id, 16)
-    BOZO_DOJOB(Linkage);
+    BOZO_DOJOB(dvb_linkage);
     BOZO_check_integer(i_original_network_id, 16)
     BOZO_CLEAN();
   BOZO_end_integer(i_original_network_id, 16)
 
   /* check i_service_id */
   s_decoded.i_linkage_type = 13;
-
+      
   BOZO_init_integer(i_transport_stream_id, 0);
   BOZO_init_integer(i_original_network_id, 0);
   BOZO_init_integer(i_service_id, 0);
@@ -1781,14 +1938,14 @@ static int main_linkage_5(void)
   BOZO_init_boolean(b_event_simulcast, 0);
   BOZO_init_array(i_private_data_length);
   BOZO_begin_integer(i_service_id, 16)
-    BOZO_DOJOB(Linkage);
+    BOZO_DOJOB(dvb_linkage);
     BOZO_check_integer(i_service_id, 16)
     BOZO_CLEAN();
   BOZO_end_integer(i_service_id, 16)
 
   /* check i_target_event_id */
   s_decoded.i_linkage_type = 13;
-
+      
   BOZO_init_integer(i_transport_stream_id, 0);
   BOZO_init_integer(i_original_network_id, 0);
   BOZO_init_integer(i_service_id, 0);
@@ -1797,14 +1954,14 @@ static int main_linkage_5(void)
   BOZO_init_boolean(b_event_simulcast, 0);
   BOZO_init_array(i_private_data_length);
   BOZO_begin_integer(i_target_event_id, 16)
-    BOZO_DOJOB(Linkage);
+    BOZO_DOJOB(dvb_linkage);
     BOZO_check_integer(i_target_event_id, 16)
     BOZO_CLEAN();
   BOZO_end_integer(i_target_event_id, 16)
 
   /* check b_target_listed */
   s_decoded.i_linkage_type = 13;
-
+      
   BOZO_init_integer(i_transport_stream_id, 0);
   BOZO_init_integer(i_original_network_id, 0);
   BOZO_init_integer(i_service_id, 0);
@@ -1813,14 +1970,14 @@ static int main_linkage_5(void)
   BOZO_init_boolean(b_event_simulcast, 0);
   BOZO_init_array(i_private_data_length);
   BOZO_begin_boolean(b_target_listed)
-    BOZO_DOJOB(Linkage);
+    BOZO_DOJOB(dvb_linkage);
     BOZO_check_boolean(b_target_listed)
     BOZO_CLEAN();
   BOZO_end_boolean(b_target_listed)
 
   /* check b_event_simulcast */
   s_decoded.i_linkage_type = 13;
-
+      
   BOZO_init_integer(i_transport_stream_id, 0);
   BOZO_init_integer(i_original_network_id, 0);
   BOZO_init_integer(i_service_id, 0);
@@ -1829,14 +1986,14 @@ static int main_linkage_5(void)
   BOZO_init_boolean(b_event_simulcast, 0);
   BOZO_init_array(i_private_data_length);
   BOZO_begin_boolean(b_event_simulcast)
-    BOZO_DOJOB(Linkage);
+    BOZO_DOJOB(dvb_linkage);
     BOZO_check_boolean(b_event_simulcast)
     BOZO_CLEAN();
   BOZO_end_boolean(b_event_simulcast)
 
   /* check i_private_data */
   s_decoded.i_linkage_type = 13;
-
+      
   BOZO_init_integer(i_transport_stream_id, 0);
   BOZO_init_integer(i_original_network_id, 0);
   BOZO_init_integer(i_service_id, 0);
@@ -1846,7 +2003,7 @@ static int main_linkage_5(void)
   BOZO_init_array(i_private_data_length);
   BOZO_begin_array(i_private_data)
   BOZO_loop_array_begin(i_private_data, i_private_data_length, 0)
-    BOZO_DOJOB(Linkage);
+    BOZO_DOJOB(dvb_linkage);
     BOZO_check_array_begin(i_private_data, i_private_data_length)
     BOZO_check_array_gen(i_private_data, i_private_data_length)
     BOZO_CLEAN();
@@ -1860,17 +2017,17 @@ static int main_linkage_5(void)
 }
 
 /* Near Video On Demand reference */
-static int main_nvod_ref_(void)
+static int main_dvb_nvod_ref_0(void)
 {
-  BOZO_VARS(nvod_ref);
+  BOZO_VARS(dvb_nvod_ref);
   BOZO_START(Near Video On Demand reference);
 
-
+  
   /* check p_nvod_refs */
   BOZO_init_array(i_references);
   BOZO_begin_array(p_nvod_refs)
   BOZO_loop_array_begin(p_nvod_refs, i_references, 1)
-    BOZO_DOJOB(NVODReference);
+    BOZO_DOJOB(dvb_nvod_ref);
     BOZO_check_array_begin(p_nvod_refs, i_references)
     BOZO_check_array_cmp(p_nvod_refs, i_references, dvbpsi_nvod_ref_t)
     BOZO_CLEAN();
@@ -1884,16 +2041,16 @@ static int main_nvod_ref_(void)
 }
 
 /* time shifted service */
-static int main_tshifted_service_(void)
+static int main_dvb_tshifted_service_0(void)
 {
-  BOZO_VARS(tshifted_service);
+  BOZO_VARS(dvb_tshifted_service);
   BOZO_START(time shifted service);
 
-
+  
   /* check i_ref_service_id */
   BOZO_init_integer(i_ref_service_id, 0);
   BOZO_begin_integer(i_ref_service_id, 16)
-    BOZO_DOJOB(TimeShiftedService);
+    BOZO_DOJOB(dvb_tshifted_service);
     BOZO_check_integer(i_ref_service_id, 16)
     BOZO_CLEAN();
   BOZO_end_integer(i_ref_service_id, 16)
@@ -1905,31 +2062,31 @@ static int main_tshifted_service_(void)
 }
 
 /* short event (event_name) */
-static int main_short_event_0(void)
+static int main_dvb_short_event_0(void)
 {
-  BOZO_VARS(short_event);
+  BOZO_VARS(dvb_short_event);
   BOZO_START(short event (event_name));
 
-
+  
   /* check i_iso_639_code */
   s_decoded.i_text_length = 0;
-
+      
   BOZO_fill_array(s_decoded.i_iso_639_code, sizeof(s_decoded.i_iso_639_code));
   BOZO_init_array(i_event_name_length);
   i_loop_count = 0;
   BOZO_begin_array(i_iso_639_code)
-  BOZO_DOJOB(ShortEvent);
+  BOZO_DOJOB(dvb_short_event);
   BOZO_check_carray(i_iso_639_code)
   BOZO_end_array
 
   /* check i_event_name */
   s_decoded.i_text_length = 0;
-
+      
   BOZO_fill_array(s_decoded.i_iso_639_code, sizeof(s_decoded.i_iso_639_code));
   BOZO_init_array(i_event_name_length);
   BOZO_begin_array(i_event_name)
   BOZO_loop_array_begin(i_event_name, i_event_name_length, 0)
-    BOZO_DOJOB(ShortEvent);
+    BOZO_DOJOB(dvb_short_event);
     BOZO_check_array_begin(i_event_name, i_event_name_length)
     BOZO_check_array_gen(i_event_name, i_event_name_length)
     BOZO_CLEAN();
@@ -1943,31 +2100,31 @@ static int main_short_event_0(void)
 }
 
 /* short event (i_text) */
-static int main_short_event_1(void)
+static int main_dvb_short_event_1(void)
 {
-  BOZO_VARS(short_event);
+  BOZO_VARS(dvb_short_event);
   BOZO_START(short event (i_text));
 
-
+  
   /* check i_iso_639_code */
   s_decoded.i_event_name_length = 0;
-
+      
   BOZO_fill_array(s_decoded.i_iso_639_code, sizeof(s_decoded.i_iso_639_code));
   BOZO_init_array(i_text_length);
   i_loop_count = 0;
   BOZO_begin_array(i_iso_639_code)
-  BOZO_DOJOB(ShortEvent);
+  BOZO_DOJOB(dvb_short_event);
   BOZO_check_carray(i_iso_639_code)
   BOZO_end_array
 
   /* check i_text */
   s_decoded.i_event_name_length = 0;
-
+      
   BOZO_fill_array(s_decoded.i_iso_639_code, sizeof(s_decoded.i_iso_639_code));
   BOZO_init_array(i_text_length);
   BOZO_begin_array(i_text)
   BOZO_loop_array_begin(i_text, i_text_length, 0)
-    BOZO_DOJOB(ShortEvent);
+    BOZO_DOJOB(dvb_short_event);
     BOZO_check_array_begin(i_text, i_text_length)
     BOZO_check_array_gen(i_text, i_text_length)
     BOZO_CLEAN();
@@ -1981,19 +2138,19 @@ static int main_short_event_1(void)
 }
 
 /* short event (both) */
-static int main_short_event_2(void)
+static int main_dvb_short_event_2(void)
 {
-  BOZO_VARS(short_event);
+  BOZO_VARS(dvb_short_event);
   BOZO_START(short event (both));
 
-
+  
   /* check i_iso_639_code */
   BOZO_fill_array(s_decoded.i_iso_639_code, sizeof(s_decoded.i_iso_639_code));
   BOZO_init_array(i_text_length);
   BOZO_init_array(i_event_name_length);
   i_loop_count = 0;
   BOZO_begin_array(i_iso_639_code)
-  BOZO_DOJOB(ShortEvent);
+  BOZO_DOJOB(dvb_short_event);
   BOZO_check_carray(i_iso_639_code)
   BOZO_end_array
 
@@ -2003,7 +2160,7 @@ static int main_short_event_2(void)
   BOZO_init_array(i_event_name_length);
   BOZO_begin_array(i_text)
   BOZO_loop_array_begin(i_text, i_text_length, 0)
-    BOZO_DOJOB(ShortEvent);
+    BOZO_DOJOB(dvb_short_event);
     BOZO_check_array_begin(i_text, i_text_length)
     BOZO_check_array_gen(i_text, i_text_length)
     BOZO_CLEAN();
@@ -2016,7 +2173,7 @@ static int main_short_event_2(void)
   BOZO_init_array(i_event_name_length);
   BOZO_begin_array(i_event_name)
   BOZO_loop_array_begin(i_event_name, i_event_name_length, 0)
-    BOZO_DOJOB(ShortEvent);
+    BOZO_DOJOB(dvb_short_event);
     BOZO_check_array_begin(i_event_name, i_event_name_length)
     BOZO_check_array_gen(i_event_name, i_event_name_length)
     BOZO_CLEAN();
@@ -2030,17 +2187,17 @@ static int main_short_event_2(void)
 }
 
 /* time shifted event */
-static int main_tshifted_ev_(void)
+static int main_dvb_tshifted_ev_0(void)
 {
-  BOZO_VARS(tshifted_ev);
+  BOZO_VARS(dvb_tshifted_ev);
   BOZO_START(time shifted event);
 
-
+  
   /* check i_ref_service_id */
   BOZO_init_integer(i_ref_service_id, 0);
   BOZO_init_integer(i_ref_event_id, 0);
   BOZO_begin_integer(i_ref_service_id, 16)
-    BOZO_DOJOB(TimeShiftedEvent);
+    BOZO_DOJOB(dvb_tshifted_ev);
     BOZO_check_integer(i_ref_service_id, 16)
     BOZO_CLEAN();
   BOZO_end_integer(i_ref_service_id, 16)
@@ -2049,7 +2206,7 @@ static int main_tshifted_ev_(void)
   BOZO_init_integer(i_ref_service_id, 0);
   BOZO_init_integer(i_ref_event_id, 0);
   BOZO_begin_integer(i_ref_event_id, 16)
-    BOZO_DOJOB(TimeShiftedEvent);
+    BOZO_DOJOB(dvb_tshifted_ev);
     BOZO_check_integer(i_ref_event_id, 16)
     BOZO_CLEAN();
   BOZO_end_integer(i_ref_event_id, 16)
@@ -2061,16 +2218,16 @@ static int main_tshifted_ev_(void)
 }
 
 /* stream identifier */
-static int main_stream_identifier_(void)
+static int main_dvb_stream_identifier_0(void)
 {
-  BOZO_VARS(stream_identifier);
+  BOZO_VARS(dvb_stream_identifier);
   BOZO_START(stream identifier);
 
-
+  
   /* check i_component_tag */
   BOZO_init_integer(i_component_tag, 0);
   BOZO_begin_integer(i_component_tag, 8)
-    BOZO_DOJOB(StreamIdentifier);
+    BOZO_DOJOB(dvb_stream_identifier);
     BOZO_check_integer(i_component_tag, 8)
     BOZO_CLEAN();
   BOZO_end_integer(i_component_tag, 8)
@@ -2082,17 +2239,17 @@ static int main_stream_identifier_(void)
 }
 
 /* CA identifier */
-static int main_ca_identifier_(void)
+static int main_dvb_ca_identifier_0(void)
 {
-  BOZO_VARS(ca_identifier);
+  BOZO_VARS(dvb_ca_identifier);
   BOZO_START(CA identifier);
 
-
+  
   /* check p_system */
   BOZO_init_array(i_number);
   BOZO_begin_array(p_system)
   BOZO_loop_array_begin(p_system, i_number, 1)
-    BOZO_DOJOB(CAIdentifier);
+    BOZO_DOJOB(dvb_ca_identifier);
     BOZO_check_array_begin(p_system, i_number)
     BOZO_check_array_cmp(p_system, i_number, dvbpsi_ca_system_t)
     BOZO_CLEAN();
@@ -2106,17 +2263,17 @@ static int main_ca_identifier_(void)
 }
 
 /* content */
-static int main_content_(void)
+static int main_dvb_content_0(void)
 {
-  BOZO_VARS(content);
+  BOZO_VARS(dvb_content);
   BOZO_START(content);
 
-
+  
   /* check p_content */
   BOZO_init_array(i_contents_number);
   BOZO_begin_array(p_content)
   BOZO_loop_array_begin(p_content, i_contents_number, 1)
-    BOZO_DOJOB(Content);
+    BOZO_DOJOB(dvb_content);
     BOZO_check_array_begin(p_content, i_contents_number)
     BOZO_check_array_cmp(p_content, i_contents_number, dvbpsi_content_t)
     BOZO_CLEAN();
@@ -2130,17 +2287,17 @@ static int main_content_(void)
 }
 
 /* parental rating */
-static int main_parental_rating_(void)
+static int main_dvb_parental_rating_0(void)
 {
-  BOZO_VARS(parental_rating);
+  BOZO_VARS(dvb_parental_rating);
   BOZO_START(parental rating);
 
-
+  
   /* check p_parental_rating */
   BOZO_init_array(i_ratings_number);
   BOZO_begin_array(p_parental_rating)
   BOZO_loop_array_begin(p_parental_rating, i_ratings_number, 1)
-    BOZO_DOJOB(ParentalRating);
+    BOZO_DOJOB(dvb_parental_rating);
     BOZO_check_array_begin(p_parental_rating, i_ratings_number)
     BOZO_check_array_cmp(p_parental_rating, i_ratings_number, dvbpsi_parental_rating_t)
     BOZO_CLEAN();
@@ -2154,17 +2311,17 @@ static int main_parental_rating_(void)
 }
 
 /* teletext */
-static int main_teletext_(void)
+static int main_dvb_teletext_0(void)
 {
-  BOZO_VARS(teletext);
+  BOZO_VARS(dvb_teletext);
   BOZO_START(teletext);
 
-
+  
   /* check p_pages */
   BOZO_init_array(i_pages_number);
   BOZO_begin_array(p_pages)
   BOZO_loop_array_begin(p_pages, i_pages_number, 1)
-    BOZO_DOJOB(Teletext);
+    BOZO_DOJOB(dvb_teletext);
     BOZO_check_array_begin(p_pages, i_pages_number)
     BOZO_check_array_cmp(p_pages, i_pages_number, dvbpsi_teletextpage_t)
     BOZO_CLEAN();
@@ -2178,17 +2335,17 @@ static int main_teletext_(void)
 }
 
 /* local time offset */
-static int main_local_time_offset_(void)
+static int main_dvb_local_time_offset_0(void)
 {
-  BOZO_VARS(local_time_offset);
+  BOZO_VARS(dvb_local_time_offset);
   BOZO_START(local time offset);
 
-
+  
   /* check p_local_time_offset */
   BOZO_init_array(i_local_time_offsets_number);
   BOZO_begin_array(p_local_time_offset)
   BOZO_loop_array_begin(p_local_time_offset, i_local_time_offsets_number, 1)
-    BOZO_DOJOB(LocalTimeOffset);
+    BOZO_DOJOB(dvb_local_time_offset);
     BOZO_check_array_begin(p_local_time_offset, i_local_time_offsets_number)
     BOZO_check_array_cmp(p_local_time_offset, i_local_time_offsets_number, dvbpsi_local_time_offset_t)
     BOZO_CLEAN();
@@ -2202,17 +2359,17 @@ static int main_local_time_offset_(void)
 }
 
 /* subtitling */
-static int main_subtitling_(void)
+static int main_dvb_subtitling_0(void)
 {
-  BOZO_VARS(subtitling);
+  BOZO_VARS(dvb_subtitling);
   BOZO_START(subtitling);
 
-
+  
   /* check p_subtitle */
   BOZO_init_array(i_subtitles_number);
   BOZO_begin_array(p_subtitle)
   BOZO_loop_array_begin(p_subtitle, i_subtitles_number, 1)
-    BOZO_DOJOB(Subtitling);
+    BOZO_DOJOB(dvb_subtitling);
     BOZO_check_array_begin(p_subtitle, i_subtitles_number)
     BOZO_check_array_cmp(p_subtitle, i_subtitles_number, dvbpsi_subtitle_t)
     BOZO_CLEAN();
@@ -2226,12 +2383,12 @@ static int main_subtitling_(void)
 }
 
 /* terrestial delivery system */
-static int main_terr_deliv_sys_(void)
+static int main_dvb_terr_deliv_sys_0(void)
 {
-  BOZO_VARS(terr_deliv_sys);
+  BOZO_VARS(dvb_terr_deliv_sys);
   BOZO_START(terrestial delivery system);
 
-
+  
   /* check i_centre_frequency */
   BOZO_init_integer(i_centre_frequency, 0);
   BOZO_init_integer(i_bandwidth, 0);
@@ -2246,7 +2403,7 @@ static int main_terr_deliv_sys_(void)
   BOZO_init_integer(i_transmission_mode, 0);
   BOZO_init_integer(i_other_frequency_flag, 0);
   BOZO_begin_integer(i_centre_frequency, 32)
-    BOZO_DOJOB(TerrDelivSys);
+    BOZO_DOJOB(dvb_terr_deliv_sys);
     BOZO_check_integer(i_centre_frequency, 32)
     BOZO_CLEAN();
   BOZO_end_integer(i_centre_frequency, 32)
@@ -2265,7 +2422,7 @@ static int main_terr_deliv_sys_(void)
   BOZO_init_integer(i_transmission_mode, 0);
   BOZO_init_integer(i_other_frequency_flag, 0);
   BOZO_begin_integer(i_bandwidth, 3)
-    BOZO_DOJOB(TerrDelivSys);
+    BOZO_DOJOB(dvb_terr_deliv_sys);
     BOZO_check_integer(i_bandwidth, 3)
     BOZO_CLEAN();
   BOZO_end_integer(i_bandwidth, 3)
@@ -2284,7 +2441,7 @@ static int main_terr_deliv_sys_(void)
   BOZO_init_integer(i_transmission_mode, 0);
   BOZO_init_integer(i_other_frequency_flag, 0);
   BOZO_begin_integer(i_priority, 1)
-    BOZO_DOJOB(TerrDelivSys);
+    BOZO_DOJOB(dvb_terr_deliv_sys);
     BOZO_check_integer(i_priority, 1)
     BOZO_CLEAN();
   BOZO_end_integer(i_priority, 1)
@@ -2303,7 +2460,7 @@ static int main_terr_deliv_sys_(void)
   BOZO_init_integer(i_transmission_mode, 0);
   BOZO_init_integer(i_other_frequency_flag, 0);
   BOZO_begin_integer(i_time_slice_indicator, 1)
-    BOZO_DOJOB(TerrDelivSys);
+    BOZO_DOJOB(dvb_terr_deliv_sys);
     BOZO_check_integer(i_time_slice_indicator, 1)
     BOZO_CLEAN();
   BOZO_end_integer(i_time_slice_indicator, 1)
@@ -2322,7 +2479,7 @@ static int main_terr_deliv_sys_(void)
   BOZO_init_integer(i_transmission_mode, 0);
   BOZO_init_integer(i_other_frequency_flag, 0);
   BOZO_begin_integer(i_mpe_fec_indicator, 1)
-    BOZO_DOJOB(TerrDelivSys);
+    BOZO_DOJOB(dvb_terr_deliv_sys);
     BOZO_check_integer(i_mpe_fec_indicator, 1)
     BOZO_CLEAN();
   BOZO_end_integer(i_mpe_fec_indicator, 1)
@@ -2341,7 +2498,7 @@ static int main_terr_deliv_sys_(void)
   BOZO_init_integer(i_transmission_mode, 0);
   BOZO_init_integer(i_other_frequency_flag, 0);
   BOZO_begin_integer(i_constellation, 2)
-    BOZO_DOJOB(TerrDelivSys);
+    BOZO_DOJOB(dvb_terr_deliv_sys);
     BOZO_check_integer(i_constellation, 2)
     BOZO_CLEAN();
   BOZO_end_integer(i_constellation, 2)
@@ -2360,7 +2517,7 @@ static int main_terr_deliv_sys_(void)
   BOZO_init_integer(i_transmission_mode, 0);
   BOZO_init_integer(i_other_frequency_flag, 0);
   BOZO_begin_integer(i_hierarchy_information, 3)
-    BOZO_DOJOB(TerrDelivSys);
+    BOZO_DOJOB(dvb_terr_deliv_sys);
     BOZO_check_integer(i_hierarchy_information, 3)
     BOZO_CLEAN();
   BOZO_end_integer(i_hierarchy_information, 3)
@@ -2379,7 +2536,7 @@ static int main_terr_deliv_sys_(void)
   BOZO_init_integer(i_transmission_mode, 0);
   BOZO_init_integer(i_other_frequency_flag, 0);
   BOZO_begin_integer(i_code_rate_hp_stream, 3)
-    BOZO_DOJOB(TerrDelivSys);
+    BOZO_DOJOB(dvb_terr_deliv_sys);
     BOZO_check_integer(i_code_rate_hp_stream, 3)
     BOZO_CLEAN();
   BOZO_end_integer(i_code_rate_hp_stream, 3)
@@ -2398,7 +2555,7 @@ static int main_terr_deliv_sys_(void)
   BOZO_init_integer(i_transmission_mode, 0);
   BOZO_init_integer(i_other_frequency_flag, 0);
   BOZO_begin_integer(i_code_rate_lp_stream, 3)
-    BOZO_DOJOB(TerrDelivSys);
+    BOZO_DOJOB(dvb_terr_deliv_sys);
     BOZO_check_integer(i_code_rate_lp_stream, 3)
     BOZO_CLEAN();
   BOZO_end_integer(i_code_rate_lp_stream, 3)
@@ -2417,7 +2574,7 @@ static int main_terr_deliv_sys_(void)
   BOZO_init_integer(i_transmission_mode, 0);
   BOZO_init_integer(i_other_frequency_flag, 0);
   BOZO_begin_integer(i_guard_interval, 2)
-    BOZO_DOJOB(TerrDelivSys);
+    BOZO_DOJOB(dvb_terr_deliv_sys);
     BOZO_check_integer(i_guard_interval, 2)
     BOZO_CLEAN();
   BOZO_end_integer(i_guard_interval, 2)
@@ -2436,7 +2593,7 @@ static int main_terr_deliv_sys_(void)
   BOZO_init_integer(i_transmission_mode, 0);
   BOZO_init_integer(i_other_frequency_flag, 0);
   BOZO_begin_integer(i_transmission_mode, 2)
-    BOZO_DOJOB(TerrDelivSys);
+    BOZO_DOJOB(dvb_terr_deliv_sys);
     BOZO_check_integer(i_transmission_mode, 2)
     BOZO_CLEAN();
   BOZO_end_integer(i_transmission_mode, 2)
@@ -2455,7 +2612,7 @@ static int main_terr_deliv_sys_(void)
   BOZO_init_integer(i_transmission_mode, 0);
   BOZO_init_integer(i_other_frequency_flag, 0);
   BOZO_begin_integer(i_other_frequency_flag, 1)
-    BOZO_DOJOB(TerrDelivSys);
+    BOZO_DOJOB(dvb_terr_deliv_sys);
     BOZO_check_integer(i_other_frequency_flag, 1)
     BOZO_CLEAN();
   BOZO_end_integer(i_other_frequency_flag, 1)
@@ -2473,55 +2630,60 @@ int main(void)
   int i_err = 0;
   srand(time(NULL));
   
-  i_err |= main_vstream_1();
-  i_err |= main_vstream_2();
-  i_err |= main_astream_();
-  i_err |= main_hierarchy_();
-  i_err |= main_registration_();
-  i_err |= main_ds_alignment_();
-  i_err |= main_target_bg_grid_();
-  i_err |= main_vwindow_();
-  i_err |= main_ca_();
-  i_err |= main_iso639_();
-  i_err |= main_system_clock_();
-  i_err |= main_mx_buff_utilization_();
-  i_err |= main_copyright_();
-  i_err |= main_max_bitrate_();
-  i_err |= main_private_data_();
-  i_err |= main_smoothing_buffer_();
-  i_err |= main_std_();
-  i_err |= main_ibp_();
-  i_err |= main_mpeg4_video_();
-  i_err |= main_mpeg4_audio_();
-  i_err |= main_network_name_();
-  i_err |= main_service_list_();
-  i_err |= main_stuffing_();
-  i_err |= main_sat_deliv_sys_();
-  i_err |= main_cable_deliv_sys_();
-  i_err |= main_bouquet_name_();
-  i_err |= main_service_1();
-  i_err |= main_service_2();
-  i_err |= main_service_3();
-  i_err |= main_linkage_0();
-  i_err |= main_linkage_1();
-  i_err |= main_linkage_2();
-  i_err |= main_linkage_3();
-  i_err |= main_linkage_4();
-  i_err |= main_linkage_5();
-  i_err |= main_nvod_ref_();
-  i_err |= main_tshifted_service_();
-  i_err |= main_short_event_0();
-  i_err |= main_short_event_1();
-  i_err |= main_short_event_2();
-  i_err |= main_tshifted_ev_();
-  i_err |= main_stream_identifier_();
-  i_err |= main_ca_identifier_();
-  i_err |= main_content_();
-  i_err |= main_parental_rating_();
-  i_err |= main_teletext_();
-  i_err |= main_local_time_offset_();
-  i_err |= main_subtitling_();
-  i_err |= main_terr_deliv_sys_();
+  i_err |= main_mpeg_vstream_1();
+  i_err |= main_mpeg_vstream_2();
+  i_err |= main_mpeg_astream_0();
+  i_err |= main_mpeg_hierarchy_0();
+  i_err |= main_mpeg_registration_0();
+  i_err |= main_mpeg_ds_alignment_0();
+  i_err |= main_mpeg_target_bg_grid_0();
+  i_err |= main_mpeg_vwindow_0();
+  i_err |= main_mpeg_ca_0();
+  i_err |= main_mpeg_iso639_0();
+  i_err |= main_mpeg_system_clock_0();
+  i_err |= main_mpeg_mx_buff_utilization_0();
+  i_err |= main_mpeg_copyright_0();
+  i_err |= main_mpeg_max_bitrate_0();
+  i_err |= main_mpeg_private_data_0();
+  i_err |= main_mpeg_smoothing_buffer_0();
+  i_err |= main_mpeg_std_0();
+  i_err |= main_mpeg_ibp_0();
+  i_err |= main_mpeg_mpeg4_video_0();
+  i_err |= main_mpeg_mpeg4_audio_0();
+  i_err |= main_mpeg_iod_0();
+  i_err |= main_mpeg_sl_0();
+  i_err |= main_mpeg_fmc_0();
+  i_err |= main_mpeg_ext_es_id_0();
+  i_err |= main_mpeg_mux_buf_0();
+  i_err |= main_dvb_network_name_0();
+  i_err |= main_dvb_service_list_0();
+  i_err |= main_dvb_stuffing_0();
+  i_err |= main_dvb_sat_deliv_sys_0();
+  i_err |= main_dvb_cable_deliv_sys_0();
+  i_err |= main_dvb_bouquet_name_0();
+  i_err |= main_dvb_service_1();
+  i_err |= main_dvb_service_2();
+  i_err |= main_dvb_service_3();
+  i_err |= main_dvb_linkage_0();
+  i_err |= main_dvb_linkage_1();
+  i_err |= main_dvb_linkage_2();
+  i_err |= main_dvb_linkage_3();
+  i_err |= main_dvb_linkage_4();
+  i_err |= main_dvb_linkage_5();
+  i_err |= main_dvb_nvod_ref_0();
+  i_err |= main_dvb_tshifted_service_0();
+  i_err |= main_dvb_short_event_0();
+  i_err |= main_dvb_short_event_1();
+  i_err |= main_dvb_short_event_2();
+  i_err |= main_dvb_tshifted_ev_0();
+  i_err |= main_dvb_stream_identifier_0();
+  i_err |= main_dvb_ca_identifier_0();
+  i_err |= main_dvb_content_0();
+  i_err |= main_dvb_parental_rating_0();
+  i_err |= main_dvb_teletext_0();
+  i_err |= main_dvb_local_time_offset_0();
+  i_err |= main_dvb_subtitling_0();
+  i_err |= main_dvb_terr_deliv_sys_0();
 
   if(i_err)
     fprintf(stderr, "At least one test has FAILED !!!\n");

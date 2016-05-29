@@ -1,4 +1,4 @@
-/*! \page howto-new-api Howto port dvbpsi API (upto version 0.2.0) to version 1.0.0
+/*! \page migrate-v0-to-v1 Howto port dvbpsi API (upto version 0.2.0) to version 1.0.0
 
 <p>An update to libdvbpsi API was long overdue. In time the API grew to be inconsistent and
 needed some cleanup. The following issue are addressed in this version:</p>

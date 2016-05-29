@@ -29,6 +29,7 @@ tables.</p>
 
 <ul>
 <li>\ref usage</li>
-<li>\ref howto-new-api</li>
+<li>\ref migrate-v0-to-v1</li>
+<li>\ref migrate-v1-to-v2</li>
 </ul>
 */

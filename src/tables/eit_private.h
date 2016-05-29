@@ -38,7 +38,6 @@ typedef struct dvbpsi_eit_decoder_s
     DVBPSI_DECODER_COMMON
 
     dvbpsi_eit_callback           pf_eit_callback;
-    void *                        p_cb_data;
 
     dvbpsi_eit_t                  current_eit;
     dvbpsi_eit_t *                p_building_eit;
@@ -52,9 +51,7 @@ typedef struct dvbpsi_eit_decoder_s
  *****************************************************************************
  * Callback for the PSI decoder.
  *****************************************************************************/
-void dvbpsi_eit_sections_gather(dvbpsi_t *p_dvbpsi,
-                              dvbpsi_decoder_t *p_private_decoder,
-                              dvbpsi_psi_section_t *p_section);
+void dvbpsi_eit_sections_gather(dvbpsi_t *p_dvbpsi, dvbpsi_psi_section_t *p_section);
 
 /*****************************************************************************
  * dvbpsi_eit_sections_decode

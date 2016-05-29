@@ -88,40 +88,44 @@ typedef struct dvbpsi_rst_s
  * dvbpsi_rst_callback
  *****************************************************************************/
 /*!
- * \typedef void (* dvbpsi_rst_callback)(void* p_cb_data,
+ * \typedef void (* dvbpsi_rst_callback)(void* p_priv,
                                          dvbpsi_rst_t* p_new_rst)
  * \brief Callback type definition.
  */
-typedef void (* dvbpsi_rst_callback)(void* p_cb_data, dvbpsi_rst_t* p_new_rst);
+typedef void (* dvbpsi_rst_callback)(void* p_priv, dvbpsi_rst_t* p_new_rst);
 
 /*****************************************************************************
  * dvbpsi_rst_attach
  *****************************************************************************/
 /*!
  * \fn bool dvbpsi_rst_attach(dvbpsi_t *p_dvbpsi,
-                            dvbpsi_rst_callback pf_callback, void* p_cb_data)
+ *                          uint8_t i_table_id, uint16_t i_extension,
+                            dvbpsi_rst_callback pf_callback, void* p_priv)
  * \brief Creation and initialization of a RST decoder. It will be attached to p_dvbpsi
  * \param p_dvbpsi is a pointer to dvbpsi_t which holds a pointer to the decoder
+ * \param i_table_id Table ID
+ * \param i_extension Table ID extension
  * \param pf_callback function to call back on new RST
- * \param p_cb_data private data given in argument to the callback
+ * \param p_priv private data given in argument to the callback
  * \return true on success, false on failure
  */
-bool dvbpsi_rst_attach(dvbpsi_t *p_dvbpsi, dvbpsi_rst_callback pf_callback,
-                      void* p_cb_data);
+bool dvbpsi_rst_attach(dvbpsi_t *p_dvbpsi, uint8_t i_table_id, uint16_t i_extension,
+                       dvbpsi_rst_callback pf_callback, void* p_priv);
 
 /*****************************************************************************
  * dvbpsi_rst_detach
  *****************************************************************************/
 /*!
- * \fn void dvbpsi_rst_detach(dvbpsi_t *p_dvbpsi)
+ * \fn void dvbpsi_rst_detach(dvbpsi_t *p_dvbpsi, uint8_t i_table_id, uint16_t i_extension)
  * \brief Destroy a RST decoder.
  * \param p_dvbpsi handle to dvbpsi with attached decoder
- * \param p_dvbpsi handle holds the decoder pointer
+ * \param i_table_id Table ID
+ * \param i_extension Table ID extension
  * \return nothing.
  *
  * The handle isn't valid any more.
  */
-void dvbpsi_rst_detach(dvbpsi_t *p_dvbpsi);
+void dvbpsi_rst_detach(dvbpsi_t *p_dvbpsi, uint8_t i_table_id, uint16_t i_extension);
 
 /*****************************************************************************
  * dvbpsi_rst_init/dvbpsi_rst_new

@@ -133,7 +133,7 @@ typedef struct dvbpsi_decoder_s dvbpsi_decoder_t;
  * \brief DVBPSI handle structure
  *
  * This structure provides a handle to libdvbpsi API and should be used instead
- * of dvbpsi_decoder_t.
+ * of dvbpsi_decoder_t. Do not access members directly but use wrapper functions.
  */
 /*!
  * \typedef struct dvbpsi_s dvbpsi_t
@@ -141,8 +141,8 @@ typedef struct dvbpsi_decoder_s dvbpsi_decoder_t;
  */
 struct dvbpsi_s
 {
-    dvbpsi_decoder_t             *p_decoder;          /*!< private pointer to
-                                                          specific decoder */
+    dvbpsi_decoder_t             *p_decoder;          /*!< private pointer to chain of decoders,
+                                                           @see dvbpsi_decoder_chain_get() */
     /* Messages callback */
     dvbpsi_message_cb             pf_message;           /*!< Log message callback */
     enum dvbpsi_msg_level         i_msg_level;          /*!< Log level */
@@ -220,6 +220,31 @@ typedef void (* dvbpsi_callback_gather_t)(dvbpsi_t *p_dvbpsi,  /*!< pointer to d
                             dvbpsi_psi_section_t* p_section);  /*!< pointer to psi section */
 
 /*****************************************************************************
+ * dvbpsi_callback_new_t
+ *****************************************************************************/
+/*!
+ * \typedef void (*dvbpsi_callback_new_t)(dvbpsi_t *p_dvbpsi,
+ *                   uint8_t i_table_id, uint16_t i_extension, void *p_data);
+ * \brief Callback used in case of a new PSI table is detected.
+ */
+typedef void (*dvbpsi_callback_new_t)(dvbpsi_t *p_dvbpsi,  /*!< pointer to dvbpsi handle */
+                                    uint8_t i_table_id,  /*!< table id to attach */
+                                    uint16_t i_extension,/*!< table extention to attach */
+                                    void *p_data);       /*!< pointer to callback data */
+
+/*****************************************************************************
+ * dvbpsi_callback_del_t
+ *****************************************************************************/
+/*!
+ * \typedef void (*dvbpsi_callback_del_t)(dvbpsi_t *p_dvbpsi,
+ *                   uint8_t i_table_id, uint16_t i_extension);
+ * \brief Callback used to delete PSI table.
+ */
+typedef void (*dvbpsi_callback_del_t)(dvbpsi_t *p_dvbpsi,   /*!< pointer to dvbpsi handle */
+                                    uint8_t i_table_id,   /*!< table id to attach */
+                                    uint16_t i_extension);/*!< table extention to attach */
+
+/*****************************************************************************
  * DVBPSI_DECODER_COMMON
  *****************************************************************************/
 /*!
@@ -242,9 +267,18 @@ typedef void (* dvbpsi_callback_gather_t)(dvbpsi_t *p_dvbpsi,  /*!< pointer to d
     uint8_t  i_last_section_number;/*!< Last received section number */           \
     dvbpsi_psi_section_t *p_current_section; /*!< Current section */              \
     dvbpsi_psi_section_t *p_sections; /*!< List of received PSI sections */       \
-    dvbpsi_callback_gather_t  pf_gather;/*!< PSI decoder's callback */            \
+    dvbpsi_callback_gather_t pf_gather;/*!< PSI decoder's callback */             \
     int      i_section_max_size;   /*!< Max size of a section for this decoder */ \
     int      i_need;               /*!< Bytes needed */                           \
+    /* since version 2.0.0  */                                                    \
+    uint16_t i_table_id;           /*!< PSI table id */                           \
+    uint16_t i_extension;          /*!< PSI subtable id */                        \
+    /* Subtables creation and deletion Callbacks */                               \
+    dvbpsi_callback_new_t pf_new;  /*!< Add new PSI table */                      \
+    dvbpsi_callback_del_t pf_del;  /*!< Del PSI table */                          \
+    void     *p_priv;              /*!< Private decoder data */                   \
+    /* pointer to next decoder in list */                                         \
+    dvbpsi_decoder_t *p_next;      /*!< Pointer to next decoder the list */
 /**@}*/
 
 /*****************************************************************************
@@ -291,12 +325,14 @@ void *dvbpsi_decoder_new(dvbpsi_callback_gather_t pf_gather,
  *****************************************************************************/
 /*!
  * \fn void dvbpsi_decoder_delete(dvbpsi_decoder_t *p_decoder);
- * \brief Deletes decoder struct and frees its memory
+ * \brief Deletes decoder struct and frees any associated PSI section memory.
+ * Any memory attached to the dvbpsi_decoder_t::p_priv pointer member is the
+ * responsibility of the calling application.
  * \param p_decoder pointer to dvbpsi_decoder_t with decoder
  * \return nothing
  *
  * Delets a dvbpsi_t handle by calling free(handle). Make sure to detach any
- * decoder of encoder before deleting the dvbpsi handle.
+ * decoder or encoder before deleting the dvbpsi handle.
  */
 void dvbpsi_decoder_delete(dvbpsi_decoder_t *p_decoder);
 
@@ -347,7 +383,10 @@ bool dvbpsi_decoder_psi_section_add(dvbpsi_decoder_t *p_decoder, dvbpsi_psi_sect
  *
  * Determines if a decoder is attached to this dvbpsi_t handle. When the dvbpsi
  * handle is invalid the fuction will return false.
+ *
+ * DEPRECATED @see dvbpsi_decoder_chain_get() instead.
  */
+__attribute__((deprecated,unused))
 bool dvbpsi_decoder_present(dvbpsi_t *p_dvbpsi);
 
 #ifdef __cplusplus

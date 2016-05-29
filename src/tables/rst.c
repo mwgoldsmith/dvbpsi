@@ -42,8 +42,8 @@
 #include "../dvbpsi.h"
 #include "../dvbpsi_private.h"
 #include "../psi.h"
+#include "../chain.h"
 #include "../descriptor.h"
-#include "../demux.h"
 
 #include "rst.h"
 #include "rst_private.h"
@@ -53,11 +53,20 @@
  *****************************************************************************
  * Initialize a RST decoder and return a handle on it.
  *****************************************************************************/
-bool dvbpsi_rst_attach(dvbpsi_t *p_dvbpsi, dvbpsi_rst_callback pf_callback,
-                      void* p_cb_data)
+bool dvbpsi_rst_attach(dvbpsi_t *p_dvbpsi, uint8_t i_table_id, uint16_t i_extension,
+                       dvbpsi_rst_callback pf_callback, void* p_priv)
 {
     assert(p_dvbpsi);
-    assert(p_dvbpsi->p_decoder == NULL);
+
+    dvbpsi_decoder_t* p_dec = dvbpsi_decoder_chain_get(p_dvbpsi, i_table_id, i_extension);
+    if (p_dec != NULL)
+    {
+        dvbpsi_error(p_dvbpsi, "RST decoder",
+                     "Already a decoder for (table_id == 0x%02x,"
+                     "extension == 0x%02x)",
+                     i_table_id, i_extension);
+        return false;
+    }
 
     dvbpsi_rst_decoder_t* p_rst_decoder;
     p_rst_decoder = (dvbpsi_rst_decoder_t*) dvbpsi_decoder_new(&dvbpsi_rst_sections_gather,
@@ -67,10 +76,19 @@ bool dvbpsi_rst_attach(dvbpsi_t *p_dvbpsi, dvbpsi_rst_callback pf_callback,
 
     /* RST decoder configuration */
     p_rst_decoder->pf_rst_callback = pf_callback;
-    p_rst_decoder->p_cb_data = p_cb_data;
+    p_rst_decoder->p_priv = p_priv;
     p_rst_decoder->p_building_rst = NULL;
 
-    p_dvbpsi->p_decoder = DVBPSI_DECODER(p_rst_decoder);
+    p_rst_decoder->i_table_id = i_table_id;
+    p_rst_decoder->i_extension = i_extension;
+
+    /* Add decoder to decoder chain */
+    if (!dvbpsi_decoder_chain_add(p_dvbpsi, DVBPSI_DECODER(p_rst_decoder)))
+    {
+        dvbpsi_decoder_delete(DVBPSI_DECODER(p_rst_decoder));
+        return false;
+    }
+
     return true;
 }
 
@@ -79,19 +97,36 @@ bool dvbpsi_rst_attach(dvbpsi_t *p_dvbpsi, dvbpsi_rst_callback pf_callback,
  *****************************************************************************
  * Close a RST decoder. The handle isn't valid any more.
  *****************************************************************************/
-void dvbpsi_rst_detach(dvbpsi_t *p_dvbpsi)
+void dvbpsi_rst_detach(dvbpsi_t *p_dvbpsi, uint8_t i_table_id, uint16_t i_extension)
 {
     assert(p_dvbpsi);
-    assert(p_dvbpsi->p_decoder);
 
-    dvbpsi_rst_decoder_t* p_rst_decoder
-                        = (dvbpsi_rst_decoder_t*)p_dvbpsi->p_decoder;
+    dvbpsi_rst_decoder_t *p_rst_decoder =
+            (dvbpsi_rst_decoder_t*) dvbpsi_decoder_chain_get(p_dvbpsi, i_table_id, i_extension);
+    if (!p_rst_decoder)
+    {
+        dvbpsi_error(p_dvbpsi, "RST Decoder",
+                     "No such RST decoder (table_id == 0x%02x,"
+                     "extension == 0x%02x)",
+                     i_table_id, i_extension);
+        return;
+    }
+
+    /* Remove table decoder from chain */
+    if (!dvbpsi_decoder_chain_remove(p_dvbpsi, DVBPSI_DECODER(p_rst_decoder)))
+    {
+        dvbpsi_error(p_dvbpsi, "RST Decoder",
+                     "Failed to remove"
+                     "extension == 0x%02x)",
+                      i_table_id, i_extension);
+        return;
+    }
+
     if (p_rst_decoder->p_building_rst)
         dvbpsi_rst_delete(p_rst_decoder->p_building_rst);
     p_rst_decoder->p_building_rst = NULL;
-
-    dvbpsi_decoder_delete(p_dvbpsi->p_decoder);
-    p_dvbpsi->p_decoder = NULL;
+    dvbpsi_decoder_delete(DVBPSI_DECODER(p_rst_decoder));
+    p_rst_decoder = NULL;
 }
 
 /*****************************************************************************
@@ -347,7 +382,6 @@ void dvbpsi_rst_sections_gather(dvbpsi_t *p_dvbpsi,
                               dvbpsi_psi_section_t* p_section)
 {
     assert(p_dvbpsi);
-    assert(p_dvbpsi->p_decoder);
 
     if (!dvbpsi_rst_section_check(p_dvbpsi, p_section, 0x71, "RST decoder"))
     {
@@ -356,10 +390,15 @@ void dvbpsi_rst_sections_gather(dvbpsi_t *p_dvbpsi,
     }
 
     /* */
-    dvbpsi_rst_decoder_t* p_rst_decoder
-                          = (dvbpsi_rst_decoder_t*)p_dvbpsi->p_decoder;
+    dvbpsi_decoder_t *p_dec = dvbpsi_decoder_chain_get(p_dvbpsi, p_section->i_table_id, p_section->i_extension);
+    if (!p_dec)
+    {
+        dvbpsi_DeletePSISections(p_section);
+        return;
+    }
 
     /* TS discontinuity check */
+    dvbpsi_rst_decoder_t* p_rst_decoder = (dvbpsi_rst_decoder_t*)p_dec;
     if (p_rst_decoder->b_discontinuity)
     {
     	dvbpsi_rst_reset(p_rst_decoder, true);
@@ -387,7 +426,7 @@ void dvbpsi_rst_sections_gather(dvbpsi_t *p_dvbpsi,
         dvbpsi_rst_sections_decode(p_rst_decoder->p_building_rst,
                                    p_rst_decoder->p_sections);
         /* signal the new CAT */
-        p_rst_decoder->pf_rst_callback(p_rst_decoder->p_cb_data,
+        p_rst_decoder->pf_rst_callback(p_rst_decoder->p_priv,
                                        p_rst_decoder->p_building_rst);
         /* Delete sectioins and Reinitialize the structures */
         dvbpsi_rst_reset(p_rst_decoder, false);

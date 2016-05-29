@@ -42,6 +42,7 @@ have been detached.</p>
 <p>See also:</p>
 <ul>
 <li>\ref structure</li>
-<li>\ref howto-new-api</li>
+<li>\ref migrate-v0-to-v1</li>
+<li>\ref migrate-v1-to-v2</li>
 </ul>
 */

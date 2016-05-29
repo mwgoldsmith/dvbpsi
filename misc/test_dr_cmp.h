@@ -110,3 +110,13 @@ static int compare_dvbpsi_subtitle_t(const void *s1, const void *s2)
         a->i_ancillary_page_id > b->i_ancillary_page_id) return 1;
     else return 0;
 }
+
+static int compare_dvbpsi_fmc_t(const void *s1, const void *s2)
+{
+    const dvbpsi_fmc_t *a = s1, *b = s2;
+    if(a->i_es_id < b->i_es_id ||
+        a->i_flex_mux_channel < b->i_flex_mux_channel) return -1;
+    else if(a->i_es_id > b->i_es_id ||
+        a->i_flex_mux_channel > b->i_flex_mux_channel) return 1;
+    else return 0;
+}

@@ -39,7 +39,6 @@ typedef struct dvbpsi_bat_decoder_s
     DVBPSI_DECODER_COMMON
 
     dvbpsi_bat_callback           pf_bat_callback;
-    void *                        p_cb_data;
 
     dvbpsi_bat_t                  current_bat;
     dvbpsi_bat_t *                p_building_bat;
@@ -51,8 +50,8 @@ typedef struct dvbpsi_bat_decoder_s
  *****************************************************************************
  * Callback for the PSI decoder.
  *****************************************************************************/
-void dvbpsi_bat_sections_gather(dvbpsi_t* p_dvbpsi, dvbpsi_decoder_t* p_decoder,
-                              dvbpsi_psi_section_t* p_section);
+void dvbpsi_bat_sections_gather(dvbpsi_t* p_dvbpsi,
+                                dvbpsi_psi_section_t* p_section);
 
 /*****************************************************************************
  * dvbpsi_bat_sections_decode
@@ -60,7 +59,7 @@ void dvbpsi_bat_sections_gather(dvbpsi_t* p_dvbpsi, dvbpsi_decoder_t* p_decoder,
  * BAT decoder.
  *****************************************************************************/
 void dvbpsi_bat_sections_decode(dvbpsi_bat_t* p_bat,
-                              dvbpsi_psi_section_t* p_section);
+                                dvbpsi_psi_section_t* p_section);
 
 #else
 #error "Multiple inclusions of bat_private.h"

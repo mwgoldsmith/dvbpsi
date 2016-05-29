@@ -143,17 +143,17 @@ typedef struct dvbpsi_sis_break_duration_s
 } dvbpsi_sis_break_duration_t;
 
 /*!
- * \typedef struct dvbpsi_sis_component_utc_splice_time_s dvbpsi_sis_component_utc_splice_time_t
+ * \typedef struct dvbpsi_sis_component_s dvbpsi_sis_component_t
  * \brief combined component tag and UTC splice time definition
  */
-typedef struct dvbpsi_sis_component_utc_splice_time_s dvbpsi_sis_component_utc_splice_time_t;
+typedef struct dvbpsi_sis_component_s dvbpsi_sis_component_t;
 /*!
- * \struct dvbpsi_sis_component_utc_splice_time_s
+ * \struct dvbpsi_sis_component_s
  * \brief combined component tag and UTC splice time definition
  */
-struct dvbpsi_sis_component_utc_splice_time_s
+struct dvbpsi_sis_component_s
 {
-    uint8_t     component_tag;      /*!< identifies the elementary PID stream containing
+    uint8_t     i_tag;              /*!< identifies the elementary PID stream containing
                                          the Splice Point specified by the value of
                                          splice_time() that follows. */
     uint32_t    i_utc_splice_time;  /*!< time of the signaled splice event as
@@ -162,7 +162,7 @@ struct dvbpsi_sis_component_utc_splice_time_s
                                          Maybe converted to UTC without use of
                                          GPS_UTC_offset value from System Time table. */
 
-    dvbpsi_sis_component_utc_splice_time_t *p_next; /*!< next component, utc splice time structure */
+    dvbpsi_sis_component_t *p_next; /*!< next component, utc splice time structure */
 };
 
 /*!
@@ -193,12 +193,12 @@ struct dvbpsi_sis_splice_event_s
     uint8_t         i_component_count;          /*!< number of stream PID in the following
                                                      loop. A component is equivalent to
                                                      elementary stream PIDs.*/
-    dvbpsi_sis_component_utc_splice_time_t  *p_data;
+    dvbpsi_sis_component_t  *p_component;
                                                 /*!< identifies the elementary PID stream containing
                                                      the Splice Point specified by the value of
                                                      splice_time() that follows. */
     /*      if (b_duration_flag) */
-    dvbpsi_sis_break_duration_t *p_break_duration;     /*!< break duration is present when
+    dvbpsi_sis_break_duration_t i_break_duration; /*!< break duration is present when
                                                      b_duration_flag is set */
     /* */
 
@@ -264,7 +264,7 @@ struct dvbpsi_sis_component_splice_time_s
                                          the Splice Point specified by the value of
                                          splice_time() that follows. */
     /* if (splice_immediate_flag) */
-    dvbpsi_sis_splice_time_t *p_splice_time; /*!< splice time defintions */
+    dvbpsi_sis_splice_time_t i_splice_time; /*!< splice time defintions */
     /* */
 
     dvbpsi_sis_component_splice_time_t *p_next; /*!< next in list */
@@ -278,7 +278,8 @@ struct dvbpsi_sis_component_splice_time_s
  * \struct dvbpsi_sis_cmd_splice_insert_s
  * \brief splice_insert() splice command definition
  */
-typedef struct dvbpsi_sis_cmd_splice_insert_s
+typedef struct dvbpsi_sis_cmd_splice_insert_s dvbpsi_sis_cmd_splice_insert_t;
+struct dvbpsi_sis_cmd_splice_insert_s
 {
     uint32_t        i_splice_event_id;               /*!< splice event identifier */
     bool            b_splice_event_cancel_indicator; /*!< cancels splice event when true */
@@ -290,25 +291,30 @@ typedef struct dvbpsi_sis_cmd_splice_insert_s
     bool            b_splice_immediate_flag;    /*!< signals immediate splice insertion */
 
     /*      if (b_program_splice_flag) && (!b_splice_immediate_flag) */
-    dvbpsi_sis_splice_time_t *p_splice_time;    /*!< splice time */
+    dvbpsi_sis_splice_time_t i_splice_time;    /*!< splice time */
 
     /*      if (!b_program_splice_flag) */
-    uint8_t         i_component_count;           /*!< number of stream PID in the following loop.
-                                                      A component is equivalent to elementary stream PIDs.*/
-    dvbpsi_sis_component_splice_time_t  *p_data; /*!< identifies the elementary PID stream containing
+    uint8_t         i_component_count;          /*!< number of stream PID in the following
+                                                     loop. A component is equivalent to
+                                                     elementary stream PIDs.*/
+    dvbpsi_sis_component_splice_time_t  *p_splice_time;
+                                                /*!< identifies the elementary PID stream containing
                                                       the Splice Point specified by the value of
                                                       splice_time() that follows. */
-    /*      if (b_duration_flag) */
-    dvbpsi_sis_break_duration_t *p_break_duration; /*!< break duration is present when b_duration_flag is set */
 
+    /*      if (b_duration_flag) */
+    dvbpsi_sis_break_duration_t i_break_duration; /*!< break duration is present when
+                                                     b_duration_flag is set */
     /* */
-    uint16_t        i_unique_program_id;      /*!< provide a unique identification for a viewing event */
-    uint8_t         i_avail_num;              /*!< identification for a specific avail within
-                                                   one unique_program_id. */
-    uint8_t         i_avails_expected;        /*!< count of the expected number of individual avails
-                                                   within the current viewing event */
+
+    uint16_t        i_unique_program_id; /*!< provide a unique identification for
+                                              a viewing event */
+    uint8_t         i_avail_num;         /*!< identification for a specific
+                                              avail within one unique_program_id. */
+    uint8_t         i_avails_expected;   /*!< count of the expected number of individual
+                                              avails within the current viewing event */
     /* end */
-} dvbpsi_sis_cmd_splice_insert_t;
+};
 
 /*!
  * \typedef struct dvbpsi_sis_cmd_time_signal_s dvbpsi_sis_cmd_time_signal_t
@@ -340,11 +346,11 @@ typedef struct dvbpsi_sis_cmd_time_signal_s
  * dvbpsi_sis_callback
  *****************************************************************************/
 /*!
- * \typedef void (* dvbpsi_sis_callback)(void* p_cb_data,
+ * \typedef void (* dvbpsi_sis_callback)(void* p_priv,
                                          dvbpsi_sis_t* p_new_sis)
  * \brief Callback type definition.
  */
-typedef void (* dvbpsi_sis_callback)(void* p_cb_data, dvbpsi_sis_t* p_new_sis);
+typedef void (* dvbpsi_sis_callback)(void* p_priv, dvbpsi_sis_t* p_new_sis);
 
 /*****************************************************************************
  * dvbpsi_sis_attach
@@ -352,17 +358,17 @@ typedef void (* dvbpsi_sis_callback)(void* p_cb_data, dvbpsi_sis_t* p_new_sis);
 /*!
  * \fn bool dvbpsi_sis_attach(dvbpsi_t *p_dvbpsi, uint8_t i_table_id,
           uint16_t i_extension, dvbpsi_sis_callback pf_callback,
-                               void* p_cb_data)
+                               void* p_priv)
  * \brief Creation and initialization of a SIS decoder. It is attached to p_dvbpsi.
  * \param p_dvbpsi pointer to dvbpsi to hold decoder/demuxer structure
  * \param i_table_id Table ID, 0xFC.
  * \param i_extension Table ID extension.
  * \param pf_callback function to call back on new SIS.
- * \param p_cb_data private data given in argument to the callback.
+ * \param p_priv private data given in argument to the callback.
  * \return true on success, false on failure
  */
 bool dvbpsi_sis_attach(dvbpsi_t* p_dvbpsi, uint8_t i_table_id, uint16_t i_extension,
-                      dvbpsi_sis_callback pf_callback, void* p_cb_data);
+                      dvbpsi_sis_callback pf_callback, void* p_priv);
 
 /*****************************************************************************
  * dvbpsi_sis_detach

@@ -85,8 +85,15 @@ void *dvbpsi_decoder_new(dvbpsi_callback_gather_t pf_gather,
     if (p_decoder == NULL)
         return NULL;
 
+    p_decoder->i_table_id = 0xff;
+    p_decoder->i_extension = 0xffff;
+
     memcpy(&p_decoder->i_magic[0], "psi", 3);
     p_decoder->pf_gather = pf_gather;
+    p_decoder->pf_new = NULL;
+    p_decoder->pf_del = NULL;
+    p_decoder->p_priv = NULL;
+
     p_decoder->p_current_section = NULL;
     p_decoder->i_section_max_size = i_section_max_size;
     p_decoder->b_discontinuity = b_discontinuity;
@@ -226,6 +233,7 @@ void dvbpsi_decoder_delete(dvbpsi_decoder_t *p_decoder)
 {
     assert(p_decoder);
 
+
     if (p_decoder->p_sections)
     {
         dvbpsi_DeletePSISections(p_decoder->p_sections);
@@ -237,7 +245,7 @@ void dvbpsi_decoder_delete(dvbpsi_decoder_t *p_decoder)
 }
 
 /*****************************************************************************
- * dvbpsi_decoder_present
+ * dvbpsi_decoder_present: DEPRECATED use dvbpsi_decoder_chain_get() instead.
  *****************************************************************************/
 bool dvbpsi_decoder_present(dvbpsi_t *p_dvbpsi)
 {
@@ -274,7 +282,7 @@ bool dvbpsi_packet_push(dvbpsi_t *p_dvbpsi, const uint8_t* p_data)
     }
 
     /* Continuity check */
-    bool b_first = (p_decoder->i_continuity_counter == DVBPSI_INVALID_CC);
+    const bool b_first = (p_decoder->i_continuity_counter == DVBPSI_INVALID_CC);
     if (b_first)
         p_decoder->i_continuity_counter = p_data[3] & 0xf;
     else
@@ -317,7 +325,7 @@ bool dvbpsi_packet_push(dvbpsi_t *p_dvbpsi, const uint8_t* p_data)
     else
         p_payload_pos = p_data + 4;
 
-    /* Unit start -> skip the pointer_field and a new section begins */
+    /* Payload unit start indicator -> skip the pointer_field and a new section begins */
     if (p_data[1] & 0x40)
     {
         p_new_pos = p_payload_pos + *p_payload_pos + 1;

@@ -40,7 +40,6 @@ typedef struct dvbpsi_tot_decoder_s
     DVBPSI_DECODER_COMMON
 
     dvbpsi_tot_callback           pf_tot_callback;
-    void *                        p_cb_data;
 
     /* */
     dvbpsi_tot_t                  current_tot;
@@ -55,7 +54,6 @@ typedef struct dvbpsi_tot_decoder_s
  * Callback for the PSI decoder.
  *****************************************************************************/
 void dvbpsi_tot_sections_gather(dvbpsi_t* p_dvbpsi,
-                              dvbpsi_decoder_t* p_decoder,
                               dvbpsi_psi_section_t* p_section);
 
 /*****************************************************************************

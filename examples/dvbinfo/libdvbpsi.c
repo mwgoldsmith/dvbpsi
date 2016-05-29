@@ -47,8 +47,8 @@
 /* The libdvbpsi distribution defines DVBPSI_DIST */
 #ifdef DVBPSI_DIST
 #   include "../../src/dvbpsi.h"
-#   include "../../src/demux.h"
 #   include "../../src/psi.h"
+#   include "../../src/chain.h"
 #   include "../../src/descriptor.h"
 #   include "../../src/tables/pat.h"
 #   include "../../src/tables/pmt.h"
@@ -68,8 +68,8 @@
 #   include "../../src/tables/atsc_vct.h"
 #else
 #   include <dvbpsi/dvbpsi.h>
-#   include <dvbpsi/demux.h>
 #   include <dvbpsi/psi.h>
+#   include <dvbpsi/chain.h>
 #   include <dvbpsi/descriptor.h>
 #   include <dvbpsi/pat.h>
 #   include <dvbpsi/pmt.h>
@@ -285,7 +285,7 @@ struct ts_stream_t
 /*****************************************************************************
  * Local prototypes
  *****************************************************************************/
-
+static void handle_PAT(void* p_data, dvbpsi_pat_t* p_pat);
 static void handle_PMT(void* p_data, dvbpsi_pmt_t* p_pmt);
 static void handle_CAT(void* p_data, dvbpsi_cat_t* p_cat);
 static void handle_SDT(void* p_data, dvbpsi_sdt_t* p_sdt);
@@ -303,6 +303,8 @@ static void handle_atsc_EIT(void *p_data, dvbpsi_atsc_eit_t *p_eit);
 static void handle_atsc_ETT(void* p_data, dvbpsi_atsc_ett_t *p_ett);
 static void handle_atsc_STT(void* p_data, dvbpsi_atsc_stt_t *p_stt);
 static const char *AACProfileToString(dvbpsi_aac_profile_and_level_t profile);
+
+static void DeleteTableDecoder(dvbpsi_t *p_dvbpsi, uint8_t i_table, uint16_t i_extension);
 
 /*****************************************************************************
  * mdate: current time in milliseconds
@@ -592,9 +594,15 @@ static void handle_subtable(dvbpsi_t *p_dvbpsi, uint8_t i_table_id, uint16_t i_e
 {
     switch (i_table_id)
     {
-#if 0 /* already handled */
         case 0x00: // PAT
+            if (!dvbpsi_pat_attach(p_dvbpsi, i_table_id, i_extension, handle_PAT, p_data))
+                fprintf(stderr, "dvbinfo: Failed to attach PAT decoder\n");
+            break;
         case 0x01: // CAT
+            if (!dvbpsi_cat_attach(p_dvbpsi, i_table_id, i_extension, handle_CAT, p_data))
+                fprintf(stderr, "dvbinfo: Failed to attach CAT decoder\n");
+            break;
+#if 0 /* already handled */
         case 0x02: // program_map_section
         case 0x03: // transport_stream_description_section
         case 0x04: /* ISO_IEC_14496_scene_description_section */
@@ -666,8 +674,11 @@ static void handle_subtable(dvbpsi_t *p_dvbpsi, uint8_t i_table_id, uint16_t i_e
             if (!dvbpsi_tot_attach(p_dvbpsi, i_table_id, i_extension, handle_TOT, p_data))
                     fprintf(stderr, "dvbinfo: Failed to attach TOT subdecoder\n");
             break;
-#if 0
         case 0x71: // RST running_status_section
+            if (!dvbpsi_rst_attach(p_dvbpsi, i_table_id, i_extension, handle_RST, p_data))
+                fprintf(stderr, "dvbinfo: Failed to attach RST subdecoder\n");
+            break;
+#if 0
         case 0x72: // ST  stuffing_section
         case 0x74: // application information section (TS 102 812 [15])
         case 0x75: // container section (TS 102 323 [13])
@@ -678,24 +689,24 @@ static void handle_subtable(dvbpsi_t *p_dvbpsi, uint8_t i_table_id, uint16_t i_e
 #endif
         /* Handle ATSC PSI tables */
         case 0xC7: /* ATSC MGT */
-            if (!dvbpsi_atsc_AttachMGT(p_dvbpsi, i_table_id, i_extension, handle_atsc_MGT, p_data))
+            if (!dvbpsi_atsc_mgt_attach(p_dvbpsi, i_table_id, i_extension, handle_atsc_MGT, p_data))
                 fprintf(stderr, "dvbinfo: Failed to attach ATSC MGT subdecoder\n");
             break;
         case 0xC8:
         case 0xC9: /* ATSC VCT */
-            if (!dvbpsi_atsc_AttachVCT(p_dvbpsi, i_table_id, i_extension, handle_atsc_VCT, p_data))
+            if (!dvbpsi_atsc_vct_attach(p_dvbpsi, i_table_id, i_extension, handle_atsc_VCT, p_data))
                     fprintf(stderr, "dvbinfo: Failed to attach ATSC VCT subdecoder\n");
             break;
         case 0xCB: /* ATSC EIT */
-            if (!dvbpsi_atsc_AttachEIT(p_dvbpsi, i_table_id, i_extension, handle_atsc_EIT, p_data))
+            if (!dvbpsi_atsc_eit_attach(p_dvbpsi, i_table_id, i_extension, handle_atsc_EIT, p_data))
                     fprintf(stderr, "dvbinfo: Failed to attach ATSC EIT subdecoder\n");
             break;
         case 0xCC: /* ATSC ETT */
-            if (!dvbpsi_atsc_AttachETT(p_dvbpsi, i_table_id, i_extension, handle_atsc_ETT, p_data))
+            if (!dvbpsi_atsc_ett_attach(p_dvbpsi, i_table_id, i_extension, handle_atsc_ETT, p_data))
                     fprintf(stderr, "dvbinfo: Failed to attach ATSC ETT subdecoder\n");
             break;
         case 0xCD: /* ATSC STT */
-            if (!dvbpsi_atsc_AttachSTT(p_dvbpsi, i_table_id, i_extension, handle_atsc_STT, p_data))
+            if (!dvbpsi_atsc_stt_attach(p_dvbpsi, i_table_id, i_extension, handle_atsc_STT, p_data))
                     fprintf(stderr, "dvbinfo: Failed to attach ATSC STT subdecoder\n");
             break;
 #ifdef TS_USE_SCTE_SIS
@@ -747,7 +758,9 @@ static void handle_PAT(void* p_data, dvbpsi_pat_t* p_pat)
             p_pmt->pid_pmt->i_pid = p_program->i_pid;
             p_pmt->p_next = NULL;
 
-            if (!dvbpsi_pmt_attach(p_pmt->handle, p_program->i_number, handle_PMT, p_stream))
+            /* PMT table_id == 0x02 and extenion == p_program->i_number */
+            if (!dvbpsi_pmt_attach(p_pmt->handle, 0x02, p_program->i_number,
+                                   handle_PMT, p_stream))
             {
                  fprintf(stderr, "dvbinfo: Failed to attach new pmt decoder\n");
                  dvbpsi_delete(p_pmt->handle);
@@ -1052,6 +1065,47 @@ static void DumpMPEG4AudioDescriptor(const void *p_descriptor)
     printf("MPEG-4 Audio Profile and Level : %s (0x%02x) \n",
         AACProfileToString(mpeg4_descriptor->i_mpeg4_audio_profile_and_level),
         mpeg4_descriptor->i_mpeg4_audio_profile_and_level);
+}
+
+static void DumpIODDescriptor(const void *p_descriptor)
+{
+    const dvbpsi_mpeg_iod_dr_t *p_iod_dr = p_descriptor;
+    printf("Scope of IOD label : 0x%02" PRIx8 "\n",
+        p_iod_dr->i_scope_of_iod_label);
+    printf("\t\tIOD label : 0x%02" PRIx8 "\n", p_iod_dr->i_iod_label);
+    printf("\t\tInitialObjectDescriptor : 0x%02" PRIx8 "\n",
+        p_iod_dr->i_initial_object_descriptor);
+}
+
+static void DumpSLDescriptor(const void *p_descriptor)
+{
+    const dvbpsi_mpeg_sl_dr_t *p_sl_dr = p_descriptor;
+    printf("ES_ID : 0x%04" PRIx16 "\n", p_sl_dr->i_es_id);
+}
+
+static void DumpFMCDescriptor(const void *p_descriptor)
+{
+    const dvbpsi_mpeg_fmc_dr_t *p_fmc_dr = p_descriptor;
+    printf("Number of FMC structures : %" PRIu8 "\n", p_fmc_dr->i_num_fmc);
+    for(unsigned int i = 0 ; i < p_fmc_dr->i_num_fmc ; ++i)
+    {
+        const dvbpsi_fmc_t *fmc = p_fmc_dr->p_fmc + i;
+        printf("\t\tES_ID : 0x%04" PRIx16 "\n", fmc->i_es_id);
+        printf("\t\tFlexMuxChannel : 0x%02" PRIx8 "\n", fmc->i_flex_mux_channel);
+    }
+}
+
+static void DumpExternalESIDDescriptor(const void *p_descriptor)
+{
+    const dvbpsi_mpeg_ext_es_id_dr_t *p_ext_es_id_dr = p_descriptor;
+    printf("External_ES_ID : 0x%04" PRIx16 "\n", p_ext_es_id_dr->i_ext_es_id);
+}
+
+static void DumpMultiplexBufferDescriptor(const void *p_descriptor)
+{
+    const dvbpsi_mpeg_mux_buf_dr_t *p_mux_buf_dr = p_descriptor;
+    printf("MB_buffer_size : 0x%06" PRIx32 "\n", p_mux_buf_dr->i_mb_buf_size);
+    printf("\t\tTB_leak_rate : 0x%06" PRIx32 "\n", p_mux_buf_dr->i_tb_leak_rate);
 }
 
 static void DumpContentLabellingDescriptor(const void *p_descriptor)
@@ -1604,6 +1658,97 @@ static void DumpSISDescriptors(const char* str, dvbpsi_descriptor_t* p_descripto
     }
 }
 
+static void DumpSpliceScheduleCMD(dvbpsi_sis_cmd_splice_schedule_t *p_schedule)
+{
+    printf("\t\tSplice event count: %u\n", p_schedule->i_splice_count);
+    dvbpsi_sis_splice_event_t *p_event = p_schedule->p_splice_event;
+    for (int i = 0; i < p_schedule->i_splice_count; i++) {
+        printf("\t\t identifier: %u\n", p_event->i_splice_event_id);
+        printf("\t\t cancel indicator: %s\n",
+               p_event->b_splice_event_cancel_indicator ? "yes" : "no");
+        if (!p_event->b_splice_event_cancel_indicator) {
+            printf("\t\t out of network indicator: %s\n",
+                   p_event->b_out_of_network_indicator ? "yes" : "no");
+            printf("\t\t program splice flag: %s\n",
+                   p_event->b_program_splice_flag ? "yes" : "no");
+            printf("\t\t duration flag: %s",
+                   p_event->b_duration_flag ? "yes" : "no");
+            if (p_event->b_program_splice_flag) {
+                printf("\t\t utc_splice_time: %u\n", p_event->i_utc_splice_time);
+            }
+            else {
+                printf("\t\t component count: %u\n", p_event->i_component_count);
+                dvbpsi_sis_component_t *p_component = p_event->p_component;
+                for (int j = 0; j < p_event->i_component_count; j++) {
+                    printf("\t\t\tcomponent tag: %u\n", p_component->i_tag);
+                    printf("\t\t\tutc splice time: %u\n", p_component->i_utc_splice_time);
+                    p_component = p_component->p_next;
+                }
+            }
+            if (p_event->b_duration_flag) {
+                printf("\t\t break duration\n");
+                printf("\t\t\tauto return: %s\n",
+                       p_event->i_break_duration.b_auto_return ? "yes" : "no");
+                printf("\t\t\tduration: %"PRId64"\n",
+                       p_event->i_break_duration.i_duration);
+            }
+        }
+        printf("\t\t unique program id: %u\n", p_event->i_unique_program_id);
+        printf("\t\tavail number: %u\n", p_event->i_avail_num);
+        printf("\t\tavail expected: %u\n", p_event->i_avails_expected);
+        p_event = p_event->p_next;
+    }
+}
+
+static void DumpSpliceInsertCMD(dvbpsi_sis_cmd_splice_insert_t *p_cmd)
+{
+    printf("\t\tSplice event\n");
+    printf("\t\t identifier: %u\n", p_cmd->i_splice_event_id);
+    printf("\t\t cancel indicator: %s\n",
+           p_cmd->b_splice_event_cancel_indicator ? "yes" : "no");
+    if (!p_cmd->b_splice_event_cancel_indicator) {
+        printf("\t\t out of network indicator: %s\n",
+               p_cmd->b_out_of_network_indicator ? "yes" : "no");
+        printf("\t\t program splice flag: %s\n",
+               p_cmd->b_program_splice_flag ? "yes" : "no");
+        printf("\t\t break duration flag: %s",
+               p_cmd->b_duration_flag ? "yes" : "no");
+        printf("\t\t splice immediate flag: %s\n",
+               p_cmd->b_splice_immediate_flag ? "yes" : "no");
+        if (p_cmd->b_program_splice_flag && !p_cmd->b_splice_immediate_flag) {
+            printf("\t\t time specified flag: %s\n",
+                   p_cmd->i_splice_time.b_time_specified_flag ? "yes" : "no");
+            if (p_cmd->i_splice_time.b_time_specified_flag) {
+                printf("\t\t splice time: %"PRId64"\n",
+                       p_cmd->i_splice_time.i_pts_time);
+            }
+        }
+        if (!p_cmd->b_program_splice_flag) {
+            printf("\t\t component count: %u\n", p_cmd->i_component_count);
+            dvbpsi_sis_component_splice_time_t *p_time = p_cmd->p_splice_time;
+            for (uint8_t i = 0; i < p_cmd->i_component_count; i++) {
+                printf("\t\t\t component tag: %u\n", p_time->i_component_tag);
+                if (p_time->i_splice_time.b_time_specified_flag) {
+                    printf("\t\t\t time specified flag: yes\n");
+                    printf("\t\t\t time: %"PRId64"\n", p_time->i_splice_time.i_pts_time);
+                }
+                else
+                    printf("\t\t\t time specified flag: no\n");
+                p_time = p_time->p_next;
+            }
+        }
+        if (p_cmd->b_duration_flag) {
+            printf("\t\t break duration\n");
+            printf("\t\t\tauto return: %s\n",
+                   p_cmd->i_break_duration.b_auto_return ? "yes" : "no");
+            printf("\t\t\tduration: %"PRId64"\n", p_cmd->i_break_duration.i_duration);
+        }
+        printf("\t\t unique program id: %u\n", p_cmd->i_unique_program_id);
+        printf("\t\tavail number: %u\n", p_cmd->i_avail_num);
+        printf("\t\tavail expected: %u\n", p_cmd->i_avails_expected);
+    }
+}
+
 static void handle_SIS(void* p_data, dvbpsi_sis_t* p_sis)
 {
     ts_stream_t* p_stream = (ts_stream_t*) p_data;
@@ -1624,19 +1769,25 @@ static void handle_SIS(void* p_data, dvbpsi_sis_t* p_sis)
     {
         default:
         case 0x00:
-            printf("splice_null");
+            printf("\tsplice_null");
             break;
         case 0x04:
-            printf("splice_schedule");
+            printf("\tsplice_schedule");
+            dvbpsi_sis_cmd_splice_schedule_t * p_schedule =
+                    (dvbpsi_sis_cmd_splice_schedule_t*) p_sis->p_splice_command;
+            DumpSpliceScheduleCMD(p_schedule);
             break;
         case 0x05:
-            printf("splice_insert");
+            printf("\tsplice_insert");
+            dvbpsi_sis_cmd_splice_insert_t *p_insert =
+                    (dvbpsi_sis_cmd_splice_insert_t *) p_sis->p_splice_command;
+            DumpSpliceInsertCMD(p_insert);
             break;
         case 0x06:
-            printf("time_signal");
+            printf("\ttime_signal");
             break;
         case 0x07:
-            printf("bandwidth_reservation");
+            printf("\tbandwidth_reservation");
             break;
     }
     printf("\n");
@@ -1714,6 +1865,26 @@ static void DumpDescriptor(dvbpsi_descriptor_t *p_descriptor)
         case 0x1c:
             p_decoded = dvbpsi_decode_mpeg_mpeg4_audio_dr(p_descriptor);
             dump_dr_fn = DumpMPEG4AudioDescriptor;
+            break;
+        case 0x1d:
+            p_decoded = dvbpsi_decode_mpeg_iod_dr(p_descriptor);
+            dump_dr_fn = DumpIODDescriptor;
+            break;
+        case 0x1e:
+            p_decoded = dvbpsi_decode_mpeg_sl_dr(p_descriptor);
+            dump_dr_fn = DumpSLDescriptor;
+            break;
+        case 0x1f:
+            p_decoded = dvbpsi_decode_mpeg_fmc_dr(p_descriptor);
+            dump_dr_fn = DumpFMCDescriptor;
+            break;
+        case 0x20:
+            p_decoded = dvbpsi_decode_mpeg_ext_es_id_dr(p_descriptor);
+            dump_dr_fn = DumpExternalESIDDescriptor;
+            break;
+        case 0x23:
+            p_decoded = dvbpsi_decode_mpeg_mux_buf_dr(p_descriptor);
+            dump_dr_fn = DumpMultiplexBufferDescriptor;
             break;
         case 0x24:
             p_decoded = dvbpsi_decode_mpeg_content_labelling_dr(p_descriptor);
@@ -1937,7 +2108,7 @@ static void handle_atsc_MGT(void *p_data, dvbpsi_atsc_mgt_t *p_mgt)
             p->pid->i_pid = p_table->i_table_type_pid;
             p->p_next = NULL;
 
-            if (!dvbpsi_AttachDemux(p->handle, handle_subtable, p_stream))
+            if (!dvbpsi_chain_demux_new(p->handle, handle_subtable, DeleteTableDecoder, p_stream))
             {
                  fprintf(stderr, "dvbinfo: Failed to attach new ATSC EIT decoder\n");
                  dvbpsi_delete(p->handle);
@@ -1966,7 +2137,7 @@ static void handle_atsc_MGT(void *p_data, dvbpsi_atsc_mgt_t *p_mgt)
     }
 
     DumpDescriptors("\t  |  ]", p_mgt->p_first_descriptor);
-    dvbpsi_atsc_DeleteMGT(p_mgt);
+    dvbpsi_atsc_mgt_delete(p_mgt);
 }
 
 static const char *GetAtscVCTModulationModes(const uint8_t i_mode)
@@ -2043,7 +2214,7 @@ static void handle_atsc_VCT(void* p_data, dvbpsi_atsc_vct_t *p_vct)
 
     DumpAtscVCTChannels(p_vct->p_first_channel);
     DumpDescriptors("\t  |  ]", p_vct->p_first_descriptor);
-    dvbpsi_atsc_DeleteVCT(p_vct);
+    dvbpsi_atsc_vct_delete(p_vct);
 }
 
 static void DumpATSCEITEventDescriptors(dvbpsi_atsc_eit_event_t *p_atsc_eit_event)
@@ -2079,7 +2250,7 @@ static void handle_atsc_EIT(void* p_data, dvbpsi_atsc_eit_t* p_eit)
     printf("\tEIT events\n");
     DumpATSCEITEventDescriptors(p_eit->p_first_event);
     DumpDescriptors("\t  |  ]", p_eit->p_first_descriptor);
-    dvbpsi_atsc_DeleteEIT(p_eit);
+    dvbpsi_atsc_eit_delete(p_eit);
 
 }
 
@@ -2100,7 +2271,7 @@ static void handle_atsc_ETT(void* p_data, dvbpsi_atsc_ett_t* p_ett)
     printf("\tRaw Data       : '%s'\n", p_ett->p_etm_data);
 
     DumpDescriptors("\t  |  ]", p_ett->p_first_descriptor);
-    dvbpsi_atsc_DeleteETT(p_ett);
+    dvbpsi_atsc_ett_delete(p_ett);
 }
 
 static void handle_atsc_STT(void* p_data, dvbpsi_atsc_stt_t *p_stt)
@@ -2126,7 +2297,7 @@ static void handle_atsc_STT(void* p_data, dvbpsi_atsc_stt_t *p_stt)
     printf("\t\tHour of day : %d\n", i_hour);
 
     DumpDescriptors("\t  |  ]", p_stt->p_first_descriptor);
-    dvbpsi_atsc_DeleteSTT(p_stt);
+    dvbpsi_atsc_stt_delete(p_stt);
 }
 
 static void DumpRSTEvents(const char* str, dvbpsi_rst_event_t* p_event)
@@ -2283,6 +2454,99 @@ static void handle_CAT(void *p_data, dvbpsi_cat_t *p_cat)
 }
 
 /*****************************************************************************
+ * Delete decoder from chain
+ *****************************************************************************/
+static void DeleteTableDecoder(dvbpsi_t *p_dvbpsi, uint8_t i_table, uint16_t i_extension)
+{
+    switch (i_table)
+    {
+        case 0x00: dvbpsi_pat_detach(p_dvbpsi, i_table, i_extension); break;
+        case 0x01: dvbpsi_cat_detach(p_dvbpsi, i_table, i_extension); break;
+#if 0 /* already handled */
+        case 0x02: // program_map_section
+        case 0x03: // transport_stream_description_section
+        case 0x04: /* ISO_IEC_14496_scene_description_section */
+        case 0x05: /* ISO_IEC_14496_object_descriptor_section */
+        case 0x06: /* Metadata_section */
+        case 0x07: /* IPMP_Control_Information_section (defined in ISO/IEC 13818-11) */
+        /* 0x08-0x3F: ITU-T Rec. H.222.0 | ISO/IEC 13818-1 reserved */
+#endif
+        case 0x40: // NIT network_information_section - actual_network
+        case 0x41: dvbpsi_nit_detach(p_dvbpsi, i_table, i_extension); break; // NIT network_information_section - other_network
+        case 0x42: dvbpsi_sdt_detach(p_dvbpsi, i_table, i_extension); break;
+#if 0
+        /* 0x43 to 0x45 reserved for future use */
+        case 0x46: //      service_description_section - other_transport_stream
+        /* 0x47 to 0x49 reserved for future use */
+#endif
+        case 0x4A: dvbpsi_bat_detach(p_dvbpsi, i_table, i_extension); break; // BAT bouquet_association_section
+        //0x4B to 0x4D reserved for future use
+        case 0x4E: // EIT event_information_section - actual_transport_stream, present/following
+        case 0x4F: // EIT event_information_section - other_transport_stream, present/following
+        //0x50 to 0x5F event_information_section - actual_transport_stream, schedule
+        case 0x50:
+        case 0x51:
+        case 0x52:
+        case 0x53:
+        case 0x54:
+        case 0x55:
+        case 0x56:
+        case 0x57:
+        case 0x58:
+        case 0x59:
+        case 0x5A:
+        case 0x5B:
+        case 0x5C:
+        case 0x5D:
+        case 0x5E:
+        case 0x5F:
+        //0x60 to 0x6F event_information_section - other_transport_stream, schedule
+        case 0x60:
+        case 0x61:
+        case 0x62:
+        case 0x63:
+        case 0x64:
+        case 0x65:
+        case 0x66:
+        case 0x67:
+        case 0x68:
+        case 0x69:
+        case 0x6A:
+        case 0x6B:
+        case 0x6C:
+        case 0x6D:
+        case 0x6E:
+        case 0x6F: dvbpsi_eit_detach(p_dvbpsi, i_table, i_extension); break;
+        case 0x70: /* TDT */
+        case 0x73: dvbpsi_tot_detach(p_dvbpsi, i_table, i_extension); break; /* TOT only */
+        case 0x71: dvbpsi_rst_detach(p_dvbpsi, i_table, i_extension); break; /* RST running_status_section */
+#if 0
+        case 0x72: // ST stuffing_section
+        case 0x74: // application information section (TS 102 812 [15])
+        case 0x75: // container section (TS 102 323 [13])
+        case 0x76: // related content section (TS 102 323 [13])
+        case 0x77: // content identifier section (TS 102 323 [13])
+        case 0x78: // MPE-FEC section (EN 301 192 [4])
+        case 0x79: // resolution notification section (TS 102 323 [13])
+#endif
+        /* Handle ATSC PSI tables */
+        case 0xC7: dvbpsi_atsc_mgt_detach(p_dvbpsi, i_table, i_extension); break; /* ATSC MGT */
+        case 0xC8: /* ATSC VCT */
+        case 0xC9: dvbpsi_atsc_vct_detach(p_dvbpsi, i_table, i_extension); break; /* ATSC VCT */
+        case 0xCB: dvbpsi_atsc_eit_detach(p_dvbpsi, i_table, i_extension); break; /* ATSC EIT */
+        case 0xCC: dvbpsi_atsc_ett_detach(p_dvbpsi, i_table, i_extension); break; /* ATSC ETT */
+        case 0xCD: dvbpsi_atsc_stt_detach(p_dvbpsi, i_table, i_extension); break; /* ATSC STT */
+#ifdef TS_USE_SCTE_SIS
+        case 0xFC: dvbpsi_sis_detach(p_dvbpsi, i_table, i_extension); break; /* SIS */
+#endif
+        default:
+            fprintf(stderr, "dvbinfo: Failed to detach table decoder (table_id: %d, extension: %d)\n",
+                    i_table, i_extension);
+            break;
+    }
+}
+
+/*****************************************************************************
  * Public API
  *****************************************************************************/
 ts_stream_t *libdvbpsi_init(int debug, ts_stream_log_cb pf_log, void *cb_data)
@@ -2310,7 +2574,7 @@ ts_stream_t *libdvbpsi_init(int debug, ts_stream_log_cb pf_log, void *cb_data)
     stream->pat.handle = dvbpsi_new(&dvbpsi_message, stream->level);
     if (stream->pat.handle == NULL)
         goto error;
-    if (!dvbpsi_pat_attach(stream->pat.handle, handle_PAT, stream))
+    if (!dvbpsi_chain_demux_new(stream->pat.handle, handle_subtable, DeleteTableDecoder, stream))
     {
         dvbpsi_delete(stream->pat.handle);
         stream->pat.handle = NULL;
@@ -2320,7 +2584,7 @@ ts_stream_t *libdvbpsi_init(int debug, ts_stream_log_cb pf_log, void *cb_data)
     stream->cat.handle = dvbpsi_new(&dvbpsi_message, stream->level);
     if (stream->cat.handle == NULL)
         goto error;
-    if (!dvbpsi_cat_attach(stream->cat.handle, handle_CAT, stream))
+    if (!dvbpsi_chain_demux_new(stream->cat.handle, handle_subtable, DeleteTableDecoder, stream))
     {
         dvbpsi_delete(stream->cat.handle);
         stream->cat.handle = NULL;
@@ -2330,7 +2594,7 @@ ts_stream_t *libdvbpsi_init(int debug, ts_stream_log_cb pf_log, void *cb_data)
     stream->sdt.handle = dvbpsi_new(&dvbpsi_message, stream->level);
     if (stream->sdt.handle == NULL)
         goto error;
-    if (!dvbpsi_AttachDemux(stream->sdt.handle, handle_subtable, stream))
+    if (!dvbpsi_chain_demux_new(stream->sdt.handle, handle_subtable, DeleteTableDecoder, stream))
     {
         dvbpsi_delete(stream->sdt.handle);
         stream->sdt.handle = NULL;
@@ -2340,7 +2604,7 @@ ts_stream_t *libdvbpsi_init(int debug, ts_stream_log_cb pf_log, void *cb_data)
     stream->rst.handle = dvbpsi_new(&dvbpsi_message, stream->level);
     if (stream->rst.handle == NULL)
         goto error;
-    if (!dvbpsi_rst_attach(stream->rst.handle, handle_RST, stream))
+    if (!dvbpsi_chain_demux_new(stream->rst.handle, handle_subtable, DeleteTableDecoder, stream))
     {
         dvbpsi_delete(stream->rst.handle);
         stream->rst.handle = NULL;
@@ -2350,7 +2614,7 @@ ts_stream_t *libdvbpsi_init(int debug, ts_stream_log_cb pf_log, void *cb_data)
     stream->eit.handle = dvbpsi_new(&dvbpsi_message, stream->level);
     if (stream->eit.handle == NULL)
         goto error;
-    if (!dvbpsi_AttachDemux(stream->eit.handle, handle_subtable, stream))
+    if (!dvbpsi_chain_demux_new(stream->eit.handle, handle_subtable, DeleteTableDecoder, stream))
     {
         dvbpsi_delete(stream->eit.handle);
         stream->eit.handle = NULL;
@@ -2360,7 +2624,7 @@ ts_stream_t *libdvbpsi_init(int debug, ts_stream_log_cb pf_log, void *cb_data)
     stream->tdt.handle = dvbpsi_new(&dvbpsi_message, stream->level);
     if (stream->tdt.handle == NULL)
         goto error;
-    if (!dvbpsi_AttachDemux(stream->tdt.handle, handle_subtable, stream))
+    if (!dvbpsi_chain_demux_new(stream->tdt.handle, handle_subtable, DeleteTableDecoder, stream))
     {
         dvbpsi_delete(stream->tdt.handle);
         stream->tdt.handle = NULL;
@@ -2371,7 +2635,7 @@ ts_stream_t *libdvbpsi_init(int debug, ts_stream_log_cb pf_log, void *cb_data)
     stream->atsc.handle = dvbpsi_new(&dvbpsi_message, stream->level);
     if (stream->atsc.handle == NULL)
         goto error;
-    if (!dvbpsi_AttachDemux(stream->atsc.handle, handle_subtable, stream))
+    if (!dvbpsi_chain_demux_new(stream->atsc.handle, handle_subtable, DeleteTableDecoder, stream))
     {
         dvbpsi_delete(stream->atsc.handle);
         stream->atsc.handle = NULL;
@@ -2393,20 +2657,20 @@ ts_stream_t *libdvbpsi_init(int debug, ts_stream_log_cb pf_log, void *cb_data)
     return stream;
 
 error:
-    if (dvbpsi_decoder_present(stream->pat.handle))
-        dvbpsi_pat_detach(stream->pat.handle);
-    if (dvbpsi_decoder_present(stream->cat.handle))
-        dvbpsi_cat_detach(stream->cat.handle);
-    if (dvbpsi_decoder_present(stream->sdt.handle))
-        dvbpsi_DetachDemux(stream->sdt.handle);
-    if (dvbpsi_decoder_present(stream->eit.handle))
-        dvbpsi_DetachDemux(stream->eit.handle);
-    if (dvbpsi_decoder_present(stream->rst.handle))
-        dvbpsi_rst_detach(stream->rst.handle);
-    if (dvbpsi_decoder_present(stream->tdt.handle))
-        dvbpsi_DetachDemux(stream->tdt.handle);
-    if (dvbpsi_decoder_present(stream->atsc.handle))
-        dvbpsi_DetachDemux(stream->atsc.handle);
+    if (stream->pat.handle && !dvbpsi_chain_demux_delete(stream->pat.handle))
+        fprintf(stderr, "dvbinfo: failed to delete PAT decoder chain! .. possibly leaking memory!!\n");
+    if (stream->cat.handle && !dvbpsi_chain_demux_delete(stream->cat.handle))
+        fprintf(stderr, "dvbinfo: failed to delete CAT decoder chain! .. possibly leaking memory!!\n");
+    if (stream->sdt.handle && !dvbpsi_chain_demux_delete(stream->sdt.handle))
+        fprintf(stderr, "dvbinfo: failed to delete SDT decoder chain! .. possibly leaking memory!!\n");
+    if (stream->eit.handle && !dvbpsi_chain_demux_delete(stream->eit.handle))
+        fprintf(stderr, "dvbinfo: failed to delete EIT decoder chain! .. possibly leaking memory!!\n");
+    if (stream->rst.handle && !dvbpsi_chain_demux_delete(stream->rst.handle))
+        fprintf(stderr, "dvbinfo: failed to delete RST decoder chain! .. possibly leaking memory!!\n");
+    if (stream->tdt.handle && !dvbpsi_chain_demux_delete(stream->tdt.handle))
+        fprintf(stderr, "dvbinfo: failed to delete TDT decoder chain! .. possibly leaking memory!!\n");
+    if (stream->atsc.handle && !dvbpsi_chain_demux_delete(stream->atsc.handle))
+        fprintf(stderr, "dvbinfo: failed to delete ATSC decoder chain! .. possibly leaking memory!!\n");
 
     if (stream->pat.handle)
         dvbpsi_delete(stream->pat.handle);
@@ -2432,19 +2696,17 @@ void libdvbpsi_exit(ts_stream_t *stream)
 {
    summary(stdout, stream);
 
-   if (dvbpsi_decoder_present(stream->pat.handle))
-       dvbpsi_pat_detach(stream->pat.handle);
+   if (stream->pat.handle && !dvbpsi_chain_demux_delete(stream->pat.handle))
+       fprintf(stderr, "dvbinfo: failed to delete PAT decoder chain! .. possibly leaking memory!!\n");
 
    ts_pmt_t *p_pmt = stream->pmt;
    ts_pmt_t *p_prev = NULL;
    while (p_pmt)
    {
        dvbpsi_t *handle = p_pmt->handle;
-       if (dvbpsi_decoder_present(handle))
-       {
-            dvbpsi_pmt_detach(handle);
-            dvbpsi_delete(p_pmt->handle);
-       }
+       dvbpsi_pmt_detach(handle, 0x02, p_pmt->i_number);
+       dvbpsi_delete(p_pmt->handle);
+
        stream->i_pmt--;
        p_prev = p_pmt;
        p_pmt = p_pmt->p_next;
@@ -2458,11 +2720,10 @@ void libdvbpsi_exit(ts_stream_t *stream)
    while (p_atsc_eit)
    {
        dvbpsi_t *handle = p_atsc_eit->handle;
-       if (dvbpsi_decoder_present(handle))
-       {
-            dvbpsi_DetachDemux(handle);
-            dvbpsi_delete(p_atsc_eit->handle);
-       }
+       if (!dvbpsi_chain_demux_delete(handle))
+           fprintf(stderr, "dvbinfo: failed to delete EIT decoder chain! .. possibly leaking memory!!\n");
+       dvbpsi_delete(p_atsc_eit->handle);
+
        stream->i_atsc_eit--;
        p_atsc_prev = p_atsc_eit;
        p_atsc_eit = p_atsc_eit->p_next;
@@ -2471,18 +2732,18 @@ void libdvbpsi_exit(ts_stream_t *stream)
        free(p_atsc_prev);
    }
 
-   if (dvbpsi_decoder_present(stream->cat.handle))
-       dvbpsi_cat_detach(stream->cat.handle);
-   if (dvbpsi_decoder_present(stream->sdt.handle))
-       dvbpsi_DetachDemux(stream->sdt.handle);
-   if (dvbpsi_decoder_present(stream->rst.handle))
-       dvbpsi_rst_detach(stream->rst.handle);
-   if (dvbpsi_decoder_present(stream->eit.handle))
-       dvbpsi_DetachDemux(stream->eit.handle);
-   if (dvbpsi_decoder_present(stream->tdt.handle))
-       dvbpsi_DetachDemux(stream->tdt.handle);
-   if (dvbpsi_decoder_present(stream->atsc.handle))
-        dvbpsi_DetachDemux(stream->atsc.handle);
+   if (stream->cat.handle && !dvbpsi_chain_demux_delete(stream->cat.handle))
+       fprintf(stderr, "dvbinfo: failed to delete CAT decoder chain! .. possibly leaking memory!!\n");
+   if (stream->sdt.handle && !dvbpsi_chain_demux_delete(stream->sdt.handle))
+       fprintf(stderr, "dvbinfo: failed to delete SDT decoder chain! .. possibly leaking memory!!\n");
+   if (stream->eit.handle && !dvbpsi_chain_demux_delete(stream->eit.handle))
+       fprintf(stderr, "dvbinfo: failed to delete EIT decoder chain! .. possibly leaking memory!!\n");
+   if (stream->rst.handle && !dvbpsi_chain_demux_delete(stream->rst.handle))
+       fprintf(stderr, "dvbinfo: failed to delete RST decoder chain! .. possibly leaking memory!!\n");
+   if (stream->tdt.handle && !dvbpsi_chain_demux_delete(stream->tdt.handle))
+       fprintf(stderr, "dvbinfo: failed to delete TDT decoder chain! .. possibly leaking memory!!\n");
+   if (stream->atsc.handle && !dvbpsi_chain_demux_delete(stream->atsc.handle))
+       fprintf(stderr, "dvbinfo: failed to delete ATSC decoder chain! .. possibly leaking memory!!\n");
 
    if (stream->pat.handle)
        dvbpsi_delete(stream->pat.handle);
