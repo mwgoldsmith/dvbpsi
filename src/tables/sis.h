@@ -117,10 +117,10 @@ typedef struct dvbpsi_sis_s
  * \struct dvbpsi_sis_cmd_splice_null_s
  * \brief splice_null() splice command definition
  */
-typedef struct dvbpsi_sis_cmd_splice_null_s
-{
+//typedef struct dvbpsi_sis_cmd_splice_null_s
+//{
     /* nothing */
-} dvbpsi_sis_cmd_splice_null_t;
+//} dvbpsi_sis_cmd_splice_null_t;
 
 /*!
  * \typedef struct dvbpsi_sis_break_duration_s dvbpsi_sis_break_duration_t
@@ -331,10 +331,10 @@ typedef struct dvbpsi_sis_cmd_time_signal_s
  * \struct dvbpsi_sis_cmd_bandwidth_reservation_s
  * \brief bandwidth_reservation() splice command definition
  */
-typedef struct dvbpsi_sis_cmd_bandwidth_reservation_s
-{
+//typedef struct dvbpsi_sis_cmd_bandwidth_reservation_s
+//{
     /* nothing */
-} dvbpsi_sis_cmd_bandwidth_reservation_t;
+//} dvbpsi_sis_cmd_bandwidth_reservation_t;
 
 /*****************************************************************************
  * dvbpsi_sis_callback
