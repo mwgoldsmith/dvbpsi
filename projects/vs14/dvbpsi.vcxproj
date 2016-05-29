@@ -1,0 +1,1034 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="DebugDLL|Win32">
+      <Configuration>DebugDLL</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="ReleaseDLL|Win32">
+      <Configuration>ReleaseDLL</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="DebugDLL|x64">
+      <Configuration>DebugDLL</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="ReleaseDLL|x64">
+      <Configuration>ReleaseDLL</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{D2BB9939-2435-43B5-BB16-8DC5EDF5308A}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <RootNamespace>dvbpsi</RootNamespace>
+    <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v140</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v140</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v140</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v140</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DebugDLL|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v140</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseDLL|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v140</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DebugDLL|x64'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v140</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseDLL|x64'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v140</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='DebugDLL|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='ReleaseDLL|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='DebugDLL|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='ReleaseDLL|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <TargetName>lib$(ProjectName)d</TargetName>
+    <OutDir Condition="'$(ConfigurationType)'=='StaticLibrary'">$(ProjectDir)..\..\..\..\build\msvc\lib\$(PlatformTarget)\</OutDir>
+    <OutDir Condition="'$(ConfigurationType)'=='DynamicLibrary'">$(ProjectDir)..\..\..\..\build\msvc\bin\$(PlatformTarget)\</OutDir>
+    <IntDir>$(OutDir)..\..\obj\$(PlatformTarget)\$(Configuration)\$(ConfigurationType)\$(ProjectName)\</IntDir>
+    <LinkIncremental>true</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <TargetName>lib$(ProjectName)d</TargetName>
+    <OutDir Condition="'$(ConfigurationType)'=='StaticLibrary'">$(ProjectDir)..\..\..\..\build\msvc\lib\$(PlatformTarget)\</OutDir>
+    <OutDir Condition="'$(ConfigurationType)'=='DynamicLibrary'">$(ProjectDir)..\..\..\..\build\msvc\bin\$(PlatformTarget)\</OutDir>
+    <IntDir>$(OutDir)..\..\obj\$(PlatformTarget)\$(Configuration)\$(ConfigurationType)\$(ProjectName)\</IntDir>
+    <LinkIncremental>true</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <TargetName>lib$(ProjectName)</TargetName>
+    <OutDir Condition="'$(ConfigurationType)'=='StaticLibrary'">$(ProjectDir)..\..\..\..\build\msvc\lib\$(PlatformTarget)\</OutDir>
+    <OutDir Condition="'$(ConfigurationType)'=='DynamicLibrary'">$(ProjectDir)..\..\..\..\build\msvc\bin\$(PlatformTarget)\</OutDir>
+    <IntDir>$(OutDir)..\..\obj\$(PlatformTarget)\$(Configuration)\$(ConfigurationType)\$(ProjectName)\</IntDir>
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <TargetName>lib$(ProjectName)</TargetName>
+    <OutDir Condition="'$(ConfigurationType)'=='StaticLibrary'">$(ProjectDir)..\..\..\..\build\msvc\lib\$(PlatformTarget)\</OutDir>
+    <OutDir Condition="'$(ConfigurationType)'=='DynamicLibrary'">$(ProjectDir)..\..\..\..\build\msvc\bin\$(PlatformTarget)\</OutDir>
+    <IntDir>$(OutDir)..\..\obj\$(PlatformTarget)\$(Configuration)\$(ConfigurationType)\$(ProjectName)\</IntDir>
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DebugDLL|Win32'">
+    <TargetName>$(ProjectName)d</TargetName>
+    <OutDir Condition="'$(ConfigurationType)'=='StaticLibrary'">$(ProjectDir)..\..\..\..\build\msvc\lib\$(PlatformTarget)\</OutDir>
+    <OutDir Condition="'$(ConfigurationType)'=='DynamicLibrary'">$(ProjectDir)..\..\..\..\build\msvc\bin\$(PlatformTarget)\</OutDir>
+    <IntDir>$(OutDir)..\..\obj\$(PlatformTarget)\$(Configuration)\$(ConfigurationType)\$(ProjectName)\</IntDir>
+    <LinkIncremental>true</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DebugDLL|x64'">
+    <TargetName>$(ProjectName)d</TargetName>
+    <OutDir Condition="'$(ConfigurationType)'=='StaticLibrary'">$(ProjectDir)..\..\..\..\build\msvc\lib\$(PlatformTarget)\</OutDir>
+    <OutDir Condition="'$(ConfigurationType)'=='DynamicLibrary'">$(ProjectDir)..\..\..\..\build\msvc\bin\$(PlatformTarget)\</OutDir>
+    <IntDir>$(OutDir)..\..\obj\$(PlatformTarget)\$(Configuration)\$(ConfigurationType)\$(ProjectName)\</IntDir>
+    <LinkIncremental>true</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseDLL|Win32'">
+    <TargetName>$(ProjectName)</TargetName>
+    <OutDir Condition="'$(ConfigurationType)'=='StaticLibrary'">$(ProjectDir)..\..\..\..\build\msvc\lib\$(PlatformTarget)\</OutDir>
+    <OutDir Condition="'$(ConfigurationType)'=='DynamicLibrary'">$(ProjectDir)..\..\..\..\build\msvc\bin\$(PlatformTarget)\</OutDir>
+    <IntDir>$(OutDir)..\..\obj\$(PlatformTarget)\$(Configuration)\$(ConfigurationType)\$(ProjectName)\</IntDir>
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseDLL|x64'">
+    <TargetName>$(ProjectName)</TargetName>
+    <OutDir Condition="'$(ConfigurationType)'=='StaticLibrary'">$(ProjectDir)..\..\..\..\build\msvc\lib\$(PlatformTarget)\</OutDir>
+    <OutDir Condition="'$(ConfigurationType)'=='DynamicLibrary'">$(ProjectDir)..\..\..\..\build\msvc\bin\$(PlatformTarget)\</OutDir>
+    <IntDir>$(OutDir)..\..\obj\$(PlatformTarget)\$(Configuration)\$(ConfigurationType)\$(ProjectName)\</IntDir>
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <PrecompiledHeader />
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)..\..\src;$(OutDir)..\..\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <ProgramDataBaseFileName>$(OutDir)..\..\lib\$(PlatformTarget)\$(TargetName).pdb</ProgramDataBaseFileName>
+      <PreprocessorDefinitions>_WINDOWS;WIN32;_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <BrowseInformationFile>$(IntDir)bsc\</BrowseInformationFile>
+      <BrowseInformation>true</BrowseInformation>
+      <ForcedIncludeFiles>compat.h;%(ForcedIncludeFiles)</ForcedIncludeFiles>
+    </ClCompile>
+    <Lib>
+      <TargetMachine>MachineX86</TargetMachine>
+      <SubSystem>Windows</SubSystem>
+      <OutputFile>$(OutDir)$(TargetName)$(TargetExt)</OutputFile>
+      <AdditionalLibraryDirectories>$(OutDir)..\..\lib\$(PlatformTarget)\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
+    </Lib>
+    <Bscmake>
+      <PreserveSbr>true</PreserveSbr>
+    </Bscmake>
+    <PreBuildEvent>
+      <Command>
+ECHO OFF
+SETLOCAL EnableDelayedExpansion EnableExtensions
+
+IF EXIST "$(OutDir)..\..\licenses\$(ProjectName).txt" (
+  DEL "$(OutDir)..\..\licenses\$(ProjectName).txt"
+)
+
+IF EXIST "$(OutDir)..\..\include\$(ProjectName)\" (
+  RD /q /s "$(OutDir)..\..\include\$(ProjectName)\"
+)
+
+ENDLOCAL
+      </Command>
+    </PreBuildEvent>
+    <PostBuildEvent>
+      <Command>
+ECHO Off
+SETLOCAL EnableDelayedExpansion EnableExtensions
+
+MKDIR "$(OutDir)..\..\include"
+MKDIR "$(OutDir)..\..\include\$(ProjectName)"
+
+FOR %%H IN (dvbpsi.h demux.h descriptor.h psi.h) DO (
+  SET "_HEADER=%%H"
+  COPY "$(ProjectDir)..\..\src\!_HEADER!" "$(OutDir)..\..\include\$(ProjectName)"
+)
+
+FOR %%H IN (dr.h dr_02.h dr_03.h dr_04.h dr_05.h dr_06.h dr_07.h dr_08.h dr_09.h dr_0a.h dr_0b.h dr_0c.h dr_0d.h dr_0e.h dr_0f.h) DO (
+  SET "_HEADER=%%H"
+  COPY "$(ProjectDir)..\..\src\descriptors\!_HEADER!" "$(OutDir)..\..\include\$(ProjectName)"
+)
+
+FOR %%H IN (dr_13.h dr_14.h dr_40.h dr_41.h dr_42.h dr_43.h dr_44.h dr_45.h dr_47.h dr_48.h dr_49.h dr_4a.h dr_4b.h dr_4c.h dr_4d.h dr_4e.h dr_4f.h) DO (
+  SET "_HEADER=%%H"
+  COPY "$(ProjectDir)..\..\src\descriptors\!_HEADER!" "$(OutDir)..\..\include\$(ProjectName)"
+)
+
+FOR %%H IN (dr_50.h dr_52.h dr_53.h dr_54.h dr_55.h dr_56.h dr_58.h dr_59.h dr_5a.h dr_62.h dr_66.h dr_69.h dr_73.h dr_76.h dr_7c.h) DO (
+  SET "_HEADER=%%H"
+  COPY "$(ProjectDir)..\..\src\descriptors\!_HEADER!" "$(OutDir)..\..\include\$(ProjectName)"
+)
+
+FOR %%H IN (dr_81.h dr_83.h dr_86.h dr_8a.h dr_a0.h dr_a1.h) DO (
+  SET "_HEADER=%%H"
+  COPY "$(ProjectDir)..\..\src\descriptors\!_HEADER!" "$(OutDir)..\..\include\$(ProjectName)"
+)
+
+FOR %%H IN (atsc_eit.h atsc_ett.h atsc_mgt.h atsc_stt.h atsc_vct.h bat.h bat.h cat.h eit.h nit.h pat.h pmt.h rst.h sdt.h sis.h tot.h) DO (
+  SET "_HEADER=%%H"
+  COPY "$(ProjectDir)..\..\src\tables\!_HEADER!" "$(OutDir)..\..\include\$(ProjectName)"
+)
+
+MKDIR "$(OutDir)..\..\licenses"
+COPY "$(ProjectDir)..\..\COPYING" "$(OutDir)..\..\licenses\$(ProjectName).txt" 
+
+ENDLOCAL
+</Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <PrecompiledHeader />
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <PreprocessorDefinitions>_WINDOWS;WIN32;_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)..\..\src;$(OutDir)..\..\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <ProgramDataBaseFileName>$(OutDir)..\..\lib\$(PlatformTarget)\$(TargetName).pdb</ProgramDataBaseFileName>
+      <BrowseInformationFile>$(IntDir)bsc\</BrowseInformationFile>
+      <BrowseInformation>true</BrowseInformation>
+      <ForcedIncludeFiles>compat.h;%(ForcedIncludeFiles)</ForcedIncludeFiles>
+    </ClCompile>
+    <Lib>
+      <SubSystem>Windows</SubSystem>
+      <OutputFile>$(OutDir)$(TargetName)$(TargetExt)</OutputFile>
+      <AdditionalLibraryDirectories>$(OutDir)..\..\lib\$(PlatformTarget)\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
+    </Lib>
+    <Bscmake>
+      <PreserveSbr>true</PreserveSbr>
+    </Bscmake>
+    <PreBuildEvent>
+      <Command>
+ECHO OFF
+SETLOCAL EnableDelayedExpansion EnableExtensions
+
+IF EXIST "$(OutDir)..\..\licenses\$(ProjectName).txt" (
+  DEL "$(OutDir)..\..\licenses\$(ProjectName).txt"
+)
+
+IF EXIST "$(OutDir)..\..\include\$(ProjectName)\" (
+  RD /q /s "$(OutDir)..\..\include\$(ProjectName)\"
+)
+
+ENDLOCAL
+      </Command>
+    </PreBuildEvent>
+    <PostBuildEvent>
+      <Command>
+ECHO Off
+SETLOCAL EnableDelayedExpansion EnableExtensions
+
+MKDIR "$(OutDir)..\..\include"
+MKDIR "$(OutDir)..\..\include\$(ProjectName)"
+
+FOR %%H IN (dvbpsi.h demux.h descriptor.h psi.h) DO (
+  SET "_HEADER=%%H"
+  COPY "$(ProjectDir)..\..\src\!_HEADER!" "$(OutDir)..\..\include\$(ProjectName)"
+)
+
+FOR %%H IN (dr.h dr_02.h dr_03.h dr_04.h dr_05.h dr_06.h dr_07.h dr_08.h dr_09.h dr_0a.h dr_0b.h dr_0c.h dr_0d.h dr_0e.h dr_0f.h) DO (
+  SET "_HEADER=%%H"
+  COPY "$(ProjectDir)..\..\src\descriptors\!_HEADER!" "$(OutDir)..\..\include\$(ProjectName)"
+)
+
+FOR %%H IN (dr_13.h dr_14.h dr_40.h dr_41.h dr_42.h dr_43.h dr_44.h dr_45.h dr_47.h dr_48.h dr_49.h dr_4a.h dr_4b.h dr_4c.h dr_4d.h dr_4e.h dr_4f.h) DO (
+  SET "_HEADER=%%H"
+  COPY "$(ProjectDir)..\..\src\descriptors\!_HEADER!" "$(OutDir)..\..\include\$(ProjectName)"
+)
+
+FOR %%H IN (dr_50.h dr_52.h dr_53.h dr_54.h dr_55.h dr_56.h dr_58.h dr_59.h dr_5a.h dr_62.h dr_66.h dr_69.h dr_73.h dr_76.h dr_7c.h) DO (
+  SET "_HEADER=%%H"
+  COPY "$(ProjectDir)..\..\src\descriptors\!_HEADER!" "$(OutDir)..\..\include\$(ProjectName)"
+)
+
+FOR %%H IN (dr_81.h dr_83.h dr_86.h dr_8a.h dr_a0.h dr_a1.h) DO (
+  SET "_HEADER=%%H"
+  COPY "$(ProjectDir)..\..\src\descriptors\!_HEADER!" "$(OutDir)..\..\include\$(ProjectName)"
+)
+
+FOR %%H IN (atsc_eit.h atsc_ett.h atsc_mgt.h atsc_stt.h atsc_vct.h bat.h bat.h cat.h eit.h nit.h pat.h pmt.h rst.h sdt.h sis.h tot.h) DO (
+  SET "_HEADER=%%H"
+  COPY "$(ProjectDir)..\..\src\tables\!_HEADER!" "$(OutDir)..\..\include\$(ProjectName)"
+)
+
+MKDIR "$(OutDir)..\..\licenses"
+COPY "$(ProjectDir)..\..\COPYING" "$(OutDir)..\..\licenses\$(ProjectName).txt" 
+
+ENDLOCAL
+</Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <PrecompiledHeader />
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)..\..\src;$(OutDir)..\..\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <ProgramDataBaseFileName>$(OutDir)..\..\lib\$(PlatformTarget)\$(TargetName).pdb</ProgramDataBaseFileName>
+      <PreprocessorDefinitions>_WINDOWS;WIN32;NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <BrowseInformationFile>$(IntDir)bsc\</BrowseInformationFile>
+      <BrowseInformation>true</BrowseInformation>
+      <ForcedIncludeFiles>compat.h;%(ForcedIncludeFiles)</ForcedIncludeFiles>
+    </ClCompile>
+    <Lib>
+      <TargetMachine>MachineX86</TargetMachine>
+      <SubSystem>Windows</SubSystem>
+      <OutputFile>$(OutDir)$(TargetName)$(TargetExt)</OutputFile>
+      <AdditionalLibraryDirectories>$(OutDir)..\..\lib\$(PlatformTarget)\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
+    </Lib>
+    <Bscmake>
+      <PreserveSbr>true</PreserveSbr>
+    </Bscmake>
+    <PreBuildEvent>
+      <Command>
+ECHO OFF
+SETLOCAL EnableDelayedExpansion EnableExtensions
+
+IF EXIST "$(OutDir)..\..\licenses\$(ProjectName).txt" (
+  DEL "$(OutDir)..\..\licenses\$(ProjectName).txt"
+)
+
+IF EXIST "$(OutDir)..\..\include\$(ProjectName)\" (
+  RD /q /s "$(OutDir)..\..\include\$(ProjectName)\"
+)
+
+ENDLOCAL
+      </Command>
+    </PreBuildEvent>
+    <PostBuildEvent>
+      <Command>
+ECHO Off
+SETLOCAL EnableDelayedExpansion EnableExtensions
+
+MKDIR "$(OutDir)..\..\include"
+MKDIR "$(OutDir)..\..\include\$(ProjectName)"
+
+FOR %%H IN (dvbpsi.h demux.h descriptor.h psi.h) DO (
+  SET "_HEADER=%%H"
+  COPY "$(ProjectDir)..\..\src\!_HEADER!" "$(OutDir)..\..\include\$(ProjectName)"
+)
+
+FOR %%H IN (dr.h dr_02.h dr_03.h dr_04.h dr_05.h dr_06.h dr_07.h dr_08.h dr_09.h dr_0a.h dr_0b.h dr_0c.h dr_0d.h dr_0e.h dr_0f.h) DO (
+  SET "_HEADER=%%H"
+  COPY "$(ProjectDir)..\..\src\descriptors\!_HEADER!" "$(OutDir)..\..\include\$(ProjectName)"
+)
+
+FOR %%H IN (dr_13.h dr_14.h dr_40.h dr_41.h dr_42.h dr_43.h dr_44.h dr_45.h dr_47.h dr_48.h dr_49.h dr_4a.h dr_4b.h dr_4c.h dr_4d.h dr_4e.h dr_4f.h) DO (
+  SET "_HEADER=%%H"
+  COPY "$(ProjectDir)..\..\src\descriptors\!_HEADER!" "$(OutDir)..\..\include\$(ProjectName)"
+)
+
+FOR %%H IN (dr_50.h dr_52.h dr_53.h dr_54.h dr_55.h dr_56.h dr_58.h dr_59.h dr_5a.h dr_62.h dr_66.h dr_69.h dr_73.h dr_76.h dr_7c.h) DO (
+  SET "_HEADER=%%H"
+  COPY "$(ProjectDir)..\..\src\descriptors\!_HEADER!" "$(OutDir)..\..\include\$(ProjectName)"
+)
+
+FOR %%H IN (dr_81.h dr_83.h dr_86.h dr_8a.h dr_a0.h dr_a1.h) DO (
+  SET "_HEADER=%%H"
+  COPY "$(ProjectDir)..\..\src\descriptors\!_HEADER!" "$(OutDir)..\..\include\$(ProjectName)"
+)
+
+FOR %%H IN (atsc_eit.h atsc_ett.h atsc_mgt.h atsc_stt.h atsc_vct.h bat.h bat.h cat.h eit.h nit.h pat.h pmt.h rst.h sdt.h sis.h tot.h) DO (
+  SET "_HEADER=%%H"
+  COPY "$(ProjectDir)..\..\src\tables\!_HEADER!" "$(OutDir)..\..\include\$(ProjectName)"
+)
+
+MKDIR "$(OutDir)..\..\licenses"
+COPY "$(ProjectDir)..\..\COPYING" "$(OutDir)..\..\licenses\$(ProjectName).txt" 
+
+ENDLOCAL
+</Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <PrecompiledHeader />
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)..\..\src;$(OutDir)..\..\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <ProgramDataBaseFileName>$(OutDir)..\..\lib\$(PlatformTarget)\$(TargetName).pdb</ProgramDataBaseFileName>
+      <PreprocessorDefinitions>_WINDOWS;WIN32;NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <BrowseInformationFile>$(IntDir)bsc\</BrowseInformationFile>
+      <BrowseInformation>true</BrowseInformation>
+      <ForcedIncludeFiles>compat.h;%(ForcedIncludeFiles)</ForcedIncludeFiles>
+    </ClCompile>
+    <Lib>
+      <SubSystem>Windows</SubSystem>
+      <OutputFile>$(OutDir)$(TargetName)$(TargetExt)</OutputFile>
+      <AdditionalLibraryDirectories>$(OutDir)..\..\lib\$(PlatformTarget)\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
+    </Lib>
+    <Bscmake>
+      <PreserveSbr>true</PreserveSbr>
+    </Bscmake>
+    <PreBuildEvent>
+      <Command>
+ECHO OFF
+SETLOCAL EnableDelayedExpansion EnableExtensions
+
+IF EXIST "$(OutDir)..\..\licenses\$(ProjectName).txt" (
+  DEL "$(OutDir)..\..\licenses\$(ProjectName).txt"
+)
+
+IF EXIST "$(OutDir)..\..\include\$(ProjectName)\" (
+  RD /q /s "$(OutDir)..\..\include\$(ProjectName)\"
+)
+
+ENDLOCAL
+      </Command>
+    </PreBuildEvent>
+    <PostBuildEvent>
+      <Command>
+ECHO Off
+SETLOCAL EnableDelayedExpansion EnableExtensions
+
+MKDIR "$(OutDir)..\..\include"
+MKDIR "$(OutDir)..\..\include\$(ProjectName)"
+
+FOR %%H IN (dvbpsi.h demux.h descriptor.h psi.h) DO (
+  SET "_HEADER=%%H"
+  COPY "$(ProjectDir)..\..\src\!_HEADER!" "$(OutDir)..\..\include\$(ProjectName)"
+)
+
+FOR %%H IN (dr.h dr_02.h dr_03.h dr_04.h dr_05.h dr_06.h dr_07.h dr_08.h dr_09.h dr_0a.h dr_0b.h dr_0c.h dr_0d.h dr_0e.h dr_0f.h) DO (
+  SET "_HEADER=%%H"
+  COPY "$(ProjectDir)..\..\src\descriptors\!_HEADER!" "$(OutDir)..\..\include\$(ProjectName)"
+)
+
+FOR %%H IN (dr_13.h dr_14.h dr_40.h dr_41.h dr_42.h dr_43.h dr_44.h dr_45.h dr_47.h dr_48.h dr_49.h dr_4a.h dr_4b.h dr_4c.h dr_4d.h dr_4e.h dr_4f.h) DO (
+  SET "_HEADER=%%H"
+  COPY "$(ProjectDir)..\..\src\descriptors\!_HEADER!" "$(OutDir)..\..\include\$(ProjectName)"
+)
+
+FOR %%H IN (dr_50.h dr_52.h dr_53.h dr_54.h dr_55.h dr_56.h dr_58.h dr_59.h dr_5a.h dr_62.h dr_66.h dr_69.h dr_73.h dr_76.h dr_7c.h) DO (
+  SET "_HEADER=%%H"
+  COPY "$(ProjectDir)..\..\src\descriptors\!_HEADER!" "$(OutDir)..\..\include\$(ProjectName)"
+)
+
+FOR %%H IN (dr_81.h dr_83.h dr_86.h dr_8a.h dr_a0.h dr_a1.h) DO (
+  SET "_HEADER=%%H"
+  COPY "$(ProjectDir)..\..\src\descriptors\!_HEADER!" "$(OutDir)..\..\include\$(ProjectName)"
+)
+
+FOR %%H IN (atsc_eit.h atsc_ett.h atsc_mgt.h atsc_stt.h atsc_vct.h bat.h bat.h cat.h eit.h nit.h pat.h pmt.h rst.h sdt.h sis.h tot.h) DO (
+  SET "_HEADER=%%H"
+  COPY "$(ProjectDir)..\..\src\tables\!_HEADER!" "$(OutDir)..\..\include\$(ProjectName)"
+)
+
+MKDIR "$(OutDir)..\..\licenses"
+COPY "$(ProjectDir)..\..\COPYING" "$(OutDir)..\..\licenses\$(ProjectName).txt" 
+
+ENDLOCAL
+</Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='DebugDLL|Win32'">
+    <ClCompile>
+      <PrecompiledHeader />
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)..\..\src;$(OutDir)..\..\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <ProgramDataBaseFileName>$(IntDir)$(TargetName).pdb</ProgramDataBaseFileName>
+      <PreprocessorDefinitions>_WINDOWS;WIN32;_DEBUG;DEBUG;_USRDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <BrowseInformationFile>$(IntDir)bsc\</BrowseInformationFile>
+      <BrowseInformation>true</BrowseInformation>
+      <ForcedIncludeFiles>compat.h;%(ForcedIncludeFiles)</ForcedIncludeFiles>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>DebugFastLink</GenerateDebugInformation>
+      <OutputFile>$(OutDir)$(TargetName)$(TargetExt)</OutputFile>
+      <ImportLibrary>$(OutDir)..\..\lib\$(PlatformTarget)\$(TargetName).lib</ImportLibrary>
+      <ProfileGuidedDatabase>$(IntDir)$(TargetName).pgd</ProfileGuidedDatabase>
+      <ProgramDatabaseFile>$(OutDir)..\..\lib\$(PlatformTarget)\$(TargetName).pdb</ProgramDatabaseFile>
+      <AdditionalLibraryDirectories>$(OutDir)..\..\lib\$(PlatformTarget)\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
+      <LargeAddressAware>true</LargeAddressAware>
+      <ModuleDefinitionFile>dvbpsi.def</ModuleDefinitionFile>
+    </Link>
+    <Bscmake>
+      <PreserveSbr>true</PreserveSbr>
+    </Bscmake>
+    <PreBuildEvent>
+      <Command>
+ECHO OFF
+SETLOCAL EnableDelayedExpansion EnableExtensions
+
+IF EXIST "$(OutDir)..\..\licenses\$(ProjectName).txt" (
+  DEL "$(OutDir)..\..\licenses\$(ProjectName).txt"
+)
+
+IF EXIST "$(OutDir)..\..\include\$(ProjectName)\" (
+  RD /q /s "$(OutDir)..\..\include\$(ProjectName)\"
+)
+
+ENDLOCAL
+      </Command>
+    </PreBuildEvent>
+    <PostBuildEvent>
+      <Command>
+ECHO Off
+SETLOCAL EnableDelayedExpansion EnableExtensions
+
+MKDIR "$(OutDir)..\..\include"
+MKDIR "$(OutDir)..\..\include\$(ProjectName)"
+
+FOR %%H IN (dvbpsi.h demux.h descriptor.h psi.h) DO (
+  SET "_HEADER=%%H"
+  COPY "$(ProjectDir)..\..\src\!_HEADER!" "$(OutDir)..\..\include\$(ProjectName)"
+)
+
+FOR %%H IN (dr.h dr_02.h dr_03.h dr_04.h dr_05.h dr_06.h dr_07.h dr_08.h dr_09.h dr_0a.h dr_0b.h dr_0c.h dr_0d.h dr_0e.h dr_0f.h) DO (
+  SET "_HEADER=%%H"
+  COPY "$(ProjectDir)..\..\src\descriptors\!_HEADER!" "$(OutDir)..\..\include\$(ProjectName)"
+)
+
+FOR %%H IN (dr_13.h dr_14.h dr_40.h dr_41.h dr_42.h dr_43.h dr_44.h dr_45.h dr_47.h dr_48.h dr_49.h dr_4a.h dr_4b.h dr_4c.h dr_4d.h dr_4e.h dr_4f.h) DO (
+  SET "_HEADER=%%H"
+  COPY "$(ProjectDir)..\..\src\descriptors\!_HEADER!" "$(OutDir)..\..\include\$(ProjectName)"
+)
+
+FOR %%H IN (dr_50.h dr_52.h dr_53.h dr_54.h dr_55.h dr_56.h dr_58.h dr_59.h dr_5a.h dr_62.h dr_66.h dr_69.h dr_73.h dr_76.h dr_7c.h) DO (
+  SET "_HEADER=%%H"
+  COPY "$(ProjectDir)..\..\src\descriptors\!_HEADER!" "$(OutDir)..\..\include\$(ProjectName)"
+)
+
+FOR %%H IN (dr_81.h dr_83.h dr_86.h dr_8a.h dr_a0.h dr_a1.h) DO (
+  SET "_HEADER=%%H"
+  COPY "$(ProjectDir)..\..\src\descriptors\!_HEADER!" "$(OutDir)..\..\include\$(ProjectName)"
+)
+
+FOR %%H IN (atsc_eit.h atsc_ett.h atsc_mgt.h atsc_stt.h atsc_vct.h bat.h bat.h cat.h eit.h nit.h pat.h pmt.h rst.h sdt.h sis.h tot.h) DO (
+  SET "_HEADER=%%H"
+  COPY "$(ProjectDir)..\..\src\tables\!_HEADER!" "$(OutDir)..\..\include\$(ProjectName)"
+)
+
+MKDIR "$(OutDir)..\..\licenses"
+COPY "$(ProjectDir)..\..\COPYING" "$(OutDir)..\..\licenses\$(ProjectName).txt" 
+
+ENDLOCAL
+</Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='DebugDLL|x64'">
+    <ClCompile>
+      <PrecompiledHeader />
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)..\..\src;$(OutDir)..\..\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <ProgramDataBaseFileName>$(IntDir)$(TargetName).pdb</ProgramDataBaseFileName>
+      <PreprocessorDefinitions>_WINDOWS;WIN32;_DEBUG;DEBUG;_USRDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <BrowseInformationFile>$(IntDir)bsc\</BrowseInformationFile>
+      <BrowseInformation>true</BrowseInformation>
+      <ForcedIncludeFiles>compat.h;%(ForcedIncludeFiles)</ForcedIncludeFiles>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>DebugFastLink</GenerateDebugInformation>
+      <OutputFile>$(OutDir)$(TargetName)$(TargetExt)</OutputFile>
+      <ImportLibrary>$(OutDir)..\..\lib\$(PlatformTarget)\$(TargetName).lib</ImportLibrary>
+      <ProfileGuidedDatabase>$(IntDir)$(TargetName).pgd</ProfileGuidedDatabase>
+      <ProgramDatabaseFile>$(OutDir)..\..\lib\$(PlatformTarget)\$(TargetName).pdb</ProgramDatabaseFile>
+      <AdditionalLibraryDirectories>$(OutDir)..\..\lib\$(PlatformTarget)\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
+      <ModuleDefinitionFile>dvbpsi.def</ModuleDefinitionFile>
+    </Link>
+    <Bscmake>
+      <PreserveSbr>true</PreserveSbr>
+    </Bscmake>
+    <PreBuildEvent>
+      <Command>
+ECHO OFF
+SETLOCAL EnableDelayedExpansion EnableExtensions
+
+IF EXIST "$(OutDir)..\..\licenses\$(ProjectName).txt" (
+  DEL "$(OutDir)..\..\licenses\$(ProjectName).txt"
+)
+
+IF EXIST "$(OutDir)..\..\include\$(ProjectName)\" (
+  RD /q /s "$(OutDir)..\..\include\$(ProjectName)\"
+)
+
+ENDLOCAL
+      </Command>
+    </PreBuildEvent>
+    <PostBuildEvent>
+      <Command>
+ECHO Off
+SETLOCAL EnableDelayedExpansion EnableExtensions
+
+MKDIR "$(OutDir)..\..\include"
+MKDIR "$(OutDir)..\..\include\$(ProjectName)"
+
+FOR %%H IN (dvbpsi.h demux.h descriptor.h psi.h) DO (
+  SET "_HEADER=%%H"
+  COPY "$(ProjectDir)..\..\src\!_HEADER!" "$(OutDir)..\..\include\$(ProjectName)"
+)
+
+FOR %%H IN (dr.h dr_02.h dr_03.h dr_04.h dr_05.h dr_06.h dr_07.h dr_08.h dr_09.h dr_0a.h dr_0b.h dr_0c.h dr_0d.h dr_0e.h dr_0f.h) DO (
+  SET "_HEADER=%%H"
+  COPY "$(ProjectDir)..\..\src\descriptors\!_HEADER!" "$(OutDir)..\..\include\$(ProjectName)"
+)
+
+FOR %%H IN (dr_13.h dr_14.h dr_40.h dr_41.h dr_42.h dr_43.h dr_44.h dr_45.h dr_47.h dr_48.h dr_49.h dr_4a.h dr_4b.h dr_4c.h dr_4d.h dr_4e.h dr_4f.h) DO (
+  SET "_HEADER=%%H"
+  COPY "$(ProjectDir)..\..\src\descriptors\!_HEADER!" "$(OutDir)..\..\include\$(ProjectName)"
+)
+
+FOR %%H IN (dr_50.h dr_52.h dr_53.h dr_54.h dr_55.h dr_56.h dr_58.h dr_59.h dr_5a.h dr_62.h dr_66.h dr_69.h dr_73.h dr_76.h dr_7c.h) DO (
+  SET "_HEADER=%%H"
+  COPY "$(ProjectDir)..\..\src\descriptors\!_HEADER!" "$(OutDir)..\..\include\$(ProjectName)"
+)
+
+FOR %%H IN (dr_81.h dr_83.h dr_86.h dr_8a.h dr_a0.h dr_a1.h) DO (
+  SET "_HEADER=%%H"
+  COPY "$(ProjectDir)..\..\src\descriptors\!_HEADER!" "$(OutDir)..\..\include\$(ProjectName)"
+)
+
+FOR %%H IN (atsc_eit.h atsc_ett.h atsc_mgt.h atsc_stt.h atsc_vct.h bat.h bat.h cat.h eit.h nit.h pat.h pmt.h rst.h sdt.h sis.h tot.h) DO (
+  SET "_HEADER=%%H"
+  COPY "$(ProjectDir)..\..\src\tables\!_HEADER!" "$(OutDir)..\..\include\$(ProjectName)"
+)
+
+MKDIR "$(OutDir)..\..\licenses"
+COPY "$(ProjectDir)..\..\COPYING" "$(OutDir)..\..\licenses\$(ProjectName).txt" 
+
+ENDLOCAL
+</Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseDLL|Win32'">
+    <ClCompile>
+      <PrecompiledHeader />
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)..\..\src;$(OutDir)..\..\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <ProgramDataBaseFileName>$(IntDir)$(TargetName).pdb</ProgramDataBaseFileName>
+      <PreprocessorDefinitions>_WINDOWS;WIN32;NDEBUG;_USRDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <BrowseInformationFile>$(IntDir)bsc\</BrowseInformationFile>
+      <BrowseInformation>true</BrowseInformation>
+      <ForcedIncludeFiles>compat.h;%(ForcedIncludeFiles)</ForcedIncludeFiles>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>DebugFastLink</GenerateDebugInformation>
+      <OutputFile>$(OutDir)$(TargetName)$(TargetExt)</OutputFile>
+      <ImportLibrary>$(OutDir)..\..\lib\$(PlatformTarget)\$(TargetName).lib</ImportLibrary>
+      <ProfileGuidedDatabase>$(IntDir)$(TargetName).pgd</ProfileGuidedDatabase>
+      <ProgramDatabaseFile>$(OutDir)..\..\lib\$(PlatformTarget)\$(TargetName).pdb</ProgramDatabaseFile>
+      <AdditionalLibraryDirectories>$(OutDir)..\..\lib\$(PlatformTarget)\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
+      <LargeAddressAware>true</LargeAddressAware>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <ModuleDefinitionFile>dvbpsi.def</ModuleDefinitionFile>
+    </Link>
+    <Bscmake>
+      <PreserveSbr>true</PreserveSbr>
+    </Bscmake>
+    <PreBuildEvent>
+      <Command>
+ECHO OFF
+SETLOCAL EnableDelayedExpansion EnableExtensions
+
+IF EXIST "$(OutDir)..\..\licenses\$(ProjectName).txt" (
+  DEL "$(OutDir)..\..\licenses\$(ProjectName).txt"
+)
+
+IF EXIST "$(OutDir)..\..\include\$(ProjectName)\" (
+  RD /q /s "$(OutDir)..\..\include\$(ProjectName)\"
+)
+
+ENDLOCAL
+      </Command>
+    </PreBuildEvent>
+    <PostBuildEvent>
+      <Command>
+ECHO Off
+SETLOCAL EnableDelayedExpansion EnableExtensions
+
+MKDIR "$(OutDir)..\..\include"
+MKDIR "$(OutDir)..\..\include\$(ProjectName)"
+
+FOR %%H IN (dvbpsi.h demux.h descriptor.h psi.h) DO (
+  SET "_HEADER=%%H"
+  COPY "$(ProjectDir)..\..\src\!_HEADER!" "$(OutDir)..\..\include\$(ProjectName)"
+)
+
+FOR %%H IN (dr.h dr_02.h dr_03.h dr_04.h dr_05.h dr_06.h dr_07.h dr_08.h dr_09.h dr_0a.h dr_0b.h dr_0c.h dr_0d.h dr_0e.h dr_0f.h) DO (
+  SET "_HEADER=%%H"
+  COPY "$(ProjectDir)..\..\src\descriptors\!_HEADER!" "$(OutDir)..\..\include\$(ProjectName)"
+)
+
+FOR %%H IN (dr_13.h dr_14.h dr_40.h dr_41.h dr_42.h dr_43.h dr_44.h dr_45.h dr_47.h dr_48.h dr_49.h dr_4a.h dr_4b.h dr_4c.h dr_4d.h dr_4e.h dr_4f.h) DO (
+  SET "_HEADER=%%H"
+  COPY "$(ProjectDir)..\..\src\descriptors\!_HEADER!" "$(OutDir)..\..\include\$(ProjectName)"
+)
+
+FOR %%H IN (dr_50.h dr_52.h dr_53.h dr_54.h dr_55.h dr_56.h dr_58.h dr_59.h dr_5a.h dr_62.h dr_66.h dr_69.h dr_73.h dr_76.h dr_7c.h) DO (
+  SET "_HEADER=%%H"
+  COPY "$(ProjectDir)..\..\src\descriptors\!_HEADER!" "$(OutDir)..\..\include\$(ProjectName)"
+)
+
+FOR %%H IN (dr_81.h dr_83.h dr_86.h dr_8a.h dr_a0.h dr_a1.h) DO (
+  SET "_HEADER=%%H"
+  COPY "$(ProjectDir)..\..\src\descriptors\!_HEADER!" "$(OutDir)..\..\include\$(ProjectName)"
+)
+
+FOR %%H IN (atsc_eit.h atsc_ett.h atsc_mgt.h atsc_stt.h atsc_vct.h bat.h bat.h cat.h eit.h nit.h pat.h pmt.h rst.h sdt.h sis.h tot.h) DO (
+  SET "_HEADER=%%H"
+  COPY "$(ProjectDir)..\..\src\tables\!_HEADER!" "$(OutDir)..\..\include\$(ProjectName)"
+)
+
+MKDIR "$(OutDir)..\..\licenses"
+COPY "$(ProjectDir)..\..\COPYING" "$(OutDir)..\..\licenses\$(ProjectName).txt" 
+
+ENDLOCAL
+</Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseDLL|x64'">
+    <ClCompile>
+      <PrecompiledHeader />
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)..\..\src;$(OutDir)..\..\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <ProgramDataBaseFileName>$(IntDir)$(TargetName).pdb</ProgramDataBaseFileName>
+      <PreprocessorDefinitions>_WINDOWS;WIN32;NDEBUG;_USRDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <BrowseInformationFile>$(IntDir)bsc\</BrowseInformationFile>
+      <BrowseInformation>true</BrowseInformation>
+      <ForcedIncludeFiles>compat.h;%(ForcedIncludeFiles)</ForcedIncludeFiles>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>DebugFastLink</GenerateDebugInformation>
+      <OutputFile>$(OutDir)$(TargetName)$(TargetExt)</OutputFile>
+      <ImportLibrary>$(OutDir)..\..\lib\$(PlatformTarget)\$(TargetName).lib</ImportLibrary>
+      <ProfileGuidedDatabase>$(IntDir)$(TargetName).pgd</ProfileGuidedDatabase>
+      <ProgramDatabaseFile>$(OutDir)..\..\lib\$(PlatformTarget)\$(TargetName).pdb</ProgramDatabaseFile>
+      <AdditionalLibraryDirectories>$(OutDir)..\..\lib\$(PlatformTarget)\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <ModuleDefinitionFile>dvbpsi.def</ModuleDefinitionFile>
+    </Link>
+    <Bscmake>
+      <PreserveSbr>true</PreserveSbr>
+    </Bscmake>
+    <PreBuildEvent>
+      <Command>
+ECHO OFF
+SETLOCAL EnableDelayedExpansion EnableExtensions
+
+IF EXIST "$(OutDir)..\..\licenses\$(ProjectName).txt" (
+  DEL "$(OutDir)..\..\licenses\$(ProjectName).txt"
+)
+
+IF EXIST "$(OutDir)..\..\include\$(ProjectName)\" (
+  RD /q /s "$(OutDir)..\..\include\$(ProjectName)\"
+)
+
+ENDLOCAL
+      </Command>
+    </PreBuildEvent>
+    <PostBuildEvent>
+      <Command>
+ECHO Off
+SETLOCAL EnableDelayedExpansion EnableExtensions
+
+MKDIR "$(OutDir)..\..\include"
+MKDIR "$(OutDir)..\..\include\$(ProjectName)"
+
+FOR %%H IN (dvbpsi.h demux.h descriptor.h psi.h) DO (
+  SET "_HEADER=%%H"
+  COPY "$(ProjectDir)..\..\src\!_HEADER!" "$(OutDir)..\..\include\$(ProjectName)"
+)
+
+FOR %%H IN (dr.h dr_02.h dr_03.h dr_04.h dr_05.h dr_06.h dr_07.h dr_08.h dr_09.h dr_0a.h dr_0b.h dr_0c.h dr_0d.h dr_0e.h dr_0f.h) DO (
+  SET "_HEADER=%%H"
+  COPY "$(ProjectDir)..\..\src\descriptors\!_HEADER!" "$(OutDir)..\..\include\$(ProjectName)"
+)
+
+FOR %%H IN (dr_13.h dr_14.h dr_40.h dr_41.h dr_42.h dr_43.h dr_44.h dr_45.h dr_47.h dr_48.h dr_49.h dr_4a.h dr_4b.h dr_4c.h dr_4d.h dr_4e.h dr_4f.h) DO (
+  SET "_HEADER=%%H"
+  COPY "$(ProjectDir)..\..\src\descriptors\!_HEADER!" "$(OutDir)..\..\include\$(ProjectName)"
+)
+
+FOR %%H IN (dr_50.h dr_52.h dr_53.h dr_54.h dr_55.h dr_56.h dr_58.h dr_59.h dr_5a.h dr_62.h dr_66.h dr_69.h dr_73.h dr_76.h dr_7c.h) DO (
+  SET "_HEADER=%%H"
+  COPY "$(ProjectDir)..\..\src\descriptors\!_HEADER!" "$(OutDir)..\..\include\$(ProjectName)"
+)
+
+FOR %%H IN (dr_81.h dr_83.h dr_86.h dr_8a.h dr_a0.h dr_a1.h) DO (
+  SET "_HEADER=%%H"
+  COPY "$(ProjectDir)..\..\src\descriptors\!_HEADER!" "$(OutDir)..\..\include\$(ProjectName)"
+)
+
+FOR %%H IN (atsc_eit.h atsc_ett.h atsc_mgt.h atsc_stt.h atsc_vct.h bat.h bat.h cat.h eit.h nit.h pat.h pmt.h rst.h sdt.h sis.h tot.h) DO (
+  SET "_HEADER=%%H"
+  COPY "$(ProjectDir)..\..\src\tables\!_HEADER!" "$(OutDir)..\..\include\$(ProjectName)"
+)
+
+MKDIR "$(OutDir)..\..\licenses"
+COPY "$(ProjectDir)..\..\COPYING" "$(OutDir)..\..\licenses\$(ProjectName).txt" 
+
+ENDLOCAL
+</Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClInclude Include="config.h" />
+    <ClInclude Include="..\..\src\dvbpsi.h" />
+    <ClInclude Include="..\..\src\psi.h" />
+    <ClInclude Include="..\..\src\demux.h" />
+    <ClInclude Include="..\..\src\descriptor.h" />
+    <ClInclude Include="..\..\src\tables\pat.h" />
+    <ClInclude Include="..\..\src\tables\pmt.h" />
+    <ClInclude Include="..\..\src\tables\sdt.h" />
+    <ClInclude Include="..\..\src\tables\eit.h" />
+    <ClInclude Include="..\..\src\tables\cat.h" />
+    <ClInclude Include="..\..\src\tables\nit.h" />
+    <ClInclude Include="..\..\src\tables\tot.h" />
+    <ClInclude Include="..\..\src\tables\sis.h" />
+    <ClInclude Include="..\..\src\tables\bat.h" />
+    <ClInclude Include="..\..\src\tables\rst.h" />
+    <ClInclude Include="..\..\src\tables\atsc_vct.h" />
+    <ClInclude Include="..\..\src\tables\atsc_stt.h" />
+    <ClInclude Include="..\..\src\tables\atsc_eit.h" />
+    <ClInclude Include="..\..\src\tables\atsc_ett.h" />
+    <ClInclude Include="..\..\src\tables\atsc_mgt.h" />
+    <ClInclude Include="..\..\src\descriptors\dr_02.h" />
+    <ClInclude Include="..\..\src\descriptors\dr_03.h" />
+    <ClInclude Include="..\..\src\descriptors\dr_04.h" />
+    <ClInclude Include="..\..\src\descriptors\dr_05.h" />
+    <ClInclude Include="..\..\src\descriptors\dr_06.h" />
+    <ClInclude Include="..\..\src\descriptors\dr_07.h" />
+    <ClInclude Include="..\..\src\descriptors\dr_08.h" />
+    <ClInclude Include="..\..\src\descriptors\dr_09.h" />
+    <ClInclude Include="..\..\src\descriptors\dr_0a.h" />
+    <ClInclude Include="..\..\src\descriptors\dr_0b.h" />
+    <ClInclude Include="..\..\src\descriptors\dr_0c.h" />
+    <ClInclude Include="..\..\src\descriptors\dr_0d.h" />
+    <ClInclude Include="..\..\src\descriptors\dr_0e.h" />
+    <ClInclude Include="..\..\src\descriptors\dr_0f.h" />
+    <ClInclude Include="..\..\src\descriptors\dr_13.h" />
+    <ClInclude Include="..\..\src\descriptors\dr_14.h" />
+    <ClInclude Include="..\..\src\descriptors\dr_40.h" />
+    <ClInclude Include="..\..\src\descriptors\dr_41.h" />
+    <ClInclude Include="..\..\src\descriptors\dr_42.h" />
+    <ClInclude Include="..\..\src\descriptors\dr_43.h" />
+    <ClInclude Include="..\..\src\descriptors\dr_44.h" />
+    <ClInclude Include="..\..\src\descriptors\dr_45.h" />
+    <ClInclude Include="..\..\src\descriptors\dr_47.h" />
+    <ClInclude Include="..\..\src\descriptors\dr_48.h" />
+    <ClInclude Include="..\..\src\descriptors\dr_49.h" />
+    <ClInclude Include="..\..\src\descriptors\dr_4a.h" />
+    <ClInclude Include="..\..\src\descriptors\dr_4b.h" />
+    <ClInclude Include="..\..\src\descriptors\dr_4c.h" />
+    <ClInclude Include="..\..\src\descriptors\dr_4d.h" />
+    <ClInclude Include="..\..\src\descriptors\dr_4e.h" />
+    <ClInclude Include="..\..\src\descriptors\dr_4f.h" />
+    <ClInclude Include="..\..\src\descriptors\dr_50.h" />
+    <ClInclude Include="..\..\src\descriptors\dr_52.h" />
+    <ClInclude Include="..\..\src\descriptors\dr_53.h" />
+    <ClInclude Include="..\..\src\descriptors\dr_54.h" />
+    <ClInclude Include="..\..\src\descriptors\dr_55.h" />
+    <ClInclude Include="..\..\src\descriptors\dr_56.h" />
+    <ClInclude Include="..\..\src\descriptors\dr_58.h" />
+    <ClInclude Include="..\..\src\descriptors\dr_59.h" />
+    <ClInclude Include="..\..\src\descriptors\dr_5a.h" />
+    <ClInclude Include="..\..\src\descriptors\dr_62.h" />
+    <ClInclude Include="..\..\src\descriptors\dr_66.h" />
+    <ClInclude Include="..\..\src\descriptors\dr_69.h" />
+    <ClInclude Include="..\..\src\descriptors\dr_73.h" />
+    <ClInclude Include="..\..\src\descriptors\dr_76.h" />
+    <ClInclude Include="..\..\src\descriptors\dr_7c.h" />
+    <ClInclude Include="..\..\src\descriptors\dr_81.h" />
+    <ClInclude Include="..\..\src\descriptors\dr_83.h" />
+    <ClInclude Include="..\..\src\descriptors\dr_86.h" />
+    <ClInclude Include="..\..\src\descriptors\dr_8a.h" />
+    <ClInclude Include="..\..\src\descriptors\dr_a0.h" />
+    <ClInclude Include="..\..\src\descriptors\dr_a1.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\src\dvbpsi.c" />
+    <ClCompile Include="..\..\src\psi.c" />
+    <ClCompile Include="..\..\src\demux.c" />
+    <ClCompile Include="..\..\src\descriptor.c" />
+    <ClCompile Include="..\..\src\tables\pat.c" />
+    <ClCompile Include="..\..\src\tables\pmt.c" />
+    <ClCompile Include="..\..\src\tables\sdt.c" />
+    <ClCompile Include="..\..\src\tables\eit.c" />
+    <ClCompile Include="..\..\src\tables\cat.c" />
+    <ClCompile Include="..\..\src\tables\nit.c" />
+    <ClCompile Include="..\..\src\tables\tot.c" />
+    <ClCompile Include="..\..\src\tables\sis.c" />
+    <ClCompile Include="..\..\src\tables\bat.c" />
+    <ClCompile Include="..\..\src\tables\rst.c" />
+    <ClCompile Include="..\..\src\tables\atsc_vct.c" />
+    <ClCompile Include="..\..\src\tables\atsc_stt.c" />
+    <ClCompile Include="..\..\src\tables\atsc_eit.c" />
+    <ClCompile Include="..\..\src\tables\atsc_ett.c" />
+    <ClCompile Include="..\..\src\tables\atsc_mgt.c" />
+    <ClCompile Include="..\..\src\descriptors\dr_02.c" />
+    <ClCompile Include="..\..\src\descriptors\dr_03.c" />
+    <ClCompile Include="..\..\src\descriptors\dr_04.c" />
+    <ClCompile Include="..\..\src\descriptors\dr_05.c" />
+    <ClCompile Include="..\..\src\descriptors\dr_06.c" />
+    <ClCompile Include="..\..\src\descriptors\dr_07.c" />
+    <ClCompile Include="..\..\src\descriptors\dr_08.c" />
+    <ClCompile Include="..\..\src\descriptors\dr_09.c" />
+    <ClCompile Include="..\..\src\descriptors\dr_0a.c" />
+    <ClCompile Include="..\..\src\descriptors\dr_0b.c" />
+    <ClCompile Include="..\..\src\descriptors\dr_0c.c" />
+    <ClCompile Include="..\..\src\descriptors\dr_0d.c" />
+    <ClCompile Include="..\..\src\descriptors\dr_0e.c" />
+    <ClCompile Include="..\..\src\descriptors\dr_0f.c" />
+    <ClCompile Include="..\..\src\descriptors\dr_13.c" />
+    <ClCompile Include="..\..\src\descriptors\dr_14.c" />
+    <ClCompile Include="..\..\src\descriptors\dr_40.c" />
+    <ClCompile Include="..\..\src\descriptors\dr_41.c" />
+    <ClCompile Include="..\..\src\descriptors\dr_42.c" />
+    <ClCompile Include="..\..\src\descriptors\dr_43.c" />
+    <ClCompile Include="..\..\src\descriptors\dr_44.c" />
+    <ClCompile Include="..\..\src\descriptors\dr_45.c" />
+    <ClCompile Include="..\..\src\descriptors\dr_47.c" />
+    <ClCompile Include="..\..\src\descriptors\dr_48.c" />
+    <ClCompile Include="..\..\src\descriptors\dr_49.c" />
+    <ClCompile Include="..\..\src\descriptors\dr_4a.c" />
+    <ClCompile Include="..\..\src\descriptors\dr_4b.c" />
+    <ClCompile Include="..\..\src\descriptors\dr_4c.c" />
+    <ClCompile Include="..\..\src\descriptors\dr_4d.c" />
+    <ClCompile Include="..\..\src\descriptors\dr_4e.c" />
+    <ClCompile Include="..\..\src\descriptors\dr_4f.c" />
+    <ClCompile Include="..\..\src\descriptors\dr_50.c" />
+    <ClCompile Include="..\..\src\descriptors\dr_52.c" />
+    <ClCompile Include="..\..\src\descriptors\dr_53.c" />
+    <ClCompile Include="..\..\src\descriptors\dr_54.c" />
+    <ClCompile Include="..\..\src\descriptors\dr_55.c" />
+    <ClCompile Include="..\..\src\descriptors\dr_56.c" />
+    <ClCompile Include="..\..\src\descriptors\dr_58.c" />
+    <ClCompile Include="..\..\src\descriptors\dr_59.c" />
+    <ClCompile Include="..\..\src\descriptors\dr_5a.c" />
+    <ClCompile Include="..\..\src\descriptors\dr_62.c" />
+    <ClCompile Include="..\..\src\descriptors\dr_66.c" />
+    <ClCompile Include="..\..\src\descriptors\dr_69.c" />
+    <ClCompile Include="..\..\src\descriptors\dr_73.c" />
+    <ClCompile Include="..\..\src\descriptors\dr_76.c" />
+    <ClCompile Include="..\..\src\descriptors\dr_7c.c" />
+    <ClCompile Include="..\..\src\descriptors\dr_81.c" />
+    <ClCompile Include="..\..\src\descriptors\dr_83.c" />
+    <ClCompile Include="..\..\src\descriptors\dr_86.c" />
+    <ClCompile Include="..\..\src\descriptors\dr_8a.c" />
+    <ClCompile Include="..\..\src\descriptors\dr_a0.c" />
+    <ClCompile Include="..\..\src\descriptors\dr_a1.c" />
+    <ClCompile Include="asprintf.c" />
+    <ClCompile Include="vasprintf.c" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>
